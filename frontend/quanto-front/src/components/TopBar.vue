@@ -6,8 +6,6 @@
                 <img src="../icons/Arrow.png" alt="arrowIconLeft" id="arrowIconLeft">
                 <img src="../icons/Arrow.png" alt="arrowIconRight" id="arrowIconRight">
         </div>
-
-
     </div>
 </template>
 <style >

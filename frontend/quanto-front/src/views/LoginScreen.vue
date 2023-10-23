@@ -47,7 +47,7 @@ console.log(password.value)
 
 <template>
     <div>
-    <TopBar />
+
  <div class="loginScreenMainContainer">
     <p class="loginTag">Login</p>
     <div class=" loginScreenInputContainer">
@@ -62,11 +62,22 @@ console.log(password.value)
      <button @click="getEmployeeData" id="loginButton">LOGIN</button>
 </div>
      </div>
+    <div class="logoContainer">
+        <img src = "../icons/LogoQuantoSolutions.png" alt="logo" id="logo"> 
     </div>
+    
+    </div>
+
+
 </template>
 
 <style scoped>
-
+.logoContainer{
+    width: 35%;
+    position: relative;
+    top: -600px;
+    left: 100px
+}
 
 .passwordContainer {
     display: inline-block;
@@ -123,9 +134,10 @@ console.log(password.value)
 }
 
 #showPassword {
-    padding: 10px;
-    position: relative;
-    right: 3%;
+   position: absolute;
+   
+    top: 48%;
+    right: 86%;
     cursor: pointer;
 }
 
@@ -139,7 +151,7 @@ console.log(password.value)
     color: #EF7C00;
     font-weight: bold;
     cursor: pointer;
-    border-radius: 45%;
+    border-radius: 10%;
 }
 
 #loginButton:hover{
