@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -37,7 +38,7 @@ INSTALLED_APPS = [
     #"django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "djangoserver",
+    "project_management_tool",
     "debug_toolbar",
 ]
 
@@ -82,8 +83,14 @@ WSGI_APPLICATION = "quantoserver.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        # TODO Change ENGINE and NAME, add USER, PASSWORD, HOST and PORT
+        #"ENGINE": "mssql",
+        #"NAME": "",
+        #"USER": "<database-user>",
+        #"PASSWORD": "<database-password>",
+        # "server/instance" format
+        #"HOST": "<database-host>",
+        #"PORT": "<database-port>",
     }
 }
 
