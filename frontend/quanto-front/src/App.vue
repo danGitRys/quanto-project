@@ -1,6 +1,6 @@
 <template>
   <div>
-    <router-link :to="{name: 'Login' }">Login</router-link> 
+    <!-- <router-link :to="{name: 'Login' }">Login</router-link>  -->
   <router-view />
   
 </div>

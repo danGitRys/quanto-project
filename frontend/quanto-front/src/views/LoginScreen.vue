@@ -46,42 +46,55 @@ console.log(password.value)
 </script>
 
 <template>
-    <div>
-
+    <div class="limiter">
  <div class="loginScreenMainContainer">
     <p class="loginTag">Login</p>
     <div class=" loginScreenInputContainer">
     <input v-model ="email" id="inputEmployeeName" type="text" placeholder="E-Mail">
     <div class="passwordContainer">
     <input v-model ="password" :type="isPassword ? 'password' : 'text' " id ="inputEmployeePassword" placeholder="Password">
-    <span @click="showPassword" id="showPassword">
+    <div @click="showPassword" id="showPassword">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
      <i class="fas fa-eye" :class="{ 'fa-eye-slash': !isPassword }"></i>
-     </span>
+    </div>
         </div>
      <button @click="getEmployeeData" id="loginButton">LOGIN</button>
 </div>
-     </div>
-    <div class="logoContainer">
-        <img src = "../icons/LogoQuantoSolutions.png" alt="logo" id="logo"> 
-    </div>
+
+     <div class="logoContainer">
+            <div class="logoImage">
+            <img src = "../icons/LogoQuantoSolutions.png" alt="logo" id="logo"> 
+            </div>
+        </div>
     
-    </div>
+        </div>
+
+     </div>
+   
 
 
 </template>
 
 <style scoped>
+
+.logoImage{
+position: absolute;
+top: 25%;
+left: 35%;
+}
+.limiter {
+    max-height: 100vh;
+}
 .logoContainer{
+    display: inline-block;
     width: 35%;
+    height: 500px;
     position: relative;
-    top: -600px;
-    left: 100px
 }
 
 .passwordContainer {
-    display: inline-block;
     position: relative;
+    width: 300px;
 }
 
 .loginScreenMainContainer{
@@ -134,10 +147,12 @@ console.log(password.value)
 }
 
 #showPassword {
-   position: absolute;
-   
-    top: 48%;
-    right: 86%;
+    display: flex;
+    justify-content: center;
+    width: 30px;
+    position: absolute;
+    top: 31px;
+    right: 20px;
     cursor: pointer;
 }
 
