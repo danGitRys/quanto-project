@@ -1,9 +1,10 @@
 <script setup>
-  import HelloWorld from '@/components/HelloWorld.vue'
-  import TopBar from '@/components/TopBar.vue'
+import HelloWorld from '@/components/HelloWorld.vue'
+import TopBar from '@/components/TopBar.vue'
+import SideBar from '@/components/SideBar.vue'
 import { ref, reactive } from 'vue';
 let isPassword = ref(true);
-function showPassword(){
+function showPassword() {
     isPassword.value = !isPassword.value;
 }
 const email = ref('');
@@ -11,7 +12,7 @@ const password = ref('');
 
 
 // 
-function getEmployeeData(){
+function getEmployeeData() {
     // const url = "http://localhost:3001/"
     // fetch(url).then(response => response.json())
     // .then(data => console.log(data))
@@ -19,8 +20,8 @@ function getEmployeeData(){
 
 
     const url = "http://localhost:3001/login"
-    fetch(url,{
-        method:"POST",
+    fetch(url, {
+        method: "POST",
         // headers:{
         //     'Content-Type':'application/json'
         // },
@@ -28,16 +29,16 @@ function getEmployeeData(){
         body: JSON.stringify({
             email: email.value,
             password: password.value
-            
-        })
-       
-    })
-    .then(response => response.json())
-    .then(data => console.log(data))
-    .catch(err => console.log(err))
 
-console.log(email.value)
-console.log(password.value)
+        })
+
+    })
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(err => console.log(err))
+
+    console.log(email.value)
+    console.log(password.value)
 
 }
 
@@ -47,78 +48,83 @@ console.log(password.value)
 
 <template>
     <div>
-    <TopBar />
- <div class="loginScreenMainContainer">
-    <p class="loginTag">Login</p>
-    <div class=" loginScreenInputContainer">
-    <input v-model ="email" id="inputEmployeeName" type="text" placeholder="E-Mail">
-    <div class="passwordContainer">
-    <input v-model ="password" :type="isPassword ? 'password' : 'text' " id ="inputEmployeePassword" placeholder="Password">
-    <span @click="showPassword" id="showPassword">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-     <i class="fas fa-eye" :class="{ 'fa-eye-slash': !isPassword }"></i>
-     </span>
+        <SideBar />
+        <TopBar />
+        <div class="loginScreenMainContainer">
+            <p class="loginTag">Login</p>
+            <div class=" loginScreenInputContainer">
+                <input v-model="email" id="inputEmployeeName" type="text" placeholder="E-Mail">
+                <div class="passwordContainer">
+                    <input v-model="password" :type="isPassword ? 'password' : 'text'" id="inputEmployeePassword"
+                        placeholder="Password">
+                    <span @click="showPassword" id="showPassword">
+                        <link rel="stylesheet"
+                            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+                        <i class="fas fa-eye" :class="{ 'fa-eye-slash': !isPassword }"></i>
+                    </span>
+                </div>
+                <button @click="getEmployeeData" id="loginButton">LOGIN</button>
+            </div>
         </div>
-     <button @click="getEmployeeData" id="loginButton">LOGIN</button>
-</div>
-     </div>
     </div>
 </template>
 
 <style scoped>
-
-
 .passwordContainer {
     display: inline-block;
     position: relative;
 }
 
-.loginScreenMainContainer{
+.loginScreenMainContainer {
     background: linear-gradient(110deg, #304C5D 40%, #94B8C7 40%);
     min-height: 100vh;
     min-width: 100vh;
 }
 
-.loginTag{
+.loginTag {
     font-size: 48px;
     text-decoration: underline;
     position: relative;
     top: 200px;
-    left:60%   
+    left: 60%
 }
 
-.loginScreenInputContainer{
+.loginScreenInputContainer {
     display: flex;
     flex-direction: column;
     position: relative;
     top: 300px;
     left: 50%;
 }
-#inputEmployeeName{
+
+#inputEmployeeName {
     width: 300px;
     height: 40px;
     border: 2px solid black;
     font-size: 24px;
     outline-color: #EF7C00;
 }
-#inputEmployeeName::placeholder{
-    color:#304C5D;
-      padding-left: 10px;
+
+#inputEmployeeName::placeholder {
+    color: #304C5D;
+    padding-left: 10px;
 }
 
-#inputEmployeePassword{
+#inputEmployeePassword {
     width: 300px;
     height: 40px;
     border: 2px solid black;
     font-size: 24px;
     margin-top: 20px;
-    padding-right: 40px; /*reserviert Platz für Passwort anschauen Icon*/   
-     outline-color: #EF7C00;
-    
-     
+    padding-right: 40px;
+    /*reserviert Platz für Passwort anschauen Icon*/
+    outline-color: #EF7C00;
+
+
 }
-#inputEmployeePassword::placeholder{
-    color:#304C5D;
+
+#inputEmployeePassword::placeholder {
+    color: #304C5D;
     padding-left: 10px;
 }
 
@@ -130,7 +136,7 @@ console.log(password.value)
 }
 
 
-#loginButton{
+#loginButton {
     width: 300px;
     height: 40px;
     font-size: 24px;
@@ -142,9 +148,7 @@ console.log(password.value)
     border-radius: 45%;
 }
 
-#loginButton:hover{
+#loginButton:hover {
     border: 2px solid #EF7C00;
 }
-
-
 </style>
