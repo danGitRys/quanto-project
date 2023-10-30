@@ -1,7 +1,7 @@
 <script setup>
 import HelloWorld from '@/components/HelloWorld.vue'
 import TopBar from '@/components/TopBar.vue'
-import SideBar from '@/components/SideBarManager.vue'
+import SideBar from '@/components/SideBarMitarbeiter.vue'
 import { ref, reactive } from 'vue';
 let isPassword = ref(true);
 function showPassword() {

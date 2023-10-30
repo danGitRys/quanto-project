@@ -14,7 +14,6 @@
                     <v-list-item prepend-icon="mdi-account-clock-outline" title="Working Times+"
                         value="workingTimes+"></v-list-item>
                     <v-list-item prepend-icon="mdi-cog-outline" title="Settings" value="settings"></v-list-item>
-                    <v-list-item prepend-icon="mdi-plus-circle-outline" title="New Project" value="project"></v-list-item>
                     <v-list-item prepend-icon="mdi-account-cog-outline" title="Manage Project"
                         value="manageProject"></v-list-item>
                     <v-list-item prepend-icon="mdi-timer-sand" title="Time Registration"
@@ -40,7 +39,7 @@
 }
 
 .logoutContainer {
-    margin-top: 300px;
+    margin-top: 370px;
 }
 
 .v-navigation-drawer {

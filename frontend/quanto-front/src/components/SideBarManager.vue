@@ -40,7 +40,7 @@
 }
 
 .logoutContainer {
-    margin-top: 300px;
+    margin-top: 320px;
 }
 
 .v-navigation-drawer {
