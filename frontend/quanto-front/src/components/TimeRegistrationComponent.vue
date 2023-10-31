@@ -2,7 +2,7 @@
 // füllen von ProjectName and Position mit dynamisch Daten vom Backend
 
 <template>
-  <div>
+  <div class="allContainer">
   <div class="mainContainer">
   <div class="container">
    <div class="pickDateContainer">
@@ -43,15 +43,17 @@
       <option v-for="(option,index) in optionsData2" :value="index" :key="index">{{ option }}</option>
     </select>
       </div>
+       <div class="buttonContainer">
+            <v-btn @click="test" id="submitBtn" variant="outlined">
+          Submit
+        </v-btn>
+            </div>
   </div>
+  
    </div>
 
 
-      <div class="buttonContainer">
-        <v-btn @click="test" id="submitBtn" variant="outlined">
-      Submit
-    </v-btn>
-        </div>
+     
 
 
  </div>
@@ -103,7 +105,8 @@ function test(){
 }
 </script>
 
-<style>
+<style scoped>
+
 
 #datePicker, #startTimePicker, #breakTimePicker, #endTimePicker, #dropdownProjectName, #dropdownProjectPosition{
   font-size:32px ;
@@ -118,22 +121,27 @@ function test(){
   display: flex;
 }
 .mainContainer{
+
   display: flex;
   justify-content: center;
 }
 .buttonContainer{
   margin-top:40px;
-  width:70%;
+  width: 100%;
   display: flex;
-  justify-content:end;
+  justify-content:flex-end;
 }
 
 .container{
- margin-top: 100px;
+  padding: 40px;
+  background: white;
+  border: 3px solid black;
+  border-radius: 5%;
+ margin-top: -15px;
  display: inline-block;
 flex-direction: column;
 justify-content: left;
-width: 40%;
+width: 45%;
 }
 
 label{
