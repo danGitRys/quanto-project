@@ -2,6 +2,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import LoginScreen from "@/views/LoginScreen.vue";
 import TimeRegistration from "@/views/TimeRegistration.vue";
+import LandingPage from "@/views/LandingPage.vue";
 
 const routes = [
   {
@@ -24,6 +25,12 @@ const routes = [
     path: "/",
     name: "Login",
     component: LoginScreen,
+  },
+
+  {
+    path: "/projectOverview",
+    name: "ProjectOverview",
+    component: LandingPage,
   },
 
   {
