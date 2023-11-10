@@ -1,7 +1,8 @@
 <template>
   <div>
+    <!-- <router-link :to="{name: 'Login' }">Login</router-link>  -->
   <router-view />
-  <LoginScreen />
+  
 </div>
 </template>
 

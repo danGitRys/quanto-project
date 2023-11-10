@@ -47,32 +47,60 @@ function getEmployeeData() {
 </script>
 
 <template>
-    <div>
-        <SideBar />
-        <TopBar />
-        <div class="loginScreenMainContainer">
-            <p class="loginTag">Login</p>
-            <div class=" loginScreenInputContainer">
-                <input v-model="email" id="inputEmployeeName" type="text" placeholder="E-Mail">
-                <div class="passwordContainer">
-                    <input v-model="password" :type="isPassword ? 'password' : 'text'" id="inputEmployeePassword"
-                        placeholder="Password">
-                    <span @click="showPassword" id="showPassword">
-                        <link rel="stylesheet"
-                            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-                        <i class="fas fa-eye" :class="{ 'fa-eye-slash': !isPassword }"></i>
-                    </span>
-                </div>
-                <button @click="getEmployeeData" id="loginButton">LOGIN</button>
+
+    <div class="limiter">
+ <div class="loginScreenMainContainer">
+    <p class="loginTag">Login</p>
+    <div class=" loginScreenInputContainer">
+    <input v-model ="email" id="inputEmployeeName" type="text" placeholder="E-Mail">
+    <div class="passwordContainer">
+    <input v-model ="password" :type="isPassword ? 'password' : 'text' " id ="inputEmployeePassword" placeholder="Password">
+    <div @click="showPassword" id="showPassword">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+     <i class="fas fa-eye" :class="{ 'fa-eye-slash': !isPassword }"></i>
+    </div>
+    
+        </div>
+     <button @click="getEmployeeData" id="loginButton">LOGIN</button>
+</div>
+
+     <div class="logoContainer">
+            <div class="logoImage">
+            <img src = "../icons/LogoQuantoSolutions.png" alt="logo" id="logo"> 
             </div>
         </div>
-    </div>
+    
+        </div>
+
+      
+
+     </div>
+   
+
+
 </template>
 
 <style scoped>
-.passwordContainer {
+
+.logoImage{
+position: absolute;
+top: 25%;
+left: 35%;
+}
+.limiter {
+    max-height: 100vh;
+}
+.logoContainer{
     display: inline-block;
+    width: 35%;
+    height: 500px;
     position: relative;
+}
+
+
+.passwordContainer {
+    position: relative;
+    width: 300px;
 }
 
 .loginScreenMainContainer {
@@ -129,9 +157,12 @@ function getEmployeeData() {
 }
 
 #showPassword {
-    padding: 10px;
-    position: relative;
-    right: 3%;
+    display: flex;
+    justify-content: center;
+    width: 30px;
+    position: absolute;
+    top: 31px;
+    right: 20px;
     cursor: pointer;
 }
 
@@ -145,7 +176,7 @@ function getEmployeeData() {
     color: #EF7C00;
     font-weight: bold;
     cursor: pointer;
-    border-radius: 45%;
+    border-radius: 10%;
 }
 
 #loginButton:hover {
