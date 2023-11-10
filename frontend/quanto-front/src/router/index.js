@@ -1,7 +1,12 @@
 // Composables
 import { createRouter, createWebHistory } from "vue-router";
 import LoginScreen from "@/views/LoginScreen.vue";
+
 import NewProject from "@/views/NewProject.vue";
+
+import TimeRegistration from "@/views/TimeRegistration.vue";
+import AddEmployee from "@/views/AddEmployee.vue";
+
 
 const routes = [
   {
@@ -27,9 +32,21 @@ const routes = [
   },
 
   {
+
     path: "/newproject",
     name: "NewProject",
     component: NewProject,
+
+    path: "/timeRegistration",
+    name: "TimeRegistration",
+    component: TimeRegistration,
+  },
+
+  {
+    path: "/addEmployee",
+    name: "AddEmployee",
+    component: AddEmployee,
+
   },
 ];
 

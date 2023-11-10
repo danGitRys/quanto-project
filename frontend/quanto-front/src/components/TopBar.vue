@@ -1,5 +1,3 @@
-
-
 <template>
     <div class="topBar">
         <div class="arrowIconContainer">
@@ -8,14 +6,14 @@
         </div>
     </div>
 </template>
-<style >
+<style scoped>
 .topBar{
     height: 110px;
-    background-color: blueviolet;
+    background-color: #94B8C7;
     display: flex;
     justify-content: end;
     align-items: center;
-
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 #arrowIconRight{
     margin-left: 30px;
