@@ -1,9 +1,10 @@
 <script setup>
-  import HelloWorld from '@/components/HelloWorld.vue'
-  import TopBar from '@/components/TopBar.vue'
+import HelloWorld from '@/components/HelloWorld.vue'
+import TopBar from '@/components/TopBar.vue'
+import SideBar from '@/components/SideBarMitarbeiter.vue'
 import { ref, reactive } from 'vue';
 let isPassword = ref(true);
-function showPassword(){
+function showPassword() {
     isPassword.value = !isPassword.value;
 }
 const email = ref('');
@@ -11,7 +12,7 @@ const password = ref('');
 
 
 // 
-function getEmployeeData(){
+function getEmployeeData() {
     // const url = "http://localhost:3001/"
     // fetch(url).then(response => response.json())
     // .then(data => console.log(data))
@@ -19,8 +20,8 @@ function getEmployeeData(){
 
 
     const url = "http://localhost:3001/login"
-    fetch(url,{
-        method:"POST",
+    fetch(url, {
+        method: "POST",
         // headers:{
         //     'Content-Type':'application/json'
         // },
@@ -28,16 +29,16 @@ function getEmployeeData(){
         body: JSON.stringify({
             email: email.value,
             password: password.value
-            
-        })
-       
-    })
-    .then(response => response.json())
-    .then(data => console.log(data))
-    .catch(err => console.log(err))
 
-console.log(email.value)
-console.log(password.value)
+        })
+
+    })
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(err => console.log(err))
+
+    console.log(email.value)
+    console.log(password.value)
 
 }
 
@@ -46,6 +47,7 @@ console.log(password.value)
 </script>
 
 <template>
+
     <div class="limiter">
  <div class="loginScreenMainContainer">
     <p class="loginTag">Login</p>
@@ -95,57 +97,62 @@ left: 35%;
     position: relative;
 }
 
+
 .passwordContainer {
     position: relative;
     width: 300px;
 }
 
-.loginScreenMainContainer{
+.loginScreenMainContainer {
     background: linear-gradient(110deg, #304C5D 40%, #94B8C7 40%);
     min-height: 100vh;
     min-width: 100vh;
 }
 
-.loginTag{
+.loginTag {
     font-size: 48px;
     text-decoration: underline;
     position: relative;
     top: 200px;
-    left:60%   
+    left: 60%
 }
 
-.loginScreenInputContainer{
+.loginScreenInputContainer {
     display: flex;
     flex-direction: column;
     position: relative;
     top: 300px;
     left: 50%;
 }
-#inputEmployeeName{
+
+#inputEmployeeName {
     width: 300px;
     height: 40px;
     border: 2px solid black;
     font-size: 24px;
     outline-color: #EF7C00;
 }
-#inputEmployeeName::placeholder{
-    color:#304C5D;
-      padding-left: 10px;
+
+#inputEmployeeName::placeholder {
+    color: #304C5D;
+    padding-left: 10px;
 }
 
-#inputEmployeePassword{
+#inputEmployeePassword {
     width: 300px;
     height: 40px;
     border: 2px solid black;
     font-size: 24px;
     margin-top: 20px;
-    padding-right: 40px; /*reserviert Platz für Passwort anschauen Icon*/   
-     outline-color: #EF7C00;
-    
-     
+    padding-right: 40px;
+    /*reserviert Platz für Passwort anschauen Icon*/
+    outline-color: #EF7C00;
+
+
 }
-#inputEmployeePassword::placeholder{
-    color:#304C5D;
+
+#inputEmployeePassword::placeholder {
+    color: #304C5D;
     padding-left: 10px;
 }
 
@@ -160,7 +167,7 @@ left: 35%;
 }
 
 
-#loginButton{
+#loginButton {
     width: 300px;
     height: 40px;
     font-size: 24px;
@@ -172,9 +179,7 @@ left: 35%;
     border-radius: 10%;
 }
 
-#loginButton:hover{
+#loginButton:hover {
     border: 2px solid #EF7C00;
 }
-
-
 </style>
