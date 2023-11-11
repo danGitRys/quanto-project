@@ -8,7 +8,7 @@
       <thead>
         <tr>
           <th>NAME</th>
-          <th>LEADER</th>
+          <th>LEADER Quanto </th>
           <th>PROJECT END</th>
           <th>ROLE</th>
         </tr>
