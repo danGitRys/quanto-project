@@ -8,8 +8,6 @@ import TimeRegistration from "@/views/TimeRegistration.vue";
 import LandingPage from "@/views/LandingPage.vue";
 import AddEmployee from "@/views/AddEmployee.vue";
 
-
-
 const routes = [
   {
     path: "/ff",
@@ -34,20 +32,17 @@ const routes = [
   },
 
   {
-
     path: "/projectOverview",
     name: "ProjectOverview",
     component: LandingPage,
   },
 
   {
-
-
     path: "/newproject",
     name: "NewProject",
     component: NewProject,
-
-      
+  },
+  {
     path: "/timeRegistration",
     name: "TimeRegistration",
     component: TimeRegistration,
@@ -57,7 +52,6 @@ const routes = [
     path: "/addEmployee",
     name: "AddEmployee",
     component: AddEmployee,
-
   },
 ];
 
