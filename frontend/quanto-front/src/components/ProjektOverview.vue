@@ -21,7 +21,7 @@
           <td>600</td>
         </tr>
 
-         <tr>
+        <tr>
           <td><span>Extra small</span></td>
           <td><strong>xs</strong></td>
           <td><strong>xs</strong></td>
@@ -74,7 +74,7 @@
     </table>
 
 
-   <div class="pagination">
+    <div class="pagination">
       <button @click="previousPage" :disabled="currentPage === 1">Previous</button>
       <span>{{ currentPage }}</span>
       <button @click="nextPage" :disabled="currentPage === totalPages">Next</button>
@@ -83,7 +83,7 @@
       </span>
 
     </div>
- </div>
+  </div>
 </template>
 
 
@@ -91,7 +91,6 @@
 
 
 <style scoped>
-
 .container {
   background-color: lightgray;
   border-radius: 10px;
@@ -157,7 +156,7 @@ strong {
   width: 200px;
 }
 
-.pagination{
+.pagination {
   display: flex;
   justify-content: center;
 
@@ -190,7 +189,6 @@ strong {
   font-size: 16px;
   color: #0056b3;
 }
-
 </style>
 
 <script>
@@ -203,7 +201,7 @@ export default {
     };
   },
 
- methods: {
+  methods: {
     previousPage() {
       if (this.currentPage > 1) {
         this.currentPage--;

@@ -7,7 +7,7 @@ import NewProject from "@/views/NewProject.vue";
 import TimeRegistration from "@/views/TimeRegistration.vue";
 import LandingPage from "@/views/LandingPage.vue";
 import AddEmployee from "@/views/AddEmployee.vue";
-
+import ManageProject from "@/views/ManageProject.vue";
 
 
 const routes = [
@@ -47,7 +47,7 @@ const routes = [
     name: "NewProject",
     component: NewProject,
 
-      
+
     path: "/timeRegistration",
     name: "TimeRegistration",
     component: TimeRegistration,
@@ -59,6 +59,12 @@ const routes = [
     component: AddEmployee,
 
   },
+
+  {
+    path: "/ManageProject",
+    name: "ManageProject",
+    component: ManageProject,
+  }
 ];
 
 const router = createRouter({
