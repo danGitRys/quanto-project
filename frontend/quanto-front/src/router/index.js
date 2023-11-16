@@ -7,6 +7,7 @@ import NewProject from "@/views/NewProject.vue";
 import TimeRegistration from "@/views/TimeRegistration.vue";
 import LandingPage from "@/views/LandingPage.vue";
 import AddEmployee from "@/views/AddEmployee.vue";
+import dataTable from "@/components/DataTable.vue"
 
 const routes = [
   {
@@ -52,6 +53,12 @@ const routes = [
     path: "/addEmployee",
     name: "AddEmployee",
     component: AddEmployee,
+  },
+
+  {
+    path: "/dataTable",
+    name: "dataTable",
+    component: dataTable,
   },
 ];
 
