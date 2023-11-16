@@ -33,7 +33,12 @@ const routes = [
   },
 
   {
+
+
+  
+
     path: "/projectOverview",
+
     name: "ProjectOverview",
     component: LandingPage,
   },
@@ -42,8 +47,13 @@ const routes = [
     path: "/newproject",
     name: "NewProject",
     component: NewProject,
+
+
+
+
   },
   {
+
     path: "/timeRegistration",
     name: "TimeRegistration",
     component: TimeRegistration,
