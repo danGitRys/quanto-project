@@ -3,8 +3,13 @@
     <div class="header">
       <h1 class="header-title">Projects</h1>
       <input v-model="searchQuery" class="search-input" placeholder="Search">
+
     </div>
-    <table class="project-table">
+
+    <v-date-table :items="projects"></v-date-table>
+
+
+  <!--   <table class="project-table">
       <thead>
         <tr>
           <th>NAME</th>
@@ -14,7 +19,24 @@
         </tr>
       </thead>
       <tbody>
+        <tr v-for="project of projects">
+          <td>
+            <span>{{ project.title }}</span>
+          </td>
+          <td>
+            <span>{{ project.leader }}</span>
+          </td>
+
+          <td>
+            <strong>{{ project.endDate }}</strong>
+          </td>
+
+          <td>
+            <strong>{{ project.role }}</strong>
+          </td>
+        </tr>
         <tr>
+
           <td><span>Extra small</span></td>
           <td><strong>xs</strong></td>
           <td><strong>xs</strong></td>
@@ -69,9 +91,10 @@
           <td><strong>xs</strong></td>
           <td>600</td>
         </tr>
-        <!-- Weitere Datensätze hier -->
       </tbody>
-    </table>
+    </table> -->
+
+
 
 
    <div class="pagination">
@@ -193,6 +216,10 @@ strong {
 
 </style>
 
+<script setup>
+  import { VDataTable } from 'vuetify/labs/VDataTable';
+</script>
+
 <script>
 export default {
   data() {
@@ -200,6 +227,24 @@ export default {
       searchQuery: '',
       currentPage: 1,
       totalPages: 3,
+      projects:[
+        {
+          title: "Projekt A",
+          leader: "Chris",
+          endDate: "14.11.23",
+          role:"SD"
+        },
+        {
+          title: "Projekt B",
+          leader: "Michele",
+          endDate: "15.11.23"
+        },
+        {
+          title: "Projekt c",
+          endDate: "16.11.23"
+        }
+
+      ]
     };
   },
 

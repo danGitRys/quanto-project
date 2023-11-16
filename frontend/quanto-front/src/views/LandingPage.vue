@@ -1,11 +1,12 @@
+<template>
+  <div>
+     <TopBar></TopBar>
+     <ProjectOverview></ProjectOverview>
+  </div>
+</template>
 
-<script>
-  import ProjektOverview from '@/components/ProjektOverview.vue';
+<script setup>
+  import TopBar from '@/components/TopBar.vue';
+  import ProjectOverview from '@/components/ProjectOverview.vue';
 </script>
 
-<template>
-    <div>
-       <TopBar/>
-       <ProjectOverview />
-    </div>
-</template>

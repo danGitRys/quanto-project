@@ -35,7 +35,7 @@ const routes = [
 
   {
 
-    path: "/projectOverview",
+    path: "/projectoverview",
     name: "ProjectOverview",
     component: LandingPage,
   },
@@ -47,7 +47,7 @@ const routes = [
     name: "NewProject",
     component: NewProject,
 
-      
+
     path: "/timeRegistration",
     name: "TimeRegistration",
     component: TimeRegistration,
