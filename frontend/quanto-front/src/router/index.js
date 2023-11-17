@@ -33,12 +33,7 @@ const routes = [
   },
 
   {
-
-
-  
-
     path: "/projectOverview",
-
     name: "ProjectOverview",
     component: LandingPage,
   },

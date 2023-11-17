@@ -16,6 +16,10 @@ import { registerPlugins } from "@/plugins";
 
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
+import InputText from 'primevue/inputtext';
+import MultiSelect from 'primevue/multiselect';
+import Dropdown from 'primevue/dropdown';
+import Tag from 'primevue/tag';
 
 const app = createApp(App);
 
@@ -23,4 +27,9 @@ registerPlugins(app);
 app.use(PrimeVue);
 app.component('DataTable',DataTable)
 app.component('Column',Column)
+app.component('InputText', InputText);
+app.component('MultiSelect', MultiSelect);
+app.component('Dropdown', Dropdown);
+app.component('Tag', Tag);
+
 app.use(router).mount("#app");
