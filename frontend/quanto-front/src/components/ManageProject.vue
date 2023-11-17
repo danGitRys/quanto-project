@@ -1,53 +1,32 @@
 <template>
-    <div class="d-flex justify-space-around">
-        <v-menu>
-            <template v-slot:activator="{ props }">
-                <v-btn color="primary" v-bind="props">
-                    Activator slot
-                </v-btn>
-            </template>
-            <v-list>
-                <v-list-item v-for="(item, index) in items" :key="index" :value="index">
-                    <v-list-item-title>{{ item.title }}</v-list-item-title>
-                </v-list-item>
-            </v-list>
-        </v-menu>
-
-        <v-btn color="primary">
-            Parent activator
-
-            <v-menu activator="parent">
-                <v-list>
-                    <v-list-item v-for="(item, index) in items" :key="index" :value="index">
-                        <v-list-item-title>{{ item.title }}</v-list-item-title>
-                    </v-list-item>
-                </v-list>
-            </v-menu>
-        </v-btn>
-
-        <v-btn id="menu-activator" color="primary">
-            Sibling activator
-        </v-btn>
-
-        <v-menu activator="#menu-activator">
-            <v-list>
-                <v-list-item v-for="(item, index) in items" :key="index" :value="index">
-                    <v-list-item-title>{{ item.title }}</v-list-item-title>
-                </v-list-item>
-            </v-list>
-        </v-menu>
+    <div class="container">
+        <v-app>
+            <v-container>
+                <v-select label="Project" :items="items" variant="outlined"></v-select>
+            </v-container>
+        </v-app>
     </div>
 </template>
 
-<script>
-export default {
-    data: () => ({
-        items: [
-            { title: 'Click Me' },
-            { title: 'Click Me' },
-            { title: 'Click Me' },
-            { title: 'Click Me 2' },
-        ],
-    }),
+<script setup>
+import { ref } from 'vue';
+import { useAppStore } from '@/store/app';
+
+const selectedProjectName = ref('');
+const selectedProjectPosition = ref('');
+const appStore = useAppStore();
+const optionsData = appStore.names;
+
+let items = [];
+
+for (let i = 0; i < optionsData.length; i++) {
+    items[i] = optionsData[i];
 }
+
 </script>
+
+<style scoped>
+.v-container {
+    width: 80%;
+}
+</style>
