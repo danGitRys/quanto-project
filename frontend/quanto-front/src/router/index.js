@@ -5,7 +5,13 @@ import LoginScreen from "@/views/LoginScreen.vue";
 import NewProject from "@/views/NewProject.vue";
 
 import TimeRegistration from "@/views/TimeRegistration.vue";
+import LandingPage from "@/views/LandingPage.vue";
 import AddEmployee from "@/views/AddEmployee.vue";
+
+import dataTable from "@/components/DataTable.vue"
+
+import ManageProject from "@/views/ManageProject.vue";
+
 
 
 const routes = [
@@ -33,9 +39,25 @@ const routes = [
 
   {
 
+
+  
+
+    path: "/projectOverview",
+
+    name: "ProjectOverview",
+    component: LandingPage,
+  },
+
+  {
     path: "/newproject",
     name: "NewProject",
     component: NewProject,
+
+
+
+
+  },
+  {
 
     path: "/timeRegistration",
     name: "TimeRegistration",
@@ -46,8 +68,19 @@ const routes = [
     path: "/addEmployee",
     name: "AddEmployee",
     component: AddEmployee,
-
   },
+
+  {
+    path: "/dataTable",
+    name: "dataTable",
+    component: dataTable,
+  },
+
+  {
+    path: "/ManageProject",
+    name: "ManageProject",
+    component: ManageProject,
+  }
 ];
 
 const router = createRouter({

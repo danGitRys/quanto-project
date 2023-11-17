@@ -3,6 +3,7 @@ import HelloWorld from '@/components/HelloWorld.vue'
 import TopBar from '@/components/TopBar.vue'
 import SideBar from '@/components/SideBarMitarbeiter.vue'
 import { ref, reactive } from 'vue';
+import {AuthService} from '@/service/login.js'
 let isPassword = ref(true);
 function showPassword() {
     isPassword.value = !isPassword.value;
@@ -17,28 +18,12 @@ function getEmployeeData() {
     // fetch(url).then(response => response.json())
     // .then(data => console.log(data))
     // .catch(err => console.log(err))
-
-
-    const url = "http://localhost:3001/login"
-    fetch(url, {
-        method: "POST",
-        // headers:{
-        //     'Content-Type':'application/json'
-        // },
-        // wandelt die Daten in ein JSON String um 
-        body: JSON.stringify({
-            email: email.value,
-            password: password.value
-
-        })
-
-    })
-        .then(response => response.json())
-        .then(data => console.log(data))
-        .catch(err => console.log(err))
-
+    console.log("Called")
     console.log(email.value)
-    console.log(password.value)
+    var test = undefined 
+    AuthService.login(email.value,password.value).then(token => {console.log(token); test = token})
+    
+   
 
 }
 
@@ -47,50 +32,49 @@ function getEmployeeData() {
 </script>
 
 <template>
-
     <div class="limiter">
- <div class="loginScreenMainContainer">
-    <p class="loginTag">Login</p>
-    <div class=" loginScreenInputContainer">
-    <input v-model ="email" id="inputEmployeeName" type="text" placeholder="E-Mail">
-    <div class="passwordContainer">
-    <input v-model ="password" :type="isPassword ? 'password' : 'text' " id ="inputEmployeePassword" placeholder="Password">
-    <div @click="showPassword" id="showPassword">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-     <i class="fas fa-eye" :class="{ 'fa-eye-slash': !isPassword }"></i>
-    </div>
-    
-        </div>
-     <button @click="getEmployeeData" id="loginButton">LOGIN</button>
-</div>
+        <div class="loginScreenMainContainer">
+            <p class="loginTag">Login</p>
+            <div class=" loginScreenInputContainer">
+                <input v-model="email" id="inputEmployeeName" type="text" placeholder="E-Mail">
+                <div class="passwordContainer">
+                    <input v-model="password" :type="isPassword ? 'password' : 'text'" id="inputEmployeePassword"
+                        placeholder="Password">
+                    <div @click="showPassword" id="showPassword">
+                        <link rel="stylesheet"
+                            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+                        <i class="fas fa-eye" :class="{ 'fa-eye-slash': !isPassword }"></i>
+                    </div>
 
-     <div class="logoContainer">
-            <div class="logoImage">
-            <img src = "../icons/LogoQuantoSolutions.png" alt="logo" id="logo"> 
+                </div>
+                <button @click="getEmployeeData" id="loginButton">LOGIN</button>
             </div>
+
+            <div class="logoContainer">
+                <div class="logoImage">
+                    <img src="../icons/LogoQuantoSolutions.png" alt="logo" id="logo">
+                </div>
+            </div>
+
         </div>
-    
-        </div>
-
-      
-
-     </div>
-   
 
 
+
+    </div>
 </template>
 
 <style scoped>
-
-.logoImage{
-position: absolute;
-top: 25%;
-left: 35%;
+.logoImage {
+    position: absolute;
+    top: 25%;
+    left: 35%;
 }
+
 .limiter {
     max-height: 100vh;
 }
-.logoContainer{
+
+.logoContainer {
     display: inline-block;
     width: 35%;
     height: 500px;

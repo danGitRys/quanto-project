@@ -3,7 +3,7 @@
     <div class="container">
       <div class="input-container">
         <h3 class="input-label">Customer Name:</h3>
-        <input v-model = "customerName" class="input-field small-input" type="text">
+        <input v-model="customerName" class="input-field small-input" type="text">
       </div>
       <div class="input-container">
         <h3 class="input-label">Project Manager:</h3>
@@ -55,9 +55,12 @@
 <style scoped>
 /* Stil für kleinere Input-Felder */
 .small-input {
-  width: 10px; /* Ändern Sie die Breite nach Bedarf */
-  padding: 5px; /* Ändern Sie das Padding nach Bedarf */
+  width: 10px;
+  /* Ändern Sie die Breite nach Bedarf */
+  padding: 5px;
+  /* Ändern Sie das Padding nach Bedarf */
 }
+
 .container {
   width: 90vw;
   background-color: lightgray;
@@ -109,7 +112,8 @@
 }
 
 .create-button {
-  background-color:orange; /* Blaue Hintergrundfarbe */
+  background-color: orange;
+  /* Blaue Hintergrundfarbe */
   color: white;
   border: none;
   border-radius: 5px;
@@ -118,12 +122,15 @@
   margin-top: 10px;
   font-size: 18px;
   transition: background-color 0.3s;
-  display: block; /* Ändern Sie die Anzeige auf "block" */
-  margin: 10px auto; /* Auto-Margin horizontal zentriert den Button */
+  display: block;
+  /* Ändern Sie die Anzeige auf "block" */
+  margin: 10px auto;
+  /* Auto-Margin horizontal zentriert den Button */
 }
 
 .create-button:hover {
-  background-color: #0056b3; /* Farbänderung bei Hover */
+  background-color: #0056b3;
+  /* Farbänderung bei Hover */
 }
 </style>
 
@@ -131,16 +138,16 @@
 
 import { ref } from 'vue';
 
-const customerName = ref ("")
+const customerName = ref("")
 const projectManager = ref("")
 const projectStartDate = ref("")
 const projectEndDate = ref("")
 
-function createProject (){
-  console.log (customerName.value)
-  console.log (projectManager.value)
-  console.log (projectStartDate.value)
-  console.log (projectEndDate.value)
+function createProject() {
+  console.log(customerName.value)
+  console.log(projectManager.value)
+  console.log(projectStartDate.value)
+  console.log(projectEndDate.value)
 }
 
 

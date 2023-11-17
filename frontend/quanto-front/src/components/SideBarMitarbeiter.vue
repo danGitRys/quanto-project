@@ -43,9 +43,7 @@
 .v-navigation-drawer {
     background-color: #94B8C7;
 }
-</style>
 
-<style>
 .logoutBtn {
     background-color: white !important;
 }
