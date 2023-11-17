@@ -7,7 +7,12 @@ import NewProject from "@/views/NewProject.vue";
 import TimeRegistration from "@/views/TimeRegistration.vue";
 import LandingPage from "@/views/LandingPage.vue";
 import AddEmployee from "@/views/AddEmployee.vue";
+
 import dataTable from "@/components/DataTable.vue"
+
+import ManageProject from "@/views/ManageProject.vue";
+
+
 
 const routes = [
   {
@@ -70,6 +75,12 @@ const routes = [
     name: "dataTable",
     component: dataTable,
   },
+
+  {
+    path: "/ManageProject",
+    name: "ManageProject",
+    component: ManageProject,
+  }
 ];
 
 const router = createRouter({
