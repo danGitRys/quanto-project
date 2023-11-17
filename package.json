@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "@vitejs/plugin-vue": "^4.4.0",
+    "client-oauth2": "^4.3.3",
     "primevue": "^3.40.1",
     "vite": "^4.5.0",
     "vuetify": "^3.3.22"
