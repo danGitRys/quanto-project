@@ -11,10 +11,10 @@ goto loop
 
 :execute
 if "%flag%"=="backend" (
-    start cmd.exe /k "cd ..\venv\quanto\Scripts && activate && cd ..\..\..\quanto-project\backend\quantobackend && python manage.py runserver"
+    start cmd.exe /k "cd ..\venv\quanto\Scripts && activate && cd ..\..\..\quanto-project\backend && python manage.py runserver"
 ) else if "%flag%"=="frontend" (
     start cmd.exe /k "cd frontend\quanto-front && npm run dev"
 ) else (
-    start cmd.exe /k "cd ..\venv\quanto\Scripts && activate && cd ..\..\..\quanto-project\backend\quantobackend && python manage.py runserver"
+    start cmd.exe /k "cd ..\venv\quanto\Scripts && activate && cd ..\..\..\quanto-project\backend && python manage.py runserver"
     start cmd.exe /k "cd frontend\quanto-front && npm run dev"
 )
