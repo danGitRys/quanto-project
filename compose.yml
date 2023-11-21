@@ -1,10 +1,26 @@
-services:
-  web:
-    build: .
-    ports:
-      - "8000:5000"
-    volumes:
-      - .:/code
+version: "3.8"
 
-  redis:
-    image: "redis:alpine"
+services:
+  frontend:
+    build: ./frontend/quanto-front
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend/quanto-front:/app
+      - /app/node_modules
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/code/backend
+
+  database:
+    image: dryssel/sqlserver:latest
+    ports:
+      - "1433:1433"
+    volumes:
+      - PMT:/var/opt/mssql
+
+volumes:
+  PMT: 

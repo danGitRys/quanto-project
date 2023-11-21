@@ -89,7 +89,7 @@ DATABASES = {
         "NAME": "quanto",
         "USER": "sa",
         "PASSWORD": "Hans1001",
-        "HOST": "localhost",
+        "HOST": "database",
         "PORT": "1433",
          "OPTIONS": {"driver": "ODBC Driver 17 for SQL Server", 
         },
