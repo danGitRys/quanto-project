@@ -5,6 +5,7 @@ services:
     build: ./frontend/quanto-front
     ports:
       - "3000:3000"
+      - "3010:3010"
     volumes:
       - ./frontend/quanto-front:/app
       - /app/node_modules
