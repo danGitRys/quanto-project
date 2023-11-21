@@ -8,12 +8,12 @@ class validator:
         loginSchema = {
             "type": "object",
             "properties": {
-                "mail": {"type": "string"},
-                "password": {"type": "string"},
+                "token": {"type": "string"},
+               
                
             },
             # Specify required keys
-            "required": ["mail", "password"],
+            "required": ["token"],
         }
         try:
             validate(instance=jsonData, schema=loginSchema)
