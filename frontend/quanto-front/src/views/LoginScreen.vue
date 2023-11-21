@@ -4,6 +4,8 @@ import TopBar from '@/components/TopBar.vue'
 import SideBar from '@/components/SideBarMitarbeiter.vue'
 import { ref, reactive } from 'vue';
 import {AuthService} from '@/service/login.js'
+import axios from "axios"
+import { useRouter } from 'vue-router';
 let isPassword = ref(true);
 function showPassword() {
     isPassword.value = !isPassword.value;
@@ -13,15 +15,36 @@ const password = ref('');
 
 
 // 
-function getEmployeeData() {
+async function getEmployeeData() {
     // const url = "http://localhost:3001/"
     // fetch(url).then(response => response.json())
     // .then(data => console.log(data))
     // .catch(err => console.log(err))
     console.log("Called")
     console.log(email.value)
-    var test = undefined 
-    AuthService.login(email.value,password.value).then(token => {console.log(token); test = token})
+    var test = undefined
+    const router = useRouter(); 
+    try {
+        const token = await AuthService.login(email.value, password.value);
+        console.log("here comes the token")
+        console.log(token);
+        axios.post("http://localhost:8000/login",{
+            token:token
+        }).then(response => {
+            console.log(response)
+            if(response.data['login']==true){
+                window.location.href = '/dataTable';
+            }
+        })
+        .catch(error=> {
+            console.log(error)
+        })
+    } catch (error) {
+        console.error(error);
+        alert("Invalid Login");
+    }
+    
+    
     
    
 

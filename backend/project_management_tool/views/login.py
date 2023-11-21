@@ -7,7 +7,6 @@ from ..jsonValidator import validator
 from ..jsonTemplate import *
 import json
 @csrf_exempt
-
 def login(request):
     if request.method == "POST":
 
