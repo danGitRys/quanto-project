@@ -35,9 +35,13 @@ async function getEmployeeData() {
             if(response.data['login']==true){
                 window.location.href = '/dataTable';
             }
+            else{
+                alert("Invalid Login")
+            }
         })
         .catch(error=> {
             console.log(error)
+            alert("Invalid Login")
         })
     } catch (error) {
         console.error(error);
