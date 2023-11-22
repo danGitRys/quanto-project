@@ -21,6 +21,6 @@ const app = createApp(App);
 
 registerPlugins(app);
 app.use(PrimeVue);
-app.component('DataTable',DataTable)
-app.component('Column',Column)
+app.component('DataTable', DataTable)
+app.component('Column', Column)
 app.use(router).mount("#app");
