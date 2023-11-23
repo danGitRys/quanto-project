@@ -29,6 +29,7 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -40,6 +41,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "project_management_tool",
     "debug_toolbar",
+    "corsheaders"
 ]
 
 MIDDLEWARE = [
@@ -52,7 +54,15 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
+
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+]
+
+
 
 INTERNAL_IPS = [
     '127.0.0.1',
