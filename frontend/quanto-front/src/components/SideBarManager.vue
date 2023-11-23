@@ -9,16 +9,17 @@
                 <v-divider></v-divider>
 
                 <v-list density="compact" nav>
-                    <v-list-item prepend-icon="mdi-home" title="Home" value="home">
+                    <v-list-item prepend-icon="mdi-home" title="Home" value="home" href="/projectOverview">
                     </v-list-item>
                     <v-list-item prepend-icon="mdi-account-clock-outline" title="Working Times+"
                         value="workingTimes+"></v-list-item>
                     <v-list-item prepend-icon="mdi-cog-outline" title="Settings" value="settings"></v-list-item>
-                    <v-list-item prepend-icon="mdi-plus-circle-outline" title="New Project" value="project"></v-list-item>
-                    <v-list-item prepend-icon="mdi-account-cog-outline" title="Manage Project"
-                        value="manageProject"></v-list-item>
-                    <v-list-item prepend-icon="mdi-timer-sand" title="Time Registration"
-                        value="timeRegistration"></v-list-item>
+                    <v-list-item prepend-icon="mdi-plus-circle-outline" title="New Project" value="project"
+                        href="/newproject"></v-list-item>
+                    <v-list-item prepend-icon="mdi-account-cog-outline" title="Manage Project" value="manageProject"
+                        href="/ManageProject"></v-list-item>
+                    <v-list-item prepend-icon="mdi-timer-sand" title="Time Registration" value="timeRegistration"
+                        href="/timeRegistration"></v-list-item>
 
                     <div class="logoutContainer">
                         <v-list-item class="Profil" prepend-avatar="../icons/Test.jpg" title="Chris Schröder"
