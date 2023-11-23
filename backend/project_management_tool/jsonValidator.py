@@ -106,3 +106,25 @@ class validator:
             return False
         return True
     
+    def forecast(jsonData):
+        forecastSchema = {
+            "type": "object",
+            "properties": {
+                "fk_employee": {"type": "string"},
+                "fk_position": {"type": "string"},
+                "surname": {"type": "string"},
+                "start": {"type": "string"},
+                "end": {"type": "string"},
+                "info": {"type": "string"},
+                
+               
+            },
+            # Specify required keys
+            "required": ["fk_employee"],
+        }
+        try:
+            validate(instance=jsonData, schema=forecastSchema)
+        except jsonschema.exceptions.ValidationError as err:
+            return False
+        return True
+    

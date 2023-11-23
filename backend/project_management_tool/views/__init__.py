@@ -5,3 +5,4 @@ from .login import *
 from .team import *
 from .assignment import *
 from .booking import *
+from .forecast import *
