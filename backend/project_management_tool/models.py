@@ -30,7 +30,7 @@ class Assignment(models.Model):
 
 class Employee(models.Model):
     id = models.AutoField(primary_key=True)
-    emp_id = models.BigIntegerField()
+    emp_id = models.TextField(max_length=50)
     forename = models.TextField(max_length=50)
     surname = models.TextField(max_length=50)
     mail = models.TextField(max_length=50)
