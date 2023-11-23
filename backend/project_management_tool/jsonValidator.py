@@ -39,3 +39,22 @@ class validator:
             return False
         return True
     
+    def assignment(jsonData):
+        assignmentSchema = {
+            "type": "object",
+            "properties": {
+                "fk_project": {"type": "integer"},
+                "fk_employee": {"type": "integer"},
+                "role": {"type": "string"},
+               
+               
+            },
+            # Specify required keys
+            "required": ["fk_project","fk_employee","role"],
+        }
+        try:
+            validate(instance=jsonData, schema=assignmentSchema)
+        except jsonschema.exceptions.ValidationError as err:
+            return False
+        return True
+    

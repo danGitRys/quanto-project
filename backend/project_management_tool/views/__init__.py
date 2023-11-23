@@ -3,3 +3,4 @@ from .viewstemp import *
 from .employee import *
 from .login import *
 from .team import *
+from .assignment import *

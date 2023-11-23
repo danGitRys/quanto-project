@@ -12,8 +12,7 @@ class Assignment(models.Model):
     fk_project = models.BigIntegerField()
     fk_employee = models.BigIntegerField()
     role = models.TextField()
-    sysStartTime = models.TextField()
-    sysEndTime = models.TextField()
+   
 
     class Meta:
         db_table = 'assignment'
