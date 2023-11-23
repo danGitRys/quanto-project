@@ -158,7 +158,7 @@ class Project(models.Model):
     
 
 class Team(models.Model):
-    id = models.BigIntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     name = models.TextField(max_length=50)
     info = models.TextField()
 
