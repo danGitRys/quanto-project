@@ -58,3 +58,27 @@ class validator:
             return False
         return True
     
+    def employee(jsonData):
+        employeeSchema = {
+            "type": "object",
+            "properties": {
+                "emp_id": {"type": "string"},
+                "forename": {"type": "string"},
+                "surname": {"type": "string"},
+                "mail": {"type": "string"},
+                "phone": {"type": "string"},
+                "fk_team_id":{"type":"integer"},
+                "team_roll": {"type": "string"},
+                
+               
+               
+            },
+            # Specify required keys
+            "required": ["emp_id"],
+        }
+        try:
+            validate(instance=jsonData, schema=employeeSchema)
+        except jsonschema.exceptions.ValidationError as err:
+            return False
+        return True
+    
