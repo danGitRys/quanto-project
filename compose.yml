@@ -2,6 +2,7 @@ version: "3.8"
 
 services:
   frontend:
+    container_name: frontend
     build: ./frontend/quanto-front
     ports:
       - "3000:3000"
@@ -9,14 +10,20 @@ services:
     volumes:
       - ./frontend/quanto-front:/app
       - /app/node_modules
+    environment:
+      - BACKEND_URL=http://backend:8000
   backend:
+    container_name: backend
     build: ./backend
     ports:
       - "8000:8000"
     volumes:
       - ./backend:/code/backend
-
+    environment:
+      - FRONTEND_URL=http://frontend:3000
+      - DB_URL=http://database:1433
   database:
+    container_name: database
     image: dryssel/sqlserver:latest
     ports:
       - "1433:1433"

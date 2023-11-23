@@ -51,7 +51,7 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 INTERNAL_IPS = [
@@ -84,13 +84,12 @@ WSGI_APPLICATION = "quantoserver.wsgi.application"
 
 DATABASES = {
     "default": {
-        # TODO Change ENGINE and NAME, add USER, PASSWORD, HOST and PORT
         "ENGINE": "mssql",
         "NAME": "quanto",
         "USER": "sa",
         "PASSWORD": "Hans1001",
         "HOST": "database",
-        "PORT": "1433",
+        #"PORT": "1433",
          "OPTIONS": {"driver": "ODBC Driver 17 for SQL Server", 
         },
     }
