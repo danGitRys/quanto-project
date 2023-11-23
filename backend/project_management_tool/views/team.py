@@ -1,33 +1,40 @@
-from django.shortcuts import render
-from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
-from authlib import jose
+from django.views.decorators.csrf import csrf_exempt
 from ..models import Team
 from ..jsonValidator import validator
-from ..jsonTemplate import *
 import json
 
 @csrf_exempt
 def createTeam(request):
     if request.method == 'POST':
-        if validator.team(json.loads(request.body)):
-            requestData = json.loads(request.body)
-            print(requestData)
-            newTeamName = requestData["name"]
-            newTeamInfo = requestData["info"]
-            newTeam = Team(name=newTeamName, info=newTeamInfo)
-            newTeam.save()
+        try:
+            request_data = json.loads(request.body)
+            is_valid = validator.team(request_data)
 
-            data = {
-                "success": True
-            }
-        else:
-            data = {
-                "error": "Invalid Json"
+            if is_valid:
+                new_team_name = request_data["name"]
+                new_team_info = request_data["info"]
+                new_team = Team(name=new_team_name, info=new_team_info)
+                new_team.save()
+
+                response_data = {
+                    "success": True,
+                    "message": "Team created successfully.",
+                }
+            else:
+                response_data = {
+                    "success": False,
+                    "error": "Invalid JSON format or missing required fields.",
+                }
+        except json.JSONDecodeError:
+            response_data = {
+                "success": False,
+                "error": "Invalid JSON format.",
             }
     else:
-        data = {
-            "error": "Invalid Method"
+        response_data = {
+            "success": False,
+            "error": "Invalid HTTP method. Only POST is allowed.",
         }
-    
-    return JsonResponse(data, safe=False)
+
+    return JsonResponse(response_data)
