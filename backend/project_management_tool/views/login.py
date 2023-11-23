@@ -25,8 +25,6 @@ def login(request):
                     "employee":emp.toJson()
                 }
                 
-                
-                
             except Exception as e:
                 data = {
                     "login":False,
