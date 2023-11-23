@@ -128,3 +128,26 @@ class validator:
             return False
         return True
     
+    def project(jsonData):
+        projectSchema = {
+            "type": "object",
+            "properties": {
+                "p_id": {"type": "string"},
+                "name": {"type": "string"},
+                "company": {"type": "string"},
+                "start_date": {"type": "string"},
+                "end_date": {"type": "string"},
+                "fk_creator": {"type": "integer"},
+                "creation_date": {"type": "string"},
+                
+               
+            },
+            # Specify required keys
+            "required": ["p_id"],
+        }
+        try:
+            validate(instance=jsonData, schema=projectSchema)
+        except jsonschema.exceptions.ValidationError as err:
+            return False
+        return True
+    

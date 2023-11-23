@@ -12,7 +12,8 @@ urlpatterns = [
     path('createAssignment',createAssignment),
     path('createEmployee',createEmployee),
     path('createBooking',createBooking),
-    path('createForecast',createForcast),
+    path('createForecast',createForecast),
+    path('createProject',createProject),
     
 
     
