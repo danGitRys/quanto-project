@@ -4,3 +4,4 @@ from .employee import *
 from .login import *
 from .team import *
 from .assignment import *
+from .booking import *

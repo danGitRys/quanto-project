@@ -82,3 +82,27 @@ class validator:
             return False
         return True
     
+    def booking(jsonData):
+        bookingSchema = {
+            "type": "object",
+            "properties": {
+                "fk_employee": {"type": "string"},
+                "fk_position": {"type": "string"},
+                "surname": {"type": "string"},
+                "start": {"type": "string"},
+                "end": {"type": "string"},
+                "pause":{"type":"integer"},
+                "time": {"type": "string"},
+                
+               
+               
+            },
+            # Specify required keys
+            "required": ["fk_employee"],
+        }
+        try:
+            validate(instance=jsonData, schema=bookingSchema)
+        except jsonschema.exceptions.ValidationError as err:
+            return False
+        return True
+    
