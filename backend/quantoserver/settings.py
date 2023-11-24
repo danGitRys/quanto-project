@@ -107,10 +107,10 @@ DATABASES = {
         "OPTIONS": {"driver": "ODBC Driver 17 for SQL Server",
                     },
 
-        "HOST": "database",
+        #"HOST": "database",
         #"PORT": "1433",
-         "OPTIONS": {"driver": "ODBC Driver 17 for SQL Server", 
-        },
+         #"OPTIONS": {"driver": "ODBC Driver 17 for SQL Server", 
+        #},
 
     }
 }
