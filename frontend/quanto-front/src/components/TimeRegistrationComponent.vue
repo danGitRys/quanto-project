@@ -44,7 +44,7 @@
           </select>
         </div>
         <div class="buttonContainer">
-          <v-btn @click="test" id="submitBtn" variant="outlined">
+          <v-btn @click="sendDatatoBackend" id="submitBtn" variant="outlined">
             Submit
           </v-btn>
         </div>
@@ -63,6 +63,7 @@
 import { ref } from 'vue';
 import { useAppStore } from '@/store/app';
 import { projectPosition } from '@/store/projectPostion';
+import axios from "axios"
 
 const selectedProjectName = ref('');
 const selectedProjectPosition = ref('');
@@ -77,7 +78,7 @@ const projectPos = projectPosition();
 const optionsData = appStore.names;
 const optionsData2 = projectPos.names;
 
-function test() {
+function sendDatatoBackend() {
   // Abrufen des Inhaltes des DropDown Menüs da V-Model nicht auf Option Tags möglich ist  
 
   const indexValueProjectName = selectedProjectName.value;
@@ -93,13 +94,39 @@ function test() {
   console.log(breakTime.value);
   console.log(endTime.value);
 
-  if (date.value == '' || startTime.value == '' || breakTime.value == '' || endTime.value == '' || selectedProjectNameValue == undefined || selectedProjectPositionValue == undefined) {
-    alert("Please fill out all fields");
-  }
-  else {
+// const endT = endTime.value
+// console.log(endT)
+
+
+const data = {
+ date: date.value,
+ startTime: startTime.value,
+ breakTime: breakTime.value,
+ endTime: endTime.value,
+}
+console.log(data)
+
+
+  // if (date.value == '' || startTime.value == '' || breakTime.value == '' || endTime.value == '' || selectedProjectNameValue == undefined || selectedProjectPositionValue == undefined) {
+  //   alert("Please fill out all fields");
+  // }
+  // else {
+    const url = "http://localhost:8000/timeRegistration"
+    axios.post(url, data)
+      .then(response => {
+        // Erfolgreiche Antwort vom Server
+        console.log(response.data);
+      })
+      .catch(error => {
+        // Fehler bei der Anfrage
+        console.error(error);
+      });
     // Daten an Backend senden
-    alert("Data has been submitted");
-  }
+  
+    
+
+  //   alert("Data has been submitted");
+  // }
 
 
 }
