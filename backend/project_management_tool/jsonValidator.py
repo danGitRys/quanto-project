@@ -14,7 +14,7 @@ class validator:
                
             },
             # Specify required keys
-            "required": ["name"],
+            "required": ["name","info"],
         }
         try:
             validate(instance=jsonData, schema=teamSchema)
@@ -74,7 +74,7 @@ class validator:
                
             },
             # Specify required keys
-            "required": ["emp_id"],
+            "required": ["emp_id","forename","surname","mail","phone","fk_team_id","team_roll"],
         }
         try:
             validate(instance=jsonData, schema=employeeSchema)
@@ -98,7 +98,7 @@ class validator:
                
             },
             # Specify required keys
-            "required": ["fk_employee"],
+            "required": ["fk_employee","fk_position","surname","start","end","pause","time"],
         }
         try:
             validate(instance=jsonData, schema=bookingSchema)
@@ -120,7 +120,7 @@ class validator:
                
             },
             # Specify required keys
-            "required": ["fk_employee"],
+            "required": ["fk_employee","fk_position","surname","start","end","info"],
         }
         try:
             validate(instance=jsonData, schema=forecastSchema)
@@ -143,7 +143,7 @@ class validator:
                
             },
             # Specify required keys
-            "required": ["p_id"],
+            "required": ["p_id","name","company","start_date","end_date","fk_creator","creation_date"],
         }
         try:
             validate(instance=jsonData, schema=projectSchema)
