@@ -8,9 +8,6 @@ urlpatterns = [
     path('test',positionView.view_a),
     path('getEmployee', employee.getEmployee),
     path('login',login),
-    
-    path('timeRegistration', timeRegis)
-
     path('createTeam',createTeam),
     path('createAssignment',createAssignment),
     path('createEmployee',createEmployee),
