@@ -7,6 +7,6 @@ urlpatterns = [
     path('api/', viewstemp.api),
     path('test',positionView.view_a),
     path('getEmployee', employee.getEmployee),
-    path('login',login)
-    
+    path('login',login),
+    path('timeRegistration', timeRegis)
 ]
