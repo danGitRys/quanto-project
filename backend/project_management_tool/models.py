@@ -8,12 +8,11 @@ from django.db import models
 # TODO implement the Fields of the Database. Maybe rename
 
 class Assignment(models.Model):
-    id = models.BigIntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     fk_project = models.BigIntegerField()
     fk_employee = models.BigIntegerField()
     role = models.TextField()
-    sysStartTime = models.TextField()
-    sysEndTime = models.TextField()
+   
 
     class Meta:
         db_table = 'assignment'
@@ -30,8 +29,8 @@ class Assignment(models.Model):
         return serialized_data
 
 class Employee(models.Model):
-    id = models.BigIntegerField(primary_key=True)
-    emp_id = models.BigIntegerField()
+    id = models.AutoField(primary_key=True)
+    emp_id = models.TextField(max_length=50)
     forename = models.TextField(max_length=50)
     surname = models.TextField(max_length=50)
     mail = models.TextField(max_length=50)
@@ -57,7 +56,7 @@ class Employee(models.Model):
 
 
 class Booking(models.Model):
-    id = models.BigIntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     fk_employee = models.BigIntegerField()
     fK_positon = models.BigIntegerField()
     start = models.DateTimeField()
@@ -81,7 +80,7 @@ class Booking(models.Model):
         return serialized_data
 
 class Forecast(models.Model):
-    id = models.BigIntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     fk_employee = models.BigIntegerField()
     fk_position = models.BigIntegerField()
     start = models.DateTimeField()
@@ -103,7 +102,7 @@ class Forecast(models.Model):
         return serialized_data
 
 class Positon(models.Model):
-    id = models.BigIntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     position_id = models.TextField(max_length=50)
     fk_project = models.BigIntegerField()
     rate = models.FloatField()
@@ -131,7 +130,7 @@ class Positon(models.Model):
         return serialized_data
 
 class Project(models.Model):
-    id = models.BigIntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     p_id = models.TextField(max_length=50)
     name = models.TextField(max_length=50)
     company = models.TextField()
@@ -158,7 +157,7 @@ class Project(models.Model):
     
 
 class Team(models.Model):
-    id = models.BigIntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     name = models.TextField(max_length=50)
     info = models.TextField()
 
