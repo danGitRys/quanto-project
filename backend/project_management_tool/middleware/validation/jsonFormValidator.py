@@ -2,7 +2,7 @@ import json
 import jsonschema
 from jsonschema import validate
 
-class validator:
+class formValidator:
 
     def team(jsonData):
         teamSchema = {
