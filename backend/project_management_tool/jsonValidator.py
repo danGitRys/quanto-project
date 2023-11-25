@@ -88,7 +88,6 @@ class validator:
             "properties": {
                 "fk_employee": {"type": "string"},
                 "fk_position": {"type": "string"},
-                "surname": {"type": "string"},
                 "start": {"type": "string"},
                 "end": {"type": "string"},
                 "pause":{"type":"integer"},
@@ -98,7 +97,7 @@ class validator:
                
             },
             # Specify required keys
-            "required": ["fk_employee","fk_position","surname","start","end","pause","time"],
+            "required": ["fk_employee","fk_position","start","end","pause","time"],
         }
         try:
             validate(instance=jsonData, schema=bookingSchema)
