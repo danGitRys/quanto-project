@@ -26,6 +26,10 @@ for (let i = 0; i < optionsData.length; i++) {
 </script>
 
 <style scoped>
+.v-application__wrap {
+    min-height: 0vh !important;
+}
+
 .v-container {
     width: 80%;
 }

@@ -32,12 +32,12 @@
 <script>
 import { ProductService } from '@/service/ProductService';
 import InputText from 'primevue/inputtext';
-import InputNumber from 'primevue/inputnumber'; // Import der InputNumber-Komponente
+import InputNumber from 'primevue/inputnumber';
 
 export default {
     components: {
         InputText,
-        InputNumber // Registrieren Sie die InputNumber-Komponente
+        InputNumber
     },
     data() {
         return {
@@ -102,15 +102,11 @@ export default {
 <style scoped>
 .container {
     position: relative;
-    /* Füge Positionierung hinzu */
 }
 
 .p-datatable {
     position: absolute;
-    /* Ändere die Position auf absolute */
     bottom: 35em;
-    /* Ändere die Position auf den oberen Rand des .container-Elements */
     left: 6em;
-    /* Ändere die Position auf den linken Rand des .container-Elements */
 }
 </style>

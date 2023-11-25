@@ -1,9 +1,9 @@
 <template>
     <div>
         <TopBar />
-        <SideBarManager />
         <BackgroundScreen />
         <DropDownProjects />
+        <SideBarManager />
         <ManageProject />
         <MitarbeiterTabelle />
     </div>
