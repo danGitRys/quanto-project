@@ -1,4 +1,4 @@
-from ..models import Employee
+from project_management_tool.models import *
 from django.db.models import Q
 class checkExDB:
     def employee(checkId:str,checkMail:str)->bool:
