@@ -79,6 +79,7 @@ class validator:
         try:
             validate(instance=jsonData, schema=employeeSchema)
         except jsonschema.exceptions.ValidationError as err:
+           
             return False
         return True
     
@@ -86,18 +87,18 @@ class validator:
         bookingSchema = {
             "type": "object",
             "properties": {
-                "fk_employee": {"type": "string"},
-                "fk_position": {"type": "string"},
+                "fk_employee": {"type": "integer"},
+                "fk_position": {"type": "integer"},
                 "start": {"type": "string"},
                 "end": {"type": "string"},
-                "pause":{"type":"integer"},
+                "pause":{"type":"string"},
                 "time": {"type": "string"},
                 
                
                
             },
             # Specify required keys
-            "required": ["fk_employee","fk_position","start","end","pause","time"],
+            "required": ["fk_employee","fk_position","start","end","pause"],
         }
         try:
             validate(instance=jsonData, schema=bookingSchema)
@@ -109,9 +110,8 @@ class validator:
         forecastSchema = {
             "type": "object",
             "properties": {
-                "fk_employee": {"type": "string"},
-                "fk_position": {"type": "string"},
-                "surname": {"type": "string"},
+                "fk_employee": {"type": "integer"},
+                "fk_position": {"type": "integer"},
                 "start": {"type": "string"},
                 "end": {"type": "string"},
                 "info": {"type": "string"},
@@ -119,7 +119,7 @@ class validator:
                
             },
             # Specify required keys
-            "required": ["fk_employee","fk_position","surname","start","end","info"],
+            "required": ["fk_employee","fk_position","start","end","info"],
         }
         try:
             validate(instance=jsonData, schema=forecastSchema)
