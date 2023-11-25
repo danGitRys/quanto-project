@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="card p-fluid">
-            <DataTable :value="products" editMode="cell" @cell-edit-complete="onCellEditComplete" :pt="{
+            <DataTable :value="displayedData" editMode="cell" @cell-edit-complete="onCellEditComplete" :pt="{
                 table: { style: 'min-width: 50rem' },
                 column: {
                     bodycell: ({ state }) => ({
@@ -12,16 +12,13 @@
                 <Column v-for="col of columns" :key="col.field" :field="col.field" :header="col.header" style="width: 25%">
                     <template #body="{ data, field }">
                         <span v-if="editingRow === data">Editing...</span>
-                        <span v-else>{{ field === 'price' ? formatCurrency(data[field]) : data[field] }}</span>
+                        <span v-else>
+                            {{ field === 'date' ? formatDate(data[field]) : data[field] }}
+                        </span>
                     </template>
-                    <template #editor="{ data, field }">
-                        <template v-if="field !== 'price'">
-                            <InputText v-model="data[field]" ref="inputField" @input="onInput" />
-                        </template>
-                        <template v-else>
-                            <InputNumber v-model="data[field]" mode="currency" currency="USD" locale="en-US"
-                                ref="inputField" @input="onInput" />
-                        </template>
+
+                    <template v-if="col.field !== 'date'" #editor="{ data, field }">
+                        <InputText v-model="data[field]" ref="inputField" @input="onInput" />
                     </template>
                 </Column>
             </DataTable>
@@ -30,18 +27,15 @@
 </template>
 
 <script>
-import { ProductService } from '@/service/ProductService';
 import InputText from 'primevue/inputtext';
-import InputNumber from 'primevue/inputnumber';
 
 export default {
     components: {
-        InputText,
-        InputNumber
+        InputText
     },
     data() {
         return {
-            products: null,
+            generatedData: [],
             columns: [
                 { field: 'date', header: 'Date' },
                 { field: 'hours_in_projects', header: 'Hours in Projects' },
@@ -52,48 +46,80 @@ export default {
         };
     },
     mounted() {
-        ProductService.getProductsMini().then((data) => {
-            this.products = data;
-        });
+        this.generateDatesForCurrentMonth();
+    },
+    computed: {
+        displayedData() {
+            return [...this.generatedData];
+        }
     },
     methods: {
         onCellEditComplete: function (event) {
             let { data, newValue, field } = event;
 
-            switch (field) {
-                case 'quantity':
-                case 'price':
-                    if (this.isPositiveInteger(newValue)) data[field] = newValue;
-                    else event.preventDefault();
-                    break;
+            if (data[field] !== newValue) {
+                switch (field) {
+                    case 'hours_in_projects':
+                    case 'hours_this_project':
+                        if (typeof newValue === 'string' && this.isPositiveInteger(newValue.trim())) {
+                            data[field] = newValue.trim();
+                        } else {
+                            event.preventDefault();
+                        }
+                        break;
 
-                default:
-                    if (newValue.trim().length > 0) data[field] = newValue;
-                    else event.preventDefault();
-                    break;
+                    default:
+                        if (typeof newValue === 'string' && newValue.trim().length > 0) {
+                            data[field] = newValue.trim();
+                        } else {
+                            event.preventDefault();
+                        }
+                        break;
+                }
+
+                this.editingRow = null;
             }
         },
+
         isPositiveInteger(val) {
             let str = String(val);
-
             str = str.trim();
-
             if (!str) {
                 return false;
             }
-
             str = str.replace(/^0+/, '') || '0';
             var n = Math.floor(Number(str));
-
             return n !== Infinity && String(n) === str && n >= 0;
         },
-        formatCurrency(value) {
-            return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(value);
-        },
+
         onInput() {
-            if (this.$refs.inputField && this.$refs.inputField.$props) {
-                this.editingRow = this.$refs.inputField.$props.value;
+            const inputFieldValue = this.$refs.inputField?.$props?.value;
+            this.editingRow = inputFieldValue;
+        },
+
+        daysInMonth(month, year) {
+            return new Date(year, month, 0).getDate();
+        },
+
+        generateDatesForCurrentMonth() {
+            let date = new Date();
+            let month = date.getMonth() + 1;
+            let year = date.getFullYear();
+            let daysInMonth = this.daysInMonth(month, year);
+
+            for (let day = 1; day <= daysInMonth; day++) {
+                this.generatedData.push({
+                    date: new Date(year, month - 1, day),
+                    hours_in_projects: 0,
+                    hours_this_project: 0,
+                    pos: 0
+                });
             }
+        },
+
+        formatDate(date) {
+            const options = { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' };
+            return new Intl.DateTimeFormat('en-US', options).format(date);
         }
     }
 };
@@ -104,9 +130,9 @@ export default {
     position: relative;
 }
 
-.p-datatable {
+.card {
     position: absolute;
-    bottom: 35em;
+    bottom: -6em;
     left: 6em;
 }
 </style>

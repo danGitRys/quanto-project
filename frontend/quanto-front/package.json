@@ -14,7 +14,7 @@
     "client-oauth2": "^4.3.3",
     "core-js": "^3.29.0",
     "pinia": "^2.0.0",
-    "primevue": "^3.40.1",
+    "primevue": "^3.41.1",
     "roboto-fontface": "*",
     "vue": "^3.3.8",
     "vue-router": "^4.0.0",
