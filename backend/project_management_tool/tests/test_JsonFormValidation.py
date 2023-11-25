@@ -9,7 +9,7 @@ class JsonFormClass(TestCase):
                     "info":"test2"
                     }
         
-        validationResult = jsonValidator.validator.team(testJson)
+        validationResult = jsonFormValidator.formValidator.team(testJson)
         self.assertEqual(validationResult,True)
     
     def test_validateTeamJsonFail(self):
@@ -18,7 +18,7 @@ class JsonFormClass(TestCase):
                     "infoTest":"test2"
                     }
         
-        validationResult = jsonValidator.validator.team(testJson)
+        validationResult = jsonFormValidator.formValidator.team(testJson)
         self.assertEqual(validationResult,False)
     
     def test_validateTeamJsonFailV2(self):
@@ -27,7 +27,7 @@ class JsonFormClass(TestCase):
                     "info":1
                     }
         
-        validationResult = jsonValidator.validator.team(testJson)
+        validationResult = jsonFormValidator.formValidator.team(testJson)
         self.assertEqual(validationResult,False)
     
     def test_validateTeamJsonFailV3(self):
@@ -36,7 +36,7 @@ class JsonFormClass(TestCase):
                     "info":"test"
                     }
         
-        validationResult = jsonValidator.validator.team(testJson)
+        validationResult = jsonFormValidator.formValidator.team(testJson)
         self.assertEqual(validationResult,False)
     
     def test_validateLoginJson(self):
@@ -45,7 +45,7 @@ class JsonFormClass(TestCase):
                     
                     }
         
-        validationResult = jsonValidator.validator.login(testJson)
+        validationResult = jsonFormValidator.formValidator.login(testJson)
         self.assertEqual(validationResult,True)
     
     def test_validateLoginJsonFail(self):
@@ -54,7 +54,7 @@ class JsonFormClass(TestCase):
                     
                     }
         
-        validationResult = jsonValidator.validator.login(testJson)
+        validationResult = jsonFormValidator.formValidator.login(testJson)
         self.assertEqual(validationResult,False)
     
     def test_validateLoginJsonFail(self):
@@ -63,7 +63,7 @@ class JsonFormClass(TestCase):
                     
                     }
         
-        validationResult = jsonValidator.validator.login(testJson)
+        validationResult = jsonFormValidator.formValidator.login(testJson)
         self.assertEqual(validationResult,False)
     
     def test_validateAssignmentJson(self):
@@ -74,7 +74,7 @@ class JsonFormClass(TestCase):
                     
                     }
         
-        validationResult = jsonValidator.validator.assignment(testJson)
+        validationResult = jsonFormValidator.formValidator.assignment(testJson)
         self.assertEqual(validationResult,True)
     
     def test_validateAssignmentJsonFail(self):
@@ -85,7 +85,7 @@ class JsonFormClass(TestCase):
                     
                     }
         
-        validationResult = jsonValidator.validator.assignment(testJson)
+        validationResult = jsonFormValidator.formValidator.assignment(testJson)
         self.assertEqual(validationResult,False)
     
     def test_validateAssignmentJsonFailV2(self):
@@ -96,7 +96,7 @@ class JsonFormClass(TestCase):
                     
                     }
         
-        validationResult = jsonValidator.validator.assignment(testJson)
+        validationResult = jsonFormValidator.formValidator.assignment(testJson)
         self.assertEqual(validationResult,False)
     
     def test_validateEmployeeJson(self):
@@ -111,7 +111,7 @@ class JsonFormClass(TestCase):
                     
                     }
         
-        validationResult = jsonValidator.validator.employee(testJson)
+        validationResult = jsonFormValidator.formValidator.employee(testJson)
         self.assertEqual(validationResult,True)
     
     def test_validateEmployeeJsonFailV1(self):
@@ -126,7 +126,7 @@ class JsonFormClass(TestCase):
                     
                     }
         
-        validationResult = jsonValidator.validator.employee(testJson)
+        validationResult = jsonFormValidator.formValidator.employee(testJson)
         self.assertEqual(validationResult,False)
     
     def test_validateEmployeeJsonFailV2(self):
@@ -141,7 +141,7 @@ class JsonFormClass(TestCase):
                     
                     }
         
-        validationResult = jsonValidator.validator.employee(testJson)
+        validationResult = jsonFormValidator.formValidator.employee(testJson)
         self.assertEqual(validationResult,False)
     
     def test_validateBookingJson(self):
@@ -155,7 +155,7 @@ class JsonFormClass(TestCase):
                     
                     }
         
-        validationResult = jsonValidator.validator.booking(testJson)
+        validationResult = jsonFormValidator.formValidator.booking(testJson)
         self.assertEqual(validationResult,True)
     
     def test_validateBookingJsonV2(self):
@@ -169,7 +169,7 @@ class JsonFormClass(TestCase):
                     
                     }
         
-        validationResult = jsonValidator.validator.booking(testJson)
+        validationResult = jsonFormValidator.formValidator.booking(testJson)
         self.assertEqual(validationResult,True)
     
     def test_validateBookingJsonFailV1(self):
@@ -183,7 +183,7 @@ class JsonFormClass(TestCase):
                     
                     }
         
-        validationResult = jsonValidator.validator.booking(testJson)
+        validationResult = jsonFormValidator.formValidator.booking(testJson)
         self.assertEqual(validationResult,False)
     
     def test_validateBookingJsonFailV2(self):
@@ -197,7 +197,7 @@ class JsonFormClass(TestCase):
                     
                     }
         
-        validationResult = jsonValidator.validator.booking(testJson)
+        validationResult = jsonFormValidator.formValidator.booking(testJson)
         self.assertEqual(validationResult,False)
     
     def test_validateForecastJson(self):
@@ -210,7 +210,7 @@ class JsonFormClass(TestCase):
                     
                     }
         
-        validationResult = jsonValidator.validator.forecast(testJson)
+        validationResult = jsonFormValidator.formValidator.forecast(testJson)
         self.assertEqual(validationResult,True)
     
     def test_validateForecastJsonFailV1(self):
@@ -223,7 +223,7 @@ class JsonFormClass(TestCase):
                     
                     }
         
-        validationResult = jsonValidator.validator.forecast(testJson)
+        validationResult = jsonFormValidator.formValidator.forecast(testJson)
         self.assertEqual(validationResult,False)
     
     def test_validateForecastJsonFailV1(self):
@@ -236,7 +236,7 @@ class JsonFormClass(TestCase):
                     
                     }
         
-        validationResult = jsonValidator.validator.forecast(testJson)
+        validationResult = jsonFormValidator.formValidator.forecast(testJson)
         self.assertEqual(validationResult,False)
     
     def test_validateProjectJson(self):
@@ -251,7 +251,7 @@ class JsonFormClass(TestCase):
                     
                     }
         
-        validationResult = jsonValidator.validator.project(testJson)
+        validationResult = jsonFormValidator.formValidator.project(testJson)
         self.assertEqual(validationResult,True)
     
     def test_validateProjectJsonFailV1(self):
@@ -266,7 +266,7 @@ class JsonFormClass(TestCase):
                     
                     }
         
-        validationResult = jsonValidator.validator.project(testJson)
+        validationResult = jsonFormValidator.formValidator.project(testJson)
         self.assertEqual(validationResult,False)
     
     def test_validateProjectJsonFailV2(self):
@@ -281,6 +281,6 @@ class JsonFormClass(TestCase):
                     
                     }
         
-        validationResult = jsonValidator.validator.project(testJson)
+        validationResult = jsonFormValidator.formValidator.project(testJson)
         self.assertEqual(validationResult,False)
     
