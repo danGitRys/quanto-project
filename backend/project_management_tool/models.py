@@ -58,7 +58,7 @@ class Employee(models.Model):
 class Booking(models.Model):
     id = models.AutoField(primary_key=True)
     fk_employee = models.BigIntegerField()
-    fK_positon = models.BigIntegerField()
+    fK_position = models.BigIntegerField()
     start = models.DateTimeField()
     end = models.DateTimeField()
     pause = models.FloatField()
