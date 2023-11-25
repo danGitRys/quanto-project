@@ -5,6 +5,27 @@
   <div class="allContainer">
     <div class="mainContainer">
       <div class="container">
+
+  <div class="projectNameContainer">
+            <label for="dropdownProjectName">Project Name:</label>
+            <select v-model="selectedProjectName" name="test" id="dropdownProjectName">
+              <option disabled value="">Select a Project Name</option>
+              <!-- Dynamische Werte kommen aus dem Store app.js -->
+              <option v-for="(option, index) in optionsData" :value="index" :key="index">{{ option }}</option>
+            </select>
+          </div>
+
+          <div class="projectPositionContainer">
+            <label for="dropdownProjectPosition">Project Position:</label>
+            <select v-model="selectedProjectPosition" id="dropdownProjectPosition">
+              <option disabled value="">Select a Project Positon</option>
+              <!-- Dynamische Werte kommen aus dem Store projectPosition.js -->
+              <option v-for="(option, index) in optionsData2" :value="index" :key="index">{{ option }}</option>
+            </select>
+          </div>
+
+
+
         <div class="pickDateContainer">
           <label for="datePicker"> Pick Date: </label>
           <input v-model="date" id="datePicker" type="date">
@@ -25,24 +46,10 @@
           <input v-model="endTime" id="endTimePicker" type="time">
         </div>
 
-        <div class="projectNameContainer">
-          <label for="dropdownProjectName">Project Name:</label>
-          <select v-model="selectedProjectName" name="test" id="dropdownProjectName">
-            <option disabled value="">Select a Project Name</option>
-            <!-- Dynamische Werte kommen aus dem Store app.js -->
-            <option v-for="(option, index) in optionsData" :value="index" :key="index">{{ option }}</option>
-          </select>
+        
 
-        </div>
+        
 
-        <div class="projectPositionContainer">
-          <label for="dropdownProjectPosition">Project Position:</label>
-          <select v-model="selectedProjectPosition" id="dropdownProjectPosition">
-            <option disabled value="">Select a Project Positon</option>
-            <!-- Dynamische Werte kommen aus dem Store projectPosition.js -->
-            <option v-for="(option, index) in optionsData2" :value="index" :key="index">{{ option }}</option>
-          </select>
-        </div>
         <div class="buttonContainer">
           <v-btn @click="sendDatatoBackend" id="submitBtn" variant="outlined">
             Submit
@@ -99,10 +106,16 @@ function sendDatatoBackend() {
 
 
 const data = {
- date: date.value,
- startTime: startTime.value,
- breakTime: breakTime.value,
- endTime: endTime.value,
+  "fk_employee": "1",
+  "fk_position": "21",
+  "start": "1997-02-02 17:16:00",
+  "end": "1997-02-02 19:16:00",
+  "pause": 22,
+  "time": "15"
+//  date: "date.value",
+//  startTime: startTime.value,
+//  breakTime: breakTime.value,
+//  endTime: endTime.value,
 }
 console.log(data)
 
@@ -111,7 +124,7 @@ console.log(data)
   //   alert("Please fill out all fields");
   // }
   // else {
-    const url = "http://localhost:8000/timeRegistration"
+    const url = "http://localhost:8000/createBooking"
     axios.post(url, data)
       .then(response => {
         // Erfolgreiche Antwort vom Server
