@@ -2,7 +2,7 @@ import json
 import jsonschema
 from jsonschema import validate
 
-class validator:
+class formValidator:
 
     def team(jsonData):
         teamSchema = {
@@ -14,7 +14,7 @@ class validator:
                
             },
             # Specify required keys
-            "required": ["name"],
+            "required": ["name","info"],
         }
         try:
             validate(instance=jsonData, schema=teamSchema)
@@ -74,11 +74,12 @@ class validator:
                
             },
             # Specify required keys
-            "required": ["emp_id"],
+            "required": ["emp_id","forename","surname","mail","phone","fk_team_id","team_roll"],
         }
         try:
             validate(instance=jsonData, schema=employeeSchema)
         except jsonschema.exceptions.ValidationError as err:
+           
             return False
         return True
     
@@ -86,19 +87,18 @@ class validator:
         bookingSchema = {
             "type": "object",
             "properties": {
-                "fk_employee": {"type": "string"},
-                "fk_position": {"type": "string"},
-                "surname": {"type": "string"},
+                "fk_employee": {"type": "integer"},
+                "fk_position": {"type": "integer"},
                 "start": {"type": "string"},
                 "end": {"type": "string"},
-                "pause":{"type":"integer"},
+                "pause":{"type":"string"},
                 "time": {"type": "string"},
                 
                
                
             },
             # Specify required keys
-            "required": ["fk_employee"],
+            "required": ["fk_employee","fk_position","start","end","pause"],
         }
         try:
             validate(instance=jsonData, schema=bookingSchema)
@@ -110,9 +110,8 @@ class validator:
         forecastSchema = {
             "type": "object",
             "properties": {
-                "fk_employee": {"type": "string"},
-                "fk_position": {"type": "string"},
-                "surname": {"type": "string"},
+                "fk_employee": {"type": "integer"},
+                "fk_position": {"type": "integer"},
                 "start": {"type": "string"},
                 "end": {"type": "string"},
                 "info": {"type": "string"},
@@ -120,7 +119,7 @@ class validator:
                
             },
             # Specify required keys
-            "required": ["fk_employee"],
+            "required": ["fk_employee","fk_position","start","end","info"],
         }
         try:
             validate(instance=jsonData, schema=forecastSchema)
@@ -143,7 +142,7 @@ class validator:
                
             },
             # Specify required keys
-            "required": ["p_id"],
+            "required": ["p_id","name","company","start_date","end_date","fk_creator","creation_date"],
         }
         try:
             validate(instance=jsonData, schema=projectSchema)

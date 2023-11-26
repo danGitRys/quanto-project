@@ -1,7 +1,7 @@
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from ..models import Booking
-from ..jsonValidator import validator
+from ..middleware import validator
 import json
 
 @csrf_exempt
@@ -19,7 +19,7 @@ def createBooking(request):
                 new_end = request_data["end"]
                 new_pause = request_data["pause"]
                 new_time = request_data["time"]
-                newBooking = Booking(fk_employee=new_fk_employee,fk_position=new_fk_position,start=new_start,end=new_end,pause=new_pause,time=new_time)
+                newBooking = Booking(fk_employee=new_fk_employee,fK_position=new_fk_position,start=new_start,end=new_end,pause=new_pause,time=new_time)
                 newBooking.save()
 
                 response_data = {

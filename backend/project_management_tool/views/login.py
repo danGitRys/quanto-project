@@ -3,7 +3,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from authlib import jose
 from ..models import Employee
-from ..jsonValidator import validator
+from ..middleware import validator
 from ..jsonTemplate import *
 import json
 @csrf_exempt
