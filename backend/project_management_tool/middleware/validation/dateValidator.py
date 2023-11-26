@@ -1,6 +1,6 @@
 import re
 
-class Validator:
+class dateValidator:
 
     @staticmethod
     def validate_datetime(datetime_string: str):
