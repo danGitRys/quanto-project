@@ -33,6 +33,16 @@ class checkExDB:
             Team exisiting with these values or not
         """
         return Team.objects.filter(name=checkName).exists()
+
+    def project_id(checkId:int)->bool:
+        return Project.objects.filter(id=checkId).exists()
+    
+    def employee_id(checkId:int)->bool:
+        return Employee.objects.filter(id=checkId).exists()
+    
+    def assignemt_exists(employeeId:int,projectId:int)->bool:
+        return Assignment.objects.filter(Q(fk_project=projectId) & Q(fk_employee=employeeId))
+    
     
 
     

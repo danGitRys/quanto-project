@@ -29,3 +29,26 @@ class validator:
                 return False
         else:
             return False
+    
+    def assignment(jsondata:json)->bool:
+        if(formValidator.assignment(jsondata)):
+          
+
+            contentResult = jsonContentValidator.assignment(jsondata)
+            contentValid = contentResult["valid"]
+            contentError = contentResult["errors"]
+            if contentValid:
+                return {
+                    "valid":True,
+                    "errors":contentError
+                }
+            else:
+                return {
+                    "valid":False,
+                    "errors":contentError
+                }
+        else:
+            return  {
+                    "valid":False,
+                    "errors":["Invalid Json Form"]
+                }

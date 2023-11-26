@@ -23,8 +23,7 @@ class Assignment(models.Model):
             'fk_project': self.fk_project,
             'fk_employee': self.fk_employee,
             'role': self.role,
-            'sysStartTime': self.sysStartTime,
-            'sysEndTime': self.sysEndTime,
+            
         }
         return serialized_data
 
