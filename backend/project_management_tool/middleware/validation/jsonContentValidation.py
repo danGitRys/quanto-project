@@ -1,5 +1,7 @@
 from .checkExistenceDb import *
 from .enumValidation import *
+from .dateValidator import *
+from .otherValidaton import *
 import json
 class jsonContentValidator:
 
@@ -52,6 +54,75 @@ class jsonContentValidator:
                 "valid":False,
                 "errors": incorrectList
             }
+    
+    def booking(jsonData:json)->bool:
+        fk_employee = jsonData["fk_employee"]
+        fk_position = jsonData["fk_position"]
+        start = jsonData["start"]
+        end = jsonData["end"]
+        pause = jsonData["pause"]
+        fk_employee_Valid:bool = checkExDB.employee_id(fk_employee)
+        fk_positionValid:bool = checkExDB.position_id(fk_position)
+        startValid:bool = dateValidator.validate_datetime(start)
+        endValid:bool = dateValidator.validate_datetime(end)
+        pauseValid:bool = otherValidation.validPauseInteger(pause)
+        bookingAlreadyExists:bool = checkExDB.booking_exists(fk_employee,fk_position,start,end,pause)
+
+        incorrectList = []
+
+        if not fk_employee_Valid:
+            incorrectList.append("Employee with this Id doesnt Exist")
+        if not fk_positionValid:
+            incorrectList.append("Position with this Id doesnt Exist")
+        if not startValid:
+            incorrectList.append("DateFormat for start Date invalid")
+        if not endValid:
+            incorrectList.append("Dateformat for end Date invalid")
+        if not pauseValid:
+            incorrectList.append("Pause Value incorretc, may not be under null")
+        if bookingAlreadyExists:
+            incorrectList.append("Booking Already exists")
+        
+        if startValid and endValid and pauseValid:
+
+            differenceResult = dateValidator.validateBookingTimes(start,end,pause)
+            differenceResultValid = differenceResult["valid"]
+            differenceResultErrors = differenceResult["errors"]
+            
+            if differenceResultValid:
+
+                if fk_employee_Valid and fk_employee_Valid and differenceResultValid and not bookingAlreadyExists:
+
+                    return {
+                        "valid":True,
+                        "errors": incorrectList,
+                    }
+                else:
+                    return {
+                        "valid":False,
+                        "errors": incorrectList + differenceResultErrors
+                    }
+            
+            else: 
+                return {
+                        "valid":False,
+                        "errors": incorrectList + differenceResultErrors
+                    }
+        
+        else:
+            return {
+                        "valid":False,
+                        "errors": incorrectList
+                    }
+        
+
+        
+
+
+
+
+
+
 
         
 

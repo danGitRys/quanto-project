@@ -1,5 +1,6 @@
 import re
-
+from datetime import datetime,timedelta
+import json
 class dateValidator:
 
     @staticmethod
@@ -37,3 +38,33 @@ class dateValidator:
         """
         date_pattern = re.compile(r"^(?:(?:19|20)\d\d)-(0[1-9]|1[0-2])-(0[1-9]|1\d|2[0-9]|3[01])$")
         return bool(date_pattern.match(date_string))
+    
+    def validateBookingTimes(startTime:str,endTime:str,pause:str)->json:
+        date_format = "%Y-%m-%d %H:%M:%S"
+        start_datetime = datetime.strptime(startTime,date_format)
+        end_datetime = datetime.strptime(endTime,date_format)
+        dateOrder:bool = start_datetime<end_datetime
+        if dateOrder:
+            timeDifference:timedelta = (end_datetime-start_datetime)
+            timeDifferenceMinutes = timeDifference.total_seconds()
+            if timeDifferenceMinutes>int(pause)*60:
+                return {
+                    "valid":True,
+                    "errors":[]
+                }
+            else:
+                return{
+                    "valid": False,
+                    "errors": ["Pause longer then working time"]
+                }
+
+
+        else:
+            return {
+                "valid":False,
+                "errors":["Endtime before StartTime"]
+            }
+
+
+
+
