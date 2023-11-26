@@ -3,11 +3,23 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from authlib import jose
 from ..models import Employee
-from ..jsonValidator import validator
+from ..middleware import validator
 from ..jsonTemplate import *
 import json
 @csrf_exempt
-def login(request):
+def login(request)->JsonResponse:
+    """Endpoint to validate a Login again the database, and encrypt the sap btp token
+
+    Parameters
+    ----------
+    request : request
+        post request
+
+    Returns
+    -------
+    JsonResponse
+        Json Containing information if Login was successfull or not
+    """
     if request.method == "POST":
 
         if(validator.login(json.loads(request.body))):

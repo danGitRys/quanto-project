@@ -1,11 +1,23 @@
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from ..models import Team
-from ..jsonValidator import validator
+from ..middleware import validator
 import json
 
 @csrf_exempt
-def createTeam(request):
+def createTeam(request)->JsonResponse:
+    """Endpoint for creating a Team in the Database
+
+    Parameters
+    ----------
+    request : request
+        post request
+
+    Returns
+    -------
+    JsonResponse
+        Json Containing Information about Insertion Process
+    """
     if request.method == 'POST':
         try:
             request_data = json.loads(request.body)

@@ -1,7 +1,25 @@
-import re
+
+from dateutil import parser
 class dateValidator:
 
-    @staticmethod
-    def validate(dateString: str):
-        date_pattern = re.compile(r"^(?:(?:19|20)\d\d)-(0[1-9]|1[0-2])-(0[1-9]|1\d|2[0-9]|3[01])$")
-        return bool(date_pattern.match(dateString))
+    def date(dateString:str)->bool:
+        """Function to validate if the given String is a valid Date
+        in the Format YYYY--MM-DD
+
+        Parameters
+        ----------
+        dateString : str
+            _description_
+
+        Returns
+        -------
+        bool
+            _description_
+        """
+        format = "YYYY-MM-DD"
+        result = True
+        try:
+            result = bool(parser.parse(dateString))
+        except ValueError:
+            result = False
+        return result

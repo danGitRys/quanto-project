@@ -1,15 +1,30 @@
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from ..models import Booking
-from ..jsonValidator import validator
+from ..middleware import validator
 import json
 
 @csrf_exempt
-def createBooking(request):
+def createBooking(request)->JsonResponse:
+    """Enpoint for creating a Booking in the database
+
+    Parameters
+    ----------
+    request : request
+        Get or Post request
+
+    Returns
+    -------
+    JsonResponse
+        Json Containing Results if Booking creation was successfull
+    """
     if request.method == 'POST':
         try:
             request_data = json.loads(request.body)
-            is_valid = validator.booking(request_data)
+            is_validResult = validator.booking(request_data)
+            is_valid = is_validResult["valid"]
+            errors = is_validResult["errors"]
+            print(errors)
 
             if is_valid:
                

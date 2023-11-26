@@ -1,15 +1,31 @@
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from ..models import Assignment
-from ..jsonValidator import validator
+from ..middleware import validator
 import json
 
 @csrf_exempt
-def createAssignment(request):
+def createAssignment(request)->JsonResponse:
+    """Enpoint for creating an Assignment in the database
+
+    Parameters
+    ----------
+    request : request
+        Get or Post request
+
+    Returns
+    -------
+    JsonResponse
+        Json Containing Results if Assignment creatin was successfull
+    """
     if request.method == 'POST':
         try:
             request_data = json.loads(request.body)
-            is_valid = validator.assignment(request_data)
+            validationResult = validator.assignment(request_data)
+            is_valid = validationResult["valid"]
+            validation_Errors = validationResult["errors"]
+            print(is_valid)
+            print(validation_Errors)
 
             if is_valid:
                 new_fk_project = request_data["fk_project"]

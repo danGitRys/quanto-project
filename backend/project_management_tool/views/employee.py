@@ -2,46 +2,72 @@ from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from ..models import Employee
-from ..jsonValidator import validator
+from ..middleware import jsonValidation
 import json
 from ..jsonTemplate import *
 from ..middleware import *
 
 @csrf_exempt
-def getEmployee(request):
-     print(request.body)
-     if request.method == 'GET':
-          employeeList = []
-          allEmployees = Employee.objects.all()
-          for employee in allEmployees:
-               employeeList.append(employee.toJson())
-               print(employee.toJson())
-          data = {
-               "employees": employeeList
-          }
-          print(employeeList)
-          
-          return JsonResponse(data)
-     elif request.method == 'POST':
-          data = invalidMethod
-        
-     
-     else:
-           data = {
-               "type":"else"
-          }
+def getEmployee(request)->JsonResponse:
+        """Function to get all Employees in the database
 
-     return JsonResponse(data)
+        Parameters
+        ----------
+        request : request
+            Get request
+
+        Returns
+        -------
+        JsonResponse
+            All Employess as Json
+        """
+
+        print(request.body)
+        if request.method == 'GET':
+            employeeList = []
+            allEmployees = Employee.objects.all()
+            for employee in allEmployees:
+                employeeList.append(employee.toJson())
+                print(employee.toJson())
+            data = {
+                "employees": employeeList
+            }
+            print(employeeList)
+            
+            return JsonResponse(data)
+        elif request.method == 'POST':
+            data = invalidMethod
+            
+        
+        else:
+            data = {
+                "type":"else"
+            }
+
+        return JsonResponse(data)
 
 
 @csrf_exempt
-def createEmployee(request):
+def createEmployee(request)->JsonResponse:
+    """Endpoint to create a Employee in the Database
+
+    Parameters
+    ----------
+    request : request
+        post request
+
+    Returns
+    -------
+    JsonResponse
+        Json Containing information about insertion Process
+    """
   
 
     if request.method == 'POST':
         try:
             request_data = json.loads(request.body)
-            is_valid = validator.employee(request_data)
+            is_valid = jsonValidation.validator.team(request_data)
+            print(is_valid)
 
             if is_valid:
                 new_emp_id = request_data["emp_id"]
