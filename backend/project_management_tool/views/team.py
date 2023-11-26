@@ -5,7 +5,19 @@ from ..middleware import validator
 import json
 
 @csrf_exempt
-def createTeam(request):
+def createTeam(request)->JsonResponse:
+    """Endpoint for creating a Team in the Database
+
+    Parameters
+    ----------
+    request : request
+        post request
+
+    Returns
+    -------
+    JsonResponse
+        Json Containing Information about Insertion Process
+    """
     if request.method == 'POST':
         try:
             request_data = json.loads(request.body)

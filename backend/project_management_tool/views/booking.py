@@ -5,7 +5,19 @@ from ..middleware import validator
 import json
 
 @csrf_exempt
-def createBooking(request):
+def createBooking(request)->JsonResponse:
+    """Enpoint for creating a Booking in the database
+
+    Parameters
+    ----------
+    request : request
+        Get or Post request
+
+    Returns
+    -------
+    JsonResponse
+        Json Containing Results if Booking creation was successfull
+    """
     if request.method == 'POST':
         try:
             request_data = json.loads(request.body)

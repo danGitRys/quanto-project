@@ -8,34 +8,59 @@ from ..jsonTemplate import *
 from ..middleware import *
 
 @csrf_exempt
-def getEmployee(request):
-     print(request.body)
-     if request.method == 'GET':
-          employeeList = []
-          allEmployees = Employee.objects.all()
-          for employee in allEmployees:
-               employeeList.append(employee.toJson())
-               print(employee.toJson())
-          data = {
-               "employees": employeeList
-          }
-          print(employeeList)
-          
-          return JsonResponse(data)
-     elif request.method == 'POST':
-          data = invalidMethod
-        
-     
-     else:
-           data = {
-               "type":"else"
-          }
+def getEmployee(request)->JsonResponse:
+        """Function to get all Employees in the database
 
-     return JsonResponse(data)
+        Parameters
+        ----------
+        request : request
+            Get request
+
+        Returns
+        -------
+        JsonResponse
+            All Employess as Json
+        """
+
+        print(request.body)
+        if request.method == 'GET':
+            employeeList = []
+            allEmployees = Employee.objects.all()
+            for employee in allEmployees:
+                employeeList.append(employee.toJson())
+                print(employee.toJson())
+            data = {
+                "employees": employeeList
+            }
+            print(employeeList)
+            
+            return JsonResponse(data)
+        elif request.method == 'POST':
+            data = invalidMethod
+            
+        
+        else:
+            data = {
+                "type":"else"
+            }
+
+        return JsonResponse(data)
 
 
 @csrf_exempt
-def createEmployee(request):
+def createEmployee(request)->JsonResponse:
+    """Endpoint to create a Employee in the Database
+
+    Parameters
+    ----------
+    request : request
+        post request
+
+    Returns
+    -------
+    JsonResponse
+        Json Containing information about insertion Process
+    """
   
 
     if request.method == 'POST':
