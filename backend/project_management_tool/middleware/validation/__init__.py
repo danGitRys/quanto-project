@@ -2,4 +2,4 @@ from .checkExistenceDb import *
 from .jsonFormValidator import *
 from .jsonValidation import *
 from .dateValidator import *
-from mailValidation import *
+from .mailValidation import *
