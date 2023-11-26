@@ -21,7 +21,10 @@ def createBooking(request)->JsonResponse:
     if request.method == 'POST':
         try:
             request_data = json.loads(request.body)
-            is_valid = validator.booking(request_data)
+            is_validResult = validator.booking(request_data)
+            is_valid = is_validResult["valid"]
+            errors = is_validResult["errors"]
+            print(errors)
 
             if is_valid:
                

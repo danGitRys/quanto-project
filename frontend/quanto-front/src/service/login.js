@@ -9,7 +9,7 @@ const serverAuth = new ClientOAuth2({
     accessTokenUri: AUTH_URL,
     authorizationGrants: ['*'],
 })
-console.log(CLIENT_ID,CLIENT_SECRET,AUTH_URL)
+// console.log(CLIENT_ID,CLIENT_SECRET,AUTH_URL)
 export const AuthService = {
     async login(email, password) {
         console.log("Test")
