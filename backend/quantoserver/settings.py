@@ -29,14 +29,13 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 
-
 # Application definition
 
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
-    #"django.contrib.sessions",
+    # "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "project_management_tool",
@@ -53,15 +52,19 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'corsheaders.middleware.CorsMiddleware',
-    
+
+    'django.middleware.common.CommonMiddleware',
+
+
 ]
 
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
+    "http://localhost:3001",
 ]
-
 
 
 INTERNAL_IPS = [
@@ -94,15 +97,21 @@ WSGI_APPLICATION = "quantoserver.wsgi.application"
 
 DATABASES = {
     "default": {
-        # TODO Change ENGINE and NAME, add USER, PASSWORD, HOST and PORT
         "ENGINE": "mssql",
         "NAME": "quanto",
         "USER": "sa",
         "PASSWORD": "Hans1001",
+
         "HOST": "localhost",
         "PORT": "1433",
+        "OPTIONS": {"driver": "ODBC Driver 17 for SQL Server",
+                    },
+
+        "HOST": "database",
+        #"PORT": "1433",
          "OPTIONS": {"driver": "ODBC Driver 17 for SQL Server", 
         },
+
     }
 }
 

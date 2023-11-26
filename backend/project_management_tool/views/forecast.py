@@ -5,7 +5,19 @@ from ..middleware import validator
 import json
 
 @csrf_exempt
-def createForecast(request):
+def createForecast(request)->JsonResponse:
+    """Endpoint to create a Forecast Entry in the Database
+
+    Parameters
+    ----------
+    request : request
+        post request
+
+    Returns
+    -------
+    JsonResponse
+        Json Containing Information about insertion Process
+    """
     if request.method == 'POST':
         try:
             request_data = json.loads(request.body)

@@ -5,7 +5,19 @@ from ..middleware import validator
 import json
 
 @csrf_exempt
-def createAssignment(request):
+def createAssignment(request)->JsonResponse:
+    """Enpoint for creating an Assignment in the database
+
+    Parameters
+    ----------
+    request : request
+        Get or Post request
+
+    Returns
+    -------
+    JsonResponse
+        Json Containing Results if Assignment creatin was successfull
+    """
     if request.method == 'POST':
         try:
             request_data = json.loads(request.body)
