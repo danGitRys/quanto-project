@@ -1,9 +1,23 @@
 from .jsonFormValidator import *
 from .jsonContentValidation import *
+import json
 
 class validator:
 
-    def team(jsondata):
+    def team(jsondata:json)->bool:
+        """Validating if the Form and the Content
+        matches the requirements
+
+        Parameters
+        ----------
+        jsondata : json
+            Json to be validated
+
+        Returns
+        -------
+        bool
+            Json valid or not
+        """
 
         if(formValidator.team(jsondata)):
             print("Form passt")
