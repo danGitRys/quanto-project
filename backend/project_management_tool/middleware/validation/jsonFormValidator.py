@@ -2,9 +2,22 @@ import json
 import jsonschema
 from jsonschema import validate
 
-class validator:
+class formValidator:
 
-    def team(jsonData):
+    def team(jsonData:json)->bool:
+        """Validating if the given json matches the
+        required teamSchema
+
+        Parameters
+        ----------
+        jsonData : json
+            json to be validated
+
+        Returns
+        -------
+        bool
+            Result if the json matches the Schema
+        """
         teamSchema = {
             "type": "object",
             "properties": {
@@ -22,7 +35,20 @@ class validator:
             return False
         return True
     
-    def login(jsonData):
+    def login(jsonData:json)->bool:
+        """Validating if the given json matches the
+        required loginSchema
+
+        Parameters
+        ----------
+        jsonData : json
+            json to be validated
+
+        Returns
+        -------
+        bool
+            Result if the json matches the Schema
+        """
         loginSchema = {
             "type": "object",
             "properties": {
@@ -39,7 +65,20 @@ class validator:
             return False
         return True
     
-    def assignment(jsonData):
+    def assignment(jsonData:json)->bool:
+        """Validating if the given json matches the
+        required Assignment Schema
+
+        Parameters
+        ----------
+        jsonData : json
+            json to be validated
+
+        Returns
+        -------
+        bool
+            Result if the json matches the Schema
+        """
         assignmentSchema = {
             "type": "object",
             "properties": {
@@ -58,7 +97,20 @@ class validator:
             return False
         return True
     
-    def employee(jsonData):
+    def employee(jsonData:json)->bool:
+        """Validating if the given json matches the
+        required Employee Schema
+
+        Parameters
+        ----------
+        jsonData : json
+            json to be validated
+
+        Returns
+        -------
+        bool
+            Result if the json matches the Schema
+        """
         employeeSchema = {
             "type": "object",
             "properties": {
@@ -79,25 +131,39 @@ class validator:
         try:
             validate(instance=jsonData, schema=employeeSchema)
         except jsonschema.exceptions.ValidationError as err:
+           
             return False
         return True
     
-    def booking(jsonData):
+    def booking(jsonData:json)->bool:
+        """Validating if the given json matches the
+        required bookingSchema
+
+        Parameters
+        ----------
+        jsonData : json
+            json to be validated
+
+        Returns
+        -------
+        bool
+            Result if the json matches the Schema
+        """
         bookingSchema = {
             "type": "object",
             "properties": {
-                "fk_employee": {"type": "string"},
-                "fk_position": {"type": "string"},
+                "fk_employee": {"type": "integer"},
+                "fk_position": {"type": "integer"},
                 "start": {"type": "string"},
                 "end": {"type": "string"},
-                "pause":{"type":"integer"},
+                "pause":{"type":"string"},
                 "time": {"type": "string"},
                 
                
                
             },
             # Specify required keys
-            "required": ["fk_employee","fk_position","start","end","pause","time"],
+            "required": ["fk_employee","fk_position","start","end","pause"],
         }
         try:
             validate(instance=jsonData, schema=bookingSchema)
@@ -105,13 +171,25 @@ class validator:
             return False
         return True
     
-    def forecast(jsonData):
+    def forecast(jsonData:json)->bool:
+        """Validating if the given json matches the
+        required forecast Schema
+
+        Parameters
+        ----------
+        jsonData : json
+            json to be validated
+
+        Returns
+        -------
+        bool
+            Result if the json matches the Schema
+        """
         forecastSchema = {
             "type": "object",
             "properties": {
-                "fk_employee": {"type": "string"},
-                "fk_position": {"type": "string"},
-                "surname": {"type": "string"},
+                "fk_employee": {"type": "integer"},
+                "fk_position": {"type": "integer"},
                 "start": {"type": "string"},
                 "end": {"type": "string"},
                 "info": {"type": "string"},
@@ -119,7 +197,7 @@ class validator:
                
             },
             # Specify required keys
-            "required": ["fk_employee","fk_position","surname","start","end","info"],
+            "required": ["fk_employee","fk_position","start","end","info"],
         }
         try:
             validate(instance=jsonData, schema=forecastSchema)
@@ -127,7 +205,20 @@ class validator:
             return False
         return True
     
-    def project(jsonData):
+    def project(jsonData:json)->bool:
+        """Validating if the given json matches the
+        required Project Schema
+
+        Parameters
+        ----------
+        jsonData : json
+            json to be validated
+
+        Returns
+        -------
+        bool
+            Result if the json matches the Schema
+        """
         projectSchema = {
             "type": "object",
             "properties": {
