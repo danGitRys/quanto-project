@@ -11,4 +11,5 @@
 import TopBar from '@/components/TopBar.vue'
 import SideBar from '@/components/SideBarMitarbeiter.vue'
 
+
 </script>

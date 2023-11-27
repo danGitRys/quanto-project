@@ -7,3 +7,6 @@ from .assignment import *
 from .booking import *
 from .forecast import *
 from .project import *
+from .delete import *
+from .update import *
+

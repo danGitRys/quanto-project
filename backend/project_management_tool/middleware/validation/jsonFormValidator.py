@@ -4,7 +4,20 @@ from jsonschema import validate
 
 class formValidator:
 
-    def team(jsonData):
+    def team(jsonData:json)->bool:
+        """Validating if the given json matches the
+        required teamSchema
+
+        Parameters
+        ----------
+        jsonData : json
+            json to be validated
+
+        Returns
+        -------
+        bool
+            Result if the json matches the Schema
+        """
         teamSchema = {
             "type": "object",
             "properties": {
@@ -22,7 +35,20 @@ class formValidator:
             return False
         return True
     
-    def login(jsonData):
+    def login(jsonData:json)->bool:
+        """Validating if the given json matches the
+        required loginSchema
+
+        Parameters
+        ----------
+        jsonData : json
+            json to be validated
+
+        Returns
+        -------
+        bool
+            Result if the json matches the Schema
+        """
         loginSchema = {
             "type": "object",
             "properties": {
@@ -39,7 +65,20 @@ class formValidator:
             return False
         return True
     
-    def assignment(jsonData):
+    def assignment(jsonData:json)->bool:
+        """Validating if the given json matches the
+        required Assignment Schema
+
+        Parameters
+        ----------
+        jsonData : json
+            json to be validated
+
+        Returns
+        -------
+        bool
+            Result if the json matches the Schema
+        """
         assignmentSchema = {
             "type": "object",
             "properties": {
@@ -58,7 +97,20 @@ class formValidator:
             return False
         return True
     
-    def employee(jsonData):
+    def employee(jsonData:json)->bool:
+        """Validating if the given json matches the
+        required Employee Schema
+
+        Parameters
+        ----------
+        jsonData : json
+            json to be validated
+
+        Returns
+        -------
+        bool
+            Result if the json matches the Schema
+        """
         employeeSchema = {
             "type": "object",
             "properties": {
@@ -83,7 +135,20 @@ class formValidator:
             return False
         return True
     
-    def booking(jsonData):
+    def booking(jsonData:json)->bool:
+        """Validating if the given json matches the
+        required bookingSchema
+
+        Parameters
+        ----------
+        jsonData : json
+            json to be validated
+
+        Returns
+        -------
+        bool
+            Result if the json matches the Schema
+        """
         bookingSchema = {
             "type": "object",
             "properties": {
@@ -106,7 +171,20 @@ class formValidator:
             return False
         return True
     
-    def forecast(jsonData):
+    def forecast(jsonData:json)->bool:
+        """Validating if the given json matches the
+        required forecast Schema
+
+        Parameters
+        ----------
+        jsonData : json
+            json to be validated
+
+        Returns
+        -------
+        bool
+            Result if the json matches the Schema
+        """
         forecastSchema = {
             "type": "object",
             "properties": {
@@ -127,7 +205,20 @@ class formValidator:
             return False
         return True
     
-    def project(jsonData):
+    def project(jsonData:json)->bool:
+        """Validating if the given json matches the
+        required Project Schema
+
+        Parameters
+        ----------
+        jsonData : json
+            json to be validated
+
+        Returns
+        -------
+        bool
+            Result if the json matches the Schema
+        """
         projectSchema = {
             "type": "object",
             "properties": {

@@ -23,8 +23,7 @@ class Assignment(models.Model):
             'fk_project': self.fk_project,
             'fk_employee': self.fk_employee,
             'role': self.role,
-            'sysStartTime': self.sysStartTime,
-            'sysEndTime': self.sysEndTime,
+            
         }
         return serialized_data
 
@@ -134,8 +133,8 @@ class Project(models.Model):
     p_id = models.TextField(max_length=50)
     name = models.TextField(max_length=50)
     company = models.TextField()
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField()
+    start_date = models.DateField()
+    end_date = models.DateField()
     fk_creator = models.BigIntegerField()
     creation_date = models.DateTimeField()
 
