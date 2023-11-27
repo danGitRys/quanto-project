@@ -10,12 +10,12 @@ urlpatterns = [
     path('login',login),
     
 
-    path('createTeam',createTeam),
-    path('createAssignment',createAssignment),
-    path('createEmployee',createEmployee),
-    path('createBooking',createBooking),
-    path('createForecast',createForecast),
-    path('createProject',createProject),
+    path('team',createTeam),
+    path('team',createAssignment),
+    path('team',createEmployee),
+    path('team',createBooking),
+    path('team',createForecast),
+    path('team',createProject),
     
 
     
