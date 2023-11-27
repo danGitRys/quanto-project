@@ -107,6 +107,9 @@ export default {
             let year = date.getFullYear();
             let daysInMonth = this.daysInMonth(month, year);
 
+            let dateOnlyNumbers = `${year}-${month < 10 ? '0' : ''}${month}-${daysInMonth < 10 ? '0' : ''}${daysInMonth}`;
+            console.log(dateOnlyNumbers);
+
             for (let day = 1; day <= daysInMonth; day++) {
                 this.generatedDate.push({
                     date: new Date(year, month - 1, day),
