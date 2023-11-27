@@ -3,7 +3,6 @@ from .viewstemp import *
 from .employee import *
 from .login import *
 
-from .timeRegistration import *
 
 from .team import *
 from .assignment import *
