@@ -15,8 +15,8 @@ def deleteBooking(request,id)->JsonResponse:
     if request.method == 'DELETE':
         idExists:bool =  Booking.objects.filter(id = id).exists()
         if idExists:
-            assignment = get_object_or_404(Booking,id=id)
-            assignment.delete()
+            booking = get_object_or_404(Booking,id=id)
+            booking.delete()
             response_data["success"] = True
         else:
             response_data["success"] = False
