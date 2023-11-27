@@ -11,11 +11,12 @@ urlpatterns = [
     
 
     path('team',createTeam),
-    path('team',createAssignment),
-    path('team',createEmployee),
-    path('team',createBooking),
-    path('team',createForecast),
-    path('team',createProject),
+    path('createAssignment',createAssignment),
+    path('employee',createEmployee),
+    path('booking',createBooking),
+    path('forecast',createForecast),
+    path('project',createProject),
+    path('deleteAssignment/<int:assignment_id>',deleteAssignment)
     
 
     
