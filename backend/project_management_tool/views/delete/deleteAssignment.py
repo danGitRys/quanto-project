@@ -13,8 +13,6 @@ def deleteAssignment(request,assignment_id)->JsonResponse:
             "message": "Assignment deleted successfully.",
             }
     if request.method == 'DELETE':
-        print("Works")
-        print(assignment_id)
         idExists:bool =  Assignment.objects.filter(id = assignment_id).exists()
         if idExists:
             assignment = get_object_or_404(Assignment,id=assignment_id)
