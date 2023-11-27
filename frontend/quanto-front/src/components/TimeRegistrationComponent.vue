@@ -38,7 +38,7 @@
 
         <div class="breakTimeContainer">
           <label for="breakTimePicker"> Break Time: </label>
-          <input v-model="breakTime" id="breakTimePicker" type="time">
+          <input v-model="breakTime" id="breakTimePicker">
         </div>
 
         <div class="endTimeContainer">
@@ -94,28 +94,26 @@ function sendDatatoBackend() {
 
   const indexValueProjectPosition = selectedProjectPosition.value;
   const selectedProjectPositionValue = optionsData2[indexValueProjectPosition];
-  console.log(selectedProjectPositionValue);
-  // Testen ob alle Daten in Variablen gespeichert wurden
-  console.log(date.value);
-  console.log(startTime.value);
-  console.log(breakTime.value);
-  console.log(endTime.value);
+  // console.log(selectedProjectPositionValue);
+  // // Testen ob alle Daten in Variablen gespeichert wurden
+  // console.log(date.value);
+   console.log(startTime.value);
+   const startDate = `${date.value}` + " " + `${startTime.value+":00"}`
+   const endDate = `${date.value}` + " " + `${endTime.value + ":00"}`
+  
+   console.log(startDate)
+   console.log(endDate)
 
-// const endT = endTime.value
-// console.log(endT)
 
 
 const data = {
-  "fk_employee": "1",
-  "fk_position": "21",
-  "start": "1997-02-02 17:16:00",
-  "end": "1997-02-02 19:16:00",
-  "pause": 22,
-  "time": "15"
-//  date: "date.value",
-//  startTime: startTime.value,
-//  breakTime: breakTime.value,
-//  endTime: endTime.value,
+  "fk_employee": 2,
+  "fk_position": 8,
+  "start": startDate,
+  "end": endDate,
+  // substring gibt mir nur die ersten 2 Zahlen des Strings aus
+  "pause": breakTime.value
+  //"time": "15"
 }
 console.log(data)
 
