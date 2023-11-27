@@ -57,6 +57,16 @@ class JsonFormClass(TestCase):
         validationResult = jsonFormValidator.formValidator.login(testJson)
         self.assertEqual(validationResult,False)
     
+    def test_validateLoginJsonFailV3(self):
+        testJson = {
+                    "token":"test2",
+                    "hasn":1
+                    
+                    }
+        
+        validationResult = jsonFormValidator.formValidator.login(testJson)
+        self.assertEqual(validationResult, not False)
+    
     def test_validateLoginJsonFail(self):
         testJson = {
                     "toker":1

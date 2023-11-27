@@ -22,6 +22,8 @@ urlpatterns = [
     path('deleteForecast/<int:id>',deleteForecast),
     path('deleteProject/<int:id>',deleteProject),
     path('deleteTeam/<int:id>',deleteTeam),
+    path('updateAssignment/<int:assignment_id>',updateAssignment),
+
     
 
     
