@@ -20,6 +20,7 @@ urlpatterns = [
     path('deleteBooking/<int:id>',deleteBooking),
     path('deleteEmployee/<int:id>',deleteEmployee),
     path('deleteForecast/<int:id>',deleteForecast),
+    path('deleteProject/<int:id>',deleteProject),
     
 
     
