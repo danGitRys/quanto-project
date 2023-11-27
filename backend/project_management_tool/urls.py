@@ -16,6 +16,8 @@ urlpatterns = [
     path('createBooking',createBooking),
     path('createForecast',createForecast),
     path('createProject',createProject),
+    path('updateAssignment/<int:assignment_id>',updateAssignment),
+
     
 
     
