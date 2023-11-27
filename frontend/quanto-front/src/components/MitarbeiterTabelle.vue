@@ -35,7 +35,7 @@ export default {
     },
     data() {
         return {
-            generatedData: [],
+            generatedDate: [],
             columns: [
                 { field: 'date', header: 'Date' },
                 { field: 'hours_in_projects', header: 'Hours in Projects' },
@@ -50,7 +50,7 @@ export default {
     },
     computed: {
         displayedData() {
-            return [...this.generatedData];
+            return [...this.generatedDate];
         }
     },
     methods: {
@@ -108,11 +108,8 @@ export default {
             let daysInMonth = this.daysInMonth(month, year);
 
             for (let day = 1; day <= daysInMonth; day++) {
-                this.generatedData.push({
+                this.generatedDate.push({
                     date: new Date(year, month - 1, day),
-                    hours_in_projects: 0,
-                    hours_this_project: 0,
-                    pos: 0
                 });
             }
         },
