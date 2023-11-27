@@ -6,7 +6,22 @@ from ...middleware import validator
 import json
 
 @csrf_exempt
-def deleteProject(request,id)->JsonResponse:
+def deleteProject(request,id:int)->JsonResponse:
+    """Endpoint for deleting an Project in the database
+
+    Parameters
+    ----------
+    request : request
+        Delete request
+        
+    id : int
+        id of deleted Project
+
+    Returns
+    -------
+    JsonResponse
+        Json containing Results if Project was deleted successfully
+    """
     
     response_data = {
             "success": True,

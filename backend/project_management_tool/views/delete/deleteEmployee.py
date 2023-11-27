@@ -6,7 +6,22 @@ from ...middleware import validator
 import json
 
 @csrf_exempt
-def deleteEmployee(request,id)->JsonResponse:
+def deleteEmployee(request,id:int)->JsonResponse:
+    """Endpoint for deleting an Employee in the database
+
+    Parameters
+    ----------
+    request : request
+        Delete request
+        
+    id : int
+        id of deleted Employee
+
+    Returns
+    -------
+    JsonResponse
+        Json containing Results if Employee was deleted successfully
+    """
     
     response_data = {
             "success": True,

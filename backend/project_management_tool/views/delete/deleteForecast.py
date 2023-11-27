@@ -6,7 +6,22 @@ from ...middleware import validator
 import json
 
 @csrf_exempt
-def deleteForecast(request,id)->JsonResponse:
+def deleteForecast(request,id:int)->JsonResponse:
+    """Endpoint for deleting an Forecast in the database
+
+    Parameters
+    ----------
+    request : request
+        Delete request
+        
+    id : int
+        id of deleted Forecast
+
+    Returns
+    -------
+    JsonResponse
+        Json containing Results if Forecast was deleted successfully
+    """
     
     response_data = {
             "success": True,

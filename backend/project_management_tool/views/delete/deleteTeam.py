@@ -6,7 +6,22 @@ from ...middleware import validator
 import json
 
 @csrf_exempt
-def deleteTeam(request,id)->JsonResponse:
+def deleteTeam(request,id:int)->JsonResponse:
+    """Endpoint for deleting an Team in the database
+
+    Parameters
+    ----------
+    request : request
+        Delete Request
+        
+    id : int
+        id of deleted Team
+
+    Returns
+    -------
+    JsonResponse
+        Json containing Results if Team was deleted successfully
+    """
     
     response_data = {
             "success": True,

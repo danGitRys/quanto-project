@@ -6,7 +6,22 @@ from ...middleware import validator
 import json
 
 @csrf_exempt
-def deleteAssignment(request,assignment_id)->JsonResponse:
+def deleteAssignment(request,assignment_id:int)->JsonResponse:
+    """Endpoint for deleting an Assignment in the database
+    
+    Parameters
+    ----------
+    request : request
+        Delete request
+         
+    assignment_id : int
+        id of the deleted Assignement
+
+    Returns
+    -------
+    JsonResponse
+        Json containing Results if Assignment was deleted successfully
+    """
     
     response_data = {
             "success": True,

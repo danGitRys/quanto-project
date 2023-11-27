@@ -6,7 +6,22 @@ from ...middleware import validator
 import json
 
 @csrf_exempt
-def deleteBooking(request,id)->JsonResponse:
+def deleteBooking(request,id:int)->JsonResponse:
+    """Endpoint for deleting a Booking record from the database
+
+    Parameters
+    ----------
+    request : request
+        Delete request
+        
+    id : int
+        id of deleted Booking record
+
+    Returns
+    -------
+    JsonResponse
+        Json containing Results if Booking was deleted successfully
+    """
     
     response_data = {
             "success": True,
