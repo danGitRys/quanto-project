@@ -1,7 +1,12 @@
 <template>
 <h1>
     Test
+    <v-text-field v-model="id" ></v-text-field>
+    <v-text-field v-model="name"></v-text-field>
+    <v-text-field v-model="info"></v-text-field>
 </h1>
+
+<button @click="getTeam15()">Team Hans Dieter</button>
 </template>
 
 <script>
@@ -13,8 +18,9 @@ export default {
     
     data() {
         return {
-            drawer: true,
-            rail: true,
+            id:'',
+            name:'',
+            info:''
         }
     },
 
@@ -25,12 +31,20 @@ export default {
            
         }).then(response => {
             console.log(response)
+            var responseData = response.data
+            var tempData = responseData.data
+            this.id = tempData["id"]
+            this.name = tempData["name"]
+            this.info = tempData["info"]
             
         })
         .catch(error=> {
             console.log(error)
-            alert("Invalid Login")
+            
         })
+        },
+        getTeam15(){
+            window.location.href = '/getTeam/15';
         }
     },
 
