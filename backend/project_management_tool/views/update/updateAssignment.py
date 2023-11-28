@@ -6,14 +6,15 @@ from ...middleware.validation.jsonUpateConentValidation import jsonUpdateConentV
 import json
 @csrf_exempt
 def updateAssignment(request,assignment_id):
+    response_data = {
+                "success": False,
+                "message": "Error",
+            }
     if request.method == 'PUT':
         try:
             print("put")
             # Your PUT logic here
-            response_data = {
-                "success": True,
-                "message": "Assignment updated successfully.",
-            }
+           
             idExists:bool =  Assignment.objects.filter(id = assignment_id).exists()
 
             if idExists:

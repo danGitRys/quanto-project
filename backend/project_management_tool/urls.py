@@ -13,7 +13,7 @@ urlpatterns = [
     path('team',createTeam,name="createTeam"),
     path('createAssignment',createAssignment, name='createAssignment'),
     path('employee',createEmployee),
-    path('booking',createBooking),
+    path('createBooking',createBooking),
     path('forecast',createForecast),
     path('project',createProject),
     path('deleteAssignment/<int:assignment_id>',deleteAssignment),
