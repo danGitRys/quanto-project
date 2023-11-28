@@ -10,8 +10,8 @@ urlpatterns = [
     path('login',login),
     
 
-    path('team',createTeam),
-    path('createAssignment',createAssignment),
+    path('team',createTeam,name="createTeam"),
+    path('createAssignment',createAssignment, name='createAssignment'),
     path('employee',createEmployee),
     path('booking',createBooking),
     path('forecast',createForecast),

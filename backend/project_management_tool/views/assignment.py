@@ -7,6 +7,10 @@ import json
 
 @csrf_exempt
 def createAssignment(request)->JsonResponse:
+    response_data = {
+                    "success": False,
+                    "message": "Error.",
+                }
     """Enpoint for creating an Assignment in the database
 
     Parameters
