@@ -9,7 +9,7 @@ import LandingPage from "@/views/LandingPage.vue";
 import AddEmployee from "@/views/AddEmployee.vue";
 
 import dataTable from "@/components/DataTable.vue"
-
+import getTeam from "@/components/demo/getTeamComponent.vue"
 import ManageProject from "@/views/ManageProject.vue";
 
 
@@ -80,6 +80,11 @@ const routes = [
     path: "/ManageProject",
     name: "ManageProject",
     component: ManageProject,
+  },
+  {
+    path: "/getTeam/:id",
+    name: "getTeam",
+    component: getTeam,
   }
 ];
 
