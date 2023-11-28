@@ -1,12 +1,12 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 import json
+from django.shortcuts import get_object_or_404
 
-from ..models import Assignment
-from ..models import Employee
 from django.db import connection
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
+from ..models import *
 
 # Request-handler
 
@@ -47,6 +47,23 @@ def loginpage(request):
 
 def api(request):
     return HttpResponse("API")
+
+
+
+def orm_Test(request):
+
+
+    currsor = connection.cursor()
+    result = currsor.execute('''EXEC getEmployeeCalendar @id=2''')
+
+
+    for res in result:
+        print(res)
+
+    response = {
+        "test":1
+    }
+    return JsonResponse(response)
 
 
     ...
