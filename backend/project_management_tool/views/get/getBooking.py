@@ -1,41 +1,40 @@
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import get_object_or_404
-from ...models import Team
+from ...models import Booking
 from ...middleware import validator
 import json
 
 
 @csrf_exempt
-def getTeam(request, id:int) -> JsonResponse:
-    """Endpoint for getting Team out of the Database
+def getBooking(request, id: int) -> JsonResponse:
+    """ Endpoint for getting Booking Data out of the Database
     Parameters
     ----------
     request : request
         Get Request
     id : int
-         describe the path for dynamic routing 
-
+        describe the path for dynamic routing 
     Returns
     -------
     JsonResponse
         if success = True 
-        JSON with Data of the Project
+        JSON with Data of the Booking Entry
     """
     response_data = {
         "success": True,
         "message": "",
     }
     if request.method == 'GET':
-        idExists: bool = Team.objects.filter(id=id).exists()
+        idExists: bool = Booking.objects.filter(id=id).exists()
         if idExists:
-            team = get_object_or_404(Team, id=id)
-            teamJson = team.toJson()
+            booking = get_object_or_404(Booking, id=id)
+            bookingJson = booking.toJson()
             response_data["success"] = True
-            response_data["data"] = teamJson
+            response_data["data"] = bookingJson
         else:
             response_data["success"] = False
-            response_data["message"] = "No Team Exists with this Id"
+            response_data["message"] = "No Booking Entry with this Id"
     else:
         response_data["success"] = False
         response_data["message"] = "Invalid Method"
