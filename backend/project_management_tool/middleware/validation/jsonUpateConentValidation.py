@@ -33,6 +33,7 @@ class jsonUpdateConentValidation:
             filtered_dict = {key: value for key, value in validDict.items() if value is True}
             print(filtered_dict)
             #TODO Find solution to check every case
+            #Idee Merge the new Values with the old values and insert this in the select statement
             
             
 
