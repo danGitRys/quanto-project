@@ -1,6 +1,4 @@
-// fetch oder axios anfrage
 // füllen von ProjectName and Position mit dynamisch Daten vom Backend
-
 <template>
   <div class="allContainer">
     <div class="mainContainer">
@@ -25,7 +23,6 @@
           </div>
 
 
-
         <div class="pickDateContainer">
           <label for="datePicker"> Pick Date: </label>
           <input v-model="date" id="datePicker" type="date">
@@ -38,7 +35,7 @@
 
         <div class="breakTimeContainer">
           <label for="breakTimePicker"> Break Time: </label>
-          <input v-model="breakTime" id="breakTimePicker">
+          <input v-model="breakTime" id="breakTimePicker" placeholder="Minutes">
         </div>
 
         <div class="endTimeContainer">
@@ -46,22 +43,13 @@
           <input v-model="endTime" id="endTimePicker" type="time">
         </div>
 
-        
-
-        
-
         <div class="buttonContainer">
           <v-btn @click="sendDatatoBackend" id="submitBtn" variant="outlined">
             Submit
           </v-btn>
         </div>
       </div>
-
     </div>
-
-
-
-
 
   </div>
 </template>
@@ -75,7 +63,24 @@ import axios from "axios"
 const selectedProjectName = ref('');
 const selectedProjectPosition = ref('');
 
-const date = ref('');
+// Initialisierung mit dem aktuellen Datum im gewünschten Format
+const date = ref(getFormattedDate()); 
+
+function getFormattedDate() {
+  const today = new Date();
+  const day = today.getDate();
+  // +1 da Monate nullbasiert sind
+  const month = today.getMonth() + 1; 
+  const year = today.getFullYear();
+
+  // Führende Nullen hinzufügen, wenn nötig
+  const formattedDay = day < 10 ? `0${day}` : day;
+  const formattedMonth = month < 10 ? `0${month}` : month;
+
+  return `${year}-${formattedMonth}-${formattedDay}`;
+}
+
+//const date = ref('');
 const startTime = ref('');
 const breakTime = ref('');
 const endTime = ref('');
@@ -85,60 +90,54 @@ const projectPos = projectPosition();
 const optionsData = appStore.names;
 const optionsData2 = projectPos.names;
 
+
 function sendDatatoBackend() {
   // Abrufen des Inhaltes des DropDown Menüs da V-Model nicht auf Option Tags möglich ist  
-
   const indexValueProjectName = selectedProjectName.value;
   const selectedProjectNameValue = optionsData[indexValueProjectName];
   console.log(selectedProjectNameValue);
 
   const indexValueProjectPosition = selectedProjectPosition.value;
   const selectedProjectPositionValue = optionsData2[indexValueProjectPosition];
-  // console.log(selectedProjectPositionValue);
-  // // Testen ob alle Daten in Variablen gespeichert wurden
-  // console.log(date.value);
+
    console.log(startTime.value);
+   // Datum werden in richtiges Format umgewandelt für die Datenbank
    const startDate = `${date.value}` + " " + `${startTime.value+":00"}`
    const endDate = `${date.value}` + " " + `${endTime.value + ":00"}`
   
    console.log(startDate)
    console.log(endDate)
 
-
-
 const data = {
   "fk_employee": 2,
   "fk_position": 8,
   "start": startDate,
   "end": endDate,
-  // substring gibt mir nur die ersten 2 Zahlen des Strings aus
   "pause": breakTime.value
   //"time": "15"
 }
 console.log(data)
 
 
-  // if (date.value == '' || startTime.value == '' || breakTime.value == '' || endTime.value == '' || selectedProjectNameValue == undefined || selectedProjectPositionValue == undefined) {
-  //   alert("Please fill out all fields");
-  // }
-  // else {
+   if (date.value == '' || startTime.value == '' || breakTime.value == '' || endTime.value == '' || selectedProjectNameValue == undefined || selectedProjectPositionValue == undefined) {
+     alert("Please fill out all fields");
+   }
+   else {
     const url = "http://localhost:8000/createBooking"
     axios.post(url, data)
       .then(response => {
         // Erfolgreiche Antwort vom Server
         console.log(response.data);
+        if (response.data['success'] == true) {
+        window.location.href = '/Home';
+      }
+
       })
       .catch(error => {
         // Fehler bei der Anfrage
         console.error(error);
       });
-    // Daten an Backend senden
-  
-    
-
-  //   alert("Data has been submitted");
-  // }
-
+   }
 
 }
 </script>
@@ -152,6 +151,9 @@ console.log(data)
 #dropdownProjectPosition {
   font-size: 32px;
 
+}
+#breakTimePicker{
+  width: 130px;
 }
 
 #submitBtn {
