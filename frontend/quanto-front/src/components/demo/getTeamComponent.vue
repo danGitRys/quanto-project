@@ -31,11 +31,19 @@ export default {
            
         }).then(response => {
             console.log(response)
+            
             var responseData = response.data
-            var tempData = responseData.data
+            var valid = responseData.success
+            if(valid==true){
+                var tempData = responseData.data
             this.id = tempData["id"]
             this.name = tempData["name"]
             this.info = tempData["info"]
+            }
+            else{
+                alert("This Team doesnt exist")
+            }
+           
             
         })
         .catch(error=> {

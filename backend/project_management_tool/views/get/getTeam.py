@@ -10,7 +10,7 @@ import json
 def getTeam(request, id) -> JsonResponse:
 
     response_data = {
-        "success": True,
+        "success": False,
         "message": "",
     }
     if request.method == 'GET':
