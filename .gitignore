@@ -401,3 +401,14 @@ FodyWeavers.xsd
 #Eigene Igoneres
 *.pyc
 *.sqlite3
+*.aux
+*.bbl 
+*.blg 
+*.fdb_latexmk
+*.fls 
+*lof
+*.log
+*.output
+*.syntex.gz
+*.toc
+main.aux
