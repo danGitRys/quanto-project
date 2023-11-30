@@ -29,16 +29,16 @@ class PostTestClass(TestCase):
         self.assertEqual(successStatus, False)
     
     def test_assignmentPost(self):
-         url = reverse('createAssignment')  # Assuming the URL pattern name is 'my_view'
+         url = reverse('createTeam')  # Assuming the URL pattern name is 'my_view'
          data = {
                 "name":"test5",
                 "info":"test2"
                 }
-         response = self.client.get(url, data, content_type='application/json')
+         response = self.client.post(url, data, content_type='application/json')
          self.assertEqual(response.status_code, 200)
          request_data = json.loads(response.content)
          successStatus = request_data["success"]
-         self.assertEqual(successStatus, False)
+         self.assertEqual(successStatus, True)
        
     
     
