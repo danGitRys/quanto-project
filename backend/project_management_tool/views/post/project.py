@@ -1,7 +1,7 @@
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from ..models import Project
-from ..middleware import validator
+from ...models import Project
+from ...middleware import validator
 import json
 
 @csrf_exempt
