@@ -1,30 +1,27 @@
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from ..models import Booking
-from ..middleware import validator
+from ...models import Forecast
+from ...middleware import validator
 import json
 
 @csrf_exempt
-def createBooking(request)->JsonResponse:
-    """Enpoint for creating a Booking in the database
+def createForecast(request)->JsonResponse:
+    """Endpoint to create a Forecast Entry in the Database
 
     Parameters
     ----------
     request : request
-        Get or Post request
+        post request
 
     Returns
     -------
     JsonResponse
-        Json Containing Results if Booking creation was successfull
+        Json Containing Information about insertion Process
     """
     if request.method == 'POST':
         try:
             request_data = json.loads(request.body)
-            is_validResult = validator.booking(request_data)
-            is_valid = is_validResult["valid"]
-            errors = is_validResult["errors"]
-            print(errors)
+            is_valid = True
 
             if is_valid:
                
@@ -32,14 +29,12 @@ def createBooking(request)->JsonResponse:
                 new_fk_position = request_data["fk_position"]
                 new_start = request_data["start"]
                 new_end = request_data["end"]
-                new_pause = request_data["pause"]
-                new_time = request_data["time"]
-                newBooking = Booking(fk_employee=new_fk_employee,fK_position=new_fk_position,start=new_start,end=new_end,pause=new_pause,time=new_time)
-                newBooking.save()
-
+                new_info = request_data["info"]
+                newForecast = Forecast(fk_employee=new_fk_employee,fk_position=new_fk_position,start=new_start,end=new_end,info=new_info)
+                newForecast.save()
                 response_data = {
                     "success": True,
-                    "message": "Booking created successfully.",
+                    "message": "Forecast created successfully.",
                 }
             else:
                 response_data = {
