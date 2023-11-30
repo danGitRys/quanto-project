@@ -9,9 +9,11 @@ urlpatterns = [
     path('getEmployee', employee.getEmployee),
     path('login', login),
 
+    path('team',createTeam,name="createTeam"),
+    path('createAssignment',createAssignment, name='createAssignment'),
+    
 
-    path('team', createTeam),
-    path('createAssignment', createAssignment),
+    
     path('employee', createEmployee),
     path('booking', createBooking),
     path('forecast', createForecast),
