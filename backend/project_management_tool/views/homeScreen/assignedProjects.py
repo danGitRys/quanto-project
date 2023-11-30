@@ -14,7 +14,7 @@ def getAssignedProjects(request,id: int)->JsonResponse:
                 }
     
     if request.method == 'GET':
-       pass
+       
        projects = assignedProjects(id)
        jsonList = projects.toJsonTotal()
        print(jsonList)

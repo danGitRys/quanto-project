@@ -8,11 +8,11 @@ class assignedProjects:
         #TODO implement
         cursor = connection.cursor()
         cursor.execute('''SELECT 
-project.id,project.p_id,project.name,project.company,project.start_date,project.end_date,project.fk_creator,project.creation_date, 
-assignment.id,assignment.fk_project,assignment.fk_employee,assignment.role
-FROM project
-JOIN assignment ON project.id = assignment.fk_project
-WHERE assignment.fk_employee = %s''',[self.parameter])
+                        project.id,project.p_id,project.name,project.company,project.start_date,project.end_date,project.fk_creator,project.creation_date, 
+                        assignment.id,assignment.fk_project,assignment.fk_employee,assignment.role
+                        FROM project
+                        JOIN assignment ON project.id = assignment.fk_project
+                        WHERE assignment.fk_employee = %s''',[self.parameter])
         result = cursor.fetchall()
         print(result)
         # Convert the result to a list of dictionaries
@@ -21,7 +21,7 @@ WHERE assignment.fk_employee = %s''',[self.parameter])
         return result
 
     def toJsonTotal(self)->list:
-        #TODO implement
+
         dbResult = self.executeQuery()
         result_list = [{'project_id': row[0],
                         'project_pid':row[1],
