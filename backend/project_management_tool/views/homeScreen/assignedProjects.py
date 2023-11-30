@@ -10,7 +10,7 @@ import json
 def getAssignedProjects(request,id: int)->JsonResponse:
     response_data = {
                     "success": False,
-                    "message": "Error Invalid Method",
+                    "message": "Test Error",
                 }
     
     if request.method == 'GET':
