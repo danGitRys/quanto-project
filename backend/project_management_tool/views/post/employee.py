@@ -5,7 +5,6 @@ from ...models import Employee
 import json
 from ...jsonTemplate import *
 from ...middleware import *
-
 @csrf_exempt
 def getEmployee(request)->JsonResponse:
         """Function to get all Employees in the database

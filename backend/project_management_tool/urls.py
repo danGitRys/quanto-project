@@ -1,5 +1,6 @@
 from django.urls import path
 from .views import *
+from .views.time.getTime import getTime
 
 urlpatterns = [
     path('', viewstemp.hello_world, name="home"),
@@ -18,6 +19,7 @@ urlpatterns = [
     path('booking', createBooking),
     path('forecast', createForecast),
     path('project', createProject),
+    path('currentTime',getTime),
     path('deleteAssignment/<int:assignment_id>', deleteAssignment),
     path('deleteBooking/<int:id>', deleteBooking),
     path('deleteEmployee/<int:id>', deleteEmployee),
