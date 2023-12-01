@@ -23,7 +23,7 @@ def getTeam(request, id:int) -> JsonResponse:
         JSON with Data of the Project
     """
     response_data = {
-        "success": True,
+        "success": False,
         "message": "",
     }
     if request.method == 'GET':

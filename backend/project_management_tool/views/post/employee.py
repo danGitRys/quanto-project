@@ -1,12 +1,10 @@
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
-from ..models import Employee
-from ..middleware import jsonValidation
+from ...models import Employee
 import json
-from ..jsonTemplate import *
-from ..middleware import *
-
+from ...jsonTemplate import *
+from ...middleware import *
 @csrf_exempt
 def getEmployee(request)->JsonResponse:
         """Function to get all Employees in the database
