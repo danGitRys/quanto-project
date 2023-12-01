@@ -12,7 +12,7 @@ import dataTable from "@/components/DataTable.vue"
 import getTeam from "@/components/demo/getTeamComponent.vue"
 import ManageProject from "@/views/ManageProject.vue";
 
-
+import singleProject from "@/components/SingleProject.vue"
 
 const routes = [
   {
@@ -85,6 +85,11 @@ const routes = [
     path: "/getTeam/:id",
     name: "getTeam",
     component: getTeam,
+  },
+  {
+    path: "/project/:id",
+    name: "project",
+    component: singleProject,
   }
 ];
 
