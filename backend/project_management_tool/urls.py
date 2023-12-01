@@ -35,6 +35,9 @@ urlpatterns = [
     path('getBooking/<int:id>', getBooking),
     path('getAssignment/<int:id>', getAssignment),
     path('assignedProjects/<int:id>', getAssignedProjects),
+    path('getPositionsToProjectId/<int:id>', getPositionsToProjectId),
+    path('getEmployeesToProjectId/<int:id>', getEmployeesToProjectId)
+
 
 
 ]
