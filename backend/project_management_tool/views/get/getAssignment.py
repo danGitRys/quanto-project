@@ -1,41 +1,40 @@
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import get_object_or_404
-from ...models import Forecast
+from ...models import Assignment
 from ...middleware import validator
 import json
 
 
 @csrf_exempt
-def getForecast(request, id: int) -> JsonResponse:
-    """ Endpoint for getting Forecast out of the Database
+def getAssignment(request, id: int) -> JsonResponse:
+    """ Endpoint for getting Assignment Data out of the Database
     Parameters
     ----------
     request : request
         Get Request
     id : int
-         describe the path for dynamic routing 
-
+        describe the path for dynamic routing 
     Returns
     -------
     JsonResponse
         if success = True 
-        JSON with Data of the Forecast
+        JSON with Data of the Assignment Entry
     """
     response_data = {
         "success": True,
         "message": "",
     }
     if request.method == 'GET':
-        idExists: bool = Forecast.objects.filter(id=id).exists()
+        idExists: bool = Assignment.objects.filter(id=id).exists()
         if idExists:
-            forecast = get_object_or_404(Forecast, id=id)
-            forecastJson = forecast.toJson()
+            assignment = get_object_or_404(Assignment, id=id)
+            assignmentJson = assignment.toJson()
             response_data["success"] = True
-            response_data["data"] = forecastJson
+            response_data["data"] = assignmentJson
         else:
             response_data["success"] = False
-            response_data["message"] = "No  Forecast with this Id"
+            response_data["message"] = "No Booking Entry with this Id"
     else:
         response_data["success"] = False
         response_data["message"] = "Invalid Method"

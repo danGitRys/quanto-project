@@ -1,14 +1,14 @@
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import get_object_or_404
-from ...models import Forecast
+from ...models import Employee
 from ...middleware import validator
 import json
 
 
 @csrf_exempt
-def getForecast(request, id: int) -> JsonResponse:
-    """ Endpoint for getting Forecast out of the Database
+def getEmployee(request, id: int) -> JsonResponse:
+    """ Endpoint for getting Employee out of the Database
     Parameters
     ----------
     request : request
@@ -20,22 +20,22 @@ def getForecast(request, id: int) -> JsonResponse:
     -------
     JsonResponse
         if success = True 
-        JSON with Data of the Forecast
+        JSON with Data of the Employee
     """
     response_data = {
         "success": True,
         "message": "",
     }
     if request.method == 'GET':
-        idExists: bool = Forecast.objects.filter(id=id).exists()
+        idExists: bool = Employee.objects.filter(id=id).exists()
         if idExists:
-            forecast = get_object_or_404(Forecast, id=id)
-            forecastJson = forecast.toJson()
+            employee = get_object_or_404(Employee, id=id)
+            employeeJson = employee.toJson()
             response_data["success"] = True
-            response_data["data"] = forecastJson
+            response_data["data"] = employeeJson
         else:
             response_data["success"] = False
-            response_data["message"] = "No  Forecast with this Id"
+            response_data["message"] = "No Employee with this Id"
     else:
         response_data["success"] = False
         response_data["message"] = "Invalid Method"

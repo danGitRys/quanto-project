@@ -10,7 +10,7 @@
         <div class="input-container">
           <h3 class="input-label">Project Manager:</h3>
           <input v-model="projectManager" class="input-field small-input" type="text">
-          
+
         </div>
         <div class="input-container">
           <h3 class="input-label">Project Start Date:</h3>
@@ -20,12 +20,12 @@
           <h3 class="input-label">Project End Date:</h3>
           <input v-model="projectEndDate" class="input-field small-input" type="date">
         </div>
-        
+
       </div>
-      
+
       <div id="AddEmployee" class="container">
         <div class="input-container">
-          
+
           <h3 class="input-label">Add Employee:</h3>
           <div class="employeeSelectionContainer">
             <div id="autocomplete">
@@ -44,7 +44,7 @@
           <v-btn @click="addEmployee" class="submitBtn" variant="outlined">
             Add Employee
           </v-btn>
-        </div>            
+        </div>
       </div>
     </div>
     <div id="table" class="container">
@@ -60,7 +60,7 @@
         <tbody>
           <tr v-for="emp in selectedEmployeesList" :key="emp">
             <td>{{ emp }}</td>
-            
+
             <td>
               <v-dialog v-model="dialogVisible" ref="deleteDialog">
                       <template v-slot:activator="{ props }">
@@ -94,7 +94,7 @@
     </div>
 
   </div>
-  
+
 </template>
 
 <style scoped>
@@ -217,15 +217,15 @@
 import { employeeList } from '@/store/employeeList'
 
 
-// 
+//
 // Add Employee Variables / Refs
-// 
+//
 const selectedEmployee = ref('');
 const selectedEmployeesList = ref([]);
 
-// 
+//
 // Add Employee Functions
-// 
+//
 function addEmployee() {
     // Check if already in Array
     if (selectedEmployeesList.value.indexOf(selectedEmployee.value) == -1) { // indexOf returns -1 if it is not in the Array
