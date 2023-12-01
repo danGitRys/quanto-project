@@ -14,7 +14,7 @@ def getProject(request, id:int) -> JsonResponse:
     request : request
         Get Request
     id : int
-        _description_
+         describe the path for dynamic routing 
 
     Returns
     -------
