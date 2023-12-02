@@ -60,7 +60,7 @@ import { getBaseTransformPreset } from '@vue/compiler-core';
 
 
 export default {
-    
+
     data() {
         return {
             company:'',
@@ -80,10 +80,10 @@ export default {
         getProject(){
             console.log("test")
             axios.get("http://localhost:8000/getProject/"+this.$route.params.id,{
-           
+
         }).then(response => {
             console.log(response)
-            
+
             var responseData = response.data
             var valid = responseData.success
             if(valid==true){
@@ -97,27 +97,27 @@ export default {
                 this.project_end = tempData["end_date"],
                 this.project_creator = tempData["fk_creator"]
                 this.proejct_creationDate = tempData["creation_date"]
-           
+
             }
             else{
                 alert("This Team doesnt exist")
             }
-           
-            
+
+
         })
         .catch(error=> {
             console.log(error)
-            
+
         })
         },
 
         getPositonsToProject(){
             console.log("test")
             axios.get("http://localhost:8000/getPositionsToProjectId/"+this.$route.params.id,{
-           
+
         }).then(response => {
             console.log(response)
-            
+
             var responseData = response.data
             var valid = responseData.success
             if(valid==true){
@@ -140,28 +140,28 @@ export default {
                     }
                     this.positonList.push(tempEntry)
                 }
-                
-           
+
+
             }
             else{
                 alert("This Team doesnt exist")
             }
-           
-            
+
+
         })
         .catch(error=> {
             console.log(error)
-            
+
         })
         },
 
         getEmployeesToProject(){
             console.log("test")
             axios.get("http://localhost:8000/getEmployeesToProjectId/"+this.$route.params.id,{
-           
+
         }).then(response => {
             console.log(response)
-            
+
             var responseData = response.data
             var valid = responseData.success
             if(valid==true){
@@ -184,18 +184,18 @@ export default {
                     }
                     this.positonList.push(tempEntry)
                 }
-                
-           
+
+
             }
             else{
                 alert("This Team doesnt exist")
             }
-           
-            
+
+
         })
         .catch(error=> {
             console.log(error)
-            
+
         })
         },
 
