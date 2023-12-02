@@ -5,13 +5,16 @@
       <div class="container">
 
   <div class="projectNameContainer">
+      
             <label for="dropdownProjectName">Project Name:</label>
             <select v-model="selectedProjectName" name="test" id="dropdownProjectName">
-              <option disabled value="">Select a Project Name</option>
-              <!-- Dynamische Werte kommen aus dem Store app.js -->
-              <option v-for="(option, index) in optionsData" :value="index" :key="index">{{ option }}</option>
+              <option v-for="(project, index) in projectArray" :value="projec" :key="index">{{ project }}</option>
             </select>
+           
           </div>
+          
+
+          // HIER WEITER MACHEN GLEICH WIE OBEN 
 
           <div class="projectPositionContainer">
             <label for="dropdownProjectPosition">Project Position:</label>
@@ -51,20 +54,76 @@
       </div>
     </div>
 
+    
+    
+
   </div>
 </template>
 
+
+
 <script setup>
-import { ref } from 'vue';
+import { onBeforeMount, reactive, ref} from 'vue';
 import { useAppStore } from '@/store/app';
 import { projectPosition } from '@/store/projectPostion';
 import axios from "axios"
 
-const selectedProjectName = ref('');
+let projectArray = ref([]);
+let positionArray = ref([]);
+
+const appStore = useAppStore();
+const startTime = ref('');
+const breakTime = ref('');
+const endTime = ref('');
+
+const selectedProjectName = ref('')
 const selectedProjectPosition = ref('');
 
+const projectPos = projectPosition();
+// Daten aus dem Store zum Dynamischen hinzufügen der Dropdowns
+
+
 // Initialisierung mit dem aktuellen Datum im gewünschten Format
-const date = ref(getFormattedDate()); 
+const date = ref(getFormattedDate());
+
+
+
+
+
+
+
+
+
+onBeforeMount(() => {
+getProjectsFromBackend();
+getPositionsFromBackend();
+
+})
+
+async function getProjectsFromBackend() {
+  const response = await axios.get("http://localhost:8000/getProject/7");
+  // .project ergänzen wenn mehrere Projekte 
+  projectArray.value = response.data.data;
+  console.log("Array", projectArray.value)
+
+  console.log(response.data.data)
+  console.log("wirst du aufgerufen");
+}
+
+async function getPositionsFromBackend(){
+  const response = await axios.get("http://localhost:8000/getProject/7");
+  // .project ergänzen wenn mehrere Projekte 
+  positionArray.value = response.data.data;
+
+
+  console.log(response.data.data)
+  console.log("Postion Backend Aufrug");
+
+}
+
+
+
+
 
 function getFormattedDate() {
   const today = new Date();
@@ -80,33 +139,23 @@ function getFormattedDate() {
   return `${year}-${formattedMonth}-${formattedDay}`;
 }
 
-//const date = ref('');
-const startTime = ref('');
-const breakTime = ref('');
-const endTime = ref('');
-const appStore = useAppStore();
-const projectPos = projectPosition();
-// Daten aus dem Store zum Dynamischen hinzufügen der Dropdowns
-const optionsData = appStore.names;
-const optionsData2 = projectPos.names;
+
+
+
+
 
 
 function sendDatatoBackend() {
-  // Abrufen des Inhaltes des DropDown Menüs da V-Model nicht auf Option Tags möglich ist  
-  const indexValueProjectName = selectedProjectName.value;
-  const selectedProjectNameValue = optionsData[indexValueProjectName];
-  console.log(selectedProjectNameValue);
+   const selectedProjectIndex = selectedProjectName.value;
+   const selectedProject = projectArray.value[selectedProjectIndex]
+   console.log(selectedProjectIndex)
+   console.log(selectedProject)
+   console.log("Hello World")
 
-  const indexValueProjectPosition = selectedProjectPosition.value;
-  const selectedProjectPositionValue = optionsData2[indexValueProjectPosition];
 
-   console.log(startTime.value);
    // Datum werden in richtiges Format umgewandelt für die Datenbank
    const startDate = `${date.value}` + " " + `${startTime.value+":00"}`
    const endDate = `${date.value}` + " " + `${endTime.value + ":00"}`
-  
-   console.log(startDate)
-   console.log(endDate)
 
 const data = {
   "fk_employee": 2,
@@ -141,6 +190,8 @@ console.log(data)
 
 }
 </script>
+
+
 
 <style scoped>
 #datePicker,
