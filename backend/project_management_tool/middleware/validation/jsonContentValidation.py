@@ -116,7 +116,58 @@ class jsonContentValidator:
                     }
         
 
+ # Validations for Project
+    def project(jsonData: json) -> bool:
+        project_name = jsonData["project_name"]
+        project_description = jsonData["project_description"]
+        project_name_valid: bool = checkExDB.project_name_unique(project_name)
+      
+
+        if project_name_valid:
+            return {
+                "valid": True,
+                "errors": []
+            }
+        else:
+            return {
+                "valid": False,
+                "errors": ["Project name must be unique"]
+            }
+
+    # Validations for Employee
+    def employee(jsonData: json) -> bool:
+        employee_name = jsonData["employee_name"]
+        employee_email = jsonData["employee_email"]
+        employee_email_valid: bool = checkExDB.employee_email_unique(employee_email)
         
+        if employee_email_valid:
+            return {
+                "valid": True,
+                "errors": []
+            }
+        else:
+            return {
+                "valid": False,
+                "errors": ["Employee email must be unique"]
+            }
+
+    # Validations for Forecast
+    def forecast(jsonData: json) -> bool:
+        forecast_date = jsonData["forecast_date"]
+        forecast_value = jsonData["forecast_value"]
+        forecast_valid: bool = otherValidation.validate_forecast_data(forecast_date, forecast_value)
+      
+
+        if forecast_valid:
+            return {
+                "valid": True,
+                "errors": []
+            }
+        else:
+            return {
+                "valid": False,
+                "errors": ["Invalid forecast data"]
+            }       
 
 
 
