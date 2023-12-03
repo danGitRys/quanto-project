@@ -66,7 +66,7 @@ import { onBeforeMount, reactive, ref} from 'vue';
 //import { projectPosition } from '@/store/projectPostion';
 import axios from "axios"
 
-let projectArray = ref([]);
+let projectArray = [];
 let positionArray = ref([]);
 
 //const appStore = useAppStore();
@@ -79,7 +79,10 @@ const selectedProjectPosition = ref('');
 
 // Initialisierung mit dem aktuellen Datum im gewünschten Format
 const date = ref(getFormattedDate());
-
+let project = {
+  name: [],
+  id: [],
+}
 
 
 
@@ -102,13 +105,27 @@ async function getProjectsFromBackend() {
   const url = `http://localhost:8000/testInnerJoin/${employee_id}`;
  
   const response = await axios.get(url);
-  console.log(response.data.projects)
+  let respArray = response.data.projects;
+  console.log(respArray);
+  respArray.forEach(element => {
+    console.log("HELLO WORDLLDDDLDL " + element.name)
+    projectArray.push(element.name);
+  });
+
+  for (let i = 0; i < respArray.length; i++){
+    project.name[i] = respArray[i].name;
+    project.id[i] = respArray[i].id;
+    console.log("Springst du hier rein")
+    console.log("HEY " + project.name)
+  }
+  
+  console.log(response.data.projects.name)
   console.log(response.data.projects)
   
 
   // .project ergänzen wenn mehrere Projekte 
 
-  projectArray.value = response.data.projects;
+ // projectArray.value = response.data.projects;
 
   console.log("wirst du aufgerufen");
 }
