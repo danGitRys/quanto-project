@@ -85,27 +85,34 @@
 
 .custom-search-input {
   position: relative;
-  width: 200px; /* oder die gewünschte Breite */
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
 }
 
 .custom-search-input input {
-  border: 1px solid #ccc; /* Hellgrauer Rand */
+  box-sizing: border-box;
+  width: 100%;
+  border: 1px solid #ccc;
   border-radius: 4px;
-  padding-left: 30px; /* Platz für das Icon */
+  padding-left: 30px;
 }
 
 .custom-search-input .pi-search {
   position: absolute;
-  left: 10px;
+  left: 50px;
   top: 50%;
   transform: translateY(-50%);
-  color: #666; /* Farbe des Icons */
-  font-size: 16px; /* Größe des Icons */
+  color: #666;
+  font-size: 16px;
 }
 
 .custom-search-input .p-inputtext {
-  padding-left: 25px; /* Platz für das Icon im Input-Text */
+  padding-left: 25px;
+  padding-right: 25px;
 }
+
+
 </style>
 
 <script setup>
@@ -188,3 +195,7 @@ const getCustomers = (data) => {
   });
 };
 </script>
+
+
+
+
