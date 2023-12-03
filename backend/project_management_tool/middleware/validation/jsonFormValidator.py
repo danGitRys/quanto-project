@@ -241,3 +241,28 @@ class formValidator:
             return False
         return True
     
+    def position(jsonData:json)->bool:
+       
+        positionSchema = {
+            "type": "object",
+            "properties": {
+                "position_id": {"type": "string"},
+                "fk_project": {"type": "integer"},
+                "rate": {"type": "integer"},
+                "wd": {"type": "integer"},
+                "volume_total": {"type": "integer"},
+                "volume_remaining": {"type": "integer"},
+                "start_date": {"type": "string"},
+                "end_date": {"type": "string"},
+                
+               
+            },
+            # Specify required keys
+            "required": ["position_id","fk_project","rate","volume_total","start_date","end_date"],
+        }
+        try:
+            validate(instance=jsonData, schema=positionSchema)
+        except jsonschema.exceptions.ValidationError as err:
+            return False
+        return True
+    

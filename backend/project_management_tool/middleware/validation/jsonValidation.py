@@ -75,4 +75,9 @@ class validator:
                     "valid":False,
                     "errors":["Invalid Json Form"]
                 }
-        
+    
+    def position(jsondata:json)->json:
+        if(formValidator.position(jsondata)):
+            return True
+        else:
+            return False
