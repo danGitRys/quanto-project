@@ -10,16 +10,16 @@ urlpatterns = [
     path('getEmployee', employee.getEmployee),
     path('login', login),
 
-    path('team',createTeam,name="createTeam"),
-    path('createAssignment',createAssignment, name='createAssignment'),
-    
+    path('team', createTeam, name="createTeam"),
+    path('createAssignment', createAssignment, name='createAssignment'),
 
-    
+
+
     path('employee', createEmployee),
     path('booking', createBooking),
     path('forecast', createForecast),
     path('project', createProject),
-    path('currentTime',getTime),
+    path('currentTime', getTime),
     path('deleteAssignment/<int:assignment_id>', deleteAssignment),
     path('deleteBooking/<int:id>', deleteBooking),
     path('deleteEmployee/<int:id>', deleteEmployee),
@@ -36,8 +36,8 @@ urlpatterns = [
     path('getAssignment/<int:id>', getAssignment),
     path('assignedProjects/<int:id>', getAssignedProjects),
     path('getPositionsToProjectId/<int:id>', getPositionsToProjectId),
-    path('getEmployeesToProjectId/<int:id>', getEmployeesToProjectId)
-
+    path('getEmployeesToProjectId/<int:id>', getEmployeesToProjectId),
+    path('testInnerJoin/<int:id>', testInnerJoin)
 
 
 ]

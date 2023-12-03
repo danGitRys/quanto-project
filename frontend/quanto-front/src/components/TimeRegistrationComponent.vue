@@ -7,21 +7,19 @@
   <div class="projectNameContainer">
       
             <label for="dropdownProjectName">Project Name:</label>
-            <select v-model="selectedProjectName" name="test" id="dropdownProjectName">
-              <option v-for="(project, index) in projectArray" :value="projec" :key="index">{{ project }}</option>
+            <select v-model="selectedProjectName" @change="loadPositions" id="dropdownProjectName">
+              <option disabled value="">Select a Project</option>
+              <option v-for="(project, index) in projectArray" :value="project" :key="index">{{ project }}</option>
             </select>
            
           </div>
-          
-
-          // HIER WEITER MACHEN GLEICH WIE OBEN 
 
           <div class="projectPositionContainer">
             <label for="dropdownProjectPosition">Project Position:</label>
             <select v-model="selectedProjectPosition" id="dropdownProjectPosition">
               <option disabled value="">Select a Project Positon</option>
               <!-- Dynamische Werte kommen aus dem Store projectPosition.js -->
-              <option v-for="(option, index) in optionsData2" :value="index" :key="index">{{ option }}</option>
+              //<option v-for="(position, index) in positionArray" :value="index" :key="index">{{ position }}</option>
             </select>
           </div>
 
@@ -64,24 +62,20 @@
 
 <script setup>
 import { onBeforeMount, reactive, ref} from 'vue';
-import { useAppStore } from '@/store/app';
-import { projectPosition } from '@/store/projectPostion';
+//import { useAppStore } from '@/store/app';
+//import { projectPosition } from '@/store/projectPostion';
 import axios from "axios"
 
 let projectArray = ref([]);
 let positionArray = ref([]);
 
-const appStore = useAppStore();
+//const appStore = useAppStore();
 const startTime = ref('');
 const breakTime = ref('');
 const endTime = ref('');
 
 const selectedProjectName = ref('')
 const selectedProjectPosition = ref('');
-
-const projectPos = projectPosition();
-// Daten aus dem Store zum Dynamischen hinzufügen der Dropdowns
-
 
 // Initialisierung mit dem aktuellen Datum im gewünschten Format
 const date = ref(getFormattedDate());
@@ -90,7 +84,11 @@ const date = ref(getFormattedDate());
 
 
 
-
+async function loadPositions(){
+  console.log("Folgende Positionen")
+  console.log(selectedProjectName.value)
+ 
+}
 
 
 
@@ -99,18 +97,26 @@ getProjectsFromBackend();
 getPositionsFromBackend();
 
 })
-
+let employee_id = 1002;
 async function getProjectsFromBackend() {
-  const response = await axios.get("http://localhost:8000/getProject/7");
-  // .project ergänzen wenn mehrere Projekte 
-  projectArray.value = response.data.data;
-  console.log("Array", projectArray.value)
+  const url = `http://localhost:8000/testInnerJoin/${employee_id}`;
+ 
+  const response = await axios.get(url);
+  console.log(response.data.projects)
+  console.log(response.data.projects)
+  
 
-  console.log(response.data.data)
+  // .project ergänzen wenn mehrere Projekte 
+
+  projectArray.value = response.data.projects;
+
   console.log("wirst du aufgerufen");
 }
 
 async function getPositionsFromBackend(){
+  
+
+
   const response = await axios.get("http://localhost:8000/getProject/7");
   // .project ergänzen wenn mehrere Projekte 
   positionArray.value = response.data.data;
