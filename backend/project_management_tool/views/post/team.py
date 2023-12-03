@@ -1,12 +1,12 @@
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from ..models import Forecast
-from ..middleware import validator
+from ...models import Team
+from ...middleware import validator
 import json
 
 @csrf_exempt
-def createForecast(request)->JsonResponse:
-    """Endpoint to create a Forecast Entry in the Database
+def createTeam(request)->JsonResponse:
+    """Endpoint for creating a Team in the Database
 
     Parameters
     ----------
@@ -16,25 +16,22 @@ def createForecast(request)->JsonResponse:
     Returns
     -------
     JsonResponse
-        Json Containing Information about insertion Process
+        Json Containing Information about Insertion Process
     """
     if request.method == 'POST':
         try:
             request_data = json.loads(request.body)
-            is_valid = validator.forecast(request_data)
+            is_valid = validator.team(request_data)
 
             if is_valid:
-               
-                new_fk_employee = request_data["fk_employee"]
-                new_fk_position = request_data["fk_position"]
-                new_start = request_data["start"]
-                new_end = request_data["end"]
-                new_info = request_data["info"]
-                newForecast = Forecast(fk_employee=new_fk_employee,fk_position=new_fk_position,start=new_start,end=new_end,info=new_info)
+                new_team_name = request_data["name"]
+                new_team_info = request_data["info"]
+                new_team = Team(name=new_team_name, info=new_team_info)
+                new_team.save()
 
                 response_data = {
                     "success": True,
-                    "message": "Forecast created successfully.",
+                    "message": "Team created successfully.",
                 }
             else:
                 response_data = {

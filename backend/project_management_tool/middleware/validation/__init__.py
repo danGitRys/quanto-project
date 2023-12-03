@@ -5,3 +5,5 @@ from .dateValidator import *
 from .mailValidation import *
 from .enumValidation import *
 from .otherValidaton import *
+from .jsonUpateConentValidation import *
+from .jsonUpdateFormValidation import *

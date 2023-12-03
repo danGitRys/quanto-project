@@ -1,266 +1,125 @@
+
 <template>
-  <div class="container">
-    <div class="header">
-      <h1 class="header-title">Projects</h1>
-      <input v-model="searchQuery" class="search-input" placeholder="Search">
-
-    </div>
-
-    <v-date-table :items="projects"></v-date-table>
-
-
-  <!--   <table class="project-table">
-      <thead>
-        <tr>
-          <th>NAME</th>
-          <th>LEADER Quanto </th>
-          <th>PROJECT END</th>
-          <th>ROLE</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="project of projects">
-          <td>
-            <span>{{ project.title }}</span>
-          </td>
-          <td>
-            <span>{{ project.leader }}</span>
-          </td>
-
-          <td>
-            <strong>{{ project.endDate }}</strong>
-          </td>
-
-          <td>
-            <strong>{{ project.role }}</strong>
-          </td>
-        </tr>
-        <tr>
-
-          <td><span>Extra small</span></td>
-          <td><strong>xs</strong></td>
-          <td><strong>xs</strong></td>
-          <td>600</td>
-        </tr>
-
-        <tr>
-          <td><span>Extra small</span></td>
-          <td><strong>xs</strong></td>
-          <td><strong>xs</strong></td>
-          <td>600</td>
-        </tr>
-
-        <tr>
-          <td><span>Extra small</span></td>
-          <td><strong>xs</strong></td>
-          <td><strong>xs</strong></td>
-          <td>600</td>
-        </tr>
-
-        <tr>
-          <td><span>Extra small</span></td>
-          <td><strong>xs</strong></td>
-          <td><strong>xs</strong></td>
-          <td>600</td>
-        </tr>
-
-        <tr>
-          <td><span>Extra small</span></td>
-          <td><strong>xs</strong></td>
-          <td><strong>xs</strong></td>
-          <td>600</td>
-        </tr>
-
-        <tr>
-          <td><span>Extra small</span></td>
-          <td><strong>xs</strong></td>
-          <td><strong>xs</strong></td>
-          <td>600</td>
-        </tr>
-
-        <tr>
-          <td><span>Extra small</span></td>
-          <td><strong>xs</strong></td>
-          <td><strong>xs</strong></td>
-          <td>600</td>
-        </tr>
-
-        <tr>
-          <td><span>Extra small</span></td>
-          <td><strong>xs</strong></td>
-          <td><strong>xs</strong></td>
-          <td>600</td>
-        </tr>
-      </tbody>
-    </table> -->
-
-
-
-
-    <div class="pagination">
-      <button @click="previousPage" :disabled="currentPage === 1">Previous</button>
-      <span>{{ currentPage }}</span>
-      <button @click="nextPage" :disabled="currentPage === totalPages">Next</button>
-      <span v-if="currentPage < totalPages" class="next-pages">
-        ... {{ currentPage + 1 }} {{ currentPage + 2 }} {{ currentPage + 3 }} ...
-      </span>
-
-    </div>
+  <div class="card">
+      <DataTable v-model:filters="filters" v-model:selection="selectedCustomer" :value="customers"
+              stateStorage="session" stateKey="dt-state-demo-session" paginator :rows="5" filterDisplay="menu"
+              selectionMode="single" dataKey="id" :globalFilterFields="['name', 'country.name', 'representative.name', 'status']" tableStyle="min-width: 50rem">
+          <template #header>
+              <span class="p-input-icon-left">
+                  <i class="pi pi-search" />
+                  <InputText v-model="filters['global'].value" placeholder="Global Search" />
+              </span>
+          </template>
+          <Column field="name" header="Name" sortable style="width: 25%">
+              <template #filter="{ filterModel }">
+                  <InputText v-model="filterModel.value" type="text" class="p-column-filter" placeholder="Search by name" />
+              </template>
+          </Column>
+          <Column header="Country" sortable sortField="country.name" filterField="country.name" filterMatchMode="contains" style="width: 25%">
+              <template #body="{ data }">
+                  <div class="flex align-items-center gap-2">
+                      <img alt="flag" src="https://primefaces.org/cdn/primevue/images/flag/flag_placeholder.png" :class="`flag flag-${data.country.code}`" style="width: 24px" />
+                      <span>{{ data.country.name }}</span>
+                  </div>
+              </template>
+              <template #filter="{ filterModel }">
+                  <InputText v-model="filterModel.value" type="text" class="p-column-filter" placeholder="Search by country" />
+              </template>
+          </Column>
+          <Column header="Representative" sortable sortField="representative.name" filterField="representative" :showFilterMatchModes="false" :filterMenuStyle="{ width: '14rem' }" style="width: 25%">
+              <template #body="{ data }">
+                  <div class="flex align-items-center gap-2">
+                      <img :alt="data.representative.name" :src="`https://primefaces.org/cdn/primevue/images/avatar/${data.representative.image}`" style="width: 32px" />
+                      <span>{{ data.representative.name }}</span>
+                  </div>
+              </template>
+              <template #filter="{ filterModel }">
+                  <MultiSelect v-model="filterModel.value" :options="representatives" optionLabel="name" placeholder="Any" class="p-column-filter">
+                      <template #option="slotProps">
+                          <div class="flex align-items-center gap-2">
+                              <img :alt="slotProps.option.name" :src="`https://primefaces.org/cdn/primevue/images/avatar/${slotProps.option.image}`" style="width: 32px" />
+                              <span>{{ slotProps.option.name }}</span>
+                          </div>
+                      </template>
+                  </MultiSelect>
+              </template>
+          </Column>
+          <Column field="status" header="Status" sortable filterMatchMode="equals" style="width: 25%">
+              <template #body="{ data }">
+                  <Tag :value="data.status" :severity="getSeverity(data.status)" />
+              </template>
+              <template #filter="{ filterModel }">
+                  <Dropdown v-model="filterModel.value" :options="statuses" placeholder="Select One" class="p-column-filter" showClear>
+                      <template #option="slotProps">
+                          <Tag :value="slotProps.option" :severity="getSeverity(slotProps.option)" />
+                      </template>
+                  </Dropdown>
+              </template>
+          </Column>
+          <template #empty> No customers found. </template>
+      </DataTable>
   </div>
 </template>
 
-
-
-
-
-<style scoped>
-.container {
-  background-color: lightgray;
-  border-radius: 10px;
-  padding: 20px;
-  margin-top: 100px;
-  margin-bottom: 100px;
-  margin-left: 100px;
-  margin-right: 100px;
-}
-
-.header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 0;
-  border-bottom: 2px solid #ccc;
-}
-
-.header-title {
-  font-size: 24px;
-  color: #0056b3;
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-}
-
-.project-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-thead tr {
-  background-color: #f0f0f0;
-}
-
-th {
-  padding: 10px 20px;
-  text-align: left;
-}
-
-tbody tr:nth-child(even) {
-  background-color: #f9f9f9;
-}
-
-td {
-  padding: 10px 20px;
-}
-
-span {
-  font-size: 14px;
-  color: #333;
-}
-
-strong {
-  font-weight: bold;
-  color: #0056b3;
-}
-
-.search-input {
-  padding: 5px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  outline: none;
-  font-size: 14px;
-  width: 200px;
-}
-
-.pagination {
-  display: flex;
-  justify-content: center;
-
-  margin-top: 10px;
-  margin-right: 10px;
-  text-align: center;
-}
-
-.pagination button {
-  padding: 10px 20px;
-  background-color: #0056b3;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  margin: 0 10px;
-  cursor: pointer;
-}
-
-.pagination button:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
-}
-
-.pagination span {
-  font-size: 16px;
-  margin: 0 10px;
-}
-
-.next-pages {
-  font-size: 16px;
-  color: #0056b3;
-}
-</style>
-
-<script setup>
-  import { VDataTable } from 'vuetify/labs/VDataTable';
-</script>
-
 <script>
+//import { CustomerService } from '@/service/CustomerService';
+import { FilterMatchMode, FilterOperator } from 'primevue/api';
+
 export default {
   data() {
-    return {
-      searchQuery: '',
-      currentPage: 1,
-      totalPages: 3,
-      projects:[
-        {
-          title: "Projekt A",
-          leader: "Chris",
-          endDate: "14.11.23",
-          role:"SD"
-        },
-        {
-          title: "Projekt B",
-          leader: "Michele",
-          endDate: "15.11.23"
-        },
-        {
-          title: "Projekt c",
-          endDate: "16.11.23"
-        }
-
-      ]
-    };
+      return {
+          customers: null,
+          selectedCustomer: null,
+          filters: null,
+          representatives: [
+              { name: 'Amy Elsner', image: 'amyelsner.png' },
+              { name: 'Anna Fali', image: 'annafali.png' },
+              { name: 'Asiya Javayant', image: 'asiyajavayant.png' },
+              { name: 'Bernardo Dominic', image: 'bernardodominic.png' },
+              { name: 'Elwin Sharvill', image: 'elwinsharvill.png' },
+              { name: 'Ioni Bowcher', image: 'ionibowcher.png' },
+              { name: 'Ivan Magalhaes', image: 'ivanmagalhaes.png' },
+              { name: 'Onyama Limba', image: 'onyamalimba.png' },
+              { name: 'Stephen Shaw', image: 'stephenshaw.png' },
+              { name: 'XuXue Feng', image: 'xuxuefeng.png' }
+          ],
+          statuses: ['unqualified', 'qualified', 'new', 'negotiation', 'renewal', 'proposal']
+      };
   },
-
+  created() {
+      this.initFilters();
+  },
+  mounted() {
+      CustomerService.getCustomersSmall().then((data) => (this.customers = data));
+  },
   methods: {
-    previousPage() {
-      if (this.currentPage > 1) {
-        this.currentPage--;
-      }
-    },
-    nextPage() {
-      if (this.currentPage < this.totalPages) {
-        this.currentPage++;
-      }
-    },
-  },
+      initFilters() {
+          this.filters = {
+              global: { value: null, matchMode: FilterMatchMode.CONTAINS },
+              name: { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.STARTS_WITH }] },
+              'country.name': { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.STARTS_WITH }] },
+              representative: { value: null, matchMode: FilterMatchMode.IN },
+              status: { operator: FilterOperator.OR, constraints: [{ value: null, matchMode: FilterMatchMode.EQUALS }] }
+          };
+      },
+      getSeverity(status) {
+          switch (status) {
+              case 'unqualified':
+                  return 'danger';
 
+              case 'qualified':
+                  return 'success';
 
+              case 'new':
+                  return 'info';
+
+              case 'negotiation':
+                  return 'warning';
+
+              case 'renewal':
+                  return null;
+          }
+      }
+  }
 };
-
 </script>
-

@@ -1,11 +1,16 @@
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from ..models import Assignment
-from ..middleware import validator
+from django.shortcuts import get_object_or_404
+from ...models import Assignment
+from ...middleware import validator
 import json
 
 @csrf_exempt
 def createAssignment(request)->JsonResponse:
+    response_data = {
+                    "success": False,
+                    "message": "Error.",
+                }
     """Enpoint for creating an Assignment in the database
 
     Parameters
@@ -49,10 +54,9 @@ def createAssignment(request)->JsonResponse:
                 "success": False,
                 "error": "Invalid JSON format.",
             }
-    else:
-        response_data = {
-            "success": False,
-            "error": "Invalid HTTP method. Only POST is allowed.",
-        }
+    
+    
+   
+
 
     return JsonResponse(response_data)
