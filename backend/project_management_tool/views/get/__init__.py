@@ -10,3 +10,4 @@ from .getEmployee import *
 from .getBooking import *
 from .getAssignment import *
 from .testInnerJoin import *
+from .getPositionsOfProjectOfEmployee import*

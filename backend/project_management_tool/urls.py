@@ -37,7 +37,7 @@ urlpatterns = [
     path('assignedProjects/<int:id>', getAssignedProjects),
     path('getPositionsToProjectId/<int:id>', getPositionsToProjectId),
     path('getEmployeesToProjectId/<int:id>', getEmployeesToProjectId),
-    path('testInnerJoin/<int:id>', testInnerJoin)
-
+    path('testInnerJoin/<int:id>', testInnerJoin),
+    path('getPositionsOfProjectOfEmployee', getPositionsOfProjectOfEmployee),
 
 ]

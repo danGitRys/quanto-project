@@ -66,7 +66,7 @@ import { onBeforeMount, reactive, ref} from 'vue';
 //import { projectPosition } from '@/store/projectPostion';
 import axios from "axios"
 
-let projectArray = [];
+let projectArray = ref([]);
 let positionArray = ref([]);
 
 //const appStore = useAppStore();
@@ -87,17 +87,23 @@ let project = {
 
 
 
-async function loadPositions(){
-  console.log("Folgende Positionen")
-  console.log(selectedProjectName.value)
- 
+async function loadPositions() {
+  project.name.forEach((element, index) => {
+    if (element === selectedProjectName.value){
+      console.log("Gefunden", project.id[index])
+      const fk_project = project.id[index]
+      getPositionsFromBackend(fk_project)
+
+    }
+    // Hier sollten Sie Ihren Code platzieren, der für jedes Element in project.name ausgeführt werden soll.
+  });
 }
+
 
 
 
 onBeforeMount(() => {
 getProjectsFromBackend();
-getPositionsFromBackend();
 
 })
 let employee_id = 1002;
@@ -107,9 +113,8 @@ async function getProjectsFromBackend() {
   const response = await axios.get(url);
   let respArray = response.data.projects;
   console.log(respArray);
-  respArray.forEach(element => {
-    console.log("HELLO WORDLLDDDLDL " + element.name)
-    projectArray.push(element.name);
+  respArray.forEach((element,index) => {
+    projectArray.value[index] = element.name;
   });
 
   for (let i = 0; i < respArray.length; i++){
@@ -130,13 +135,12 @@ async function getProjectsFromBackend() {
   console.log("wirst du aufgerufen");
 }
 
-async function getPositionsFromBackend(){
+async function getPositionsFromBackend(fk_project){
   
+  const url = "http://localhost:8000/getPositionsOfProjectOfEmployee"
+  const response = await axios.get(url)
+  console.log(response.data.positions[0].position_id)
 
-
-  const response = await axios.get("http://localhost:8000/getProject/7");
-  // .project ergänzen wenn mehrere Projekte 
-  positionArray.value = response.data.data;
 
 
   console.log(response.data.data)

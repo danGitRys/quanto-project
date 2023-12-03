@@ -25,7 +25,7 @@ def testInnerJoin(request, id) -> JsonResponse:
             # Fetch the results
             result = [{"name": row[0], "id": row[1]}
                       for row in cursor.fetchall()]
-
+            
         # Process 'result' and return JsonResponse
         return JsonResponse({"projects": result})
     else:
