@@ -16,10 +16,10 @@
 
           <div class="projectPositionContainer">
             <label for="dropdownProjectPosition">Project Position:</label>
-            <select v-model="selectedProjectPosition" id="dropdownProjectPosition">
+            <select v-model="selectedProjectPosition" @change="selectedPostion" id="dropdownProjectPosition">
               <option disabled value="">Select a Project Positon</option>
               <!-- Dynamische Werte kommen aus dem Store projectPosition.js -->
-              //<option v-for="(position, index) in positionArray" :value="index" :key="index">{{ position }}</option>
+              //<option v-for="(position, index) in positionArray" :value="position" :key="index">{{ position }}</option>
             </select>
           </div>
 
@@ -79,13 +79,30 @@ const selectedProjectPosition = ref('');
 
 // Initialisierung mit dem aktuellen Datum im gewünschten Format
 const date = ref(getFormattedDate());
+
 let project = {
   name: [],
   id: [],
 }
 
+let position = {
+  name:[],
+  id:[],
+}
 
+let posID = "";
+function selectedPostion(){
+  console.log("AUFRUGF")
+  console.log(selectedProjectPosition.value)
+  position.name.forEach((element, index) => {
+    if(element === selectedProjectPosition.value){
+    posID = position.id[index];
+    
+    }
 
+  })
+
+}
 
 async function loadPositions() {
   positionArray.value = [];
@@ -107,7 +124,11 @@ onBeforeMount(() => {
 getProjectsFromBackend();
 
 })
+
+// EMPLPOYEE AKTUELL NOCH HARDGECODET 
+
 let employee_id = 8;
+
 async function getProjectsFromBackend() {
   const url = `http://localhost:8000/testInnerJoin/${employee_id}`;
  
@@ -148,6 +169,9 @@ async function getPositionsFromBackend(fk_project){
   let resPositionArray = response.data.positions;
   resPositionArray.forEach((element,index) =>{
     positionArray.value[index] = element.position_id;
+
+    position.name[index] = element.position_id;
+    position.id[index] = element.id;
   })
 
 
@@ -183,10 +207,10 @@ function getFormattedDate() {
 
 
 function sendDatatoBackend() {
-   const selectedProjectIndex = selectedProjectName.value;
-   const selectedProject = projectArray.value[selectedProjectIndex]
-   console.log(selectedProjectIndex)
-   console.log(selectedProject)
+   //const selectedProjectIndex = selectedProjectName.value;
+  // const selectedProject = projectArray.value[selectedProjectIndex]
+   //console.log(selectedProjectIndex)
+   //console.log(selectedProject)
    console.log("Hello World")
 
 
@@ -196,7 +220,7 @@ function sendDatatoBackend() {
 
 const data = {
   "fk_employee": 2,
-  "fk_position": 8,
+  "fk_position": posID,
   "start": startDate,
   "end": endDate,
   "pause": breakTime.value
@@ -205,7 +229,7 @@ const data = {
 console.log(data)
 
 
-   if (date.value == '' || startTime.value == '' || breakTime.value == '' || endTime.value == '' || selectedProjectNameValue == undefined || selectedProjectPositionValue == undefined) {
+   if (date.value == '' || startTime.value == '' || breakTime.value == '' || endTime.value == '' || selectedProjectName.value == undefined || selectedProjectPosition.value == undefined) {
      alert("Please fill out all fields");
    }
    else {

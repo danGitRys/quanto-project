@@ -16,14 +16,14 @@ def getPositionsOfProjectOfEmployee(request,id) -> JsonResponse:
         with connection.cursor() as cursor:
             # SQL statement with a placeholder for employee_id
             sql_statement = """
-                SELECT position.position_id FROM position
+                SELECT position.position_id, position.id FROM position
                 INNER JOIN assignment ON position.fk_project = assignment.fk_project
                 WHERE fk_employee = 8 AND position.fk_project = %s;
 
             """
             cursor.execute(sql_statement, [id])
             # Fetch the results
-            result = [{"position_id": row[0]} for row in cursor.fetchall()]
+            result = [{"position_id": row[0], "id": row[1]} for row in cursor.fetchall()]
 
         # Process 'result' and return JsonResponse
         return JsonResponse({"positions": result})
