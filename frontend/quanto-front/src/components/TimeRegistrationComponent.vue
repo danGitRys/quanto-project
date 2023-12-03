@@ -88,6 +88,7 @@ let project = {
 
 
 async function loadPositions() {
+  positionArray.value = [];
   project.name.forEach((element, index) => {
     if (element === selectedProjectName.value){
       console.log("Gefunden", project.id[index])
@@ -106,7 +107,7 @@ onBeforeMount(() => {
 getProjectsFromBackend();
 
 })
-let employee_id = 1002;
+let employee_id = 8;
 async function getProjectsFromBackend() {
   const url = `http://localhost:8000/testInnerJoin/${employee_id}`;
  
@@ -137,9 +138,18 @@ async function getProjectsFromBackend() {
 
 async function getPositionsFromBackend(fk_project){
   
-  const url = "http://localhost:8000/getPositionsOfProjectOfEmployee"
+  const url = `http://localhost:8000/getPositionsOfProjectOfEmployee/${fk_project}`
+  console.log(url)
   const response = await axios.get(url)
+  console.log(response);
+
   console.log(response.data.positions[0].position_id)
+
+  let resPositionArray = response.data.positions;
+  resPositionArray.forEach((element,index) =>{
+    positionArray.value[index] = element.position_id;
+  })
+
 
 
 

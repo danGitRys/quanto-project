@@ -38,6 +38,6 @@ urlpatterns = [
     path('getPositionsToProjectId/<int:id>', getPositionsToProjectId),
     path('getEmployeesToProjectId/<int:id>', getEmployeesToProjectId),
     path('testInnerJoin/<int:id>', testInnerJoin),
-    path('getPositionsOfProjectOfEmployee', getPositionsOfProjectOfEmployee),
+    path('getPositionsOfProjectOfEmployee/<int:id>',getPositionsOfProjectOfEmployee),
 
 ]

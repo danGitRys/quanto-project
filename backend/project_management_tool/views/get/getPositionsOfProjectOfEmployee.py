@@ -7,7 +7,7 @@ import json
 
 
 @csrf_exempt
-def getPositionsOfProjectOfEmployee(request) -> JsonResponse:
+def getPositionsOfProjectOfEmployee(request,id) -> JsonResponse:
     # Check if the request method is POST
     if request.method == "GET":
         print("Hello World")
@@ -18,10 +18,10 @@ def getPositionsOfProjectOfEmployee(request) -> JsonResponse:
             sql_statement = """
                 SELECT position.position_id FROM position
                 INNER JOIN assignment ON position.fk_project = assignment.fk_project
-                WHERE fk_employee = 8 AND position.fk_project = 9;
+                WHERE fk_employee = 8 AND position.fk_project = %s;
 
             """
-            cursor.execute(sql_statement)
+            cursor.execute(sql_statement, [id])
             # Fetch the results
             result = [{"position_id": row[0]} for row in cursor.fetchall()]
 
