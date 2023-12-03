@@ -12,8 +12,10 @@ def createPositon(request):
         try:
             request_data = json.loads(request.body)
             is_valid = validator.position(request_data)
+            valid = is_valid["valid"]
+            print(is_valid)
 
-            if is_valid:
+            if valid:
                
                 new_position_id = request_data["position_id"]
                 new_fk_project = request_data["fk_project"]
