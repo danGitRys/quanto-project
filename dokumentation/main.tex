@@ -7,6 +7,9 @@
 \usepackage{listings}
 \geometry{top=2.5cm, bottom=2cm}
 \usepackage{multirow}
+\usepackage{titlesec}
+
+\setcounter{secnumdepth}{4}
 
 
 \begin{document}
@@ -487,6 +490,25 @@ Times)
     [dbo].[team] ([id])
 );
         \end{lstlisting}
+
+In der Tabelle Employee werden die Mitarbeiter der Firma gespeichert die sowohl Projekten zugeordnert werden können, als auch diese administieren.
+\paragraph{Id}
+Bei der Id handelt es sich um den Primärschlüssel der Tabelle welcher zugleich ein Autoinkrement-Schlüssel ist, und dazu dient einen Employee eindeutig
+zu identifzieren.
+
+\paragraph{emp\_id} Die emp\_id ist eine Id welche einem Mitarbeiter zur Identifizierung zugeordnert wird. Bei dieser kann es sich um eine exisitierende aus dem Unternehmen handeln
+oder auch eine neu implementierte Identifizierungsvariante handeln. Diese sollte dabei nicht mit der id Spalte in dieser Tabelle verwechselt werden.
+
+\paragraph{forename,surname und phone} Bei diesen Spalten handelt es sich bei dem Vornamen und Nachname um erforderliche Informationen und bei der Telefonnummer
+um eine optionale Informationen.
+
+\paragraph{mail} Der Mail-Adresse des Employees kommt eine besondere Wichtigkeit zu, da diese hinsichtlich des Logins mit SAP-BTP entscheidend ist. Die Mail Adresse sollte
+hierbei die gleiche sein, die auch in SAP verwendet wird, da die Zuordnung zwischen SAP und Datenbank über diese erfolgt. In Konsequenz davon sollten die Mail Adressen in der Datenbank einzigartig sein, da doppelte Mail Addressen zu Konflikten führen.
+
+
+
+
+
 \subsubsection{Team}
 \begin{lstlisting}[language=Sql, caption= Create Table Statement für Team Table]
     CREATE TABLE [dbo].[team] (

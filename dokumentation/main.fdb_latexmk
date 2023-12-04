@@ -1,14 +1,14 @@
 # Fdb version 4
-["bibtex main"] 1701712304 "main.aux" "main.bbl" "main" 1701712306 0
+["bibtex main"] 1701724797 "main.aux" "main.bbl" "main" 1701725090 0
   "./quellen.bib" 1701613071 548 b84460ad9f5deb2137917fbf30eb208a ""
   "C:/Users/Daniel/AppData/Local/Programs/MiKTeX/bibtex/bst/ieeetran/IEEEtran.bst" 1440622569 57748 7c8250ecf02814ce6ddc0cdbb63df1dd ""
-  "main.aux" 1701712306 12442 b131268926353919a0710100552811e1 "pdflatex"
+  "main.aux" 1701725090 12937 a68a30379422bd7827a93d8d3c0e2bb9 "pdflatex"
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["pdflatex"] 1701712304 "c:/Users/Daniel/Documents/quanto/quanto-project/dokumentation/main.tex" "main.pdf" "main" 1701712306 0
-  "C:/Users/Daniel/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1701711975 82507 a9eef8696c92627b87e9975edea03b2a ""
+["pdflatex"] 1701725089 "c:/Users/Daniel/Documents/quanto/quanto-project/dokumentation/main.tex" "main.pdf" "main" 1701725090 0
+  "C:/Users/Daniel/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1701723098 82507 a9eef8696c92627b87e9975edea03b2a ""
   "C:/Users/Daniel/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1701338860 24213704 f4e28d737ddd3f24ac0b25ee426a74b5 ""
   "C:/Users/Daniel/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc" 1458473887 4993 80dc9bab7f31fb78a000ccfed0e27cab ""
   "C:/Users/Daniel/AppData/Local/Programs/MiKTeX/fonts/tfm/adobe/helvetic/phvb7t.tfm" 1136768654 2240 eb56c13537f4d8a0bd3fafc25572b1bd ""
@@ -81,8 +81,9 @@
   "C:/Users/Daniel/AppData/Local/Programs/MiKTeX/tex/latex/psnfss/ts1phv.fd" 1585253778 1221 ec0c641cd2e0fb69a449534a0279b5ca ""
   "C:/Users/Daniel/AppData/Local/Programs/MiKTeX/tex/latex/refcount/refcount.sty" 1576433952 9878 9e94e8fa600d95f9c7731bb21dfb67a4 ""
   "C:/Users/Daniel/AppData/Local/Programs/MiKTeX/tex/latex/rerunfilecheck/rerunfilecheck.sty" 1657800696 9714 ba3194bd52c8499b3f1e3eb91d409670 ""
+  "C:/Users/Daniel/AppData/Local/Programs/MiKTeX/tex/latex/titlesec/titlesec.sty" 1699094857 48766 0b93839be28e9744a24c45075c75b2e2 ""
   "C:/Users/Daniel/AppData/Local/Programs/MiKTeX/tex/latex/url/url.sty" 1388490452 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
-  "c:/Users/Daniel/Documents/quanto/quanto-project/dokumentation/main.tex" 1701712302 40894 bc71373a3c1a71c882e4a5619adba1ce ""
+  "c:/Users/Daniel/Documents/quanto/quanto-project/dokumentation/main.tex" 1701725088 42262 5d0541c0b41d3a544e79bc59320aeb7f ""
   "images/GitHub.png" 1701613071 108751 a8267e122d04420ad2b7375dfeb0d70e ""
   "images/Home.png" 1701613071 65553 72c8eb7771875604158c25e8e23984c4 ""
   "images/Login.png" 1701613071 40383 542b43234ed4ad489cc3e7c240817973 ""
@@ -103,12 +104,12 @@
   "images/datenbankphysisches-Layout.png" 1701613071 26719 1c5076c803a14a6d81336bf4289ad56d ""
   "images/logischeAnsicht.png" 1701613071 97329 1ca72831ce740c6bb3d10716a07b399b ""
   "images/odbc.png" 1701613071 155472 40a76c5e8e82b06ebe104593ff11d5e5 ""
-  "main.aux" 1701712306 12442 b131268926353919a0710100552811e1 "pdflatex"
-  "main.bbl" 1701712304 1552 38ad1aa5bf843aba1b8f01119f721787 "bibtex main"
-  "main.lof" 1701712306 1788 50a50ab6a5cc7c2114dc4346aea912c8 "pdflatex"
-  "main.out" 1701712306 9084 de18b9904f22f0a2f88fe74a9c1cf923 "pdflatex"
-  "main.tex" 1701712302 40894 bc71373a3c1a71c882e4a5619adba1ce ""
-  "main.toc" 1701712306 4922 52bd286e2ea80a2442ee10b14fef48f8 "pdflatex"
+  "main.aux" 1701725090 12937 a68a30379422bd7827a93d8d3c0e2bb9 "pdflatex"
+  "main.bbl" 1701724797 1552 38ad1aa5bf843aba1b8f01119f721787 "bibtex main"
+  "main.lof" 1701725090 1788 731bef13c3e124c81dd3733f9b71b212 "pdflatex"
+  "main.out" 1701725090 9084 de18b9904f22f0a2f88fe74a9c1cf923 "pdflatex"
+  "main.tex" 1701725088 42262 5d0541c0b41d3a544e79bc59320aeb7f ""
+  "main.toc" 1701725090 5253 e73472bf8f4cbff1d15c416b09b7950f "pdflatex"
   (generated)
   "main.aux"
   "main.lof"
