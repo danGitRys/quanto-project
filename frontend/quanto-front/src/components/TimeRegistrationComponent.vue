@@ -157,6 +157,8 @@ async function getProjectsFromBackend() {
   console.log("wirst du aufgerufen");
 }
 
+// HIER MUSS NOCH DIE EMPPYEE ID MIT ÜBERGEBEN WERDEN IN DER URL 
+
 async function getPositionsFromBackend(fk_project){
   
   const url = `http://localhost:8000/getPositionsOfProjectOfEmployee/${fk_project}`

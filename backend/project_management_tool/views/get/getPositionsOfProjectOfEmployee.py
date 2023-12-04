@@ -14,10 +14,12 @@ def getPositionsOfProjectOfEmployee(request,id) -> JsonResponse:
         # Decode JSON data from the request body
 
         with connection.cursor() as cursor:
-            # SQL statement with a placeholder for employee_id
+            
+            # DIE 8 MUSS NOCH ERSETZT WERDEN DURCH EMPLOYEE_ID, PFAD MUSS AUCH NOCH ANGEPASST WERDEN 2xint
             sql_statement = """
                 SELECT position.position_id, position.id FROM position
                 INNER JOIN assignment ON position.fk_project = assignment.fk_project
+                
                 WHERE fk_employee = 8 AND position.fk_project = %s;
 
             """
