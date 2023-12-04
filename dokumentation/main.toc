@@ -42,6 +42,8 @@
 \contentsline {paragraph}{\numberline {8.1.1.2}emp\_id}{24}{paragraph.8.1.1.2}%
 \contentsline {paragraph}{\numberline {8.1.1.3}forename,surname und phone}{25}{paragraph.8.1.1.3}%
 \contentsline {paragraph}{\numberline {8.1.1.4}mail}{25}{paragraph.8.1.1.4}%
+\contentsline {paragraph}{\numberline {8.1.1.5}fk\_team\_id}{25}{paragraph.8.1.1.5}%
+\contentsline {paragraph}{\numberline {8.1.1.6}team\_roll}{25}{paragraph.8.1.1.6}%
 \contentsline {subsubsection}{\numberline {8.1.2}Team}{25}{subsubsection.8.1.2}%
 \contentsline {subsubsection}{\numberline {8.1.3}Project}{25}{subsubsection.8.1.3}%
 \contentsline {subsubsection}{\numberline {8.1.4}Position}{25}{subsubsection.8.1.4}%

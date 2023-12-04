@@ -277,10 +277,9 @@ Vorteile unsere Vorgehensweise mit Jira
           hat.
     \item Jira fördert die Echtzeitkommunikation und den Austausch von Kommentaren zu
           Aufgaben und Anforderungen, was die Zusammenarbeit und den reibungslosen
-          Informationsfluss im Team unterstützt. \item Die umfassende Rückverfolgbarkeit
-          von Anforderungen, Aufgaben und Problemen in Jira ist von großer Bedeutung in
-          der Softwareentwicklung, um sicherzustellen, dass alle Anforderungen
-          vollständig und termingerecht erfüllt werden.
+          Informationsfluss im Team unterstützt. \item Die umfassende Rückverfolgbarkeit von Anforderungen, Aufgaben und Problemen in
+          Jira ist von großer Bedeutung in der Softwareentwicklung, um sicherzustellen,
+          dass alle Anforderungen vollständig und termingerecht erfüllt werden.
 \end{enumerate}
 
 \newpage
@@ -491,23 +490,34 @@ Times)
 );
         \end{lstlisting}
 
-In der Tabelle Employee werden die Mitarbeiter der Firma gespeichert die sowohl Projekten zugeordnert werden können, als auch diese administieren.
+In der Tabelle Employee werden die Mitarbeiter der Firma gespeichert die sowohl
+Projekten zugeordnert werden können, als auch diese administieren.
 \paragraph{Id}
-Bei der Id handelt es sich um den Primärschlüssel der Tabelle welcher zugleich ein Autoinkrement-Schlüssel ist, und dazu dient einen Employee eindeutig
-zu identifzieren.
+Bei der Id handelt es sich um den Primärschlüssel der Tabelle welcher zugleich
+ein Autoinkrement-Schlüssel ist, und dazu dient einen Employee eindeutig zu
+identifzieren.
 
-\paragraph{emp\_id} Die emp\_id ist eine Id welche einem Mitarbeiter zur Identifizierung zugeordnert wird. Bei dieser kann es sich um eine exisitierende aus dem Unternehmen handeln
-oder auch eine neu implementierte Identifizierungsvariante handeln. Diese sollte dabei nicht mit der id Spalte in dieser Tabelle verwechselt werden.
+\paragraph{emp\_id} Die emp\_id ist eine Id welche einem Mitarbeiter zur Identifizierung
+zugeordnert wird. Bei dieser kann es sich um eine exisitierende aus dem
+Unternehmen handeln oder auch eine neu implementierte Identifizierungsvariante
+handeln. Diese sollte dabei nicht mit der id Spalte in dieser Tabelle
+verwechselt werden.
 
-\paragraph{forename,surname und phone} Bei diesen Spalten handelt es sich bei dem Vornamen und Nachname um erforderliche Informationen und bei der Telefonnummer
-um eine optionale Informationen.
+\paragraph{forename,surname und phone} Bei diesen Spalten handelt es sich bei dem Vornamen und Nachname um
+erforderliche Informationen und bei der Telefonnummer um eine optionale
+Informationen.
 
-\paragraph{mail} Der Mail-Adresse des Employees kommt eine besondere Wichtigkeit zu, da diese hinsichtlich des Logins mit SAP-BTP entscheidend ist. Die Mail Adresse sollte
-hierbei die gleiche sein, die auch in SAP verwendet wird, da die Zuordnung zwischen SAP und Datenbank über diese erfolgt. In Konsequenz davon sollten die Mail Adressen in der Datenbank einzigartig sein, da doppelte Mail Addressen zu Konflikten führen.
+\paragraph{mail} Der Mail-Adresse des Employees kommt eine besondere Wichtigkeit zu, da diese
+hinsichtlich des Logins mit SAP-BTP entscheidend ist. Die Mail Adresse sollte
+hierbei die gleiche sein, die auch in SAP verwendet wird, da die Zuordnung
+zwischen SAP und Datenbank über diese erfolgt. In Konsequenz davon sollten die
+Mail Adressen in der Datenbank einzigartig sein, da doppelte Mail Addressen zu
+Konflikten führen werden.
 
+\paragraph{fk\_team\_id} Bei dem fk\_team\_id handelt es sich um einen Foreign Key mit Bezug auf den Team Table. Durch die Implementierung des Foreign Keys an
+dieser Stelle kann ein Employee zu einem Zeitpunkt, nur einem Team zugeordnert sein.
 
-
-
+\paragraph{team\_roll}Ein Employee hat in einem Projekt eine Rolle. Diese kann sein "Team-Leader" oder "Member".
 
 \subsubsection{Team}
 \begin{lstlisting}[language=Sql, caption= Create Table Statement für Team Table]
