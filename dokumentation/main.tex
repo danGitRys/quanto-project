@@ -240,18 +240,30 @@ Um diese Probleme zu lösen, wurden wir beauftragt, eine Projektmanagement-Softw
 \newpage
 
 \section{Mockup}
+\subsection{LoginScreen}
+
+    Über den Login-Screen kann der Nutzer sich mit seinem SAP-BTP Account anmelden. Es gibt 2 Eingabefelder, dass eine frägt nach der E-Mail Adresse des Nutzer das andere nach dem Passwort.
+    Wenn der Login erfolgreich war wird der Nutzer auf den Homescreen weitergeleitet. Falls nicht kommt ein Alert mit der Nachricht "Invalid Login" (siehe Abbildung 8).
+
 
         \begin{figure}[h]
             \includegraphics[height= 0.5\textwidth,width= \textwidth]{images/Login.png}
             \caption{Login-Ansicht}
             \label{fig:beispiel}
         \end{figure}
+
+\subsection{Homescreen}
+Nach dem Login wird man zum Homescreen (siehe Abbildung 9) weitergeleitet.  Auf dem Homescreen werden alle Projekte angezeigt, in denen man involviert ist, sowie die jeweiligen Rollen in dem Projekt. Wenn man ein Projekt auswählt, in dem man Projektleiter ist, ändert sich die Sidebar und man bekommt mehr Zugriffsrechte und somit tiefere Einblicke in das Projekt. Dabei sieht die Sidebar je nach Rolle unterschiedlich aus. Der Manager, Projektleiter und Mitarbeiter haben jeweils unterschiedliche Zugriffsrechte. Um die Ansichten zu wechseln, kann man die Sidebar oder auch die orangen Pfeile benutzen. Die Rollen des Managers, Projektleiters und des Mitarbeiters sehen im Homescreen den Projektnamen, den Projektleiter des Projektes sowie das Datum des Projektendes. Der Projektleiter und der Mitarbeiter sehen dazu noch die Rolle, die ihnen in den Projekten zugeteilt wurde. Während der Manager das Budget eines Projektes sieht, welches mit Hilfe der einzelnen Position der Mitarbeiter sowie den Personentagen errechnet wird.
+
          \begin{figure}[h]
             \includegraphics[height= 0.5\textwidth,width= \textwidth]{images/Home.png}
             \caption{Home-Ansicht}
             \label{fig:beispiel}
         \end{figure}
-        
+
+\newpage
+\subsection{New Project}
+Über die Eingabemaske New Project kann der Manager ein ganz neues Projekt anlegen. Alle Eingaben erfolgen über ein Eingabefeld. In der Maske kann er alle Daten, die für ein Projekt relevant sind, eingeben, die da wären: Projektnamen, Kunden-Namen, Projektleiter hinzufügen, Projektstart und  Projektende. (Abbildung 24). Wenn er auf den “Add Employee” Button drückt, wird er auf die nächste Ansicht weitergeleitet. (Abbildung 10). In dieser Ansicht kann der Manager nun verschiedene Positionen händisch hinzufügen. Da diese von Projekt zu Projekt variieren können. Den jeweiligen Positionen kann er auch einen Tagessatz hinzufügen. Um einem Mitarbeiter die Positionen zuordnen zu können, wählt er zuerst einen Mitarbeiter aus, dann klickt er auf die Positionen, die er dem Mitarbeiter hinzufügen will, diese werden farblich hinterlegt. Dann kann er auf “Add Positions” klicken und die Positionen landen in der unteren Tabelle rechts neben dem Mitarbeiter. Wenn der Manager alle Positionen hinzugefügt hat, kann er auf “Submit” drücken und er landet wieder auf dem ersten Screen. Dort werden ihm nun nochmal alle Mitarbeiter angezeigt, die er zu einem Projekt hinzugefügt hat. Nun kann er auf den “Create” Button klicken und das Projekt wird erstellt. (Abbildung 11)
 
 \newpage
          \begin{figure}[h]
@@ -260,18 +272,25 @@ Um diese Probleme zu lösen, wurden wir beauftragt, eine Projektmanagement-Softw
             \label{fig:beispiel}
         \end{figure}
 
-         \begin{figure}[h]
-            \includegraphics[height= 0.5\textwidth,width= \textwidth]{images/Manage Project.png}
-            \caption{Manage-Project-Ansicht}
-            \label{fig:beispiel}
-        \end{figure}
-        
-\newpage
-         \begin{figure}[h]
+        \begin{figure}[h]
             \includegraphics[height= 0.5\textwidth,width= \textwidth]{images/Positionen einfügen.png}
             \caption{Position-Einfügen Ansicht}
             \label{fig:beispiel}
         \end{figure}
+      
+        \subsection{Manage Project}
+        In  der Ansicht “Manage Project” wird ein ausgewähltes Projekt in einem Kalender angezeigt. Diesen kann man je nach Wahl auf wöchentlich, monatlich oder auch jährlich setzen und auch durch das Dropdown-Menü ein anderes Projekt auswählen. In dem Kalender werden die Mitarbeiter auf Stunden-Ebene angezeigt. Auf der rechten Seite kann man neue Positionen erstellen. Dazu gibt man das Datum ein, wählt einen Mitarbeiter aus, die Position z.B. Senior Developer, die Start- und Endzeit und eine Beschreibung. Nach der Wahl des Mitarbeiters wird im "Free Time Slot” die noch freie Zeit des Mitarbeiters an diesem bestimmten Tag angezeigt. Auf der linken Seite werden die dann neu erstellten Positionen angezeigt. Dabei steht der Name des Mitarbeiters, die Position und die Zeit, die er noch übrig hat für das Projekt, in das er eingeteilt wurde. (Abbildung 11)
+
+        \begin{figure}[h]
+            \includegraphics[height= 0.5\textwidth,width= \textwidth]{images/ManageProject1.png}
+            \caption{Manage-Project-Ansicht}
+            \label{fig:beispiel}
+        \end{figure}
+         
+        \newpage
+               
+
+         
 
          \begin{figure}[h]
             \includegraphics[height= 0.5\textwidth,width= \textwidth]{images/Sidebar.png}
