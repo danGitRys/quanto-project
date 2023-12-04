@@ -240,8 +240,9 @@ console.log(data)
       .then(response => {
         // Erfolgreiche Antwort vom Server
         console.log(response.data);
-        if (response.data['success'] == true) {
-        window.location.href = '/Home';
+        // true
+        if (response.data['success']) {
+        alert("Booking sucessfull")
       }
 
       })

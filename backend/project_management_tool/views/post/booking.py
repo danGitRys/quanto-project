@@ -26,9 +26,10 @@ def createBooking(request) -> JsonResponse:
             is_valid = is_validResult["valid"]
             errors = is_validResult["errors"]
             print(errors)
+            print(is_valid)
 
             if is_valid:
-
+                
                 new_fk_employee = request_data["fk_employee"]
                 new_fk_position = request_data["fk_position"]
                 new_start = request_data["start"]

@@ -16,7 +16,7 @@ urlpatterns = [
 
 
     path('employee', createEmployee),
-    path('booking', createBooking),
+    path('createBooking', createBooking),
     path('forecast', createForecast),
     path('project', createProject),
     path('currentTime', getTime),
