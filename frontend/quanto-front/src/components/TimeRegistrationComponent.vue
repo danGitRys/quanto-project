@@ -1,29 +1,31 @@
-// füllen von ProjectName and Position mit dynamisch Daten vom Backend
 <template>
   <div class="allContainer">
     <div class="mainContainer">
       <div class="container">
 
+<!--Project DropDown Menu-->
   <div class="projectNameContainer">
-      
             <label for="dropdownProjectName">Project Name:</label>
+            <!--loadPosition get called every Time a entry of the DropDown get picked-->
             <select v-model="selectedProjectName" @change="loadPositions" id="dropdownProjectName">
               <option disabled value="">Select a Project</option>
+              <!--Project DropDown Array get Filled Dynamically with Data from the Backend-->
               <option v-for="(project, index) in projectArray" :value="project" :key="index">{{ project }}</option>
             </select>
-           
           </div>
 
+
+          <!--Position DropDown Menu-->
           <div class="projectPositionContainer">
             <label for="dropdownProjectPosition">Project Position:</label>
             <select v-model="selectedProjectPosition" @change="selectedPostion" id="dropdownProjectPosition">
               <option disabled value="">Select a Project Positon</option>
-              <!-- Dynamische Werte kommen aus dem Store projectPosition.js -->
-              //<option v-for="(position, index) in positionArray" :value="position" :key="index">{{ position }}</option>
+               <!--Postion DropDown Array get Filled Dynamically with Data from the Backend-->
+             <option v-for="(position, index) in positionArray" :value="position" :key="index">{{ position }}</option>
             </select>
           </div>
 
-
+          <!--DatePicker-->
         <div class="pickDateContainer">
           <label for="datePicker"> Pick Date: </label>
           <input v-model="date" id="datePicker" type="date">
@@ -43,7 +45,7 @@
           <label for="endTimePicker"> End Time: </label>
           <input v-model="endTime" id="endTimePicker" type="time">
         </div>
-
+      <!--If the Button get clicked the data will get sended to the backend-->
         <div class="buttonContainer">
           <v-btn @click="sendDatatoBackend" id="submitBtn" variant="outlined">
             Submit
@@ -52,32 +54,25 @@
       </div>
     </div>
 
-    
-    
-
   </div>
 </template>
 
 
 
 <script setup>
-import { onBeforeMount, reactive, ref} from 'vue';
-//import { useAppStore } from '@/store/app';
-//import { projectPosition } from '@/store/projectPostion';
+import { onBeforeMount, ref} from 'vue';
 import axios from "axios"
 
+// 2 arrays that receive values from the backend and are dynamically filled
 let projectArray = ref([]);
 let positionArray = ref([]);
 
-//const appStore = useAppStore();
 const startTime = ref('');
 const breakTime = ref('');
 const endTime = ref('');
-
 const selectedProjectName = ref('')
 const selectedProjectPosition = ref('');
-
-// Initialisierung mit dem aktuellen Datum im gewünschten Format
+// calls function to get the current date
 const date = ref(getFormattedDate());
 
 let project = {
@@ -89,104 +84,69 @@ let position = {
   name:[],
   id:[],
 }
-
+// global variable used in the data object later
 let posID = "";
+
+// the function loops to my postion Object if it matched the selected Postion I get the posID of the selected Position
+// which I will need for the Backend call
 function selectedPostion(){
-  console.log("AUFRUGF")
-  console.log(selectedProjectPosition.value)
   position.name.forEach((element, index) => {
     if(element === selectedProjectPosition.value){
     posID = position.id[index];
-    
     }
-
   })
-
 }
+// the function loops to my project Object if it matched the selected Project I get the fk (forgein key) of the Project 
+// which I need for the backend call to get all Positions for the selected Project
 
 async function loadPositions() {
   positionArray.value = [];
   project.name.forEach((element, index) => {
     if (element === selectedProjectName.value){
-      console.log("Gefunden", project.id[index])
       const fk_project = project.id[index]
       getPositionsFromBackend(fk_project)
-
     }
-    // Hier sollten Sie Ihren Code platzieren, der für jedes Element in project.name ausgeführt werden soll.
   });
 }
-
-
-
-
+// get called before the Page is loaded I get all projects the employee is involved
 onBeforeMount(() => {
 getProjectsFromBackend();
-
 })
 
-// EMPLPOYEE AKTUELL NOCH HARDGECODET 
+// EMPLPOYEE AKTUELL NOCH HARDGECODET >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 let employee_id = 8;
-
+//function that get all Projects from the Backend from a specific employee
 async function getProjectsFromBackend() {
+  // employee_id give back all employees for this employee
   const url = `http://localhost:8000/testInnerJoin/${employee_id}`;
- 
+  // request send to backend
   const response = await axios.get(url);
+  // save the response in the Array
   let respArray = response.data.projects;
-  console.log(respArray);
+  // fill the projectArray with the data of the backend
   respArray.forEach((element,index) => {
     projectArray.value[index] = element.name;
   });
-
+  // fill the data of the backend into the project object 
   for (let i = 0; i < respArray.length; i++){
     project.name[i] = respArray[i].name;
     project.id[i] = respArray[i].id;
-    console.log("Springst du hier rein")
-    console.log("HEY " + project.name)
   }
-  
-  console.log(response.data.projects.name)
-  console.log(response.data.projects)
-  
-
-  // .project ergänzen wenn mehrere Projekte 
-
- // projectArray.value = response.data.projects;
-
-  console.log("wirst du aufgerufen");
 }
 
 // HIER MUSS NOCH DIE EMPPYEE ID MIT ÜBERGEBEN WERDEN IN DER URL 
 
 async function getPositionsFromBackend(fk_project){
-  
   const url = `http://localhost:8000/getPositionsOfProjectOfEmployee/${fk_project}`
-  console.log(url)
   const response = await axios.get(url)
-  console.log(response);
-
-  console.log(response.data.positions[0].position_id)
-
   let resPositionArray = response.data.positions;
   resPositionArray.forEach((element,index) =>{
     positionArray.value[index] = element.position_id;
-
     position.name[index] = element.position_id;
     position.id[index] = element.id;
   })
-
-
-
-
-  console.log(response.data.data)
-  console.log("Postion Backend Aufrug");
-
 }
-
-
-
-
 
 function getFormattedDate() {
   const today = new Date();
@@ -203,19 +163,7 @@ function getFormattedDate() {
 }
 
 
-
-
-
-
-
 function sendDatatoBackend() {
-   //const selectedProjectIndex = selectedProjectName.value;
-  // const selectedProject = projectArray.value[selectedProjectIndex]
-   //console.log(selectedProjectIndex)
-   //console.log(selectedProject)
-   console.log("Hello World")
-
-
    // Datum werden in richtiges Format umgewandelt für die Datenbank
    const startDate = `${date.value}` + " " + `${startTime.value+":00"}`
    const endDate = `${date.value}` + " " + `${endTime.value + ":00"}`
@@ -228,8 +176,6 @@ const data = {
   "pause": breakTime.value
   //"time": "15"
 }
-console.log(data)
-
 
    if (date.value == '' || startTime.value == '' || breakTime.value == '' || endTime.value == '' || selectedProjectName.value == undefined || selectedProjectPosition.value == undefined) {
      alert("Please fill out all fields");
