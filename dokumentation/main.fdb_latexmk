@@ -1,13 +1,13 @@
 # Fdb version 4
-["bibtex main"] 1701689735 "main.aux" "main.bbl" "main" 1701689739 0
+["bibtex main"] 1701690402 "main.aux" "main.bbl" "main" 1701690409 0
   "./quellen.bib" 1700260701 548 b84460ad9f5deb2137917fbf30eb208a ""
   "C:/Users/Chris/AppData/Local/Programs/MiKTeX/bibtex/bst/ieeetran/IEEEtran.bst" 1440622569 57748 7c8250ecf02814ce6ddc0cdbb63df1dd ""
-  "main.aux" 1701689738 12081 24eba42fbdfa2ed0b403c0842afa9372 "pdflatex"
+  "main.aux" 1701690408 12442 fa64b75a524be4bb65c8004d151ad22b "pdflatex"
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["pdflatex"] 1701689736 "c:/Users/Chris/Documents/quanto/quanto-project/dokumentation/main.tex" "main.pdf" "main" 1701689739 0
+["pdflatex"] 1701690405 "c:/Users/Chris/Documents/quanto/quanto-project/dokumentation/main.tex" "main.pdf" "main" 1701690409 0
   "C:/Users/Chris/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1701686151 82507 a9eef8696c92627b87e9975edea03b2a ""
   "C:/Users/Chris/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1701383434 24213273 63da7433ccbe3b6b9d9448607c422147 ""
   "C:/Users/Chris/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc" 1458473887 4993 80dc9bab7f31fb78a000ccfed0e27cab ""
@@ -82,7 +82,7 @@
   "C:/Users/Chris/AppData/Local/Programs/MiKTeX/tex/latex/refcount/refcount.sty" 1576433952 9878 9e94e8fa600d95f9c7731bb21dfb67a4 ""
   "C:/Users/Chris/AppData/Local/Programs/MiKTeX/tex/latex/rerunfilecheck/rerunfilecheck.sty" 1657800696 9714 ba3194bd52c8499b3f1e3eb91d409670 ""
   "C:/Users/Chris/AppData/Local/Programs/MiKTeX/tex/latex/url/url.sty" 1388490452 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
-  "c:/Users/Chris/Documents/quanto/quanto-project/dokumentation/main.tex" 1701689731 39818 ccfea9a5f9049742e65d3f7b399ca7a2 ""
+  "c:/Users/Chris/Documents/quanto/quanto-project/dokumentation/main.tex" 1701690404 41792 2f565feeba660c12c4fe3744f9f3c68e ""
   "images/GitHub.png" 1700260701 108751 a8267e122d04420ad2b7375dfeb0d70e ""
   "images/Home.png" 1700260701 65553 72c8eb7771875604158c25e8e23984c4 ""
   "images/Login.png" 1700260701 40383 542b43234ed4ad489cc3e7c240817973 ""
@@ -99,15 +99,16 @@
   "images/VS-Code.png" 1700260701 155649 6181231af37499ff2b931d25c3aca6fa ""
   "images/Verhaltenssicht.png" 1700260701 30122 1ec24e1d9b1c6bdca3d83e6bf8973658 ""
   "images/Verteilungssicht.png" 1700260701 36486 70c8ad020d4b636f213b06826b3a771a ""
+  "images/Working Times.png" 1700260701 27632 cc2ed519f48236d826888f3cd4778274 ""
   "images/datenbankphysisches-Layout.png" 1700260701 26719 1c5076c803a14a6d81336bf4289ad56d ""
   "images/logischeAnsicht.png" 1700260701 97329 1ca72831ce740c6bb3d10716a07b399b ""
   "images/odbc.png" 1700260701 155472 40a76c5e8e82b06ebe104593ff11d5e5 ""
-  "main.aux" 1701689738 12081 24eba42fbdfa2ed0b403c0842afa9372 "pdflatex"
-  "main.bbl" 1701689736 1552 38ad1aa5bf843aba1b8f01119f721787 "bibtex main"
-  "main.lof" 1701689738 1788 077681a8904d6392c4898161fdf7a48e "pdflatex"
-  "main.out" 1701689738 8719 35ca6bd576c4e1b4c4366a6891cc5435 "pdflatex"
-  "main.tex" 1701689731 39818 ccfea9a5f9049742e65d3f7b399ca7a2 ""
-  "main.toc" 1701689738 4684 7a81c8469a86d3701703095eb063f3ec "pdflatex"
+  "main.aux" 1701690408 12442 fa64b75a524be4bb65c8004d151ad22b "pdflatex"
+  "main.bbl" 1701690402 1552 38ad1aa5bf843aba1b8f01119f721787 "bibtex main"
+  "main.lof" 1701690408 1788 50a50ab6a5cc7c2114dc4346aea912c8 "pdflatex"
+  "main.out" 1701690408 9084 de18b9904f22f0a2f88fe74a9c1cf923 "pdflatex"
+  "main.tex" 1701690404 41792 2f565feeba660c12c4fe3744f9f3c68e ""
+  "main.toc" 1701690408 4922 6821d09071a3310635db1b5540727f8b "pdflatex"
   (generated)
   "main.aux"
   "main.lof"
