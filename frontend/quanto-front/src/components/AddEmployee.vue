@@ -53,13 +53,15 @@
             <Divider />
             <div class="input-container">
                 <label for="ACTeam">Team:</label>
-                <AutoComplete 
+                <AutoComplete
+                    id="ACTeam" 
                     v-model="team" 
                     dropdown option-label="name" 
                     update:modelValue 
                     :suggestions="teams" 
                     placeholder="Teamname" 
-                    @complete="getTeams" />
+                    @complete="getTeams" 
+                />
                 <!-- <v-autocomplete v-model="team" id="ACTeam"
                     label="Select Team" :items="this.getTeams().name"
                     variant="solo-filled">
@@ -69,16 +71,18 @@
             <div class="input-container-last">
                 <label for="ACTeamrole">Teamrole:</label>
                 <AutoComplete
+                    id="ACTeamrole"
                     v-model="teamrole"
-                    :suggestions="teamroles"
-                    placeholder="Teamrole"   
                     dropdown
+                    :suggestions="teamroles"
                     update:modelValue 
-                    @complete="getTeamRoles" />
-                <v-autocomplete v-model="teamrole" id="ACTeamrole"
+                    placeholder="Teamrole"   
+                    @complete="getTeamRoles" 
+                />
+                <!-- <v-autocomplete v-model="teamrole" id="ACTeamrole"
                     label="Select Role" :items="this.teamroles"
                     variant="solo-filled">
-                </v-autocomplete>
+                </v-autocomplete> -->
             </div>         
         </div>
     </template>
@@ -133,15 +137,19 @@ export default {
         },
         async getTeams() {
             try {
-                const response = await axios.get("http://localhost:8000/getTeams", {});
-                this.teams = response.data.teams;
+                const response = await axios.get("http://localhost:8000/getTeams", {})
+                this.teams = response.data.teams
             } catch (error) {
                 console.log(error);
             }
         },
-        getTeamRoles() {
-            this.teamroles = teamroles().role
-            console.log(this.teamroles)
+        async getTeamRoles() {
+            try {
+                const response = await axios.get("http://localhost:8000/getTeamRoles", {})
+                this.teamroles = response.data.roles
+            } catch (error){
+                console.log("An error occured while fetching Teamroles!")
+            }
         },
         getTeamID() {
             for (let i = 0; i < this.teams.length; i++)

@@ -47,4 +47,10 @@ def getTeams(request):
     if request.method == 'GET':
         response_data = { "teams": teamslist }
     return JsonResponse(response_data)
+
+def getTeamRoles(request):
+    rolesList = ["Teamleader", "Member"]
+    if request.method == 'GET':
+        response_data = { "roles": rolesList }
+    return JsonResponse(response_data)
         

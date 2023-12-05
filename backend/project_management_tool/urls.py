@@ -16,6 +16,7 @@ urlpatterns = [
     path('createForecast',createForecast),
     path('createProject',createProject),
     path('getTeams',getTeams),
+    path('getTeamRoles',getTeamRoles),
     
 
     
