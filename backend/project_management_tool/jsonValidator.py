@@ -65,13 +65,10 @@ class validator:
                 "emp_id": {"type": "string"},
                 "forename": {"type": "string"},
                 "surname": {"type": "string"},
-                "mail": {"type": "string"},
+                "email": {"type": "string"},
                 "phone": {"type": "string"},
                 "fk_team_id":{"type":"integer"},
-                "team_roll": {"type": "string"},
-                
-               
-               
+                "team_role": {"type": "string"},
             },
             # Specify required keys
             "required": ["emp_id"],
@@ -79,6 +76,7 @@ class validator:
         try:
             validate(instance=jsonData, schema=employeeSchema)
         except jsonschema.exceptions.ValidationError as err:
+            print(err)
             return False
         return True
     
@@ -93,9 +91,6 @@ class validator:
                 "end": {"type": "string"},
                 "pause":{"type":"integer"},
                 "time": {"type": "string"},
-                
-               
-               
             },
             # Specify required keys
             "required": ["fk_employee"],

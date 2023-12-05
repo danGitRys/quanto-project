@@ -9,13 +9,13 @@ urlpatterns = [
     path('getEmployee', employee.getEmployee),
     path('login',login),
     
-
     path('createTeam',createTeam),
     path('createAssignment',createAssignment),
     path('createEmployee',createEmployee),
     path('createBooking',createBooking),
     path('createForecast',createForecast),
     path('createProject',createProject),
+    path('getTeams',getTeams),
     
 
     

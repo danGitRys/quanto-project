@@ -38,3 +38,13 @@ def createTeam(request):
         }
 
     return JsonResponse(response_data)
+
+def getTeams(request):
+    teamslist = []
+    allTeams = Team.objects.all()
+    for team in allTeams:
+        teamslist.append(team.toJson())
+    if request.method == 'GET':
+        response_data = { "teams": teamslist }
+    return JsonResponse(response_data)
+        
