@@ -601,6 +601,7 @@ identifzieren. Dabei handelt es sich um den Foreign Key der in der Tabelle Emplo
 \paragraph{name,info} In den Spalten name und info können die Infos über die Teams gespeichert werden.
 
 \subsubsection{Project}
+\label{subsubsection:project}
 \begin{lstlisting}[language=Sql, caption= Create Table Statement für Project Table]
     CREATE TABLE [dbo].[project] (
     [id]            INT           IDENTITY (1, 1) NOT NULL,
@@ -616,14 +617,17 @@ identifzieren. Dabei handelt es sich um den Foreign Key der in der Tabelle Emplo
     REFERENCES [dbo].[employee] ([id])
 );
          \end{lstlisting}
-\paragraph{id} Bei der Id handelt es sich um den Primärschlüssel der Tabelle welcher zugleich
+\paragraph{id} 
+\label{paragraph:projectId}  Bei der Id handelt es sich um den Primärschlüssel der Tabelle welcher zugleich
 ein Autoinkrement-Schlüssel ist, und dazu dient ein Projekt eindeutig zu
 identifzieren.
+
 \paragraph{p\_id} Bei der p\_id handelt es sich bei dem Projekt um die Firmeninterne Id des Projekts. Die p\_id darf hierbei nicht mit der id verwechselt werden.
 \paragraph{name,company} An dieser Stelle wird der Name der Firma und des Projekts hinterlegt
 \paragraph{start\_date,end\_date} Das Start- und Enddatum des Projekts wird vom Type DATE angelegt, da eine höhere Genauigkeit, keinen signifikanten Mehrwert bieten.
 \paragraph{fk\_creator}  Diese Spalte hat als Foreign Key die Spalte id (\ref{paragraph:id})  der Tabelle Employee (\ref{subsubsec:Employee}). Durch diese Spalte kann festgehalten werden, von wem dieses Projekt erstellt wurde.
 \paragraph{creation\_date} Hierbei wird festgehalten aus Gründen der Nachverfolgbarkeit wann ein Projekt angelegt wurde.
+
 \subsubsection{Position}
 \begin{lstlisting}[language=Sql, caption= Create Table Statement für Position Table]
     CREATE TABLE [dbo].[position] (
@@ -641,6 +645,18 @@ identifzieren.
     REFERENCES [dbo].[project] ([id])
 );
          \end{lstlisting}
+\paragraph{id}
+\label{paragraph:positionId}  
+Bei der Id handelt es sich um den Primärschlüssel der Tabelle welcher zugleich
+ein Autoinkrement-Schlüssel ist, und dazu dient eine Position eindeutig zu
+identifzieren.
+
+\paragraph{position\_id} Bei der Position Id handelt es sich um die firmeninterne Bezeichnung einer Position.
+\paragraph{fk\_project} Hierbei handelt es sich um einen Foreign Key auf die Spalte id (\ref{paragraph:projectId}) der Tabelle Project ({\ref{subsubsection:project}}). Über diesen kann eine Position einem Projekt zugeordnert werden
+Eine Position kann nicht gleichzeitig mehreren Projekten zugeordnert sein.
+\paragraph{rate} In dieser Spalte wird der Stundensatz der Position festgehalten
+\paragraph{wd} Hier wird der Umfang des Projekts in Arbeitstagen (8h) festgehalten. 
+\paragraph{volume\_total} Der Wert dieser Spalte wird am Anfang des       
 \subsubsection{Assignment}
 \begin{lstlisting}[language=Sql, caption= Create Table Statement für Assignment Table]
     CREATE TABLE [dbo].[assignment] (
