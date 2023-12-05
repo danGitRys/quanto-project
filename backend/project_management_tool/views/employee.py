@@ -41,6 +41,7 @@ def createEmployee(request):
     if request.method == 'POST':
         try:
             request_data = json.loads(request.body)
+            print(request_data)
             is_valid = validator.employee(request_data)
 
             if is_valid:

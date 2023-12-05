@@ -53,31 +53,30 @@
             <Divider />
             <div class="input-container">
                 <label for="ACTeam">Team:</label>
-                <!-- <AutoComplete 
+                <AutoComplete 
                     v-model="team" 
                     dropdown option-label="name" 
                     update:modelValue 
                     :suggestions="teams" 
                     placeholder="Teamname" 
-                    @complete="test"/> -->
-                <v-autocomplete v-model="team" id="ACTeam"
+                    @complete="getTeams" />
+                <!-- <v-autocomplete v-model="team" id="ACTeam"
                     label="Select Team" :items="this.getTeams().name"
                     variant="solo-filled">
-                </v-autocomplete>
+                </v-autocomplete> -->
             </div>
             <Divider />
             <div class="input-container-last">
                 <label for="ACTeamrole">Teamrole:</label>
-                <!-- <AutoComplete 
+                <AutoComplete
                     v-model="teamrole"
-                    :suggestions="items" 
-                    placeholder="Teamrole" 
-                    @complete="searchItems"
-                    :virtual-scroller-options="{ itemSize: 38 }" 
-                    option-label="label" 
-                    dropdown/> -->
+                    :suggestions="teamroles"
+                    placeholder="Teamrole"   
+                    dropdown
+                    update:modelValue 
+                    @complete="getTeamRoles" />
                 <v-autocomplete v-model="teamrole" id="ACTeamrole"
-                    label="Select Role" :items="this.teamroles.role"
+                    label="Select Role" :items="this.teamroles"
                     variant="solo-filled">
                 </v-autocomplete>
             </div>         
@@ -101,12 +100,14 @@ import { ref } from "vue";
 import axios from 'axios';
 import AutoComplete from 'primevue/autocomplete';
 import InputText from 'primevue/inputtext';
+import Button from 'primevue/button';
 
 export default {
     name: "addEmployee",
     components: {
         AutoComplete,
         InputText,
+        Button,
     },
     data() {
         return {
@@ -116,11 +117,10 @@ export default {
             email: '',
             phone: '',
             team: '',
-            teamid: 1,
+            teamid: 0,
             teamrole: '',
             teams: [],
-            teamroles: '',
-            // teamnames: [],
+            teamroles: [],
             items: ['Apple', 'Banana', 'Orange', 'Mango', 'Pineapple'],
             selectedItem: null,
             filteredItems: [],
@@ -132,23 +132,23 @@ export default {
             await this.getTeamRoles()
         },
         async getTeams() {
-            console.log("GetTeams")
-          await axios.get("http://localhost:8000/getTeams", {}).then(async response => {
-            var responseData = await response.data
-            let tempteams = responseData.teams
-            this.teams = tempteams
-          })
-          return this.teams
+            try {
+                const response = await axios.get("http://localhost:8000/getTeams", {});
+                this.teams = response.data.teams;
+            } catch (error) {
+                console.log(error);
+            }
         },
         getTeamRoles() {
-            this.teamroles = teamroles()
+            this.teamroles = teamroles().role
+            console.log(this.teamroles)
         },
         getTeamID() {
             for (let i = 0; i < this.teams.length; i++)
             if (this.team.name == this.teams[i].name) {
-                this.teamrole = this.teams[i].id
+                this.teamid = this.teams[i].id
             }
-            
+            console.log(this.teamid)
         },
         formIsValid() {
             if (this.empid == '') return false
@@ -156,13 +156,15 @@ export default {
             if (this.lastname == '') return false
             if (this.email == '') return false
             if (this.phone == '') return false
-            if (this.teamid == 0) return false
+            if (this.team == '') return false
             if (this.teamrole == '') return false
             return true
         },
         submitEmployee() {
-            if (this.formIsValid())
-                axios.post("http://localhost:8000/createEmployee", {
+            if (this.formIsValid()) {
+                this.getTeamID()
+                console.log(this.teamid)
+                const request = axios.post("http://localhost:8000/createEmployee", {
                     emp_id: this.empid,
                     forename: this.firstname,
                     surname: this.lastname,
@@ -179,14 +181,13 @@ export default {
                         alert("Creating new employee failed.")
                     }
                 }).catch(error=> {
+                    console.log(request)
                     alert("An error has occured.")
                 })
+            }
             else {
                 alert("All fields must be filled in!")
             }
-        },
-        test(){
-            console.log(this.teams)
         },
         searchItems(event) {
             const query = event.query.toLowerCase();
