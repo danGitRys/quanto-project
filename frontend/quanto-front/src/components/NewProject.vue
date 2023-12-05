@@ -1,108 +1,219 @@
 <template>
   <div id="app">
     <div class="limiter">
-
-      <div class="container">
-        <div class="input-container">
-          <h3 class="input-label">Customer Name:</h3>
-          <input v-model="customerName" class="input-field small-input" type="text">
-        </div>
-        <div class="input-container">
-          <h3 class="input-label">Project Manager:</h3>
-          <input v-model="projectManager" class="input-field small-input" type="text">
+      <ScrollPanel style="width: 100%; height:800px">
+        <div class="container">
+          <div class="input-container">
+            <h3 class="input-label">Project Name:</h3>
+            <InputText v-model="customerName" class="input-field small-input" type="text" />
+          </div>
+          <div class="input-container">
+            <h3 class="input-label">Customer Name:</h3>
+            <InputText v-model="customerName" class="input-field small-input" type="text" />
+            
+          </div>
+          <div class="input-container">
+            <h3 class="input-label">Project Start Date:</h3>
+            <input v-model="projectStartDate" class="input-field small-input" type="date">
+          </div>
+          <div class="input-container-last">
+            <h3 class="input-label">Project End Date:</h3>
+            <input v-model="projectEndDate" class="input-field small-input" type="date">
+          </div>
           
-        </div>
-        <div class="input-container">
-          <h3 class="input-label">Project Start Date:</h3>
-          <input v-model="projectStartDate" class="input-field small-input" type="date">
-        </div>
-        <div class="input-container-last">
-          <h3 class="input-label">Project End Date:</h3>
-          <input v-model="projectEndDate" class="input-field small-input" type="date">
         </div>
         
-      </div>
-      
-      <div id="AddEmployee" class="container">
-        <div class="input-container">
-          
-          <h3 class="input-label">Add Employee:</h3>
-          <div class="employeeSelectionContainer">
-            <div id="autocomplete">
+        <div id="AddPM" class="container">
+          <div class="input-container">
+            
+            <h3 class="input-label">Add Project Manager:</h3>
+            <div class="employeeSelectionContainer">
+              <div id="autocomplete">
 
-              <v-autocomplete @click:append="addEmployee" v-model="selectedEmployee" id="dropdownAddEmployee"
-              label="Select Employee" :items="employeeList().name"
-              variant="solo-filled">
-              <option disabled value="">Select an Employee</option>
-              <!-- Dynamische Werte kommen aus dem Store projectPosition.js -->
-              <option v-for="(option, index) in employeeList().names" :value="index" :key="index">{{ option }}</option>
-            </v-autocomplete>
+                <v-autocomplete @click:append="addEmployee" v-model="projectManager" id="dropdownAddEmployee"
+                label="Select Project Manager" :items="employeeList.name"
+                variant="solo-filled">
+                <option disabled value="">Select a Project Manager</option>
+                <!-- Dynamische Werte kommen aus dem Store projectPosition.js -->
+                <option v-for="(option, index) in employeeList.names" :value="index" :key="index">{{ option }}</option>
+              </v-autocomplete>
+              </div>
             </div>
           </div>
+          <div  id="empButton">
+            <v-btn @click="addEmployee" class="submitBtn" variant="outlined">
+              Add Project Manager
+            </v-btn>
+          </div>            
         </div>
-        <div  id="empButton">
-          <v-btn @click="addEmployee" class="submitBtn" variant="outlined">
-            Add Employee
-          </v-btn>
-        </div>            
-      </div>
-    </div>
-    <div id="table" class="container">
-      <v-table fixed-header="true" data:positions>
-        <thead>
-          <tr>
-            <th class="text-left">
-              Employee
-            </th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="emp in selectedEmployeesList" :key="emp">
-            <td>{{ emp }}</td>
+
+        <div id="AddEmployee" class="container">
+          <div class="input-container">
             
-            <td>
-              <v-dialog v-model="dialogVisible" ref="deleteDialog">
-                      <template v-slot:activator="{ props }">
-                          <div class="buttonContainer">
-                              <v-btn v-bind="props" class="deleteBtn" variant="outlined">
-                                  Delete
-                              </v-btn>
-                          </div>
-                      </template>
+            <h3 class="input-label">Add Employee:</h3>
+            <div class="employeeSelectionContainer">
+              <div id="autocomplete">
 
-                      <template v-slot:default="{ isActive }">
-                          <v-card title="Are you sure?">
-                              <v-card-text>
-                                  Are you sure you want to delete {{ emp }} from the selected Employees?
-                              </v-card-text>
+                <v-autocomplete @click:append="addEmployee" v-model="selectedEmployee" id="dropdownAddEmployee"
+                label="Select Employee" :items="employeeList.name"
+                variant="solo-filled">
+                <option disabled value="">Select an Employee</option>
+                <!-- Dynamische Werte kommen aus dem Store projectPosition.js -->
+                <option v-for="(option, index) in employeeList.names" :value="index" :key="index">{{ option }}</option>
+              </v-autocomplete>
+              </div>
+            </div>
+          </div>
+          <div  id="empButton">
+            <v-btn @click="addEmployee" class="submitBtn" variant="outlined">
+              Add Employee
+            </v-btn>
+          </div>            
+        </div>
+        <div id="Positions" class="container">
+          <div class="input-container">
+            
+            <h3 class="input-label">Add Positions:</h3>
+            <label for="pos">Position</label>
+            <InputText id="pos" type="text" v-model="position" />
+            <label for="posSwitch">Add Local/Remote</label>
+            <InputSwitch id="posSwitch" v-model="checked" />
+          </div>
+        </div>
+      </ScrollPanel>
+    </div>
 
-                              <v-card-actions>
-                                  <v-spacer></v-spacer>
-
-                                  <v-btn text="Cancel" @click="isActive.value = false"></v-btn>
-                                  <v-btn text="Confirm" @click="deleteEmployee(emp)">
-                                  </v-btn>
-                              </v-card-actions>
-                          </v-card>
-                      </template>
-                  </v-dialog>
-              </td>
-          </tr>
-        </tbody>
-      </v-table>
+    <div id="table" class="container">
+      <DataTable ref="selectedEmployees" :value="selectedEmployees" dataKey="empID" 
+          :paginator="true" :rows="10"
+          paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown" :rowsPerPageOptions="[5,10,25]"
+          currentPageReportTemplate="Showing {first} to {last} of {totalRecords} products">
+          <template #header>
+              <div class="flex flex-wrap gap-2 align-items-center justify-content-between">
+                  <h4 class="m-0">Selected Employees</h4>
+                  <span class="p-input-icon-left">
+                      <i class="pi pi-search" />
+                      <InputText placeholder="Search..." />
+                  </span>
+              </div>
+          </template>
+          <Column selectionMode="multiple" style="width: 3rem" :exportable="false"></Column>
+          <Column field="empID" header="EmployeeID" sortable style="min-width:12rem"></Column>
+          <Column field="name" header="Name" sortable style="min-width:12rem"></Column>
+          <Column field="role" header="Role" sortable style="min-width:10rem"></Column>
+          <Column :exportable="false" style="min-width:8rem">
+              <template #body="slotProps">
+                  <Button icon="pi pi-trash" outlined rounded severity="danger" @click="confirmDeleteEmployee(slotProps.data)" />
+              </template>
+          </Column>
+      </DataTable>
     </div>
 
   </div>
   
 </template>
 
+
+
+<script>
+import { employeeList } from '@/store/employeeList';
+import InputText from 'primevue/inputtext';
+
+export default {
+    name: "newProject",
+    components: {
+        InputText,
+    },
+    data() {
+        return {
+          employeeList: [],
+          selectedEmployee: '',
+          selectedEmployees: [],
+          checked: false,
+        }
+    },
+    methods: {
+      init() {
+        this.employeeList = employeeList()
+      },
+    },
+    created() {
+        this.init()
+    }
+};
+// 
+// Add Employee Variables / Refs
+// 
+
+// class Employee {
+
+// }
+
+// const selectedEmployee = ref('');
+// const selectedEmployees = ref([
+//   {
+//     empID: '123',
+//     name: 'Peter',
+//     role: 'PM',
+//   },
+// ]);
+
+// var checked = ref(0);
+
+
+// // 
+// // Add Employee Functions
+// // 
+// function addEmployee() {
+//     // Check if already in Array
+//     if (selectedEmployees.value.indexOf(selectedEmployee.value) == -1) { // indexOf returns -1 if it is not in the Array
+//         selectedEmployees.value.push(selectedEmployee.value);
+//         return 0;
+//     }
+//     alert(selectedEmployee.value + " is already in List!")
+// }
+
+// function deleteEmployee(employee) {
+//     console.log(employee)
+//     var index = selectedEmployeesList.value.indexOf(employee)
+//     selectedEmployeesList.value.splice(index, 1); // Remove the position at the specified index
+// }
+
+// function submitEmployees() {
+//     // if an Employee is already working on the Project, give feedback
+// }
+
+// function confirmDeleteEmployee(emp) {
+
+// }
+
+
+
+
+
+// var customerName = ref("")
+// var projectManager = ref("")
+// var projectStartDate = ref("")
+// var projectEndDate = ref("")
+
+// function createProject() {
+//   console.log(customerName.value)
+//   console.log(projectManager.value)
+//   console.log(projectStartDate.value)
+//   console.log(projectEndDate.value)
+// }
+
+
+</script>
+
+
 <style scoped>
 /* Stil für kleinere Input-Felder */
-#app {
+.app {
   justify-content: center;
   display: flex;
   margin-left: 55px;
+  height: 100%;
 }
 .small-input {
   width: 10px;
@@ -118,6 +229,7 @@
 .limiter {
   width:100%;
   margin: 15px;
+  height: 100%;
 }
 
 .container {
@@ -128,11 +240,8 @@
 }
 
 #table {
-  min-width: 500px;
+  min-width: 800px;
   margin: 45px;
-}
-.v-table {
-  height:100%
 }
 
 .input-container {
@@ -209,57 +318,4 @@
 #autocomplete {
   margin-top: 22px;
 }
-
-
 </style>
-
-<script setup>
-import { employeeList } from '@/store/employeeList'
-
-
-// 
-// Add Employee Variables / Refs
-// 
-const selectedEmployee = ref('');
-const selectedEmployeesList = ref([]);
-
-// 
-// Add Employee Functions
-// 
-function addEmployee() {
-    // Check if already in Array
-    if (selectedEmployeesList.value.indexOf(selectedEmployee.value) == -1) { // indexOf returns -1 if it is not in the Array
-        selectedEmployeesList.value.push(selectedEmployee.value);
-        return 0;
-    }
-    alert(selectedEmployee.value + " is already in List!")
-}
-
-function deleteEmployee(employee) {
-    console.log(employee)
-    var index = selectedEmployeesList.value.indexOf(employee)
-    selectedEmployeesList.value.splice(index, 1); // Remove the position at the specified index
-}
-
-function submitEmployees() {
-    // if an Employee is already working on the Project, give feedback
-}
-
-
-
-import { ref } from 'vue';
-
-const customerName = ref("")
-const projectManager = ref("")
-const projectStartDate = ref("")
-const projectEndDate = ref("")
-
-function createProject() {
-  console.log(customerName.value)
-  console.log(projectManager.value)
-  console.log(projectStartDate.value)
-  console.log(projectEndDate.value)
-}
-
-
-</script>
