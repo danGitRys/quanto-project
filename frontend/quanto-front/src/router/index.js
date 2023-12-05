@@ -13,7 +13,6 @@ import dataTable from "@/components/DataTable.vue"
 import ManageProject from "@/views/ManageProject.vue";
 
 
-
 const routes = [
   {
     path: "/ff",
@@ -80,7 +79,7 @@ const routes = [
     path: "/ManageProject",
     name: "ManageProject",
     component: ManageProject,
-  }
+  },
 ];
 
 const router = createRouter({
