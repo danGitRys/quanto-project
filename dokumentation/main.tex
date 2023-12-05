@@ -552,6 +552,7 @@ Telefonnummer und Teamrolle.
 In der Tabelle Employee werden die Mitarbeiter der Firma gespeichert die sowohl
 Projekten zugeordnert werden können, als auch diese administieren.
 \paragraph{Id}
+\label{paragraph:id}
 Bei der Id handelt es sich um den Primärschlüssel der Tabelle welcher zugleich
 ein Autoinkrement-Schlüssel ist, und dazu dient einen Employee eindeutig zu
 identifzieren.
@@ -620,7 +621,9 @@ ein Autoinkrement-Schlüssel ist, und dazu dient ein Projekt eindeutig zu
 identifzieren.
 \paragraph{p\_id} Bei der p\_id handelt es sich bei dem Projekt um die Firmeninterne Id des Projekts. Die p\_id darf hierbei nicht mit der id verwechselt werden.
 \paragraph{name,company} An dieser Stelle wird der Name der Firma und des Projekts hinterlegt
-\paragraph{start\_date,end\_date} 
+\paragraph{start\_date,end\_date} Das Start- und Enddatum des Projekts wird vom Type DATE angelegt, da eine höhere Genauigkeit, keinen signifikanten Mehrwert bieten.
+\paragraph{fk\_creator}  Diese Spalte hat als Foreign Key die Spalte id (\ref{paragraph:id})  der Tabelle Employee (\ref{subsubsec:Employee}). Durch diese Spalte kann festgehalten werden, von wem dieses Projekt erstellt wurde.
+\paragraph{creation\_date} Hierbei wird festgehalten aus Gründen der Nachverfolgbarkeit wann ein Projekt angelegt wurde.
 \subsubsection{Position}
 \begin{lstlisting}[language=Sql, caption= Create Table Statement für Position Table]
     CREATE TABLE [dbo].[position] (
