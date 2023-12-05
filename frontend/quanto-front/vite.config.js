@@ -54,6 +54,8 @@ export default defineConfig({
     },
     watch: {
       usePolling: true,
+      interval: 600,
+      binaryInterval: 600,
     }
   },
 })
