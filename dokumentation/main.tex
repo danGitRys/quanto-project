@@ -577,6 +577,8 @@ Konflikten führen werden.
 \label{paragraph:fkTeamId} Bei dem fk\_team\_id handelt es sich um einen Foreign Key mit Bezug auf den Team Table. Durch die Implementierung des Foreign Keys an
 dieser Stelle kann ein Employee zu einem Zeitpunkt, nur einem Team zugeordnert sein.
 
+
+
 \paragraph{team\_roll}Ein Employee hat in einem Projekt eine Rolle. Diese kann sein "Team-Leader" oder "Member".
 
 \subsubsection{Team}
@@ -594,6 +596,9 @@ dieser Stelle kann ein Employee zu einem Zeitpunkt, nur einem Team zugeordnert s
 \paragraph{id} Bei der Id handelt es sich um den Primärschlüssel der Tabelle welcher zugleich
 ein Autoinkrement-Schlüssel ist, und dazu dient ein Team eindeutig zu
 identifzieren. Dabei handelt es sich um den Foreign Key der in der Tabelle Employee (\ref{subsubsec:Employee}) in der Spalte fk\_team\_id (\ref{paragraph:fkTeamId}) referenziert wird.
+
+\paragraph{name,info} In den Spalten name und info können die Infos über die Teams gespeichert werden.
+
 \subsubsection{Project}
 \begin{lstlisting}[language=Sql, caption= Create Table Statement für Project Table]
     CREATE TABLE [dbo].[project] (
@@ -610,6 +615,12 @@ identifzieren. Dabei handelt es sich um den Foreign Key der in der Tabelle Emplo
     REFERENCES [dbo].[employee] ([id])
 );
          \end{lstlisting}
+\paragraph{id} Bei der Id handelt es sich um den Primärschlüssel der Tabelle welcher zugleich
+ein Autoinkrement-Schlüssel ist, und dazu dient ein Projekt eindeutig zu
+identifzieren.
+\paragraph{p\_id} Bei der p\_id handelt es sich bei dem Projekt um die Firmeninterne Id des Projekts. Die p\_id darf hierbei nicht mit der id verwechselt werden.
+\paragraph{name,company} An dieser Stelle wird der Name der Firma und des Projekts hinterlegt
+\paragraph{start\_date,end\_date} 
 \subsubsection{Position}
 \begin{lstlisting}[language=Sql, caption= Create Table Statement für Position Table]
     CREATE TABLE [dbo].[position] (
