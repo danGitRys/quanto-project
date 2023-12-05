@@ -277,10 +277,9 @@ Vorteile unsere Vorgehensweise mit Jira
           hat.
     \item Jira fördert die Echtzeitkommunikation und den Austausch von Kommentaren zu
           Aufgaben und Anforderungen, was die Zusammenarbeit und den reibungslosen
-          Informationsfluss im Team unterstützt. \item Die umfassende Rückverfolgbarkeit
-          von Anforderungen, Aufgaben und Problemen in Jira ist von großer Bedeutung in
-          der Softwareentwicklung, um sicherzustellen, dass alle Anforderungen
-          vollständig und termingerecht erfüllt werden.
+          Informationsfluss im Team unterstützt. \item Die umfassende Rückverfolgbarkeit von Anforderungen, Aufgaben und Problemen in
+          Jira ist von großer Bedeutung in der Softwareentwicklung, um sicherzustellen,
+          dass alle Anforderungen vollständig und termingerecht erfüllt werden.
 \end{enumerate}
 
 \newpage
@@ -360,9 +359,8 @@ wechseln, kann man die Sidebar oder auch die orangen Pfeile benutzen. Die
 Rollen des Managers, Projektleiters und des Mitarbeiters sehen im Homescreen
 den Projektnamen, den Projektleiter des Projektes sowie das Datum des
 Projektendes. Der Projektleiter und der Mitarbeiter sehen dazu noch die Rolle,
-die ihnen in den Projekten zugeteilt wurde. Während der Manager das Budget
-eines Projektes sieht, welches mit Hilfe der einzelnen Position der Mitarbeiter
-sowie den Personentagen errechnet wird.
+die ihnen in den Projekten zugeteilt wurde. Der Manager kann alle Projekte sehen
+die es aktuell gibt und hat auch auf jedes Projekt Zugriff.
 
 \begin{figure}[h]
     \includegraphics[height= 0.5\textwidth,width= \textwidth]{images/Home.png}
@@ -372,9 +370,17 @@ sowie den Personentagen errechnet wird.
 
 \newpage
 \subsection{New Project}
-Über die Eingabemaske New Project kann der Manager ein ganz neues Projekt anlegen. Alle Eingaben erfolgen über ein Eingabefeld. In der Maske kann er alle Daten, die für ein Projekt relevant sind, eingeben, die da wären: Projektnamen, Kunden-Namen, Projektleiter hinzufügen, Projektstart und  Projektende. (Abbildung 24). Wenn er auf den “Add Employee” Button drückt, wird er auf die nächste Ansicht weitergeleitet. (Abbildung 10). In dieser Ansicht kann der Manager nun verschiedene Positionen händisch hinzufügen. Da diese von Projekt zu Projekt variieren können. Den jeweiligen Positionen kann er auch einen Tagessatz hinzufügen. Um einem Mitarbeiter die Positionen zuordnen zu können, wählt er zuerst einen Mitarbeiter aus, dann klickt er auf die Positionen, die er dem Mitarbeiter hinzufügen will, diese werden farblich hinterlegt. Dann kann er auf “Add Positions” klicken und die Positionen landen in der unteren Tabelle rechts neben dem Mitarbeiter. Wenn der Manager alle Positionen hinzugefügt hat, kann er auf “Submit” drücken und er landet wieder auf dem ersten Screen. Dort werden ihm nun nochmal alle Mitarbeiter angezeigt, die er zu einem Projekt hinzugefügt hat. Nun kann er auf den “Create” Button klicken und das Projekt wird erstellt. (Abbildung 11)
+Über die Eingabemaske New Project kann der Manager ein ganz neues Projekt anlegen. Alle Eingaben erfolgen über ein Eingabefeld. In der Maske kann er alle Daten, die für ein Projekt relevant sind, eingeben, die da wären: Projektnamen, Kunden-Namen, Projektleiter hinzufügen, Projektstart und  Projektende. (Abbildung 10). 
+Zu dem kann er über ein DropDown Menü Mitarbeiter auswählen, die
+er diesem Porjekt zuweisen möchte. Über ein Eingabefeld können neue
+Position hinzugefügt werden, welche jeweils mit einem Tagessatz versehen werden.
+Diese Positionen können den Mitarbeitern dann zugeteil werden, ein Mitarbeiter
+kann mehrere Position für ein Projekt haben.Wenn die Position einem Mitarbeiter 
+zugeteilt wurden muss man noch die Personentage (PT) angeben. Anhand
+der Daten von Personentage und Tagessatz wird das Gesamt Budget für das 
+Projekt errechnet. Der Vorgang kann über ein Submit Button abgeschlossen werden.
 
-\newpage
+
 \begin{figure}[h]
     \includegraphics[height= 0.5\textwidth,width= \textwidth]{images/New Project.png}
     \caption{New Project Ansicht}
@@ -388,18 +394,18 @@ sowie den Personentagen errechnet wird.
 \end{figure}
 
 \subsection{Manage Project}
-In der Ansicht “Manage Project” wird ein ausgewähltes Projekt in einem Kalender
-angezeigt. Diesen kann man je nach Wahl auf wöchentlich, monatlich oder auch
-jährlich setzen und auch durch das Dropdown-Menü ein anderes Projekt auswählen.
-In dem Kalender werden die Mitarbeiter auf Stunden-Ebene angezeigt. Auf der
-rechten Seite kann man neue Positionen erstellen. Dazu gibt man das Datum ein,
-wählt einen Mitarbeiter aus, die Position z.B. Senior Developer, die Start- und
-Endzeit und eine Beschreibung. Nach der Wahl des Mitarbeiters wird im "Free
-Time Slot” die noch freie Zeit des Mitarbeiters an diesem bestimmten Tag
-angezeigt. Auf der linken Seite werden die dann neu erstellten Positionen
-angezeigt. Dabei steht der Name des Mitarbeiters, die Position und die Zeit,
-die er noch übrig hat für das Projekt, in das er eingeteilt wurde. (Abbildung
-11)
+In der Ansicht “Manage Project” wird ein ausgewähltes Projekt in einer Tabelle
+angezeigt. In der Tabelle sieht man für einen über das Dropdown-Menü ausgewählten
+Monat alle Arbeitszeiten, der in diesem Projekt involvierten Mitarbeiter.
+In der Spalte Summe Projects wird die Stundenanzahl der summierten Projekte
+angezeigt in dem der Mitarbeiter an diesem Tag bereits eingeplant wurde.
+Somit bekommt man einen Überblick welcher Mitarbeiter an welchem Arbeitstag 
+noch wie viel Arbeitsstunden zur Verfügung hat. Über die Spalte This Project
+kann man nun die Anzahl der Stunden eingeben für die man den Mitarbeiter
+an dem Tag einplanen möchte. In der Spalte Pos (Positions) wählt man aus 
+in welcher Position der Mitarbeiter an diesem Tag eingeplant werden soll
+(siehe Abbildung 12).
+
 
 \begin{figure}[h]
     \includegraphics[height= 0.5\textwidth,width= \textwidth]{images/ManageProject1.png}
@@ -410,16 +416,17 @@ die er noch übrig hat für das Projekt, in das er eingeteilt wurde. (Abbildung
 \newpage
 
 \subsection{Sidebar}
+Mit Hilfe der Sidebar kann man schnell von einer Ansicht auf eine andere kommen.
 Die Sidebar ist je nach Rolle unterschiedlich strukturiert. Der Mitarbeiter hat
 eine andere Ansicht als der Projektleiter. Jede Rolle hat nichtsdestotrotz die
 folgenden Buttons: Den “Home” Button, der wie zuvor gezeigt, den Homescreen
 anzeigt, den “Working-Times” Button, der die gearbeiteten Zeiten in Form eines
 Kalenders angezeigt, die Time Registration, in der man seine gearbeiteten
 Zeiten eingepflegt und die Einstellungen. Der Manager hat zudem noch einen
-New-Project-Button, mit dem neue Projekte erstellt werden können. (Abbildung
-24). Der Projektleiter hat einen Manage-Project-Button, auf dieser Ansicht kann
-er die Mitarbeiter auf Stunden Ebene einem Projekt zuordnen (Abbildung 26).
-Mehr Details folgen bei den dazugehörigen Screenshots. (Abbildung Sidebar).
+New-Project-Button, mit dem neue Projekte erstellt werden können (siehe Abbildung
+10). Der Projektleiter hat einen Manage-Project-Button, auf dieser Ansicht kann
+er die Mitarbeiter auf Stunden Ebene einem Projekt zuordnen (siehe Abbildung 12).
+Mehr Details folgen bei den dazugehörigen Screenshots (siehe Abbildung Sidebar 13).
 
 \begin{figure}[h]
     \includegraphics[height= 0.5\textwidth,width= \textwidth]{images/Sidebar.png}
@@ -429,30 +436,80 @@ Mehr Details folgen bei den dazugehörigen Screenshots. (Abbildung Sidebar).
 
 \newpage
 \subsection{Time Registration}
-Über das Fenster “Time Registration” können die Mitarbeiter Ihre Arbeitszeiten erfassen.  Als Erstes geben Sie die Startzeit ein, also um wie viel Uhr haben Sie angefangen zu arbeiten. Dann seine Pausenzeiten und Endzeit. Über ein DropDown Menü hat man noch die Möglichkeit, sich die Projekte anzeigen zu lassen, in denen man involviert ist und auf das man seine Zeit erfassen möchte. Wichtig ist auch noch, dass die richtige Position ausgewählt wird, da bei jeder Position ein anderer Verrechnungssatz hinterlegt ist.
+Über das Fenster “Time Registration” können die Mitarbeiter Ihre Arbeitszeiten erfassen.  Als Erstes geben Sie die Startzeit ein, also um wie viel Uhr haben Sie angefangen zu arbeiten. 
+Dann seine Pausenzeiten und Endzeit. Über ein DropDown Menü hat man noch die Möglichkeit, sich die Projekte anzeigen zu lassen, in denen man involviert ist und auf das man seine Zeit erfassen möchte. 
+Wichtig ist auch noch, dass die richtige Position ausgewählt wird, da bei jeder Position ein anderer Verrechnungssatz hinterlegt ist (siehe Abbildung 14).
 \begin{figure}[h]
     \includegraphics[height= 0.5\textwidth,width= \textwidth]{images/Time Registration.png}
     \caption{Time Registration Ansicht}
     \label{fig:beispiel}
 \end{figure}
 
-\subsection{Working Times}
+\subsection{Working Times / Working Times+}
 In der Ansicht “Working Times” sieht der Mitarbeiter seine Arbeitszeiten in
 einer Übersicht aufgeschlüsselt. Die Zeiten werden in eingeplanten
 Arbeitsstunden pro Tag angezeigt. Es wird angezeigt, wie lange der Mitarbeiter
 tatsächlich gearbeitet hat, sowie seine Pausenzeiten. In der letzten Zeile der
 Tabelle sieht er die Summe der geplanten Arbeitsstunden und tatsächlichen
 Arbeitsstunden. Dadurch weiß der Mitarbeiter, wie weit er in dem Projekt ist
-und wie viel Zeit er an diesem Tag dafür verwendet hat. (Abbildung Working
-Times)
+und wie viel Zeit er an diesem Tag dafür verwendet hat (siehe Abbildung 15). \\
+In der Ansicht Working Times+ sieht der Projektleiter die Arbeitszeiten 
+seiner Mitarbeiter die diese über die Anischt Time Correction (siehe Abbildung xx)
+kontrolliert und bestätigt haben. Per DropDown Menü kann man zwischen Projekten und
+Mitarbeitern filtern somit bekommt man eine bessere Übersicht, falls man nach etwas
+bestimmten sucht. Der Projektleiter kann in dieser Ansicht noch Nachtragungen von
+Arbeitszeiten der Mitarbeiter erfassen, falls diese bei Ihrer Zeiterfassung
+einen Fehler gemacht hätten (siehe Abbildung 16).
+
 
 \begin{figure}[]
     \includegraphics[height= 0.5\textwidth,width= \textwidth]{images/Working Times.png}
     \caption{Working Times Ansicht}
     \label{fig:beispiel}
 \end{figure}
-\clearpage
+
+\begin{figure}[]
+    \includegraphics[height= 0.5\textwidth,width= \textwidth]{images/Working Times+.png}
+    \caption{Working Times+ Ansicht}
+    \label{fig:beispiel}
+\end{figure}
+
 \newpage
+\clearpage
+
+\subsection{Time Correction}
+In der Ansicht Time Correction sieht der Mitarbeiter alle seine Arbeitszeiten
+von seine Porjekten in einer Tabelle aufgelistet, in dennen er eingeplant war
+aber seine Zeit nicht erfasst hat. Er hat die Möglichkeit über die Worked Spalte
+nachzutragen (siehe Abbildung 17). Wenn der Mitarbeiter am Monatsende seine
+Arbeitszeiten kontrolliert hat und alle Zeiten erfasst wurden, kann er auf 
+den Confirm Button drücken. Dann werden die Arbeitszeiten bestätigt und landen
+beim Projektleiter in der Working Times+ Anischt (siehe Abbildung 16).
+
+
+\begin{figure}[]
+    \includegraphics[height= 0.5\textwidth,width= \textwidth]{images/TimeCorrection.png}
+    \caption{Working Times+ Ansicht}
+    \label{fig:beispiel}
+\end{figure}
+
+
+
+
+\subsection{Create New Employee}
+In der Ansicht Create New Employee kann der Manager einen neuen Mitarbeiter
+anlegen. Hierbei werden folgende Informationen benötigt: Vorname,Nachname,E-Mail Adresse,
+Telefonnummer und Teamrolle. 
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width= \textwidth]{images/CreateNewEmployee.png}
+    \caption{Create New Employee Ansicht}
+    \label{fig:beispiel}
+\end{figure}
+
+\newpage
+\clearpage
 
 \section{Datenbank}
 
@@ -491,23 +548,34 @@ Times)
 );
         \end{lstlisting}
 
-In der Tabelle Employee werden die Mitarbeiter der Firma gespeichert die sowohl Projekten zugeordnert werden können, als auch diese administieren.
+In der Tabelle Employee werden die Mitarbeiter der Firma gespeichert die sowohl
+Projekten zugeordnert werden können, als auch diese administieren.
 \paragraph{Id}
-Bei der Id handelt es sich um den Primärschlüssel der Tabelle welcher zugleich ein Autoinkrement-Schlüssel ist, und dazu dient einen Employee eindeutig
-zu identifzieren.
+Bei der Id handelt es sich um den Primärschlüssel der Tabelle welcher zugleich
+ein Autoinkrement-Schlüssel ist, und dazu dient einen Employee eindeutig zu
+identifzieren.
 
-\paragraph{emp\_id} Die emp\_id ist eine Id welche einem Mitarbeiter zur Identifizierung zugeordnert wird. Bei dieser kann es sich um eine exisitierende aus dem Unternehmen handeln
-oder auch eine neu implementierte Identifizierungsvariante handeln. Diese sollte dabei nicht mit der id Spalte in dieser Tabelle verwechselt werden.
+\paragraph{emp\_id} Die emp\_id ist eine Id welche einem Mitarbeiter zur Identifizierung
+zugeordnert wird. Bei dieser kann es sich um eine exisitierende aus dem
+Unternehmen handeln oder auch eine neu implementierte Identifizierungsvariante
+handeln. Diese sollte dabei nicht mit der id Spalte in dieser Tabelle
+verwechselt werden.
 
-\paragraph{forename,surname und phone} Bei diesen Spalten handelt es sich bei dem Vornamen und Nachname um erforderliche Informationen und bei der Telefonnummer
-um eine optionale Informationen.
+\paragraph{forename,surname und phone} Bei diesen Spalten handelt es sich bei dem Vornamen und Nachname um
+erforderliche Informationen und bei der Telefonnummer um eine optionale
+Informationen.
 
-\paragraph{mail} Der Mail-Adresse des Employees kommt eine besondere Wichtigkeit zu, da diese hinsichtlich des Logins mit SAP-BTP entscheidend ist. Die Mail Adresse sollte
-hierbei die gleiche sein, die auch in SAP verwendet wird, da die Zuordnung zwischen SAP und Datenbank über diese erfolgt. In Konsequenz davon sollten die Mail Adressen in der Datenbank einzigartig sein, da doppelte Mail Addressen zu Konflikten führen.
+\paragraph{mail} Der Mail-Adresse des Employees kommt eine besondere Wichtigkeit zu, da diese
+hinsichtlich des Logins mit SAP-BTP entscheidend ist. Die Mail Adresse sollte
+hierbei die gleiche sein, die auch in SAP verwendet wird, da die Zuordnung
+zwischen SAP und Datenbank über diese erfolgt. In Konsequenz davon sollten die
+Mail Adressen in der Datenbank einzigartig sein, da doppelte Mail Addressen zu
+Konflikten führen werden.
 
+\paragraph{fk\_team\_id} Bei dem fk\_team\_id handelt es sich um einen Foreign Key mit Bezug auf den Team Table. Durch die Implementierung des Foreign Keys an
+dieser Stelle kann ein Employee zu einem Zeitpunkt, nur einem Team zugeordnert sein.
 
-
-
+\paragraph{team\_roll}Ein Employee hat in einem Projekt eine Rolle. Diese kann sein "Team-Leader" oder "Member".
 
 \subsubsection{Team}
 \begin{lstlisting}[language=Sql, caption= Create Table Statement für Team Table]
