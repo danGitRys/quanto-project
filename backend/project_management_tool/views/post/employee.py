@@ -64,22 +64,22 @@ def createEmployee(request)->JsonResponse:
     if request.method == 'POST':
         try:
             request_data = json.loads(request.body)
-            is_valid = jsonValidation.validator.team(request_data)
-            print(is_valid)
+            print(request_data)
+            is_valid = validator.employee(request_data)
 
             if is_valid:
                 new_emp_id = request_data["emp_id"]
                 new_forename = request_data["forename"]
                 new_surname = request_data["surname"]
-                new_mail = request_data["mail"]
+                new_mail = request_data["email"]
                 new_phone = request_data["phone"]
                 new_fk_team_id = request_data["fk_team_id"]
-                new_team_roll = request_data["team_roll"]
+                new_team_role = request_data["team_role"]
 
                 if(checkExistenceDb.checkExDB.employee(new_emp_id,new_mail)):
                      print("exists")
 
-                new_employee = Employee(emp_id = new_emp_id,forename = new_forename,surname = new_surname,mail=new_mail,phone=new_phone,fk_team_id = new_fk_team_id,team_roll=new_team_roll)
+                new_employee = Employee(emp_id = new_emp_id,forename = new_forename,surname = new_surname,mail=new_mail,phone=new_phone,fk_team_id = new_fk_team_id,team_roll=new_team_role)
                 new_employee.save()
 
                 response_data = {
