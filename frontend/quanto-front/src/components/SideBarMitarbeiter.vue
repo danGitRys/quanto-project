@@ -1,4 +1,5 @@
 <template>
+    <div class="container">
     <v-card>
         <v-layout>
             <v-navigation-drawer v-model="drawer" :rail="rail" permanent>
@@ -29,9 +30,14 @@
             <v-main></v-main>
         </v-layout>
     </v-card>
+    </div>
 </template>
 
 <style scoped>
+.container{
+    z-index: 200;
+}
+
 #QuantoLogo {
     cursor: default;
 }
@@ -43,9 +49,7 @@
 .v-navigation-drawer {
     background-color: #94B8C7;
 }
-</style>
 
-<style>
 .logoutBtn {
     background-color: white !important;
 }

@@ -1,12 +1,10 @@
-<template>
- 
-</template>
+<template></template>
 
 
-<style>
-html{
+<style scoped>
+html {
     background-color: #ECECEC;
-   
+
 
 }
 </style>
