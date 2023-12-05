@@ -11,7 +11,9 @@ import AddEmployee from "@/views/AddEmployee.vue";
 import dataTable from "@/components/DataTable.vue";
 
 import ManageProject from "@/views/ManageProject.vue";
+
 import TimeCorrection from "@/views/TimeCorrection.vue";
+
 
 const routes = [
   {
@@ -69,11 +71,13 @@ const routes = [
     name: "ManageProject",
     component: ManageProject,
   },
+
   {
     path: "/TimeCorrection",
     name: "TimeCorrection",
     component: TimeCorrection,
   },
+
 ];
 
 const router = createRouter({
