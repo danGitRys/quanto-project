@@ -951,7 +951,70 @@ Teambesprechung mit Lisa 17.11.23 15:00 - 16:00 Uhr
 \newpage
 
 \subsection{8. Woche Zeitraum 20.11.2023-26.11.2023}
+Im Meeting am 24.11 wurden folgende Sachen hinsichtlich des Projektes festgelegt.
 
+Fehlermeldungen beim Login sollen detailreicher sein, wenn man eine falsche Email oder ein falsches Passwort verwendet. Die Fehlermeldung könnte so aussehen: "Email und/oder Passwort stimmt nicht".
+
+Überschriften sollten bei jeder Seite hinzugefügt werden, um es übersichtlicher zu gestalten. 
+In AddEmployee soll auch dem ProjektManager zu verfügung stehen und es fehlt noch der Name des Customers, den man auch hinzufügen soll. Dazu soll das Layout einheitlich sein.
+Bei der TimeRegistration soll die Stelle wo man den Projektname einfügt, ganz oben sein. Dazu soll die Position automatisch ausgefüllt werden, wenn es nur eine Position gibt.
+
+Bei den Backend Endpoints sollen die Services Robust sein, also eine maximale Validierung haben. Ebenso sollen Plichtparameter geprüft werden.
+
+In der Datenbank ist es erstmals egal, ob die Ids durchlaufend sind oder nicht, aber es mit einer durchlaufenden Id besser lesbar ist.
+
+Bei dem SAP BTP sollen Sessiontoken eine Stunde bis maximal 4 Stunden gültig sein und sollen damit auch die Stunde lang weiterverwendet werden. Daraufhin sind wir auf Fragen gestoßen, wie zum Beispiel, ob der Token aktualisiert werden soll, solange der andere Token noch aktiv ist. Dafür sollen wir erstmal ein Ticket anlegen.
+Dazu kamen wir zum Entschluss, dass das Frontend lieber öfter aufgerufen werden soll, als das Backend.
+
+Zum Schluss haben wir uns darauf geeinigt das wir ab nächster Woche dann über das Jira Board das Meeting organisieren und dazu eine neue Aufwandseinschätzung machen sollen.
+
+\subsection{9. Woche Zeitraum 27.11.2023-03.12.2023}
+Teambesprechung mit Lisa: Protokoll vom 01.12.2023
+In dem heutigen Meeting mit Lisa wurden noch einmal über die verschiedene Ansichten drüber 
+geschaut und wir haben unseren aktuellen Stand dazu gezeigt. 
+Bei der Ansicht Time Registration ist es in Ordnung wenn die Mitarbeiter Ihre Pausenzeiten in 
+Minuten angeben können. Das heißt wenn jemand 1 Stunde 10 Minuten Pause macht müsste er die 
+Zahl 70 eingeben. Bezüglich der Erfolgreichen Zeiterfassung soll der Mitarbeiter einen Alert 
+bekommen, dass die Zeiterfassung erfolgreich war. Der Mitarbeiter soll auf keine andere Seite
+weitergeleitet werden sondern auf der Ansicht bleiben nach der erfolgreichen Zeiterfassung. 
+In der Ansicht New Project sollen noch folgende Funktionalitäten hinzugefügt werden: 
+Zum einen soll es ein Input Field geben in dem man verschieden Positionen hinzufügen kann, 
+diese Positionen kann man dann einem Mitarbeiter zuordnen. Des weiteren soll man jeder Position 
+noch ein Tagessatz hinzufügen können. Zudem soll geschaut worden ob alles auf eine Ansicht drauf
+passt oder man vielleicht doch zwei Screens machen muss da die eine Ansicht sonst zu vollgepackt 
+aussieht. 
+Des weiteren erstellen wir noch eine komplette neue Ansicht. Dies soll Informationen über ein 
+ausgewähltes Projekt bereitstellen. Je nach Rolle in dem ausgewählten Projekt sieht man mehr oder 
+weniger Informationen. Wenn man als Projektleiter auf das Projekt zugreift soll man alle Postionen
+sehen können die es in diesem Projekt gibt. Wenn man als Mitarbeiter drauf zugreift soll man nur 
+seine eigenen Positionen sehen können.
+Im Meeting ist uns aufgefallen das im Mockup noch eine Ansicht gefehlt hat, und zwar die Ansicht 
+das man komplett neue Mitarbeiter anlegen kann. Diese Privileg soll nur der Manager besitzen.
+Die Ansicht soll bis zum nächsten Meeting noch erstellt werden.
+Zu dem sollten wir Uns noch einmal als Team überlegen welche Anforderungen es gibt und ob es 
+noch Möglich ist, diese im verbleibenden Zeitfenster umzusetzen.
+Lisas Prioritäten waren:
+Prio 1 + 2: Die Funktionalität steht an erster Stelle das heißt die Software soll Fehlerfrei laufen und 
+reibungslos funktionieren zudem sollen alle Muss Anforderungen Technisch umgesetzt werden.
+Prio 3: Das Design ist weniger wichtig.
+Nächste Woche sollen wir nochmal drüber sprechen was die aktuellen Muss – Soll – Kann 
+Anforderungen sind.
+Zu dem sollen wir noch einen URL Schutz einbauen das nur Autorisierte Personen
+auf bestimme URLS zugreifen können (Mitarbeiter,Projektleiter,Manager) (Protected Routes)
+Kann Anforderungen:
+Pausenzeiten:
+Kann Anforderung Pause in Stunden angeben: 
+Start Von Bis Pausenzeiten angeben:
+Teambesprechung mit Andre: Protokoll vom 01.12.2023
+Mit Andre zusammen haben wir über unser Kanban Board geschaut, jeder hat kurz seine Tasks 
+präsentiert an denen er gerade arbeitet zudem noch das Datum genannt bis wann er damit fertig sein
+will. Die Formulierung einzelner Tasks muss noch einmal überarbeiten werden anhand der User 
+Storys aus der Doku dort besteht schon eine einheitliche Formulierung der User Storys. 
+Zudem wurde noch besprochen das wir in den nächsten Meetings mit Lisa auch das Kanban Board
+vorzeigen können, das hilft uns dabei aus UserStorys präzise Informationen von der Kundin zu 
+erhalten. Zum Beispiel: Als Endanwender möchte ich eine detaillierte Ansicht für ein ausgewähltes 
+Projekt haben, um alle wichtigen Informationen auf einen Blick zu erhalten.
+Hier könnte man jetzt die Kundin fragen was Sie sich unter wichtigen Informationen vorstellt.
 
 \bibliographystyle{IEEEtran}
 \bibliography{quellen}
