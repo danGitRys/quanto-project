@@ -512,7 +512,7 @@ Telefonnummer und Teamrolle.
 \clearpage
 
 \section{Datenbank}
-Test e
+
 \begin{figure}[h]
     \centering
     \includegraphics[width= \textwidth]{images/logischeAnsicht.png}
@@ -532,6 +532,7 @@ Test e
 \subsection{Tabellen}
 
 \subsubsection{Employee}
+\label{subsubsec:Employee}
 \begin{lstlisting}[language=Sql, caption= Create Table Statement für Employee Table]
     CREATE TABLE [dbo].[employee] (
     [id]         INT           IDENTITY (1, 1) NOT NULL,
@@ -572,7 +573,8 @@ zwischen SAP und Datenbank über diese erfolgt. In Konsequenz davon sollten die
 Mail Adressen in der Datenbank einzigartig sein, da doppelte Mail Addressen zu
 Konflikten führen werden.
 
-\paragraph{fk\_team\_id} Bei dem fk\_team\_id handelt es sich um einen Foreign Key mit Bezug auf den Team Table. Durch die Implementierung des Foreign Keys an
+\paragraph{fk\_team\_id}
+\label{paragraph:fkTeamId} Bei dem fk\_team\_id handelt es sich um einen Foreign Key mit Bezug auf den Team Table. Durch die Implementierung des Foreign Keys an
 dieser Stelle kann ein Employee zu einem Zeitpunkt, nur einem Team zugeordnert sein.
 
 \paragraph{team\_roll}Ein Employee hat in einem Projekt eine Rolle. Diese kann sein "Team-Leader" oder "Member".
@@ -587,6 +589,11 @@ dieser Stelle kann ein Employee zu einem Zeitpunkt, nur einem Team zugeordnert s
 );
 
          \end{lstlisting}
+
+         In der Tabelle Team können Teams erstellt werden falls im Unternehmen mit Teams gearbeitet wird.
+\paragraph{id} Bei der Id handelt es sich um den Primärschlüssel der Tabelle welcher zugleich
+ein Autoinkrement-Schlüssel ist, und dazu dient ein Team eindeutig zu
+identifzieren. Dabei handelt es sich um den Foreign Key der in der Tabelle Employee (\ref{subsubsec:Employee}) in der Spalte fk\_team\_id (\ref{paragraph:fkTeamId}) referenziert wird.
 \subsubsection{Project}
 \begin{lstlisting}[language=Sql, caption= Create Table Statement für Project Table]
     CREATE TABLE [dbo].[project] (
