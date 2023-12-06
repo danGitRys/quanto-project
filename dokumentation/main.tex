@@ -788,6 +788,39 @@ erfasst.
 \paragraph{info} In dieser Spalte können noch weitere Infos und Anmerkungen für die geplante
 Arbeitszeite erfasstt werden
 
+\subsection{Trigger}
+
+\subsubsection{Booking}
+Mithilfe von Triggern wird sichergestellt dass das verbleibende Volumen von den
+Positionen angepasst wird. Hierfür gibt es insgesamt 3 Trigger.
+
+\begin{lstlisting}[language=Sql, caption= Create Trigger Statement für Insert in Booking Table]
+CREATE TRIGGER [dbo].[insertTrigger] 
+ON  [dbo].[booking] 
+AFTER Insert
+AS 
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+	UPDATE p
+	SET volume_remaining = volume_remaining + 
+        (((DATEDIFF(MINUTE,i.[start],i.[end])-i.[pause]))/60) * p.rate
+	FROM dbo.position p
+	INNER JOIN inserted i ON i.fK_position = p.id
+	WHERE p.id = i.fK_position;
+
+END
+GO
+);
+Dieser Trigger wird aktiv wenn neue Daten in die Booking Tabelle eingetragen werden.
+
+
+         \end{lstlisting}
+
+\subsection{Stored Procedures}
+
 Der SQL Code zum erstellen der Datenbank inklusive der Tabellen, ist im
 Github-Repository des Backends zu finden.
 
