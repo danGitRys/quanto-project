@@ -88,10 +88,17 @@ onMounted(() => {
     
 });
 
+
+
+let resArray = [];
+
 async function getDataFromBackend(){
-    const url = "http://localhost:8000/getForecast/1";
+    const url = "http://localhost:8000/getForecastOfEmployee/1002";
     const response = await axios.get(url);
     console.log(response)
+    resArray = response.data.forecast;
+    console.log(resArray);
+
 }
 
 
