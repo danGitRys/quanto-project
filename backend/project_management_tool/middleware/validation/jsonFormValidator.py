@@ -123,7 +123,7 @@ class formValidator:
                 "team_role": {"type": "string"},
             },
             # Specify required keys
-            "required": ["emp_id","forename","surname","mail","phone","fk_team_id","team_roll"],
+            "required": ["emp_id","forename","surname","email","phone","fk_team_id","team_role"],
         }
         try:
             validate(instance=jsonData, schema=employeeSchema)

@@ -65,7 +65,7 @@ def createEmployee(request)->JsonResponse:
         try:
             request_data = json.loads(request.body)
             print(request_data)
-            is_valid = validator.employee(request_data)
+            is_valid = jsonFormValidator.formValidator.employee((request_data))
 
             if is_valid:
                 new_emp_id = request_data["emp_id"]
