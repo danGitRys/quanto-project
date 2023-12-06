@@ -29,7 +29,7 @@ import Card from 'primevue/card';
 const app = createApp(App);
 
 app.use(PrimeVue);
-app.use(router).mount("#app");
+app.use(router)
 registerPlugins(app);
 app.component('DataTable', DataTable)
 app.component('Column', Column)
@@ -38,4 +38,5 @@ app.component('AutoComplete', AutoComplete)
 app.component('Button', Button)
 app.component('Divider', Divider)
 app.component('Card', Card)
+app.mount("#app");
 

@@ -1,5 +1,5 @@
-// ProductServices.js
 
+/ ProductServices.js
 export const ProductService = {
   async getProductsMini() {
     try {
@@ -41,4 +41,5 @@ const generateDatesForMonth = (year, month) => {
 
 // Example usage for November 2023
 const monthData = generateDatesForMonth(2023, 10); // Note: Month is zero-based, so 10 represents November
+
 

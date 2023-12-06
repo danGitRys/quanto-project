@@ -7,26 +7,26 @@ from django.db import models
 
 # TODO implement the Fields of the Database. Maybe rename
 
+
 class Assignment(models.Model):
     id = models.AutoField(primary_key=True)
     fk_project = models.BigIntegerField()
     fk_employee = models.BigIntegerField()
     role = models.TextField()
-   
 
     class Meta:
         db_table = 'assignment'
-    
+
     def toJson(self):
         serialized_data = {
             'id': self.id,
             'fk_project': self.fk_project,
             'fk_employee': self.fk_employee,
             'role': self.role,
-            'sysStartTime': self.sysStartTime,
-            'sysEndTime': self.sysEndTime,
+
         }
         return serialized_data
+
 
 class Employee(models.Model):
     id = models.AutoField(primary_key=True)
@@ -40,7 +40,7 @@ class Employee(models.Model):
 
     class Meta:
         db_table = 'employee'
-    
+
     def toJson(self):
         serialized_data = {
             'id': self.id,
@@ -58,7 +58,7 @@ class Employee(models.Model):
 class Booking(models.Model):
     id = models.AutoField(primary_key=True)
     fk_employee = models.BigIntegerField()
-    fK_positon = models.BigIntegerField()
+    fK_position = models.BigIntegerField()
     start = models.DateTimeField()
     end = models.DateTimeField()
     pause = models.FloatField()
@@ -72,12 +72,13 @@ class Booking(models.Model):
             'id': self.id,
             'fk_employee': self.fk_employee,
             'fk_position': self.fk_position,
-            'start': self.start.isoformat(),  
+            'start': self.start.isoformat(),
             'end': self.end.isoformat(),
             'pause': self.pause,
             'time': self.time,
         }
         return serialized_data
+
 
 class Forecast(models.Model):
     id = models.AutoField(primary_key=True)
@@ -89,17 +90,18 @@ class Forecast(models.Model):
 
     class Meta:
         db_table = 'forecast'
-    
+
     def toJson(self):
         serialized_data = {
             'id': self.id,
             'fk_employee': self.fk_employee,
             'fk_position': self.fk_position,
-            'start': self.start.isoformat(),  
+            'start': self.start.isoformat(),
             'end': self.end.isoformat(),
             'info': self.info,
         }
         return serialized_data
+
 
 class Positon(models.Model):
     id = models.AutoField(primary_key=True)
@@ -109,12 +111,12 @@ class Positon(models.Model):
     wd = models.FloatField()
     volume_total = models.FloatField()
     volume_remaining = models.FloatField()
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField()
+    start_date = models.DateField()
+    end_date = models.DateField()
 
     class Meta:
         db_table = 'position'
-    
+
     def toJson(self):
         serialized_data = {
             'id': self.id,
@@ -124,37 +126,38 @@ class Positon(models.Model):
             'wd': self.wd,
             'volume_total': self.volume_total,
             'volume_remaining': self.volume_remaining,
-            'start_date': self.start_date.isoformat(),  
+            'start_date': self.start_date.isoformat(),
             'end_date': self.end_date.isoformat(),
         }
         return serialized_data
+
 
 class Project(models.Model):
     id = models.AutoField(primary_key=True)
     p_id = models.TextField(max_length=50)
     name = models.TextField(max_length=50)
     company = models.TextField()
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField()
+    start_date = models.DateField()
+    end_date = models.DateField()
     fk_creator = models.BigIntegerField()
     creation_date = models.DateTimeField()
 
     class Meta:
         db_table = 'project'
-    
+
     def toJson(self):
         serialized_data = {
             'id': self.id,
             'p_id': self.p_id,
             'name': self.name,
             'company': self.company,
-            'start_date': self.start_date.isoformat(), 
+            'start_date': self.start_date.isoformat(),
             'end_date': self.end_date.isoformat(),
             'fk_creator': self.fk_creator,
             'creation_date': self.creation_date.isoformat(),
         }
         return serialized_data
-    
+
 
 class Team(models.Model):
     id = models.AutoField(primary_key=True)
@@ -170,4 +173,4 @@ class Team(models.Model):
             'name': self.name,
             'info': self.info,
         }
-        return serialized_data 
+        return serialized_data

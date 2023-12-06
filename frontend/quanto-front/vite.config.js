@@ -50,6 +50,10 @@ export default defineConfig({
       usePolling: true,
       interval: 600,
       binaryInterval: 600,
+
+    }
+
     },
+
   },
 });
