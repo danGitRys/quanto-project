@@ -8,11 +8,20 @@ import TimeRegistration from "@/views/TimeRegistration.vue";
 import LandingPage from "@/views/LandingPage.vue";
 import AddEmployee from "@/views/AddEmployee.vue";
 
-import dataTable from "@/components/DataTable.vue"
+
+
 import getTeam from "@/components/demo/getTeamComponent.vue"
 import ManageProject from "@/views/ManageProject.vue";
 
 import singleProject from "@/components/SingleProject.vue"
+
+import dataTable from "@/components/DataTable.vue";
+
+
+
+import TimeCorrection from "@/views/TimeCorrection.vue";
+
+
 
 const routes = [
   {
@@ -37,12 +46,14 @@ const routes = [
     component: LoginScreen,
   },
   {
+
     path: "/Home",
     name: "Home",
     component: Home,
   },
 
   {
+
     path: "/projectOverview",
     name: "ProjectOverview",
     component: LandingPage,
@@ -58,7 +69,6 @@ const routes = [
     name: "TimeRegistration",
     component: TimeRegistration,
   },
-
   {
     path: "/addEmployee",
     name: "AddEmployee",
@@ -76,6 +86,7 @@ const routes = [
     name: "ManageProject",
     component: ManageProject,
   },
+
   {
     path: "/getTeam/:id",
     name: "getTeam",
@@ -86,6 +97,15 @@ const routes = [
     name: "project",
     component: singleProject,
   }
+
+
+  {
+    path: "/TimeCorrection",
+    name: "TimeCorrection",
+    component: TimeCorrection,
+  },
+
+
 ];
 
 const router = createRouter({

@@ -11,7 +11,7 @@ import App from "./App.vue";
 import { createApp } from "vue";
 import router from "@/router";
 import PrimeVue from 'primevue/config'
-import 'primeicons/primeicons.css'
+//import 'primeicons/primeicons.css' // musste ich auskommentieren damit es läuft 
 import './assets/app.css'
 
 // Plugins
