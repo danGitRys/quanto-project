@@ -8,11 +8,18 @@ urlpatterns = [
     path('api/', viewstemp.api),
     #path('test', positionView.view_a),
     path('getEmployee', employee.getEmployee),
-    path('login', login),
+  
 
-    path('team',createTeam,name="createTeam"),
+    path('login',login),
     path('createAssignment',createAssignment, name='createAssignment'),
     path('createPosition',createPositon, name='createPosition'),
+    path('createTeam',createTeam),
+    path('createEmployee',createEmployee),
+    path('createBooking',createBooking),
+    path('createForecast',createForecast),
+    path('createProject',createProject),
+    path('getTeams',getTeams),
+    path('getTeamRoles',getTeamRoles),
     
 
     

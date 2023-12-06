@@ -117,16 +117,13 @@ class formValidator:
                 "emp_id": {"type": "string"},
                 "forename": {"type": "string"},
                 "surname": {"type": "string"},
-                "mail": {"type": "string"},
+                "email": {"type": "string"},
                 "phone": {"type": "string"},
                 "fk_team_id":{"type":"integer"},
-                "team_roll": {"type": "string"},
-                
-               
-               
+                "team_role": {"type": "string"},
             },
             # Specify required keys
-            "required": ["emp_id","forename","surname","mail","phone","fk_team_id","team_roll"],
+            "required": ["emp_id","forename","surname","email","phone","fk_team_id","team_role"],
         }
         try:
             validate(instance=jsonData, schema=employeeSchema)
@@ -158,9 +155,6 @@ class formValidator:
                 "end": {"type": "string"},
                 "pause":{"type":"string"},
                 "time": {"type": "string"},
-                
-               
-               
             },
             # Specify required keys
             "required": ["fk_employee","fk_position","start","end","pause"],
