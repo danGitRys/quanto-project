@@ -136,35 +136,38 @@ async function getProjectsFromBackend() {
 }
 
 // HIER MUSS NOCH DIE EMPPYEE ID MIT ÜBERGEBEN WERDEN IN DER URL 
-
+// This funtction gives us all Postions for the selected Project in the Dropdown
 async function getPositionsFromBackend(fk_project){
+  // url with the fk_project of the selected project, we need this for our SQL Statment later on
   const url = `http://localhost:8000/getPositionsOfProjectOfEmployee/${fk_project}`
+  // get request to the backend
   const response = await axios.get(url)
   let resPositionArray = response.data.positions;
+  // fill the postion Array and postion Object with the data of the backend
   resPositionArray.forEach((element,index) =>{
     positionArray.value[index] = element.position_id;
     position.name[index] = element.position_id;
     position.id[index] = element.id;
   })
 }
-
+// funtion to always get the current date 
 function getFormattedDate() {
   const today = new Date();
   const day = today.getDate();
-  // +1 da Monate nullbasiert sind
+  // add +1 because we got back the actual month - 1
   const month = today.getMonth() + 1; 
   const year = today.getFullYear();
 
-  // Führende Nullen hinzufügen, wenn nötig
+  // had to add a 0 in front of some days and months // using conditional ternary operator 
   const formattedDay = day < 10 ? `0${day}` : day;
   const formattedMonth = month < 10 ? `0${month}` : month;
-
+  // send back the date to the date variable
   return `${year}-${formattedMonth}-${formattedDay}`;
 }
 
 
 function sendDatatoBackend() {
-   // Datum werden in richtiges Format umgewandelt für die Datenbank
+   // Dates are being converted to the correct format for the database
    const startDate = `${date.value}` + " " + `${startTime.value+":00"}`
    const endDate = `${date.value}` + " " + `${endTime.value + ":00"}`
 
@@ -176,7 +179,7 @@ const data = {
   "pause": breakTime.value
   //"time": "15"
 }
-
+  // checked if all field are field out or not 
    if (date.value == '' || startTime.value == '' || breakTime.value == '' || endTime.value == '' || selectedProjectName.value == undefined || selectedProjectPosition.value == undefined) {
      alert("Please fill out all fields");
    }
@@ -184,16 +187,14 @@ const data = {
     const url = "http://localhost:8000/createBooking"
     axios.post(url, data)
       .then(response => {
-        // Erfolgreiche Antwort vom Server
         console.log(response.data);
-        // true
+        // if the respone.data.sucess == true we know the booking works
         if (response.data['success']) {
         alert("Booking sucessfull")
       }
 
       })
       .catch(error => {
-        // Fehler bei der Anfrage
         console.error(error);
       });
    }
