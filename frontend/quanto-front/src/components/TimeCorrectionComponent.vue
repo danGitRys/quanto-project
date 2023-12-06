@@ -55,10 +55,13 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
-import { ProductService } from '@/service/ProductService';
+//import { ProductService } from '@/service/ProductService';
 import InputText from 'primevue/inputtext'
 // Muss importiert werden, um Nummer eingeben zu können in der
 import InputNumber from 'primevue/inputnumber';
+import axios from 'axios';
+
+
 
 const products = ref();
 const columns = ref([
@@ -68,10 +71,28 @@ const columns = ref([
     { field: 'positions', header: 'Pos' },
 ]);
 
+
+const data = [
+    {
+        date: [15],
+        planed: [8, 15, 6, 18, 20],
+        worked: [15, 20, 30, 20, 30, 40],
+
+    },
+]
+
+products.value = data
+
 onMounted(() => {
-    ProductService.getProductsMini().then((data) => (products.value = data));
+    getDataFromBackend();
+    
 });
 
+async function getDataFromBackend(){
+    const url = "http://localhost:8000/getForecast/1";
+    const response = await axios.get(url);
+    console.log(response)
+}
 
 
 
