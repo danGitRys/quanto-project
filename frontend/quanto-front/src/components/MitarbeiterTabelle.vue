@@ -132,7 +132,7 @@ export default {
 
 .card {
     position: absolute;
-    bottom: -6em;
+    bottom: -50em;
     left: 6em;
 }
 </style>
