@@ -51,7 +51,6 @@ export default defineConfig({
       interval: 600,
       binaryInterval: 600,
 
-    }
 
     },
 

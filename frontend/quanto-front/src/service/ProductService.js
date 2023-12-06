@@ -1,8 +1,14 @@
+import axios from "axios";
 
-/ ProductServices.js
+// ProductServices.js
 export const ProductService = {
   async getProductsMini() {
     try {
+      const url = "http://localhost:8000/getForescast/1"
+      const respone = axios.get(url)
+      console.log(respone)
+
+      
       const data = [
         {
           date: monthData,
