@@ -77,7 +77,7 @@ def createEmployee(request)->JsonResponse:
                 new_team_role = request_data["team_role"]
 
                 if(checkExistenceDb.checkExDB.employee(new_emp_id,new_mail)):
-                     print("exists")
+                     print("Person exists already, still continuing")
 
                 new_employee = Employee(emp_id = new_emp_id,forename = new_forename,surname = new_surname,mail=new_mail,phone=new_phone,fk_team_id = new_fk_team_id,team_roll=new_team_role)
                 new_employee.save()
