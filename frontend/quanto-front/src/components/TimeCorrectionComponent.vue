@@ -39,11 +39,23 @@
         <div>
             <div v-for="(value, index) in data[field]" :key="index">
                 <InputNumber v-model="data[field][index]" @input="onInput" />
-            </div>
-        </div>
+            
+                </div>
+        
+        
+                </div>
     </template>
  
-
+        <template v-else-if="field === 'positions'">
+            <div>
+                <div v-for="(value, index) in data[field]" :key="index">
+                    <InputNumber v-model="data[field][index]" @input="onInput" />
+            
+                    </div>
+        
+        
+                    </div>
+        </template>
 
 
     </template>
@@ -54,7 +66,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, reactive } from 'vue';
 //import { ProductService } from '@/service/ProductService';
 import InputText from 'primevue/inputtext'
 // Muss importiert werden, um Nummer eingeben zu können in der
@@ -72,16 +84,17 @@ const columns = ref([
 ]);
 
 
-const data = [
+const data = reactive([
     {
-        date: [15],
-        planed: [8, 15, 6, 18, 20],
-        worked: [15, 20, 30, 20, 30, 40],
-
+        date:   [],
+        planed: [],
+        worked: [],
+        positions:[]
     },
-]
 
-products.value = data
+])
+
+products.value = data;
 
 onMounted(() => {
     getDataFromBackend();
@@ -98,6 +111,14 @@ async function getDataFromBackend(){
     console.log(response)
     resArray = response.data.forecast;
     console.log(resArray);
+    resArray.forEach((element,index) => {
+       data[0].date.push(element.date)
+       data[0].planed.push(element.duration)
+       data[0].worked.push(element.worked)
+       data[0].positions.push(element.fk_position)
+    
+
+    })
 
 }
 
