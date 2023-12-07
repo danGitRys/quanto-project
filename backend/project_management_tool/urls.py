@@ -1,12 +1,16 @@
 from django.urls import path
 from .views import *
 from .views.time.getTime import getTime
+from .views.post.booking import bookingView
+from django.urls import re_path
+
+
 
 urlpatterns = [
     path('', viewstemp.hello_world, name="home"),
     path('login/', viewstemp.loginpage),
     path('api/', viewstemp.api),
-    #path('test', positionView.view_a),
+   
     path('getEmployee', employee.getEmployee),
   
 
@@ -15,16 +19,17 @@ urlpatterns = [
     path('createPosition',createPositon, name='createPosition'),
     path('createTeam',createTeam),
     path('createEmployee',createEmployee),
-    path('createBooking',createBooking),
+    path('booking',bookingView),
     path('createForecast',createForecast),
     path('createProject',createProject),
     path('getTeams',getTeams),
     path('getTeamRoles',getTeamRoles),
+    path('test/<id>',MyView.as_view()),
     
 
     
     path('employee', createEmployee),
-    path('createBooking', createBooking),
+    #path('createBooking', createBooking),
     path('forecast', createForecast),
     path('project', createProject),
     path('currentTime',getTime),
