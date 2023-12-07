@@ -7,3 +7,5 @@ from .get import *
 from .homeScreen import *
 from .post import *
 from .time import *
+from .MyViewTest import *
+from .basic import *
