@@ -12,8 +12,10 @@ def createPositon(request):
         try:
             request_data = json.loads(request.body)
             is_valid = validator.position(request_data)
-            valid = is_valid["valid"]
             print(is_valid)
+            valid = is_valid["valid"]
+            errors = is_valid["errors"]
+            print(valid)
 
             if valid:
                
@@ -30,12 +32,12 @@ def createPositon(request):
 
                 response_data = {
                     "success": True,
-                    "message": "Project created successfully.",
+                    "message": "Position created successfully.",
                 }
             else:
                 response_data = {
                     "success": False,
-                    "error": "Invalid JSON format or missing required fields.",
+                    "error": errors,
                 }
         except json.JSONDecodeError:
             response_data = {

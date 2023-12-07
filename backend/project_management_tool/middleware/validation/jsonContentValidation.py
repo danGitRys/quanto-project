@@ -125,6 +125,7 @@ class jsonContentValidator:
         start_date = jsonData["start_date"]
         end_date = jsonData["end_date"]
         positon_id_valid:bool = checkExDB.position_position_id(positon_id)
+        print(positon_id_valid)
         fk_project_valid:bool = checkExDB.project_id(fk_project)
         wd_valid:bool = otherValidation.can_convert_to_float(wd)
         rate_valid:bool = otherValidation.can_convert_to_float(rate)
@@ -134,7 +135,7 @@ class jsonContentValidator:
         end_date_valid = dateValidator.validate_date(end_date)
 
         incorrecList:list = []
-        if not positon_id_valid:
+        if positon_id_valid:
             incorrecList.append("Position with this id already exists")
         if not fk_project_valid:
             incorrecList.append("Project with this id doesnt exist")
@@ -151,8 +152,8 @@ class jsonContentValidator:
         if not end_date_valid:
             incorrecList.append("End Date not valid")
         
-        if incorrecList is None:
-            if checkExDB.position_position_id_project(positon_id,fk_project):
+        if len(incorrecList) is 0:
+            if not checkExDB.position_position_id_project(positon_id,fk_project):
                  return {
                         "valid":True,
                         "errors": incorrecList,

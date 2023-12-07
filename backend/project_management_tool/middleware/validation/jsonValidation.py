@@ -79,8 +79,10 @@ class validator:
     def position(jsondata:json)->json:
         if(formValidator.position(jsondata)):
             contentResult = jsonContentValidator.postion(jsondata)
+            print(contentResult)
             contentValid = contentResult["valid"]
             contentError = contentResult["errors"]
+            print("Form apsst")
             if contentValid:
                 return {
                     "valid":True,
