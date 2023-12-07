@@ -1,9 +1,9 @@
 <template>
-<div>
+
   <BackgroundScreen />
   <TopBar />
   <SideBar />
-</div>
+
 </template>
 
 <script setup>

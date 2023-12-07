@@ -1,8 +1,6 @@
 <template>
-    <div>
    <Default />
     <AddEmployee />  
-    </div>
 </template>
 
 <script setup>

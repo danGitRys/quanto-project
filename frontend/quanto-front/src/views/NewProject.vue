@@ -1,11 +1,8 @@
-
 <template>
-  <div>
     <TopBar />
     <NewProject />
     <SubmitFooter />
     <SideBarMitarbeiter />
-  </div>
 </template>
 
 

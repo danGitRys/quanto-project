@@ -1,12 +1,10 @@
 <template>
-    <div>
-        <TopBar />
-        <BackgroundScreen />
-        <DropDownProjects />
-        <SideBarManager />
-        <ManageProject />
-        <MitarbeiterTabelle />
-    </div>
+    <TopBar />
+    <BackgroundScreen />
+    <DropDownProjects />
+    <SideBarManager />
+    <ManageProject />
+    <MitarbeiterTabelle />
 </template>
 
 <script setup>
