@@ -99,6 +99,8 @@ INPUT C:\Users\Daniel\AppData\Local\Programs\MiKTeX\tex\latex\listings\listings.
 INPUT C:\Users\Daniel\AppData\Local\Programs\MiKTeX\tex\latex\listings\listings.cfg
 INPUT C:\Users\Daniel\AppData\Local\Programs\MiKTeX\tex\latex\multirow\multirow.sty
 INPUT C:\Users\Daniel\AppData\Local\Programs\MiKTeX\tex\latex\multirow\multirow.sty
+INPUT C:\Users\Daniel\AppData\Local\Programs\MiKTeX\tex\latex\titlesec\titlesec.sty
+INPUT C:\Users\Daniel\AppData\Local\Programs\MiKTeX\tex\latex\titlesec\titlesec.sty
 INPUT C:\Users\Daniel\AppData\Local\Programs\MiKTeX\tex\latex\psnfss\ot1phv.fd
 INPUT C:\Users\Daniel\AppData\Local\Programs\MiKTeX\tex\latex\psnfss\ot1phv.fd
 INPUT C:\Users\Daniel\AppData\Local\Programs\MiKTeX\tex\latex\psnfss\ot1phv.fd
@@ -244,13 +246,6 @@ INPUT .\images\New Project.png
 INPUT .\images\New Project.png
 INPUT .\images\New Project.png
 INPUT .\images\New Project.png
-INPUT .\images\Manage Project.png
-INPUT .\images\Manage Project.png
-INPUT .\images\Manage Project.png
-INPUT .\images\Manage Project.png
-INPUT .\images\Manage Project.png
-INPUT .\images\Manage Project.png
-INPUT .\images\Manage Project.png
 INPUT .\images\Positionen einfügen.png
 INPUT .\images\Positionen einfügen.png
 INPUT .\images\Positionen einfügen.png
@@ -258,6 +253,13 @@ INPUT .\images\Positionen einfügen.png
 INPUT .\images\Positionen einfügen.png
 INPUT .\images\Positionen einfügen.png
 INPUT .\images\Positionen einfügen.png
+INPUT .\images\ManageProject1.png
+INPUT .\images\ManageProject1.png
+INPUT .\images\ManageProject1.png
+INPUT .\images\ManageProject1.png
+INPUT .\images\ManageProject1.png
+INPUT .\images\ManageProject1.png
+INPUT .\images\ManageProject1.png
 INPUT .\images\Sidebar.png
 INPUT .\images\Sidebar.png
 INPUT .\images\Sidebar.png
@@ -272,10 +274,34 @@ INPUT .\images\Time Registration.png
 INPUT .\images\Time Registration.png
 INPUT .\images\Time Registration.png
 INPUT .\images\Time Registration.png
-INPUT .\images\Time Registration.png
-INPUT .\images\Time Registration.png
-INPUT .\images\Time Registration.png
-INPUT .\images\Time Registration.png
+INPUT .\images\Working Times.png
+INPUT .\images\Working Times.png
+INPUT .\images\Working Times.png
+INPUT .\images\Working Times.png
+INPUT .\images\Working Times.png
+INPUT .\images\Working Times.png
+INPUT .\images\Working Times.png
+INPUT .\images\Working Times+.png
+INPUT .\images\Working Times+.png
+INPUT .\images\Working Times+.png
+INPUT .\images\Working Times+.png
+INPUT .\images\Working Times+.png
+INPUT .\images\Working Times+.png
+INPUT .\images\Working Times+.png
+INPUT .\images\TimeCorrection.png
+INPUT .\images\TimeCorrection.png
+INPUT .\images\TimeCorrection.png
+INPUT .\images\TimeCorrection.png
+INPUT .\images\TimeCorrection.png
+INPUT .\images\TimeCorrection.png
+INPUT .\images\TimeCorrection.png
+INPUT .\images\CreateNewEmployee.png
+INPUT .\images\CreateNewEmployee.png
+INPUT .\images\CreateNewEmployee.png
+INPUT .\images\CreateNewEmployee.png
+INPUT .\images\CreateNewEmployee.png
+INPUT .\images\CreateNewEmployee.png
+INPUT .\images\CreateNewEmployee.png
 INPUT .\images\logischeAnsicht.png
 INPUT .\images\logischeAnsicht.png
 INPUT .\images\logischeAnsicht.png

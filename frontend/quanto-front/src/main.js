@@ -11,16 +11,32 @@ import App from "./App.vue";
 import { createApp } from "vue";
 import router from "@/router";
 import PrimeVue from 'primevue/config'
+//import 'primeicons/primeicons.css' // musste ich auskommentieren damit es läuft 
+import './assets/app.css'
+
 // Plugins
 import { registerPlugins } from "@/plugins";
 
+// Primevue Components
+import InputText from 'primevue/inputtext';
+import AutoComplete from 'primevue/autocomplete';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
+import Button from 'primevue/button';
+import Divider from 'primevue/divider';
+import Card from 'primevue/card';
 
 const app = createApp(App);
 
-registerPlugins(app);
 app.use(PrimeVue);
-app.component('DataTable',DataTable)
-app.component('Column',Column)
-app.use(router).mount("#app");
+app.use(router)
+registerPlugins(app);
+app.component('DataTable', DataTable)
+app.component('Column', Column)
+app.component('InputText', InputText)
+app.component('AutoComplete', AutoComplete)
+app.component('Button', Button)
+app.component('Divider', Divider)
+app.component('Card', Card)
+app.mount("#app");
+
