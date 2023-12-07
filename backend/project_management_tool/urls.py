@@ -1,7 +1,7 @@
 from django.urls import path
 from .views import *
 from .views.time.getTime import getTime
-from .views.post.booking import bookingView
+
 from django.urls import re_path
 
 
@@ -19,11 +19,12 @@ urlpatterns = [
     path('createPosition',createPositon, name='createPosition'),
     path('createTeam',createTeam),
     path('createEmployee',createEmployee),
-    path('booking',bookingView),
+    #path('booking',bookingView),
     path('createForecast',createForecast),
     path('createProject',createProject),
     path('getTeams',getTeams),
     path('getTeamRoles',getTeamRoles),
+    path('test/', MyView.as_view()),
     path('test/<id>',MyView.as_view()),
     
 

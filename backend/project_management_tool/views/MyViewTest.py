@@ -10,3 +10,8 @@ class MyView(View):
 
     def post(self, *args, **kwargs):
         return HttpResponse('Post')
+    def put(self, *args, **kwargs):
+        return HttpResponse('Put')
+    
+    def delete(self, *args, **kwargs):
+        return HttpResponse('delete')
