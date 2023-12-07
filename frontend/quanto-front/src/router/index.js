@@ -96,7 +96,7 @@ const routes = [
     path: "/project/:id",
     name: "project",
     component: singleProject,
-  }
+  },
 
 
   {
