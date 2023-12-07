@@ -14,7 +14,7 @@ def getForecast(request, id: int) -> JsonResponse:
     request : request
         Get Request
     id : int
-        _description_
+         describe the path for dynamic routing 
 
     Returns
     -------
@@ -35,7 +35,7 @@ def getForecast(request, id: int) -> JsonResponse:
             response_data["data"] = forecastJson
         else:
             response_data["success"] = False
-            response_data["message"] = "No Position Forecast with this Id"
+            response_data["message"] = "No  Forecast with this Id"
     else:
         response_data["success"] = False
         response_data["message"] = "Invalid Method"

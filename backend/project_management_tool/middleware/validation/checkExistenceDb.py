@@ -46,8 +46,14 @@ class checkExDB:
     def position_id(position:int)->bool:
         return Positon.objects.filter(id=position).exists()
     
+    def position_position_id(position:str)->bool:
+        return Positon.objects.filter(position_id=position).exists()
+
+    def position_position_id_project(position:str,project:int)->bool:
+        return Positon.objects.filter(Q(position_id=position) & Q(fk_project=project)).exists()
+    
     def booking_exists(employeeId:int,positionId:int,startTime:str,endTime:str,pauseTime:int)->bool:
-        return Booking.objects.filter(Q(fk_employee=employeeId) & Q(fK_position=positionId) & Q(start=startTime) & Q(end=endTime) & Q(pause=pauseTime))
+        return Booking.objects.filter(Q(fk_employee=employeeId) & Q(fK_position=positionId) & Q(start=startTime) & Q(end=endTime) & Q(pause=pauseTime)).exists()
     
     
     
