@@ -29,6 +29,7 @@ import Divider from 'primevue/divider';
 import Card from 'primevue/card';
 import Splitter from 'primevue/splitter';
 import SplitterPanel from 'primevue/splitterpanel';
+import Dialog from 'primevue/dialog';
 
 const app = createApp(App);
 
@@ -46,5 +47,6 @@ app.component('Splitter', Splitter)
 app.component('SplitterPanel', SplitterPanel)
 app.component('InputGroup', InputGroup)
 app.component('InputGroupAddon', InputGroupAddon)
+app.component('Dialog', Dialog)
 app.mount("#app");
 
