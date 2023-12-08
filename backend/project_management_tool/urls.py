@@ -37,6 +37,8 @@ urlpatterns = [
     path('forecast',ForecastView.as_view()),
     path('employee/<id>',EmployeeView.as_view()),
     path('employee',EmployeeView.as_view()),
+    path('booking/<id>',BookingView.as_view()),
+    path('booking',BookingView.as_view()),
     
 
     
