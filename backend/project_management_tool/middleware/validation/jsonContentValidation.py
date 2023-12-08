@@ -120,8 +120,8 @@ class jsonContentValidator:
         fk_project = jsonData["fk_project"]
         rate = jsonData["rate"]
         wd = jsonData["wd"]
-        volume_total = jsonData["volume_total"]
-        volume_remaining = jsonData["volume_remaining"]
+        # volume_total = jsonData["volume_total"]
+        # volume_remaining = jsonData["volume_remaining"]
         start_date = jsonData["start_date"]
         end_date = jsonData["end_date"]
         positon_id_valid:bool = checkExDB.position_position_id(positon_id)
@@ -129,8 +129,8 @@ class jsonContentValidator:
         fk_project_valid:bool = checkExDB.project_id(fk_project)
         wd_valid:bool = otherValidation.can_convert_to_float(wd)
         rate_valid:bool = otherValidation.can_convert_to_float(rate)
-        volume_total_valid:bool = otherValidation.can_convert_to_float(volume_total)
-        volume_remaining_valid:bool = otherValidation.can_convert_to_float(volume_remaining)
+        # volume_total_valid:bool = otherValidation.can_convert_to_float(volume_total)
+        # volume_remaining_valid:bool = otherValidation.can_convert_to_float(volume_remaining)
         start_date_valid = dateValidator.validate_date(start_date)
         end_date_valid = dateValidator.validate_date(end_date)
 
@@ -143,16 +143,16 @@ class jsonContentValidator:
             incorrecList.append("WD invalid")
         if not rate_valid:
             incorrecList.append("Rate not valid")
-        if not volume_total_valid:
-            incorrecList.append("Volume total not valid")
-        if not volume_remaining_valid:
-            incorrecList.append("Volume Remaining invalid")
+        # if not volume_total_valid:
+        #     incorrecList.append("Volume total not valid")
+        # if not volume_remaining_valid:
+        #     incorrecList.append("Volume Remaining invalid")
         if not start_date_valid:
             incorrecList.append("Start Date invalid")
         if not end_date_valid:
             incorrecList.append("End Date not valid")
         
-        if len(incorrecList) is 0:
+        if len(incorrecList) == 0:
             if not checkExDB.position_position_id_project(positon_id,fk_project):
                  return {
                         "valid":True,
@@ -171,20 +171,64 @@ class jsonContentValidator:
                         "errors": incorrecList
                     }
 
+    def project(jsonData:json)->bool:
+        p_id = jsonData["p_id"]
+        projectname = jsonData["projectname"]
+        start_date = jsonData["start_date"]
+        end_date = jsonData["end_date"]
 
+        projectIdExists:bool = checkExDB.project_id(p_id)
+        projectnameExists:bool = checkExDB.project_name(projectname)
+        startDateValid = dateValidator.validate_datetime(start_date)
+        endDateValid = dateValidator.validate_datetime(end_date)
 
+        incorrectList = []
 
+        if projectIdExists:
+            incorrectList.append("Project with this Id exists already.")
+        if projectnameExists:
+            incorrectList.append("Project with this Name exists already.")
+        if startDateValid:
+            incorrectList.append("Start date invalid format")
+        if endDateValid:
+            incorrectList.append("End date invalid format")
 
-        
+        if not projectIdExists and not projectnameExists and not startDateValid and not endDateValid:
+            return {
+                "valid":True,
+                "errors": incorrectList
+            }
+        else:
+            return {
+                "valid":False,
+                "errors": incorrectList
+            }
 
-        
+    def employee(jsonData:json)->bool:
+        emp_id = jsonData["emp_id"]
+        email = jsonData["email"]
+        phone = jsonData["phone"]
 
+        employeeIdExists:bool = checkExDB.employee_id(emp_id)
+        emailExists:bool = checkExDB.project_name(email)
+        phoneExists:bool = dateValidator.validate_datetime(phone)
 
+        incorrectList = []
 
+        if employeeIdExists:
+            incorrectList.append("Employee with this Id exists already. ")
+        if emailExists:
+            incorrectList.append("Employee with this Name exists already. ")
+        if phone:
+            incorrectList.append("An Employee is already using this phonenumber. ")
 
-
-
-
-        
-
-
+        if not employeeIdExists and not emailExists and not phoneExists:
+            return {
+                "valid":True,
+                "errors": incorrectList
+            }
+        else:
+            return {
+                "valid":False,
+                "errors": incorrectList
+            }

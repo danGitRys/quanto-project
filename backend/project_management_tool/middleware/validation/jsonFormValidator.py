@@ -217,8 +217,8 @@ class formValidator:
             "type": "object",
             "properties": {
                 "p_id": {"type": "string"},
-                "name": {"type": "string"},
-                "company": {"type": "string"},
+                "projectname": {"type": "string"},
+                "customername": {"type": "string"},
                 "start_date": {"type": "string"},
                 "end_date": {"type": "string"},
                 "fk_creator": {"type": "integer"},
@@ -227,7 +227,7 @@ class formValidator:
                
             },
             # Specify required keys
-            "required": ["p_id","name","company","start_date","end_date","fk_creator","creation_date"],
+            "required": ["p_id","projectname","customername","start_date","end_date","fk_creator","creation_date"],
         }
         try:
             validate(instance=jsonData, schema=projectSchema)
@@ -244,15 +244,11 @@ class formValidator:
                 "fk_project": {"type": "integer"},
                 "rate": {"type": "integer"},
                 "wd": {"type": "integer"},
-                "volume_total": {"type": "integer"},
-                "volume_remaining": {"type": "integer"},
                 "start_date": {"type": "string"},
                 "end_date": {"type": "string"},
-                
-               
             },
             # Specify required keys
-            "required": ["position_id","fk_project","rate","volume_total","start_date","end_date"],
+            "required": ["position_id","fk_project","rate","start_date","end_date"],
         }
         try:
             validate(instance=jsonData, schema=positionSchema)
