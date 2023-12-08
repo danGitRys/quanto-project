@@ -1,5 +1,5 @@
 <template>
-    <div class="app">
+    <div id="addEmployee">
         <Card style="width: 60%">
             <template #title>New Employee</template>
             <template #content>
@@ -9,98 +9,84 @@
                         <label for="empId">Employee ID:</label>
                         <InputText id="empId" type="text" v-model="empid" placeholder="ID"/>
                     </p>
-                <Divider />
-            <p class="input-container">
-                <label for="firstname">First Name:</label>
-                <InputText
-                    id="firstname"
-                    type="text"
-                    v-model="firstname"
-                    placeholder="First Name"
-                    describedby="firstnamedescription"
-                />
-                <small id="firstnamedescription">Enter First Name</small>
-                <label for="lastname">Last Name:</label>
-                <InputText
-                    id="lastname"
-                    type="text"
-                    v-model="lastname"
-                    placeholder="Last Name"
-                    describedby="lastnamedescription"
-                />
-                <small id="lastnamedescription">Enter Last Name</small>
-            </p>
-            <Divider />
-            <div class="input-container">
-                <label for="email">E-Mail:</label>
-                <InputText
-                    id="email"
-                    type="e-mail"
-                    v-model="email"
-                    placeholder="E-Mail"
-                />
-            </div>
-            <Divider />
-            <div class="input-container">
-                <label for="phone">Telephone-Number:</label>
-                <InputText
-                    id="phone"
-                    type="phone"
-                    v-model="phone"
-                    placeholder="Telephone-Number"
-                />
-            </div>
-            <Divider />
-            <div class="input-container">
-                <label for="ACTeam">Team:</label>
-                <AutoComplete
-                    id="ACTeam" 
-                    v-model="team" 
-                    dropdown option-label="name" 
-                    update:modelValue 
-                    :suggestions="teams" 
-                    placeholder="Teamname" 
-                    @complete="getTeams" 
-                />
-                <!-- <v-autocomplete v-model="team" id="ACTeam"
-                    label="Select Team" :items="this.getTeams().name"
-                    variant="solo-filled">
-                </v-autocomplete> -->
-            </div>
-            <Divider />
-            <div class="input-container-last">
-                <label for="ACTeamrole">Teamrole:</label>
-                <AutoComplete
-                    id="ACTeamrole"
-                    v-model="teamrole"
-                    dropdown
-                    :suggestions="teamroles"
-                    update:modelValue 
-                    placeholder="Teamrole"   
-                    @complete="getTeamRoles" 
-                />
-                <!-- <v-autocomplete v-model="teamrole" id="ACTeamrole"
-                    label="Select Role" :items="this.teamroles"
-                    variant="solo-filled">
-                </v-autocomplete> -->
-            </div>         
-        </div>
-    </template>
-    </Card>
+                    <Divider />
+                    <p class="input-container">
+                    <label for="firstname">First Name:</label>
+                    <InputText
+                        id="firstname"
+                        type="text"
+                        v-model="firstname"
+                        placeholder="First Name"
+                        describedby="firstnamedescription"
+                    />
+                    <small id="firstnamedescription">Enter First Name</small>
+                    <label for="lastname">Last Name:</label>
+                    <InputText
+                        id="lastname"
+                        type="text"
+                        v-model="lastname"
+                        placeholder="Last Name"
+                        describedby="lastnamedescription"
+                    />
+                    <small id="lastnamedescription">Enter Last Name</small>
+                    </p>
+                    <Divider />
+                    <div class="input-container">
+                        <label for="email">E-Mail:</label>
+                        <InputText
+                            id="email"
+                            type="e-mail"
+                            v-model="email"
+                            placeholder="E-Mail"
+                        />
+                    </div>
+                    <Divider />
+                    <div class="input-container">
+                        <label for="phone">Telephone-Number:</label>
+                        <InputText
+                            id="phone"
+                            type="phone"
+                            v-model="phone"
+                            placeholder="Telephone-Number"
+                        />
+                    </div>
+                    <Divider />
+                    <div class="input-container">
+                        <label for="ACTeam">Team:</label>
+                        <AutoComplete
+                            id="ACTeam" 
+                            v-model="team" 
+                            dropdown option-label="name" 
+                            update:modelValue 
+                            :suggestions="teams" 
+                            placeholder="Teamname" 
+                            @complete="getTeams" 
+                        />
+                    </div>
+                    <Divider />
+                    <div class="input-container">
+                        <label for="ACTeamrole">Teamrole:</label>
+                        <AutoComplete
+                            id="ACTeamrole"
+                            v-model="teamrole"
+                            dropdown
+                            :suggestions="teamroles"
+                            update:modelValue 
+                            placeholder="Teamrole"   
+                            @complete="getTeamRoles" 
+                        />
+                    </div>         
+                </div>
+            </template>
+        </Card>
     </div> 
     <footer>
-        <div class="buttonContainer">
-            <Button label="Submit" icon="pi pi-check" @click="submitEmployee"/>
-            <!-- <v-btn @click="submitEmployee" class="submitBtn" variant="outlined">
-                Submit
-            </v-btn> -->
-        </div>
+        <Button label="Submit" icon="pi pi-check" @click="submitEmployee"/>
     </footer>
 </template>
 
 <script>
 import { teamroles } from '@/store/teamroles';
-import { ref } from "vue";
 import axios from 'axios';
 import AutoComplete from 'primevue/autocomplete';
 import InputText from 'primevue/inputtext';
@@ -125,8 +111,6 @@ export default {
             teamrole: '',
             teams: [],
             teamroles: [],
-            items: ['Apple', 'Banana', 'Orange', 'Mango', 'Pineapple'],
-            selectedItem: null,
             filteredItems: [],
         }
     },
@@ -183,13 +167,12 @@ export default {
                 }).then(response => {
                     console.log(response)
                     if(response.data['success']==true){
-                        console.log("Employee created successfully.")
+                        alert(response.data.message)
                     }
                     else{
-                        alert("Creating new employee failed.")
+                        alert(response.data.error)
                     }
                 }).catch(error=> {
-                    console.log(request)
                     alert("An error has occured.")
                 })
             }
@@ -208,49 +191,26 @@ export default {
         this.init()
     }
 };
-
-// 
-// Add Employee Variables / Refs
-// 
-// var empid = ref('')
-// var firstname = ref('');
-// var lastname = ref('');
-// var email = ref('');
-// var phone = ref('');
-// var team = ref('');
-// var teamid = 0;
-// var teamrole = ref('');
-// var teams = ref([]);
-
-// 
-// Add Employee Functions
-// 
-// function getTeams() {
-//     axios.get("http://localhost:8000/getTeams", {}).then(response => {
-//             console.log(response)
-//             teams = response.dataTable
-//             if (responseData.success) {
-
-//             }
-            
-//         }           
-//     )
-//     var teamid = 0;
-//     return teamid;
-// }
-
-// function submitEmployee() {
-//     // if an Employee is already working on the Project, give feedback
-
-// }
-
-// beforeMount() {
-//         this.getTeams()
-// }
-
 </script>
 
 <style scoped>
+
+#addEmployee {
+  justify-content: center;
+  display: flex;
+  margin-left: 55px;
+  height: calc(100% - 185px);
+}
+footer {
+    position: sticky;
+    bottom: 0px;
+    width: 100%;
+    height: 75px;
+    background-color: #94B8C7;
+    display: flex;
+    justify-content: center;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
 
 .input-container {
   display: flex;
@@ -260,13 +220,7 @@ export default {
 
   padding: 10px 0;
 }
-.input-container-last {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 0;
-}
+
 .submitBtn {
     border: 2px solid #304C5D;
     background-color: #EF7C00;
@@ -277,19 +231,6 @@ export default {
     margin: 10px;
 }
 
-.app {
-  justify-content: center;
-  display: flex;
-  margin-left: 55px;
-  height: 100%;
-}
-
-.buttonContainer {
-    margin: 10px;
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-}
 
 .container {
 
@@ -302,7 +243,6 @@ label {
     font-size: 16px;
 }
 
-
 .p-inputtext{
   background-color: white;
 }
@@ -311,10 +251,10 @@ label {
   background-color: white;
 }
 
-
-div {
-    margin-top: 50px;
+.p-card {
+    margin: 30px;
 }
+
 
 .p-divider {
     color:#EF7C00;
