@@ -31,6 +31,8 @@ urlpatterns = [
     path('assignment',AssignmentView.as_view()),
     path('team/<id>',TeamView.as_view()),
     path('team',TeamView.as_view()),
+    path('project/<id>',ProjectView.as_view()),
+    path('project',ProjectView.as_view()),
     
 
     
