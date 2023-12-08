@@ -1,77 +1,99 @@
 <template>
-    <div class="card p-fluid">
-        <DataTable :value="products" editMode="cell" @cell-edit-complete="onCellEditComplete" :pt="{
-            table: { style: 'min-width: 50rem' },
-            column: {
-                bodycell: ({ state }) => ({
-                    class: [{ 'pt-0 pb-0': state['d_editing'] }],
-                }),
-            },
-        }">
-            <Column v-for="col of columns" :key="col.field" :field="col.field" :header="col.header" style="width: 25%">
-                <template #body="{ data, field }">
-                    
-                    <template v-if="field === 'date'">
-                         <div>
-                               <div v-for="(value, index) in data[field]" :key="index">
-                        <InputText v-model="data[field][index]" />
-                        </div>
+    <div>
+        <div class="card flex justify-content-center">
+            <!-- Dropdown-Komponente mit v-model, options und optionLabel -->
+            <Dropdown v-model="selectedMonth" :options="months" optionLabel="name" placeholder="Select a Month"
+                class="w-full md:w-14rem" />
+        </div>
+
+        <div class="card p-fluid">
+            <DataTable :value="products" editMode="cell" @cell-edit-complete="onCellEditComplete" :pt="{
+                table: { style: 'min-width: 50rem' },
+                column: {
+                    bodycell: ({ state }) => ({
+                        class: [{ 'pt-0 pb-0': state['d_editing'] }],
+                    }),
+                },
+            }">
+                <Column v-for="col of columns" :key="col.field" :field="col.field" :header="col.header" style="width: 25%">
+                    <template #body="{ data, field }">
+                        <template v-if="field === 'date'">
+                            <div>
+                                <div v-for="(value, index) in data[field]" :key="index">
+                                    <InputText v-model="data[field][index]" />
                                 </div>
+                            </div>
                         </template>
 
-
-
-                     
-                    <!--Planed Spalte wird dynamisch mit Werten gefüllt aus <service/ProductService> (planed)  -->
-                    <template v-else-if="field === 'planed'">
-                        <div>
-                           <div v-for="(value, index) in data[field]" :key="index">
-                        <InputNumber v-model="data[field][index]" @input="onInput" />
-
-                        </div>
+                        <!--Planed Spalte wird dynamisch mit Werten gefüllt aus <service/ProductService> (planed)  -->
+                        <template v-else-if="field === 'planed'">
+                            <div>
+                                <div v-for="(value, index) in data[field]" :key="index">
+                                    <InputNumber v-model="data[field][index]" @input="onInput" />
+                                </div>
                             </div>
+                        </template>
+
+                        <!-- Hier wird die WorkedSpalte dyamisch mit Daten gefüllt aus <service/ProductService> -->
+                        <template v-else-if="field === 'worked'">
+                            <div>
+                                <div v-for="(value, index) in data[field]" :key="index">
+                                    <InputNumber v-model="data[field][index]" @input="onInput" />
+                                </div>
+                            </div>
+                        </template>
+
+                        <template v-else-if="field === 'positions'">
+                            <div>
+                                <div v-for="(value, index) in data[field]" :key="index">
+                                    <InputNumber v-model="data[field][index]" @input="onInput" />
+                                </div>
+                            </div>
+                        </template>
                     </template>
-                    
-
-                    
-                   <!-- Hier wird die WorkedSpalte dyamisch mit Daten gefüllt aus <service/ProductService> --> 
-                    <template v-else-if="field === 'worked'">
-        <div>
-            <div v-for="(value, index) in data[field]" :key="index">
-                <InputNumber v-model="data[field][index]" @input="onInput" />
-            
-                </div>
-        
-        
-                </div>
-    </template>
- 
-        <template v-else-if="field === 'positions'">
-            <div>
-                <div v-for="(value, index) in data[field]" :key="index">
-                    <InputNumber v-model="data[field][index]" @input="onInput" />
-            
-                    </div>
-        
-        
-                    </div>
-        </template>
-
-
-    </template>
-            </Column>
-        </DataTable>
+                </Column>
+            </DataTable>
+        </div>
     </div>
-    
 </template>
 
+
 <script setup>
-import { ref, onMounted, reactive } from 'vue';
+import { ref, onMounted, reactive, onUpdated } from 'vue';
 //import { ProductService } from '@/service/ProductService';
 import InputText from 'primevue/inputtext'
 // Muss importiert werden, um Nummer eingeben zu können in der
 import InputNumber from 'primevue/inputnumber';
 import axios from 'axios';
+
+import Dropdown from 'primevue/dropdown';
+
+
+const selectedMonth = ref();
+
+const months = ref([
+    { name: "Januar", code: "1" },
+    { name: "Februar", code: "2" },
+    { name: "März", code: "3" },
+    { name: "April", code: "4" },
+    { name: "Mai", code: "5" },
+    { name: "Juni", code: "6" },
+    { name: "Juli", code: "7" },
+    { name: "August", code: "8" },
+    { name: "September", code: "9" },
+    { name: "Oktober", code: "10" },
+    { name: "November", code: "11" },
+    { name: "Dezember", code: "12" },
+]);
+
+let chosenMonth = "";
+
+onUpdated(() => {
+    console.log('Update');
+    chosenMonth = selectedMonth.value.code; // Nutze die reaktive Variable direkt
+    console.log("TEST" + chosenMonth);
+
+});
 
 
 

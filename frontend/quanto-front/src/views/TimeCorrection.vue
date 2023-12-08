@@ -7,7 +7,7 @@
 </template>
 
 <script setup>
-import DropDownMonthSelection from '@/components/DropDownMonthSelection.vue';
+
 import Default from '@/layouts/default/Default.vue';
 import TimeCorrectionComponent from '@/components/TimeCorrectionComponent.vue';
 
