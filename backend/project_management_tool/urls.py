@@ -33,6 +33,8 @@ urlpatterns = [
     path('team',TeamView.as_view()),
     path('project/<id>',ProjectView.as_view()),
     path('project',ProjectView.as_view()),
+    path('forecast/<id>',ForecastView.as_view()),
+    path('forecast',ForecastView.as_view()),
     
 
     
