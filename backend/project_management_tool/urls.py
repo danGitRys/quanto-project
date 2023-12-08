@@ -35,6 +35,8 @@ urlpatterns = [
     path('project',ProjectView.as_view()),
     path('forecast/<id>',ForecastView.as_view()),
     path('forecast',ForecastView.as_view()),
+    path('employee/<id>',EmployeeView.as_view()),
+    path('employee',EmployeeView.as_view()),
     
 
     
