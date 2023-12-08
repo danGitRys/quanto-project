@@ -1,7 +1,8 @@
 from django.urls import path
 from .views import *
 from .views.time.getTime import getTime
-
+from .views.basic.assignment import AssignmentView
+from .views.basic.team import TeamView
 from django.urls import re_path
 
 
@@ -26,6 +27,18 @@ urlpatterns = [
     path('getTeamRoles',getTeamRoles),
     path('test/', MyView.as_view()),
     path('test/<id>',MyView.as_view()),
+    path('assignment/<id>',AssignmentView.as_view()),
+    path('assignment',AssignmentView.as_view()),
+    path('team/<id>',TeamView.as_view()),
+    path('team',TeamView.as_view()),
+    path('project/<id>',ProjectView.as_view()),
+    path('project',ProjectView.as_view()),
+    path('forecast/<id>',ForecastView.as_view()),
+    path('forecast',ForecastView.as_view()),
+    path('employee/<id>',EmployeeView.as_view()),
+    path('employee',EmployeeView.as_view()),
+    path('booking/<id>',BookingView.as_view()),
+    path('booking',BookingView.as_view()),
     
 
     
