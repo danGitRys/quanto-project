@@ -23,8 +23,8 @@ def createPositon(request):
                 new_fk_project = request_data["fk_project"]
                 new_rate = request_data["rate"]
                 new_wd = request_data["wd"]
-                new_volume_total = request_data["volume_total"]
-                new_volume_remaining = request_data["volume_remaining"]
+                new_volume_total = new_rate*new_wd
+                new_volume_remaining = new_volume_total
                 new_start_date = request_data["start_date"]
                 new_end_date = request_data["end_date"]
                 newPosition = Positon(fk_project = new_fk_project,position_id=new_position_id,rate=new_rate,wd=new_wd,volume_total=new_volume_total,volume_remaining=new_volume_remaining,start_date=new_start_date,end_date=new_end_date)

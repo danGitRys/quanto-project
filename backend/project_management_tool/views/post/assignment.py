@@ -54,9 +54,5 @@ def createAssignment(request)->JsonResponse:
                 "success": False,
                 "error": "Invalid JSON format.",
             }
-    
-    
-   
-
 
     return JsonResponse(response_data)

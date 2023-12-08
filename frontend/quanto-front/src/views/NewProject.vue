@@ -1,7 +1,6 @@
 <template>
     <TopBar />
     <NewProject />
-    <SubmitFooter />
     <SideBarMitarbeiter />
 </template>
 
