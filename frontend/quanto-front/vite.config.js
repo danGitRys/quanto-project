@@ -46,14 +46,12 @@ export default defineConfig({
     hmr: {
       port: 3010,
     },
-    watch: {
-      usePolling: true,
-      interval: 600,
-      binaryInterval: 600,
+    // watch: {
+    //   usePolling: true,
+    //   interval: 600,
+    //   binaryInterval: 600,
 
-    }
-
-    },
+    // }
 
   },
 });
