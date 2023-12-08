@@ -70,6 +70,8 @@ import Dropdown from 'primevue/dropdown';
 
 
 const selectedMonth = ref();
+const date = ref(getFormattedDate());
+
 
 const months = ref([
     { name: "Januar", code: "1" },
@@ -92,9 +94,24 @@ onUpdated(() => {
     console.log('Update');
     chosenMonth = selectedMonth.value.code; // Nutze die reaktive Variable direkt
     console.log("TEST" + chosenMonth);
+    console.log(date.value)
 
 });
 
+
+function getFormattedDate() {
+    const today = new Date();
+    const day = today.getDate();
+    // +1 da Monate nullbasiert sind
+    const month = today.getMonth() + 1;
+    const year = today.getFullYear();
+
+    // Führende Nullen hinzufügen, wenn nötig
+    const formattedDay = day < 10 ? `0${day}` : day;
+    const formattedMonth = month < 10 ? `0${month}` : month;
+
+    return `${year}-${formattedMonth}-${formattedDay}`;
+}
 
 
 const products = ref();
