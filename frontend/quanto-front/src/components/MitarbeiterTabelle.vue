@@ -1,7 +1,7 @@
 <template>
     <div class="container">
       <div class="card p-fluid">
-        <div style="max-height: 700px; overflow-y: auto;">
+        <div style="max-height: 700px; overflow-y: auto; overflow-x: ;">
           <DataTable
             :value="displayedData"
             editMode="cell"
@@ -15,21 +15,23 @@
               },
             }"
           >
-            <Column
-              v-for="col of columns"
-              :key="col.field"
-              :field="col.field"
-              :header="col.header"
-              style="width: 25%"
-            >
+            <Column v-for="col of columns" :key="col.field" :field="col.field" :header="col.header" style="width: 25%">
               <template #body="{ data, field }">
                 <span v-if="editingRow !== data">
-                  {{ field === 'date' ? formatDateTime(data[field]) : data[field] }}
+                  {{ field === 'date' ? formatDateTime(data[field]) : field === 'pos' ? getStatusLabel(data[field]) : data[field] }}
                 </span>
               </template>
   
-              <template v-if="col.field !== 'date'" #editor="{ data, field }">
+              <template v-if="col.field !== 'date' && col.field !== 'pos'" #editor="{ data, field }">
                 <InputText v-model="data[field]" ref="inputField" @input="onInput" />
+              </template>
+  
+              <template v-if="col.field === 'pos'" #body="{ data, field }">
+                <Dropdown v-model="data[field]" :options="statuses" optionLabel="label" optionValue="value" placeholder="Select a Pos">
+                  <template #option="slotProps">
+                    <Tag :value="slotProps.option.value" :severity="getStatusLabel(slotProps.option.value)" />
+                  </template>
+                </Dropdown>
               </template>
             </Column>
           </DataTable>
@@ -40,12 +42,15 @@
   
   <script>
   import InputText from 'primevue/inputtext';
+  import Dropdown from 'primevue/dropdown';
+  import Tag from 'primevue/tag';
   import { ref } from 'vue';
   import axios from 'axios';
   
   export default {
     components: {
       InputText,
+      Dropdown,
     },
     data() {
       return {
@@ -57,16 +62,21 @@
           { field: 'pos', header: 'Pos' },
         ],
         editingRow: null,
+        statuses: [
+          { label: 'Status 1', value: 'status1' },
+          { label: 'Status 2', value: 'status2' },
+          // Add more statuses as needed
+        ],
       };
-    },
-    mounted() {
-      this.generateDatesForCurrentMonth();
-      this.getDataFromBackend();
     },
     computed: {
       displayedData() {
         return [...this.generatedDate];
       },
+    },
+    mounted() {
+      this.generateDatesForCurrentMonth();
+      this.getDataFromBackend();
     },
     methods: {
       onCellEditComplete: function (event) {
@@ -150,46 +160,46 @@
       },
   
       calculateHours(startDate, endDate) {
-    const startDateTime = new Date(startDate);
-    const endDateTime = new Date(endDate);
-
-    // Whether endDate is after startDate
-    if (endDateTime <= startDateTime) {
-      console.error("Enddatum sollte nach dem Startdatum liegen.");
-      return;
-    }
-
-    // calculate the total difference in hours
-    const totalHours = (endDateTime - startDateTime) / (1000 * 60 * 60);
-
-    // Split the hours in workdays form mon-fri
-    const workdays = this.getWorkdays(startDateTime, endDateTime);
-    const hoursPerDay = totalHours / workdays;
-
-    this.generatedDate.forEach((day) => {
-      day.hours = hoursPerDay;
-      console.log(day.hours + " StUNDEN");
-    });
-  },
-
-  getWorkdays(startDate, endDate) {
-    // calculate the workdays between start- and endDate
-    let count = 0;
-    let current = new Date(startDate);
-
-    while (current <= endDate) {
-      const dayOfWeek = current.getDay();
-
-      if (dayOfWeek >= 1 && dayOfWeek <= 5) {
-        count++;
-      }
-
-      // go to next day
-      current.setDate(current.getDate() + 1);
-    }
-
-    return count;
-  },
+        const startDateTime = new Date(startDate);
+        const endDateTime = new Date(endDate);
+  
+        // Whether endDate is after startDate
+        if (endDateTime <= startDateTime) {
+          console.error("Enddatum sollte nach dem Startdatum liegen.");
+          return;
+        }
+  
+        // calculate the total difference in hours
+        const totalHours = (endDateTime - startDateTime) / (1000 * 60 * 60);
+  
+        // Split the hours in workdays form mon-fri
+        const workdays = this.getWorkdays(startDateTime, endDateTime);
+        const hoursPerDay = totalHours / workdays;
+  
+        this.generatedDate.forEach((day) => {
+          day.hours = hoursPerDay;
+          console.log(day.hours + " StUNDEN");
+        });
+      },
+  
+      getWorkdays(startDate, endDate) {
+        // calculate the workdays between start- and endDate
+        let count = 0;
+        let current = new Date(startDate);
+  
+        while (current <= endDate) {
+          const dayOfWeek = current.getDay();
+  
+          if (dayOfWeek >= 1 && dayOfWeek <= 5) {
+            count++;
+          }
+  
+          // go to the next day
+          current.setDate(current.getDate() + 1);
+        }
+  
+        return count;
+      },
     },
   };
   </script>
@@ -201,8 +211,14 @@
   
   .card {
     position: absolute;
-    bottom: -37em;
+    bottom: -39em;
     left: 6em;
+  }
+
+  .p-dropdown {
+    top: 0em;
+    width: 7em;
+    left: -15%;
   }
   </style>
   
