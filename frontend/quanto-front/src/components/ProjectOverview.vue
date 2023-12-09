@@ -111,8 +111,6 @@
   padding-left: 25px;
   padding-right: 25px;
 }
-
-
 </style>
 
 <script setup>
@@ -176,26 +174,16 @@ const getSeverity = (status) => {
   }
 };
 
-const loadProjects = () => {
-  axios
-    .get('http://localhost:8000/getSingleProjects')  // Hier die URL für SingleProjects einfügen
-    .then((response) => {
-      customers.value = getCustomers(response.data);
-    })
-    .catch((error) => {
-      console.error('Fehler beim Laden der Projekte', error);
-    });
+const loadProjects = async () => {
+  await loadProjectsForEmployee(1);
 };
-const getCustomers = (data) => {
-  return [...(data || [])].map((d) => {
-    d.start_date = new Date(d.start_date);
-    d.end_date = new Date(d.end_date);
 
-    return d;
-  });
+const loadProjectsForEmployee = async (employeeId) => {
+  try {
+    const response = await axios.get(`http://localhost:8000/getProjectsForEmployee/${employeeId}`);
+    console.log('Projekte für Mitarbeiter geladen:', response.data);
+  } catch (error) {
+    console.error('Fehler beim Laden der Projekte für Mitarbeiter', error);
+  }
 };
 </script>
-
-
-
-
