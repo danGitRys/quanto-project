@@ -49,3 +49,85 @@ VALUES
 ('POS20', 1261, 135.0, 40, 250, 200, '2023-12-28', '2024-01-18');
 
 
+-- Beispiel: Jeder Mitarbeiter in 10 Projekten mit unterschiedlichen Rollen
+INSERT INTO assignment (fk_project, fk_employee, [role])
+VALUES
+-- Mitarbeiter 2
+(1242, 2, 'Member'), (1243, 2, 'Leader'), (1244, 2, 'Admin'), (1245, 2, 'Member'), (1246, 2, 'Leader'),
+(1247, 2, 'Admin'), (1248, 2, 'Member'), (1249, 2, 'Leader'), (1250, 2, 'Admin'), (1251, 2, 'Admin'),
+
+-- Mitarbeiter 3
+(1243, 3, 'Leader'), (1244, 3, 'Admin'), (1245, 3, 'Member'), (1246, 3, 'Leader'), (1247, 3, 'Admin'),
+(1248, 3, 'Member'), (1249, 3, 'Leader'), (1250, 3, 'Admin'), (1251, 3, 'Admin'), (1252, 3, 'Member'),
+
+-- Mitarbeiter 4
+(1242, 4, 'Admin'), (1243, 4, 'Member'), (1244, 4, 'Leader'), (1245, 4, 'Admin'), (1246, 4, 'Member'),
+(1247, 4, 'Leader'), (1248, 4, 'Admin'), (1249, 4, 'Admin'), (1250, 4, 'Admin'), (1251, 4, 'Leader'),
+
+-- Mitarbeiter 5
+(1242, 5, 'Leader'), (1243, 5, 'Admin'), (1244, 5, 'Member'), (1245, 5, 'Leader'), (1246, 5, 'Admin'),
+(1247, 5, 'Member'), (1248, 5, 'Leader'), (1249, 5, 'Admin'), (1250, 5, 'Admin'), (1251, 5, 'Member'),
+
+-- Mitarbeiter 6
+(1242, 6, 'Admin'), (1243, 6, 'Member'), (1244, 6, 'Leader'), (1245, 6, 'Admin'), (1246, 6, 'Leader'),
+(1247, 6, 'Admin'), (1248, 6, 'Member'), (1249, 6, 'Leader'), (1250, 6, 'Admin'), (1251, 6, 'Admin'),
+
+-- Mitarbeiter 7
+(1242, 7, 'Leader'), (1243, 7, 'Admin'), (1244, 7, 'Member'), (1245, 7, 'Leader'), (1246, 7, 'Admin'),
+(1247, 7, 'Member'), (1248, 7, 'Leader'), (1249, 7, 'Admin'), (1250, 7, 'Admin'), (1251, 7, 'Member'),
+
+-- Mitarbeiter 8
+(1242, 8, 'Admin'), (1243, 8, 'Leader'), (1244, 8, 'Member'), (1245, 8, 'Leader'), (1246, 8, 'Admin'),
+(1247, 8, 'Member'), (1248, 8, 'Leader'), (1249, 8, 'Admin'), (1250, 8, 'Admin'), (1251, 8, 'Member'),
+
+-- Mitarbeiter 9
+(1242, 9, 'Member'), (1243, 9, 'Leader'), (1244, 9, 'Admin'), (1245, 9, 'Leader'), (1246, 9, 'Admin'),
+(1247, 9, 'Member'), (1248, 9, 'Leader'), (1249, 9, 'Admin'), (1250, 9, 'Admin'), (1251, 9, 'Member'),
+
+-- Mitarbeiter 10
+(1242, 10, 'Admin'), (1243, 10, 'Member'), (1244, 10, 'Leader'), (1245, 10, 'Admin'), (1246, 10, 'Leader'),
+(1247, 10, 'Admin'), (1248, 10, 'Member'), (1249, 10, 'Leader'), (1250, 10, 'Admin'), (1251, 10, 'Admin'),
+
+-- Mitarbeiter 11
+(1242, 11, 'Leader'), (1243, 11, 'Admin'), (1244, 11, 'Member'), (1245, 11, 'Leader'), (1246, 11, 'Admin'),
+(1247, 11, 'Member'), (1248, 11, 'Leader'), (1249, 11, 'Admin'), (1250, 11, 'Admin'), (1251, 11, 'Member'),
+
+-- Mitarbeiter 12
+(1242, 12, 'Admin'), (1243, 12, 'Member'), (1244, 12, 'Leader'), (1245, 12, 'Admin'), (1246, 12, 'Leader'),
+(1247, 12, 'Admin'), (1248, 12, 'Member'), (1249, 12, 'Leader'), (1250, 12, 'Admin'), (1251, 12, 'Admin'),
+
+-- Mitarbeiter 13
+(1242, 13, 'Leader'), (1243, 13, 'Admin'), (1244, 13, 'Member'), (1245, 13, 'Leader'), (1246, 13, 'Admin'),
+(1247, 13, 'Member'), (1248, 13, 'Leader'), (1249, 13, 'Admin'), (1250, 13, 'Admin'), (1251, 13, 'Member'),
+
+-- Mitarbeiter 14
+(1242, 14, 'Admin'), (1243, 14, 'Member'), (1244, 14, 'Leader'), (1245, 14, 'Admin'), (1246, 14, 'Leader'),
+(1247, 14, 'Admin'), (1248, 14, 'Member'), (1249, 14, 'Leader'), (1250, 14, 'Admin'), (1251, 14, 'Admin'),
+
+-- Mitarbeiter 15
+(1242, 15, 'Member'), (1243, 15, 'Leader'), (1244, 15, 'Admin'), (1245, 15, 'Member'), (1246, 15, 'Leader'),
+(1247, 15, 'Admin'), (1248, 15, 'Member'), (1249, 15, 'Leader'), (1250, 15, 'Admin'), (1251, 15, 'Admin'),
+
+-- Mitarbeiter 16
+(1242, 16, 'Admin'), (1243, 16, 'Leader'), (1244, 16, 'Member'), (1245, 16, 'Member'), (1246, 16, 'Member'),
+(1247, 16, 'Member'), (1248, 16, 'Member'), (1249, 16, 'Member'), (1250, 16, 'Member'), (1251, 16, 'Member'),
+
+-- Mitarbeiter 1005
+(1242, 1005, 'Leader'), (1243, 1005, 'Admin'), (1244, 1005, 'Member'), (1245, 1005, 'Leader'), (1246, 1005, 'Admin'),
+(1247, 1005, 'Member'), (1248, 1005, 'Leader'), (1249, 1005, 'Admin'), (1250, 1005, 'Admin'), (1251, 1005, 'Member'),
+
+-- Mitarbeiter 2002
+(1242, 2002, 'Admin'), (1243, 2002, 'Leader'), (1244, 2002, 'Member'), (1245, 2002, 'Admin'), (1246, 2002, 'Leader'),
+(1247, 2002, 'Member'), (1248, 2002, 'Leader'), (1249, 2002, 'Admin'), (1250, 2002, 'Member'), (1251, 2002, 'Admin'),
+
+-- Mitarbeiter 2003
+(1242, 2003, 'Leader'), (1243, 2003, 'Admin'), (1244, 2003, 'Member'), (1245, 2003, 'Leader'), (1246, 2003, 'Admin'),
+(1247, 2003, 'Member'), (1248, 2003, 'Leader'), (1249, 2003, 'Admin'), (1250, 2003, 'Admin'), (1251, 2003, 'Member'),
+
+-- Mitarbeiter 2004
+(1242, 2004, 'Admin'), (1243, 2004, 'Member'), (1244, 2004, 'Leader'), (1245, 2004, 'Admin'), (1246, 2004, 'Leader'),
+(1247, 2004, 'Admin'), (1248, 2004, 'Member'), (1249, 2004, 'Leader'), (1250, 2004, 'Admin'), (1251, 2004, 'Admin'),
+
+-- Mitarbeiter 2005
+(1242, 2005, 'Member'), (1243, 2005, 'Leader'), (1244, 2005, 'Admin'), (1245, 2005, 'Member'), (1246, 2005, 'Leader'),
+(1247, 2005, 'Admin'), (1248, 2005, 'Member'), (1249, 2005, 'Leader'), (1250, 2005, 'Admin'), (1251, 2005, 'Admin');
