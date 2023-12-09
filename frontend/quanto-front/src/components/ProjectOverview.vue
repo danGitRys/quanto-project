@@ -175,7 +175,7 @@ const getSeverity = (status) => {
 };
 
 const loadProjects = async () => {
-  await loadProjectsForEmployee(1);
+  await loadProjectsForEmployee(2);
 };
 
 const loadProjectsForEmployee = async (employeeId) => {
