@@ -6,7 +6,7 @@ from ...middleware import assignedProjects
 import json
 
 @csrf_exempt
-def getProjectsForEmployee(request, employee_id: int) -> JsonResponse:
+def getProjectsForEmployee(request, id: int) -> JsonResponse:
     """ Endpoint for getting Projects for an Employee out of the Database
     Parameters
     ----------
@@ -28,13 +28,13 @@ def getProjectsForEmployee(request, employee_id: int) -> JsonResponse:
 
     if request.method == 'GET':
         # Überprüfe, ob der Mitarbeiter existiert
-        if not Employee.objects.filter(id=employee_id).exists():
+        if not Employee.objects.filter(id=id).exists():
             response_data["success"] = False
             response_data["message"] = "Employee does not exist"
             return JsonResponse(response_data)
 
         # Verwende die assignedProjects-Klasse, um die SQL-Abfrage auszuführen
-        projects_query = assignedProjects(employee_id)
+        projects_query = assignedProjects(id)
         projects_data = projects_query.toJsonTotal()
 
         if projects_data:
