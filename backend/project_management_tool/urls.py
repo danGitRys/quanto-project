@@ -1,6 +1,6 @@
 from django.urls import path
 
-from backend.project_management_tool.views.get import getProjectsForEmployee
+from .views.get import getProjectsForEmployee
 from .views import *
 from .views.time.getTime import getTime
 
@@ -39,7 +39,7 @@ urlpatterns = [
     path('assignedProjects/<int:id>', getAssignedProjects),
     path('getPositionsToProjectId/<int:id>', getPositionsToProjectId),
     path('getEmployeesToProjectId/<int:id>', getEmployeesToProjectId),
-    path('getProjectsForEmployee/<int:id>', getProjectsForEmployee)
+    path('getProjectsForEmployee/<int:id>', getProjectsForEmployee.getProjectsForEmployee)
 
 
 
