@@ -1,5 +1,12 @@
 <template>
     <div class="container">
+        <div>
+        <div class="dropDown">
+            <!-- Dropdown-Komponente mit v-model, options und optionLabel -->
+            <Dropdown v-model="selectedProject" :options="projects" placeholder="Select a Project"
+                 class="w-full md:w-14rem" @update:modelValue="test"/>
+        </div>
+    </div>
       <div class="monthPicker flex justify-content-center">
         <Calendar v-model="dateC" view="month" dateFormat="mm/yy" placeholder="Select a Date" @update:model-value="generateDatesForSelectedMonthTEST"></Calendar>
       </div>
@@ -31,7 +38,7 @@
   
   
   <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, onUpdated } from 'vue';
 import Calendar from 'primevue/calendar';
 import axios from 'axios';
 import InputText from 'primevue/inputtext';
@@ -39,6 +46,10 @@ import Dropdown from 'primevue/dropdown';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 import Tag from 'primevue/tag';
+
+const selectedProject = ref();
+const projects = [];
+let chosenProject = "";
 
 const dateC = ref(new Date());
 const generatedDate = ref([]);
@@ -128,12 +139,33 @@ const monthChanged = () => {
   console.log(dateC);
 };
 
+onUpdated(() => {
+    chosenProject = selectedProject.value;
+    console.log(chosenProject);
+});
+
 onMounted(() => {
   selectedYear.value = new Date().getFullYear();
   selectedMonth.value = new Date().getMonth() + 1;
   generateDatesForSelectedMonthTEST();
   getDataFromBackend();
+  getProjectsFromBackend();
 });
+
+const getProjectsFromBackend = () => {
+    const url = 'http://localhost:8000/getAllProjects/'
+    axios.get(url)
+    .then(response => {
+      //console.log(response.data.data[0]);
+      for(let i = 0; i < response.data.data.length; i++) {
+        projects.push(response.data.data[i].name);
+      }
+    });
+}
+
+function test() {
+    console.log("test");
+}
 
 const daysInMonth = (month, year) => {
   return new Date(year, month, 0).getDate();
@@ -168,10 +200,10 @@ const formatDateTime = (date) => {
 };
 
 const getDataFromBackend = () => {
-  const url = 'http://localhost:8000/getForecast/6';
+  const url = 'http://localhost:8000/getTableData/2';
   axios.get(url)
     .then(response => {
-      console.log(response.data.data);
+      console.log(response.data.data[0].employee);
       const startDate = response.data.data.start;
       const endDate = response.data.data.end;
       calculateHours(startDate, endDate);
@@ -255,5 +287,12 @@ const handleMonthChange = () => {
     left: 10em;
     top: 4em;
   }
+
+  .dropDown {
+    position: relative;
+    right: 17em;
+    top: 2em;
+    text-align: center;
+}
   </style>
   

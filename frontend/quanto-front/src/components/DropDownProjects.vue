@@ -23,14 +23,19 @@ onUpdated(() => {
 });
 
 onMounted(() => {
-    getDataFromBackend();
+    //getDataFromBackend();
+    getProjectsFromBackend();
 })
 
-async function getDataFromBackend() {
-    const url = "http://localhost:8000/getProject/2";
-    const response = await axios.get(url);
-    console.log(response.data.data.name);
-    projects.push(response.data.data.name);
+const getProjectsFromBackend = () => {
+    const url = 'http://localhost:8000/getAllProjects/'
+    axios.get(url)
+    .then(response => {
+      //console.log(response.data.data[0]);
+      for(let i = 0; i < response.data.data.length; i++) {
+        projects.push(response.data.data[i].name);
+      }
+    });
 }
 
 function test() {

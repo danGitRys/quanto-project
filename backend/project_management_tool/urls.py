@@ -45,7 +45,9 @@ urlpatterns = [
     path('assignedProjects/<int:id>', getAssignedProjects),
     path('getPositionsToProjectId/<int:id>', getPositionsToProjectId),
     path('getEmployeesToProjectId/<int:id>', getEmployeesToProjectId),
-    path('getTableData/<int:id>',getTableData)
+    path('getTableData/<int:id>',getTableData),
+    path('getAllProjects/',getAllProjects),
+
 
 
 
