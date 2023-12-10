@@ -2,10 +2,10 @@
     <div>
         <TopBar />
         <BackgroundScreen />
-        <DropDownProjects />
         <SideBarManager />
         <ManageProject />
         <MitarbeiterTabelle />
+        <DropDownProjects />
     </div>
 </template>
 

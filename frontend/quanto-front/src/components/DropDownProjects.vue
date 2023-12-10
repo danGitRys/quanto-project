@@ -18,7 +18,7 @@ const projects = [];
 let chosenProject = "";
 
 onUpdated(() => {
-    chosenProject = selectedProject.value; // Nutze die reaktive Variable direkt
+    chosenProject = selectedProject.value;
     console.log(chosenProject);
 });
 
@@ -40,9 +40,9 @@ function test() {
 
 <style>
 .p-dropdown {
-    left: 10em;
-    width: 40em;
+    left: 20em;
+    width: 30em;
     text-align: center;
-    top: 1em;
+    bottom: 0.5em;
 }
 </style>
