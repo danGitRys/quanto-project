@@ -125,10 +125,22 @@ import InputNumber from 'primevue/inputnumber';
 import Dropdown from 'primevue/dropdown';
 import Tag from 'primevue/tag';
 
-const customers = ref();
+
+export default {
+
+
+data(){
+  return{
+    const customers = ref();
 const selectedCustomers = ref();
 const filters = ref();
 const statuses = ref(['unqualified', 'qualified', 'new', 'negotiation', 'renewal', 'proposal']);
+  }
+},
+
+methods: {
+
+}
 
 onMounted(() => {
   loadProjects();
@@ -180,10 +192,19 @@ const loadProjects = async () => {
 
 const loadProjectsForEmployee = async (employeeId) => {
   try {
-    const response = await axios.get(`http://localhost:8000/getProjectsForEmployee/${employeeId}`);
+    const response = await axios.get(`http://localhost:8000/getProjectsForEmployee/${employeeId}`).then(response => {
+            console.log(response)
+
+        })
+        .catch(error=> {
+            console.log(error)
+
+        });
     console.log('Projekte für Mitarbeiter geladen:', response.data);
   } catch (error) {
     console.error('Fehler beim Laden der Projekte für Mitarbeiter', error);
   }
 };
+
+}
 </script>
