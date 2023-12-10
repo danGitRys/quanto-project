@@ -1,20 +1,22 @@
 <template>
   <div class="card">
-    <DataTable :value="projects" paginator :rows="10" dataKey="id">
+    <div class="custom-search-input">
+      <InputText v-model="globalFilter" placeholder="Search..." />
+    </div>
+    <DataTable :value="projects" paginator :rows="10" dataKey="id" :globalFilter="globalFilter">
       <template #empty>No projects found.</template>
 
       <Column field="project_id" header="Project ID" sortable style="min-width: 10rem"></Column>
-      <Column field="project_company" header="Company" sortable style="min-width: 14rem"></Column>
       <Column field="project_name" header="Project Name" sortable style="min-width: 14rem"></Column>
       <Column field="project_company" header="Company" sortable style="min-width: 14rem"></Column>
-      <!-- Add more columns as needed -->
-      <!-- For example, you can add columns for other project attributes -->
-      <!-- <Column field="attributeName" header="Attribute Name" sortable style="min-width: 14rem"></Column> -->
+      <Column field="project_start_date" header="Start Date" sortable style="min-width: 14rem"></Column>
+      <Column field="project_end_date" header="End Date" sortable style="min-width: 14rem"></Column>
+      <Column field="assignment_role" header="Role" sortable style="min-width: 14rem"></Column>
     </DataTable>
   </div>
 </template>
 
-<style scoped>
+<style>
 .card {
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -24,10 +26,7 @@
 }
 
 .custom-search-input {
-  position: relative;
-  width: 100%;
-  max-width: 400px;
-  margin: 0 auto;
+  margin-bottom: 20px;
 }
 
 .custom-search-input input {
@@ -35,23 +34,25 @@
   width: 100%;
   border: 1px solid #ccc;
   border-radius: 4px;
-  padding-left: 30px;
+  padding: 8px;
 }
 
-.custom-search-input .pi-search {
-  position: absolute;
-  left: 50px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #666;
-  font-size: 16px;
+.p-datatable-thead th {
+  background-color: #f2f2f2; /* Light gray background for headers */
+  padding: 10px;
+  text-align: left;
 }
 
-.custom-search-input .p-inputtext {
-  padding-left: 25px;
-  padding-right: 25px;
+.p-datatable-tbody tr {
+  font-family: 'Arial', sans-serif; /* Change the font for entries */
+  color: #333; /* Change the text color for entries */
+}
+
+.p-datatable-tbody td {
+  padding: 10px;
 }
 </style>
+
 
 <script>
 import axios from 'axios';
@@ -79,7 +80,7 @@ export default {
       axios.get("http://localhost:8000/getProjectsForEmployee/" + this.$route.params.id, {
 
       }).then(response => {
-      
+
         var responseData = response.data
         var valid = responseData.success
         if (valid == true) {
@@ -89,10 +90,10 @@ export default {
           for(var i=0;i<tempData.length;i++){
                     var tempProject = tempData[i]
                     this.projects.push(tempProject)
-                   
+
 
                     }
-                    
+
 
         }
         else {
@@ -106,7 +107,7 @@ export default {
 
         })
     },
-    
+
 
 
 
@@ -116,11 +117,5 @@ export default {
       console.log("Called")
 
     }
-
-
 }
-
-
-
-
 </script>
