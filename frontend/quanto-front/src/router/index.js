@@ -43,7 +43,7 @@ const routes = [
   },
 
   {
-    path: "/projectOverview",
+    path: "/projectOverview/:id",
     name: "ProjectOverview",
     component: LandingPage,
   },
