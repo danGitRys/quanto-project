@@ -37,6 +37,9 @@ class checkExDB:
 
     # Project Checks
     def project_id(checkId:int)->bool:
+        return Project.objects.filter(id=checkId).exists()
+    
+    def project_p_id(checkId:int)->bool:
         return Project.objects.filter(p_id=checkId).exists()
     
     def project_name(checkName:int)->bool:

@@ -1,5 +1,6 @@
 <template>
     <div id="newProject">
+    <Toast />
     <Splitter style="height: 100%; width: 90%">
     <SplitterPanel class="flex align-items-center justify-content-center" style="min-width: 500px;">
         <ScrollPanel style="width: 100%; height: 100%">
@@ -188,7 +189,7 @@
                     <Column selectionMode="multiple" style="width: 3rem; min-height: 500px" :exportable="false"></Column>
                     <Column field="id" header="PositionID" sortable style="min-width:12rem; min-height: 500px;"></Column>
                     <Column field="name" header="Name" sortable style="min-width:12rem; min-height: 500px;"></Column>
-                    <Column field="rate" header="Role" sortable style="min-width:10rem; min-height: 500px;"></Column>
+                    <Column field="rate" header="Rate" sortable style="min-width:10rem; min-height: 500px;"></Column>
                     <Column field="workdays" header="Workdays" sortable style="min-width:10rem; min-height: 500px;"></Column>
                     <Column :exportable="false" style="min-width:8rem">
                         <template #body="slotProps">
@@ -227,6 +228,8 @@ import ScrollPanel from 'primevue/scrollpanel';
 import DataTable from 'primevue/datatable';
 import Card from 'primevue/card';
 import axios from 'axios'
+import Toast from 'primevue/toast';
+import { useToast } from "primevue/usetoast";
 
 class Position {
     id
@@ -253,9 +256,12 @@ export default {
         ScrollPanel,
         DataTable,
         Card,
+        Toast,
     },
     data() {
         return {
+            toast: useToast(),
+
             //General Information
             projectid: '',
             projectname: '',
@@ -322,6 +328,7 @@ export default {
             try {
                 const response = await axios.get("http://localhost:8000/getAllEmployees", {})
                 this.employees = response.data.employees
+                
             } catch (error) {
                 console.log(error)
             }
@@ -331,6 +338,13 @@ export default {
             try {
                 const response = await axios.get("http://localhost:8000/getAllEmployeeNames", {})
                 this.employeeNames = response.data.employeeNames
+
+                // If a Projectmanager is assigned, remove projectmanager from list of employees
+                if (this.projectmanager) {
+                    var index = this.employeeNames.indexOf(this.projectmanager)
+                    this.employeeNames.splice(index ,1)
+                    this.employees.splice(index, 1)
+                }
             } catch (error) {
                 console.log(error)
             }
@@ -353,61 +367,78 @@ export default {
             console.log(pos)
             this.positions.push(pos)
         },
+        checkForm() {
+            if (this.projectid == '') return false
+            if (this.projectname == '') return false
+            if (this.customername == '') return false
+            if (this.projectstart == '') return false
+            if (this.projectend == '') return false
+            if (this.projectmanager == '') return false
+            if (this.selectedEmployees == []) return false
+            if (this.positions == []) return false
+            return true
+        },
         async createProject() {
             // Create Timestamp for creation_date
-            var today = new Date()
-            var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()
-            const request = await axios.post("http://localhost:8000/createProject", {
-                //General Information
-                p_id: this.projectid,
-                projectname: this.projectname,
-                customername: this.customername,
-                start_date: this.projectstart,
-                end_date: this.projectend,
-                creation_date: date.toString(),
-                //Dummy data below
-                fk_creator: 2,
-                
-            }).then(response => {
-                console.log(response)
-                if(response.data['success']==true){
-                    console.log(response.data.message)
-                    this.assignProjectManager(response.data.projectid)
-                    this.assignEmployees(response.data.projectid)
-                    this.assignPositions(response.data.projectid)
-                }
-                else {
-                    console.log(response.data.error)
-                }
-            })
+            if (this.checkForm()) {
+                var today = new Date()
+                var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()
+                const request = await axios.post("http://localhost:8000/createProject", {
+                    //General Information
+                    p_id: this.projectid,
+                    projectname: this.projectname,
+                    customername: this.customername,
+                    start_date: this.projectstart,
+                    end_date: this.projectend,
+                    creation_date: date.toString(),
+                    //Dummy data below
+                    fk_creator: 2,
+                    
+                }).then(response => {
+                    console.log(response)
+                    if(response.data['success']==true){
+                        this.toast.add({severity: 'success', summary: 'Success', detail: response.data.message, life: 3000})
+                        this.assignProjectManager(response.data.data.projectid)
+                        this.assignEmployees(response.data.data.projectid)
+                        this.assignPositions(response.data.data.projectid)
+                    }
+                    else {
+                        this.toast.add({severity: 'error', summary: 'Error', detail: 'Error connecting to the Server.', life: 3000})
+                    }
+                })
+            }
+            else {
+                this.toast.add({severity: 'error', summary: 'Error', detail: 'Please fill in all Fields.', life: 3000})
+            }
         },
         async assignProjectManager(projectid) {
-            var assignProjectManager = await axios.post("http://localhost:8000/assignment", {
+            var projectmanagerid = this.employeeNames.indexOf(this.projectmanager)
+            var assignProjectManager = await axios.post("http://localhost:8000/createAssignment", {
                 "fk_project": projectid,
-                "fk_employee": this.selectedEmployees[i].id,
-                "role": "Member",
+                "fk_employee": projectmanagerid,
+                "role": "Manager",
             }).then(response => {
                 if(response.data['success']==true) {
-                    console.log(response.data.message)
+                    this.toast.add({severity: 'success', summary: 'Success', detail: response.data.message, life: 3000})
                 }
                 else {
-                    console.log(response.data.error)
+                    this.toast.add({severity: 'error', summary: 'Error', detail: response.data.error, life: 3000})
                 }
             })
         },
         async assignEmployees(projectid) {
             var assignEmployee
             for (let i = 0; i < this.selectedEmployees.length; i++) {
-                assignEmployee = await axios.post("http://localhost:8000/assignment", {
+                assignEmployee = await axios.post("http://localhost:8000/createAssignment", {
                     "fk_project": projectid,
                     "fk_employee": this.selectedEmployees[i].id,
-                    "role": "Member",
+                    "role": "Worker",
                 }).then(response => {
                     if(response.data['success']==true) {
-                        console.log(response.data.message)
+                        // Debug Options here
                     }
                     else {
-                        console.log(response.data.error)
+                        this.toast.add({severity: 'error', summary: 'Error assigning Employee', detail: response.data.error, life: 3000})
                     }
                 })
             }
@@ -418,8 +449,8 @@ export default {
                 assignPosition = await axios.post("http://localhost:8000/createPosition", {
                     "fk_project": projectid,
                     "position_id": this.positions[i].id + " " + this.positions[i].name,
-                    "rate": this.positions[i].rate,
-                    "wd": this.positions[i].workdays,
+                    "rate": parseInt(this.positions[i].rate),
+                    "wd": parseInt(this.positions[i].workdays),
                     "start_date": this.projectstart,
                     "end_date": this.projectend,
                 }).then(response => {
@@ -427,7 +458,7 @@ export default {
                         console.log(response.data.message)
                     }
                     else {
-                        console.log(response.data.error)
+                        this.toast.add({severity: 'error', summary: 'Error creating Position', detail: response.data.error, life: 3000})
                     }
                 })
             }

@@ -47,7 +47,7 @@ def createAssignment(request)->JsonResponse:
             else:
                 response_data = {
                     "success": False,
-                    "error": "Invalid JSON format or missing required fields.",
+                    "error": validation_Errors,
                 }
         except json.JSONDecodeError:
             response_data = {
