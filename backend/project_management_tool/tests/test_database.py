@@ -9,3 +9,6 @@ class DateTestClass(TestCase):
         testObject.save()
         result:bool = Team.objects.filter(name="Test").exists()
         self.assertEqual(True,result)
+
+    
+        
