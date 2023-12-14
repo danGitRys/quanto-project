@@ -30,10 +30,13 @@ import Card from 'primevue/card';
 import Splitter from 'primevue/splitter';
 import SplitterPanel from 'primevue/splitterpanel';
 import Dialog from 'primevue/dialog';
+import Toast from 'primevue/toast';
+import ToastService from 'primevue/toastservice';
 
 const app = createApp(App);
 
 app.use(PrimeVue);
+app.use(ToastService)
 app.use(router)
 registerPlugins(app);
 app.component('DataTable', DataTable)
@@ -48,5 +51,6 @@ app.component('SplitterPanel', SplitterPanel)
 app.component('InputGroup', InputGroup)
 app.component('InputGroupAddon', InputGroupAddon)
 app.component('Dialog', Dialog)
+app.component('Toast', Toast)
 app.mount("#app");
 
