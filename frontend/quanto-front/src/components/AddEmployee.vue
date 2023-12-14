@@ -20,7 +20,6 @@
                         placeholder="First Name"
                         describedby="firstnamedescription"
                     />
-                    <small id="firstnamedescription">Enter First Name</small>
                     <label for="lastname">Last Name:</label>
                     <InputText
                         id="lastname"
@@ -29,7 +28,6 @@
                         placeholder="Last Name"
                         describedby="lastnamedescription"
                     />
-                    <small id="lastnamedescription">Enter Last Name</small>
                     </p>
                     <Divider />
                     <div class="input-container">
@@ -120,9 +118,9 @@ export default {
         }
     },
     methods: {
-        async init() {
-            await this.getTeams()
-            await this.getTeamRoles()
+        init() {
+            this.getTeams()
+            this.getTeamRoles()
         },
         async getTeams() {
             try {
@@ -141,9 +139,10 @@ export default {
             }
         },
         getTeamID() {
-            for (let i = 0; i < this.teams.length; i++)
-            if (this.team.name == this.teams[i].name) {
-                this.teamid = this.teams[i].id
+            for (let i = 0; i < this.teams.length; i++) {
+                if (this.team.name == this.teams[i].name) {
+                    this.teamid = this.teams[i].id
+                }
             }
             console.log(this.teamid)
         },
@@ -185,12 +184,6 @@ export default {
                 this.toast.add({severity: 'error', summary: 'Error', detail: 'Please fill in all Fields.', life: 3000})
             }
         },
-        searchItems(event) {
-            const query = event.query.toLowerCase();
-            this.filteredItems = this.items.filter(item =>
-            item.toLowerCase().includes(query)
-      );
-        }
     },
     created() {
         this.init()
