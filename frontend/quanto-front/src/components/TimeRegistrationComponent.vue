@@ -149,11 +149,15 @@ async function getPositionsFromBackend(fk_project){
     
     positionArray.value[index] = element.position_id;
     position.name[index] = element.position_id;
-    position.id[index] = element.id;
-    selectedProjectPosition.value = positionArray.value[0];
-    
+    position.id[index] = element.id;   
   })
+   selectedProjectPosition.value = positionArray.value[0];
 }
+
+
+ 
+
+
 // funtion to always get the current date 
 function getFormattedDate() {
   const today = new Date();
