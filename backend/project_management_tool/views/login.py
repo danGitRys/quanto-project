@@ -29,6 +29,7 @@ def login(request)->JsonResponse:
                 data = json.loads(request.body)
                 token = data["token"]
                 decoded = jose.jwt.decode(token,key=public)
+                print(decoded)
                 email = decoded["email"]
                 
                 emp = Employee.objects.get(mail = email)
@@ -38,6 +39,7 @@ def login(request)->JsonResponse:
                 }
                 
             except Exception as e:
+                print(e)
                 data = {
                     "login":False,
                 }

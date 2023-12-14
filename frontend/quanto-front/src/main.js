@@ -38,8 +38,6 @@ const pinia = createPinia()
 const app = createApp(App);
 app.use(pinia)
 app.use(PrimeVue);
-registerPlugins(app);
-app.use(ToastService)
 app.use(router)
 app.component('DataTable', DataTable)
 app.component('Column', Column)
@@ -53,13 +51,5 @@ app.component('SplitterPanel', SplitterPanel)
 app.component('InputGroup', InputGroup)
 app.component('InputGroupAddon', InputGroupAddon)
 app.component('Dialog', Dialog)
-app.component('Toast', Toast)
-
-const User = useUser()
-const storedToken = localStorage.getItem('token');
-if (storedToken) {
-    User.loginUser(storedToken);
-}
-
 app.mount("#app");
 

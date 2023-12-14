@@ -6,6 +6,9 @@ import { ref, reactive } from 'vue';
 import {AuthService} from '@/service/login.js'
 import axios from "axios"
 import { useRouter } from 'vue-router';
+
+import { useUser } from '@/store/user';
+
 let isPassword = ref(true);
 function showPassword() {
     isPassword.value = !isPassword.value;
@@ -13,7 +16,7 @@ function showPassword() {
 const email = ref('');
 const password = ref('');
 
-
+const User = useUser()
 // 
 async function getEmployeeData() {
     // const url = "http://localhost:3001/"
@@ -31,9 +34,11 @@ async function getEmployeeData() {
         axios.post("http://localhost:8000/login",{
             token:token
         }).then(response => {
-            console.log(response)
+            console.log(response.login)
+            User.loginUser(response.employee,token)
+
             if(response.data['login']==true){
-                window.location.href = '/dataTable';
+                window.location.href = '/addEmployee';
             }
             else{
                 alert("Invalid Login")
@@ -47,11 +52,7 @@ async function getEmployeeData() {
         console.error(error);
         alert("Invalid Login");
     }
-    
-    
-    
    
-
 }
 
 
