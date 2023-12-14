@@ -21,7 +21,9 @@ def createBooking(request) -> JsonResponse:
     """
     if request.method == 'POST':
         try:
+            # loads json data out of the request into a python dictionary
             request_data = json.loads(request.body)
+            #checks if data is valid via validator 
             is_validResult = validator.booking(request_data)
             is_valid = is_validResult["valid"]
             errors = is_validResult["errors"]
@@ -29,15 +31,18 @@ def createBooking(request) -> JsonResponse:
             print(is_valid)
 
             if is_valid:
-                
+                # save the the data from the dictionary in single variable 
+                # to put it in the database 
                 new_fk_employee = request_data["fk_employee"]
                 new_fk_position = request_data["fk_position"]
                 new_start = request_data["start"]
                 new_end = request_data["end"]
                 new_pause = request_data["pause"]
                 # new_time = request_data["time"]
+                # create new instance and add data to it
                 newBooking = Booking(fk_employee=new_fk_employee, fK_position=new_fk_position,
                                      start=new_start, end=new_end, pause=new_pause)  # ,time=new_time
+                #save the data in the database
                 newBooking.save()
 
                 response_data = {

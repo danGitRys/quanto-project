@@ -19,7 +19,7 @@
           <div class="projectPositionContainer">
             <label for="dropdownProjectPosition">Project Position:</label>
             <select v-model="selectedProjectPosition" @change="selectedPostion" id="dropdownProjectPosition">
-              <option disabled value="">Select a Project Positon</option>
+              <option disabled value="" v-if="!selectedProjectPosition">Select a Project Position</option>
                <!--Postion DropDown Array get Filled Dynamically with Data from the Backend-->
              <option v-for="(position, index) in positionArray" :value="position" :key="index">{{ position }}</option>
             </select>
@@ -87,6 +87,7 @@ let position = {
 // global variable used in the data object later
 let posID = "";
 
+
 // the function loops to my postion Object if it matched the selected Postion I get the posID of the selected Position
 // which I will need for the Backend call
 function selectedPostion(){
@@ -100,7 +101,7 @@ function selectedPostion(){
 // which I need for the backend call to get all Positions for the selected Project
 
 async function loadPositions() {
-  positionArray.value = [];
+  
   project.name.forEach((element, index) => {
     if (element === selectedProjectName.value){
       const fk_project = project.id[index]
@@ -115,11 +116,11 @@ getProjectsFromBackend();
 
 // EMPLPOYEE AKTUELL NOCH HARDGECODET >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-let employee_id = 8;
+let employee_id = 1005;
 //function that get all Projects from the Backend from a specific employee
 async function getProjectsFromBackend() {
   // employee_id give back all employees for this employee
-  const url = `http://localhost:8000/testInnerJoin/${employee_id}`;
+  const url = `http://localhost:8000/getProjectsOfEmployee/${employee_id}`;
   // request send to backend
   const response = await axios.get(url);
   // save the response in the Array
@@ -145,9 +146,12 @@ async function getPositionsFromBackend(fk_project){
   let resPositionArray = response.data.positions;
   // fill the postion Array and postion Object with the data of the backend
   resPositionArray.forEach((element,index) =>{
+    
     positionArray.value[index] = element.position_id;
     position.name[index] = element.position_id;
     position.id[index] = element.id;
+    selectedProjectPosition.value = positionArray.value[0];
+    
   })
 }
 // funtion to always get the current date 
@@ -184,6 +188,7 @@ const data = {
      alert("Please fill out all fields");
    }
    else {
+    // data send to backend for the database entry
     const url = "http://localhost:8000/createBooking"
     axios.post(url, data)
       .then(response => {
