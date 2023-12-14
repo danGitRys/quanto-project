@@ -177,7 +177,7 @@ class jsonContentValidator:
         start_date = jsonData["start_date"]
         end_date = jsonData["end_date"]
 
-        projectIdExists:bool = checkExDB.project_id(p_id)
+        projectIdExists:bool = checkExDB.project_p_id(p_id)
         projectnameExists:bool = checkExDB.project_name(projectname)
         startDateValid = dateValidator.validate_datetime(start_date)
         endDateValid = dateValidator.validate_datetime(end_date)
@@ -219,7 +219,7 @@ class jsonContentValidator:
             incorrectList.append("Employee with this Id exists already. ")
         if emailExists:
             incorrectList.append("Employee with this Name exists already. ")
-        if phone:
+        if phoneExists:
             incorrectList.append("An Employee is already using this phonenumber. ")
 
         if not employeeIdExists and not emailExists and not phoneExists:

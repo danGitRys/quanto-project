@@ -1,5 +1,6 @@
 <template>
     <div id="addEmployee">
+        <Toast />
         <Card style="width: 60%">
             <template #title>New Employee</template>
             <template #content>
@@ -19,7 +20,6 @@
                         placeholder="First Name"
                         describedby="firstnamedescription"
                     />
-                    <small id="firstnamedescription">Enter First Name</small>
                     <label for="lastname">Last Name:</label>
                     <InputText
                         id="lastname"
@@ -28,7 +28,6 @@
                         placeholder="Last Name"
                         describedby="lastnamedescription"
                     />
-                    <small id="lastnamedescription">Enter Last Name</small>
                     </p>
                     <Divider />
                     <div class="input-container">
@@ -91,6 +90,8 @@ import axios from 'axios';
 import AutoComplete from 'primevue/autocomplete';
 import InputText from 'primevue/inputtext';
 import Button from 'primevue/button';
+import Toast from 'primevue/toast';
+import { useToast } from "primevue/usetoast";
 
 export default {
     name: "addEmployee",
@@ -98,6 +99,7 @@ export default {
         AutoComplete,
         InputText,
         Button,
+        Toast,
     },
     data() {
         return {
@@ -112,12 +114,13 @@ export default {
             teams: [],
             teamroles: [],
             filteredItems: [],
+            toast: useToast(),
         }
     },
     methods: {
-        async init() {
-            await this.getTeams()
-            await this.getTeamRoles()
+        init() {
+            this.getTeams()
+            this.getTeamRoles()
         },
         async getTeams() {
             try {
@@ -136,9 +139,10 @@ export default {
             }
         },
         getTeamID() {
-            for (let i = 0; i < this.teams.length; i++)
-            if (this.team.name == this.teams[i].name) {
-                this.teamid = this.teams[i].id
+            for (let i = 0; i < this.teams.length; i++) {
+                if (this.team.name == this.teams[i].name) {
+                    this.teamid = this.teams[i].id
+                }
             }
             console.log(this.teamid)
         },
@@ -167,25 +171,19 @@ export default {
                 }).then(response => {
                     console.log(response)
                     if(response.data['success']==true){
-                        alert(response.data.message)
+                        this.toast.add({severity: 'success', summary: 'Success', detail: response.data.message, life: 3000})
                     }
                     else{
-                        alert(response.data.error)
+                        this.toast.add({severity: 'error', summary: 'Error', detail: response.data.error, life: 3000})
                     }
                 }).catch(error=> {
-                    alert("An error has occured.")
+                    this.toast.add({severity: 'error', summary: 'Error', detail: 'Error connecting to the Server.', life: 3000})
                 })
             }
             else {
-                alert("All fields must be filled in!")
+                this.toast.add({severity: 'error', summary: 'Error', detail: 'Please fill in all Fields.', life: 3000})
             }
         },
-        searchItems(event) {
-            const query = event.query.toLowerCase();
-            this.filteredItems = this.items.filter(item =>
-            item.toLowerCase().includes(query)
-      );
-        }
     },
     created() {
         this.init()
