@@ -16,6 +16,8 @@ import './assets/app.css'
 
 // Plugins
 import { registerPlugins } from "@/plugins";
+import { createPinia } from 'pinia'
+import { useUser } from './store/user'
 
 // Primevue Components
 import InputGroup from 'primevue/inputgroup';
@@ -31,11 +33,14 @@ import Splitter from 'primevue/splitter';
 import SplitterPanel from 'primevue/splitterpanel';
 import Dialog from 'primevue/dialog';
 
-const app = createApp(App);
+const pinia = createPinia()
 
+const app = createApp(App);
+app.use(pinia)
 app.use(PrimeVue);
-app.use(router)
 registerPlugins(app);
+app.use(ToastService)
+app.use(router)
 app.component('DataTable', DataTable)
 app.component('Column', Column)
 app.component('InputText', InputText)
@@ -48,5 +53,13 @@ app.component('SplitterPanel', SplitterPanel)
 app.component('InputGroup', InputGroup)
 app.component('InputGroupAddon', InputGroupAddon)
 app.component('Dialog', Dialog)
+app.component('Toast', Toast)
+
+const User = useUser()
+const storedToken = localStorage.getItem('token');
+if (storedToken) {
+    User.loginUser(storedToken);
+}
+
 app.mount("#app");
 
