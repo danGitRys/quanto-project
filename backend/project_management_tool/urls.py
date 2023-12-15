@@ -15,6 +15,15 @@ urlpatterns = [
     path('getEmployee', employee.getEmployee),
   
 
+    #Add Employee to DB Routes
+    path('getTeams',getTeams),
+    path('getTeamRoles',getTeamRoles),
+    
+    #New Project Routes
+    path('getAllEmployees', getAllEmployees),
+    path('getAllEmployeeNames', getAllEmployeeNames),
+    path('createProject',createProject),
+
     path('login',login),
     path('createAssignment',createAssignment, name='createAssignment'),
     path('createPosition',createPositon, name='createPosition'),
@@ -22,6 +31,7 @@ urlpatterns = [
     path('createEmployee',createEmployee),
     #path('booking',bookingView),
     path('createForecast',createForecast),
+
     path('createProject',createProject),
     path('getTeams',getTeams),
     path('getTeamRoles',getTeamRoles),
@@ -40,12 +50,9 @@ urlpatterns = [
     path('booking/<id>',BookingView.as_view()),
     path('booking',BookingView.as_view()),
     
-
-    
     path('employee', createEmployee),
     #path('createBooking', createBooking),
     path('forecast', createForecast),
-    path('project', createProject),
     path('currentTime',getTime),
     path('deleteAssignment/<int:assignment_id>', deleteAssignment),
     path('deleteBooking/<int:id>', deleteBooking),

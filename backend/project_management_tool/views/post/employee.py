@@ -20,13 +20,11 @@ def getEmployee(request)->JsonResponse:
             All Employess as Json
         """
 
-        print(request.body)
         if request.method == 'GET':
             employeeList = []
             allEmployees = Employee.objects.all()
             for employee in allEmployees:
                 employeeList.append(employee.toJson())
-                print(employee.toJson())
             data = {
                 "employees": employeeList
             }
@@ -59,15 +57,14 @@ def createEmployee(request)->JsonResponse:
     JsonResponse
         Json Containing information about insertion Process
     """
-  
 
     if request.method == 'POST':
         try:
             request_data = json.loads(request.body)
-            print(request_data)
-            is_valid = jsonFormValidator.formValidator.employee((request_data))
-
-            if is_valid:
+            is_valid = validator.employee(request_data)
+            print(is_valid)
+            if is_valid["valid"]:
+                
                 new_emp_id = request_data["emp_id"]
                 new_forename = request_data["forename"]
                 new_surname = request_data["surname"]
@@ -75,9 +72,6 @@ def createEmployee(request)->JsonResponse:
                 new_phone = request_data["phone"]
                 new_fk_team_id = request_data["fk_team_id"]
                 new_team_role = request_data["team_role"]
-
-                if(checkExistenceDb.checkExDB.employee(new_emp_id,new_mail)):
-                     print("Person exists already, still continuing")
 
                 new_employee = Employee(emp_id = new_emp_id,forename = new_forename,surname = new_surname,mail=new_mail,phone=new_phone,fk_team_id = new_fk_team_id,team_roll=new_team_role)
                 new_employee.save()
@@ -89,7 +83,7 @@ def createEmployee(request)->JsonResponse:
             else:
                 response_data = {
                     "success": False,
-                    "error": "Invalid JSON format or missing required fields.",
+                    "error": is_valid["errors"],
                 }
         except json.JSONDecodeError:
             response_data = {
@@ -103,5 +97,4 @@ def createEmployee(request)->JsonResponse:
         }
 
     return JsonResponse(response_data)
-          
 

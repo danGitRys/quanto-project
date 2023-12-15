@@ -1,11 +1,10 @@
 <template>
-    <div>
+
       <BackgroundScreen />
       <TopBar />
       <SubmitFooter />
       <SideBar />
       
-    </div>
 </template>
     
 <script setup>
