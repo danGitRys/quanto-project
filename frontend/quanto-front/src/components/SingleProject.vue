@@ -113,7 +113,7 @@ export default {
 
         getPositonsToProject(){
             console.log("test")
-            axios.get("http://localhost:8000/getPositionsToProjectId/"+this.$route.params.id,{
+            axios.get("api/getPositionsToProjectId/"+this.$route.params.id,{
            
         }).then(response => {
             console.log(response)
