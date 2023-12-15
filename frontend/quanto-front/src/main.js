@@ -17,7 +17,6 @@ import './assets/app.css'
 // Plugins
 import { registerPlugins } from "@/plugins";
 import { createPinia } from 'pinia'
-import { useUser } from './store/user'
 
 // Primevue Components
 import InputGroup from 'primevue/inputgroup';
