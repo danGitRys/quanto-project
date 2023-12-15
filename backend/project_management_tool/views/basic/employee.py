@@ -7,6 +7,8 @@ from django.shortcuts import get_object_or_404
 from ...models import Employee
 import json
 from ...middleware import validator
+from ...middleware.validation.jsonFormValidator import formValidator
+from ...middleware.validation import checkExistenceDb
 @method_decorator(csrf_exempt, name='dispatch')
 
 class EmployeeView(View):
@@ -33,7 +35,8 @@ class EmployeeView(View):
         try:
             request_data = json.loads(request.body)
             print(request_data)
-            is_valid = jsonFormValidator.formValidator.employee((request_data))
+            print("called")
+            is_valid = validator.employee((request_data))
 
             if is_valid:
                 new_emp_id = request_data["emp_id"]
@@ -60,6 +63,7 @@ class EmployeeView(View):
                     "error": "Invalid JSON format or missing required fields.",
                 }
         except json.JSONDecodeError:
+            print("decode error")
             response_data = {
                 "success": False,
                 "error": "Invalid JSON format.",

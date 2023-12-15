@@ -50,7 +50,7 @@ urlpatterns = [
     path('booking/<id>',BookingView.as_view()),
     path('booking',BookingView.as_view()),
     
-    path('employee', createEmployee),
+    #path('employee', createEmployee),
     #path('createBooking', createBooking),
     path('forecast', createForecast),
     path('currentTime',getTime),
