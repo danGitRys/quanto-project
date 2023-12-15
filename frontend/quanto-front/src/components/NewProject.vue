@@ -360,12 +360,22 @@ export default {
                 this.selectedEmployees.push(this.employees[this.employeeNames.indexOf(this.selectedEmployee)])
             }
         },
+        checkPositionForm() {
+            if (this.positionid == '') return false
+            if (this.positionname == '') return false
+            if (this.positionrate == 0) return false
+            if (this.workdays == 0) return false
+            return true
+        },
         // Create new Object of Class Position with the values of the form and push to positions Array
         createPosition() {
-            console.log("test")
-            var pos = new Position(this.positionid, this.positionname, this.positionrate, this.workdays)
-            console.log(pos)
-            this.positions.push(pos)
+            if (this.checkPositionForm()) {
+                var pos = new Position(this.positionid, this.positionname, this.positionrate, this.workdays)
+                this.positions.push(pos)
+            }
+            else {
+                this.toast.add({severity: 'error', summary: 'Error', detail: 'Please fill in all position fields.', life: 3000})
+            }
         },
         checkForm() {
             if (this.projectid == '') return false
@@ -469,7 +479,6 @@ export default {
 
 
 <style scoped>
-/* Stil für kleinere Input-Felder */
 #newProject {
   justify-content: center;
   display: flex;
