@@ -52,4 +52,7 @@ export default defineConfig({
       binaryInterval: 600,
     }
   },
+  proxy: {
+    '/api':'http://localhost:8000'
+  }
 );
