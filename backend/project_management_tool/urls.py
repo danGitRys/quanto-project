@@ -70,8 +70,8 @@ urlpatterns = [
     path('getAssignment/<int:id>', getAssignment),
     path('assignedProjects/<int:id>', getAssignedProjects),
     path('getPositionsToProjectId/<int:id>', getPositionsToProjectId),
-    path('getEmployeesToProjectId/<int:id>', getEmployeesToProjectId)
-
-
+    path('getEmployeesToProjectId/<int:id>', getEmployeesToProjectId),
+    path('getProjectsOfEmployee/<int:id>', getProjectsOfEmployee),
+    path('getPositionsOfProjectOfEmployee/<int:id>',getPositionsOfProjectOfEmployee),
 
 ]
