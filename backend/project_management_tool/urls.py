@@ -12,7 +12,7 @@ urlpatterns = [
     path('login/', viewstemp.loginpage),
     path('api/', viewstemp.api),
    
-    path('getEmployee', employee.getEmployee),
+    #path('getEmployee', employee.getEmployee),
   
 
     #Add Employee to DB Routes
