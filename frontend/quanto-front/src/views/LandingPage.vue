@@ -1,8 +1,6 @@
 <template>
-  <div>
      <TopBar></TopBar>
      <ProjectOverview></ProjectOverview>
-  </div>
 </template>
 
 <script setup>

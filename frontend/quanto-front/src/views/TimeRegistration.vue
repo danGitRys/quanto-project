@@ -1,8 +1,7 @@
 <template>
-    <div>
+  
   <Default />
 <TimeRegistrationCo />  
-    </div>
 </template>
 
 <script setup>

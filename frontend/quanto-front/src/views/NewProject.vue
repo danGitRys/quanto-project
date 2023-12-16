@@ -1,9 +1,7 @@
-
 <template>
-  <div>
-  <Default />
-  <AddNewProject />
-  </div>
+    <TopBar />
+    <NewProject />
+    <SideBarMitarbeiter />
 </template>
 
 
@@ -11,7 +9,10 @@
 
 <script setup>
 import Default from '@/layouts/default/Default.vue';
-import AddNewProject from '@/components/AddNewProject.vue';
+import TopBar from '@/components/TopBar.vue';
+import SideBarMitarbeiter from '@/components/SideBarMitarbeiter.vue';
+import NewProject from '@/components/NewProject.vue';
+import SubmitFooter from '@/components/SubmitFooter.vue';
 </script>
 
 

@@ -28,7 +28,7 @@ async function getEmployeeData() {
         const token = await AuthService.login(email.value, password.value);
         console.log("here comes the token")
         console.log(token);
-        axios.post("http://localhost:8000/login",{
+        axios.post("/api/login",{
             token:token
         }).then(response => {
             console.log(response)
