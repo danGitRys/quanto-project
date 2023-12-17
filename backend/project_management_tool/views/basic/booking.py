@@ -34,6 +34,7 @@ class BookingView(View):
             request_data = json.loads(request.body)
             is_validResult = validator.booking(request_data)
             is_valid = is_validResult["valid"]
+            print(is_valid)
             errors = is_validResult["errors"]
             print(errors)
 
