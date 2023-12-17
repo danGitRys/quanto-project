@@ -30,14 +30,18 @@ def createBookingsSql(request) -> JsonResponse:
     }
     if request.method == 'GET':
        allEmployees = Employee.objects.all()
+       counter = 0
        for employee in allEmployees:
            employeeJson = employee.toJson()
            employeeId = employeeJson["id"]
-           print(employeeId)
+           #print(employeeId)
+           print("Employee-------------------------------------------------------------------------------------------")
+           print(counter)
+           counter +=1
            listPossiblePositions = eligiblePositionIds(employeeId).toJsonTotal()
-           print(listPossiblePositions)
+           #print(listPossiblePositions)
 
-           for day in range(0,60):
+           for day in range(0,30):
                dateGen = dateGenerator(-day)
                startDate = dateGen.generateStartDate()
                endDate = dateGen.generateEndDate()
@@ -45,11 +49,14 @@ def createBookingsSql(request) -> JsonResponse:
                workingTime = dateGen.calculateTimeDifference(startDate,endDate)-pauseTime
                randomPosition = random.choice(listPossiblePositions)
                randomPositionId = randomPosition["position_id"]
+               #print(randomPositionId)
+               #print("Id             "+  str(randomPositionId))
                newBooking = Booking(fk_employee=employeeId, fK_position=randomPositionId,
                                      start=startDate, end=endDate, pause=pauseTime)
                newBooking.save()
+               del(newBooking)
                #newBooking = Booking(fk_employee=employeeId,fk_position=randomPositionId,start=startDate,end=endDate,pause=pauseTime,time=workingTime)
-               print(newBooking)
+               #print(newBooking)
 
                #print(startDate)
                
