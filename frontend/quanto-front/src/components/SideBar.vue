@@ -96,6 +96,9 @@ import "primeicons/primeicons.css";
 
 const visible = ref(false);
 
+const forename = ref();
+const surname = ref();
+
 let isAdmin = false;
 let isProjectManager = false;
 
@@ -122,6 +125,8 @@ onMounted(() => {
             const role = response.data.employee.company_role;
             isAdmin = role === "Admin";
             isProjectManager = role === "Project_Manager";
+
+            forename = response.data.employee;
         })
         .catch(error=> {
             console.log(error)

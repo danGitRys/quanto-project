@@ -1,6 +1,7 @@
 <script setup>
 import HelloWorld from '@/components/HelloWorld.vue'
 import TopBar from '@/components/TopBar.vue'
+import SideBar from '@/components/SideBar.vue'
 import { ref, reactive } from 'vue';
 import {AuthService} from '@/service/login.js'
 import axios from "axios"
