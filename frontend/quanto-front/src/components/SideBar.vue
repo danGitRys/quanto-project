@@ -1,4 +1,3 @@
-
 <template>
     <div class="card flex justify-content-flex-start">
         <Sidebar v-model:visible="visible">
@@ -28,19 +27,25 @@
                                     <i class="pi pi-home mr-2"></i>
                                     <span class="font-medium">Dashboard</span>
                                     </router-link>
-                                    <li>
-                                        <router-link to="/workingTimes" v-ripple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
+                                    <li v-if="isAdmin || isProjectManager">
+                                        <router-link to="/workingTimes+" v-ripple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
                                             <i class="pi pi-calendar mr-2"></i>
                                             <span class="font-medium">Working Times +</span>
                                         </router-link>
                                     </li>
-                                    <li>
+                                    <li v-else>
+                                        <router-link to="/workingTimes" v-ripple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
+                                            <i class="pi pi-calendar mr-2"></i>
+                                            <span class="font-medium">Working Times</span>
+                                        </router-link>
+                                    </li>
+                                    <li v-if="isAdmin">
                                         <router-link to="/newproject" v-ripple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
                                             <i class="pi pi-plus-circle mr-2"></i>
                                             <span class="font-medium">New Project</span>
                                         </router-link>
                                     </li>
-                                    <li>
+                                    <li v-if="isAdmin || isProjectManager">
                                         <router-link to="/ManageProject" v-ripple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
                                             <i class="pi pi-book mr-2"></i>
                                             <span class="font-medium">Manage Project</span>
@@ -80,7 +85,8 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
+import axios from "axios";
 import Sidebar from 'primevue/sidebar';
 import Avatar from "primevue/avatar";
 import Button from 'primevue/button';
@@ -89,6 +95,42 @@ import "primevue/resources/themes/lara-light-green/theme.css";
 import "primeicons/primeicons.css";
 
 const visible = ref(false);
+
+let isAdmin = false;
+let isProjectManager = false;
+
+let token = localStorage.getItem('token');
+
+
+// Überprüfen, ob der Local Storage-Wert vorhanden ist
+if (token) {
+    console.log('Daten aus dem Local Storage:', token);
+} else {
+    console.log('Keine Daten im Local Storage gefunden.');
+}
+
+onMounted(() => {
+    getRole();
+  });
+
+  const getRole = async () => {
+    try {
+        axios.post("http://localhost:8000/getRole",{
+            token:token
+        }).then(response => {
+            console.log(response)
+            const role = response.data.employee.company_role;
+            isAdmin = role === "Admin";
+            isProjectManager = role === "Project_Manager";
+        })
+        .catch(error=> {
+            console.log(error)
+            alert("Invalid Login")
+        })
+    } catch (error) {
+        console.error(error);
+    }
+  };
 </script>
 
 <style>

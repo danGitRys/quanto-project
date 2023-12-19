@@ -2,13 +2,13 @@
     <TopBar />
     <BackgroundScreen />
     <DropDownProjects />
-    <SideBarManager />
+    <SideBar />
     <ManageProject />
     <MitarbeiterTabelle />
 </template>
 
 <script setup>
-import SideBarManager from '../components/SideBarManager.vue'
+import SideBar from '../components/SideBar.vue'
 import ManageProject from '../components/ManageProject.vue'
 import DropDownProjects from '@/components/DropDownProjects.vue';
 import TopBar from '@/components/TopBar.vue';
