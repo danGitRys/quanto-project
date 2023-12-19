@@ -71,11 +71,11 @@
                         <hr class="mb-3 mx-3 border-top-1 border-none surface-border" />
                         <a v-ripple class="m-3 flex align-items-center cursor-pointer p-3 gap-2 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
                             <!-- <Avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" shape="circle" /> -->
-                            <span class="font-bold">Hans Bauer</span>
+                            <span class="font-bold">{{ forename }} {{ surname }}</span>
                         </a>
                     </div>
-                    <div v-ripple class="logoutBtn m-3 flex align-items-center cursor-pointer p-3 gap-2 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
-                        <button class="pi pi-sign-out">  Logout</button>
+                    <div v-ripple class="logoutStyle m-3 flex align-items-center cursor-pointer gap-2 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
+                        <button @click="logout" class="logoutBtn pi pi-sign-out">  Logout</button>
                     </div>
                 </div>
             </template>
@@ -86,6 +86,7 @@
 
 <script setup>
 import { ref, onMounted } from "vue";
+import {AuthService} from '@/service/login.js'
 import axios from "axios";
 import Sidebar from 'primevue/sidebar';
 import Avatar from "primevue/avatar";
@@ -96,8 +97,8 @@ import "primeicons/primeicons.css";
 
 const visible = ref(false);
 
-const forename = ref();
-const surname = ref();
+let forename = '';
+let surname = '';
 
 let isAdmin = false;
 let isProjectManager = false;
@@ -126,29 +127,42 @@ onMounted(() => {
             isAdmin = role === "Admin";
             isProjectManager = role === "Project_Manager";
 
-            forename = response.data.employee;
+            forename = response.data.employee.forename;
+            surname = response.data.employee.surname;
         })
         .catch(error=> {
             console.log(error)
-            alert("Invalid Login")
         })
     } catch (error) {
         console.error(error);
     }
   };
+
+  const logout = () => {
+    console.log("Logout");
+    localStorage.clear();
+  }
 </script>
 
 <style>
-.logoutBtn {
+* {
+    box-sizing: border-box;
+}
+
+.logoutStyle {
     background-color: #94B8C7;
     border-radius: 8px;
     border: none;
     color: white;
-    padding: 10px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    margin: 4px 5px;
+
+}
+
+.logoutBtn {
+    width: 100%;
+    height: 100%;
 }
 </style>
