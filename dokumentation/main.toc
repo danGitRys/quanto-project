@@ -54,18 +54,48 @@
 \contentsline {paragraph}{\numberline {8.1.3.2}p\_id}{28}{paragraph.8.1.3.2}%
 \contentsline {paragraph}{\numberline {8.1.3.3}name,company}{28}{paragraph.8.1.3.3}%
 \contentsline {paragraph}{\numberline {8.1.3.4}start\_date,end\_date}{28}{paragraph.8.1.3.4}%
+\contentsline {paragraph}{\numberline {8.1.3.5}fk\_creator}{28}{paragraph.8.1.3.5}%
+\contentsline {paragraph}{\numberline {8.1.3.6}creation\_date}{28}{paragraph.8.1.3.6}%
 \contentsline {subsubsection}{\numberline {8.1.4}Position}{28}{subsubsection.8.1.4}%
-\contentsline {subsubsection}{\numberline {8.1.5}Assignment}{28}{subsubsection.8.1.5}%
+\contentsline {paragraph}{\numberline {8.1.4.1}id}{28}{paragraph.8.1.4.1}%
+\contentsline {paragraph}{\numberline {8.1.4.2}position\_id}{28}{paragraph.8.1.4.2}%
+\contentsline {paragraph}{\numberline {8.1.4.3}fk\_project}{28}{paragraph.8.1.4.3}%
+\contentsline {paragraph}{\numberline {8.1.4.4}rate}{28}{paragraph.8.1.4.4}%
+\contentsline {paragraph}{\numberline {8.1.4.5}wd}{28}{paragraph.8.1.4.5}%
+\contentsline {paragraph}{\numberline {8.1.4.6}volume\_total}{29}{paragraph.8.1.4.6}%
+\contentsline {paragraph}{\numberline {8.1.4.7}volume\_remaining}{29}{paragraph.8.1.4.7}%
+\contentsline {paragraph}{\numberline {8.1.4.8}start\_date, end\_date}{29}{paragraph.8.1.4.8}%
+\contentsline {subsubsection}{\numberline {8.1.5}Assignment}{29}{subsubsection.8.1.5}%
+\contentsline {paragraph}{\numberline {8.1.5.1}id}{29}{paragraph.8.1.5.1}%
+\contentsline {paragraph}{\numberline {8.1.5.2}fk\_project}{29}{paragraph.8.1.5.2}%
+\contentsline {paragraph}{\numberline {8.1.5.3}fk\_employee}{29}{paragraph.8.1.5.3}%
+\contentsline {paragraph}{\numberline {8.1.5.4}role}{29}{paragraph.8.1.5.4}%
 \contentsline {subsubsection}{\numberline {8.1.6}Booking}{29}{subsubsection.8.1.6}%
-\contentsline {subsubsection}{\numberline {8.1.7}Forecast}{29}{subsubsection.8.1.7}%
-\contentsline {section}{\numberline {9}Schnittstellen Definition}{30}{section.9}%
-\contentsline {subsection}{\numberline {9.1}Datenbank Backend}{30}{subsection.9.1}%
-\contentsline {subsection}{\numberline {9.2}Backend Frontend}{30}{subsection.9.2}%
-\contentsline {section}{\numberline {10}Protokoll}{31}{section.10}%
-\contentsline {subsection}{\numberline {10.1}1. Woche, Zeitraum 02.10.2023-08.10.2023}{31}{subsection.10.1}%
-\contentsline {subsection}{\numberline {10.2}2. Woche Zeitraum 09.10.2023 -22.10.2023}{31}{subsection.10.2}%
-\contentsline {subsection}{\numberline {10.3}3.Woche Zeitraum 16.10.2023 - 22.1.2023}{31}{subsection.10.3}%
-\contentsline {subsection}{\numberline {10.4}4. Woche Zeitraum: 23.10.203 -29.10.2023}{31}{subsection.10.4}%
-\contentsline {subsection}{\numberline {10.5}5. Woche Zeitraum: 30.10.2023 - 05.11.2023}{32}{subsection.10.5}%
-\contentsline {subsection}{\numberline {10.6}6. Woche Zeitraum 06.11.2023-12.11.2023}{33}{subsection.10.6}%
-\contentsline {subsection}{\numberline {10.7}7. Woche Zeitraum 13.11.2023-19.11.2023}{33}{subsection.10.7}%
+\contentsline {paragraph}{\numberline {8.1.6.1}id}{30}{paragraph.8.1.6.1}%
+\contentsline {paragraph}{\numberline {8.1.6.2}fk\_employee}{30}{paragraph.8.1.6.2}%
+\contentsline {paragraph}{\numberline {8.1.6.3}fk\_position}{30}{paragraph.8.1.6.3}%
+\contentsline {paragraph}{\numberline {8.1.6.4}start, end}{30}{paragraph.8.1.6.4}%
+\contentsline {paragraph}{\numberline {8.1.6.5}pause}{30}{paragraph.8.1.6.5}%
+\contentsline {paragraph}{\numberline {8.1.6.6}time}{30}{paragraph.8.1.6.6}%
+\contentsline {subsubsection}{\numberline {8.1.7}Forecast}{30}{subsubsection.8.1.7}%
+\contentsline {paragraph}{\numberline {8.1.7.1}id}{30}{paragraph.8.1.7.1}%
+\contentsline {paragraph}{\numberline {8.1.7.2}fk\_employee}{30}{paragraph.8.1.7.2}%
+\contentsline {paragraph}{\numberline {8.1.7.3}fk\_position}{31}{paragraph.8.1.7.3}%
+\contentsline {paragraph}{\numberline {8.1.7.4}start, end}{31}{paragraph.8.1.7.4}%
+\contentsline {paragraph}{\numberline {8.1.7.5}info}{31}{paragraph.8.1.7.5}%
+\contentsline {subsection}{\numberline {8.2}Trigger}{31}{subsection.8.2}%
+\contentsline {subsubsection}{\numberline {8.2.1}Booking}{31}{subsubsection.8.2.1}%
+\contentsline {subsection}{\numberline {8.3}Stored Procedures}{31}{subsection.8.3}%
+\contentsline {section}{\numberline {9}Schnittstellen Definition}{32}{section.9}%
+\contentsline {subsection}{\numberline {9.1}Datenbank Backend}{32}{subsection.9.1}%
+\contentsline {subsection}{\numberline {9.2}Backend Frontend}{32}{subsection.9.2}%
+\contentsline {section}{\numberline {10}Protokoll}{33}{section.10}%
+\contentsline {subsection}{\numberline {10.1}1. Woche, Zeitraum 02.10.2023-08.10.2023}{33}{subsection.10.1}%
+\contentsline {subsection}{\numberline {10.2}2. Woche Zeitraum 09.10.2023 -22.10.2023}{33}{subsection.10.2}%
+\contentsline {subsection}{\numberline {10.3}3.Woche Zeitraum 16.10.2023 - 22.1.2023}{33}{subsection.10.3}%
+\contentsline {subsection}{\numberline {10.4}4. Woche Zeitraum: 23.10.203 -29.10.2023}{33}{subsection.10.4}%
+\contentsline {subsection}{\numberline {10.5}5. Woche Zeitraum: 30.10.2023 - 05.11.2023}{34}{subsection.10.5}%
+\contentsline {subsection}{\numberline {10.6}6. Woche Zeitraum 06.11.2023-12.11.2023}{35}{subsection.10.6}%
+\contentsline {subsection}{\numberline {10.7}7. Woche Zeitraum 13.11.2023-19.11.2023}{35}{subsection.10.7}%
+\contentsline {subsection}{\numberline {10.8}8. Woche Zeitraum 20.11.2023-26.11.2023}{36}{subsection.10.8}%
+\contentsline {subsection}{\numberline {10.9}9. Woche Zeitraum 27.11.2023-03.12.2023}{36}{subsection.10.9}%
