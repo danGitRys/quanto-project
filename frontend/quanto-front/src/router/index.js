@@ -51,6 +51,7 @@ const routes = [
     path: "/",
     name: "ProjectOverview",
     component: LandingPage,
+    meta: { requiresAuth: true }
   },
 
   {
