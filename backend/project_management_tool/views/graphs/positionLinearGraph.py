@@ -10,6 +10,7 @@ from ...middleware import validator
 from ...middleware import dateRange
 from ...middleware import positionBookings
 from datetime import datetime
+import math
 @method_decorator(csrf_exempt, name='dispatch')
 
 class PositionLinearGraphView(View):
@@ -34,7 +35,7 @@ class PositionLinearGraphView(View):
                 x_data.append(currentDate)
                 tempPositionBookings = positionBookings(currentDate,id_param).executeQueryJsonResult()
                 volume = tempPositionBookings["volume"]
-                volumeSum += volume
+                volumeSum += int(volume)
                 y_data.append(volumeSum)
                 print(volume)
                 print(tempPositionBookings)
