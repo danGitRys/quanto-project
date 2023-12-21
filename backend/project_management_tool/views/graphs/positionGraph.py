@@ -27,10 +27,21 @@ class PositionGraphView(View):
             print(positionStartDate)
             print(positionEndDate)
             
+            y_data = []
+            x_data = []
             for currentDate in dateRange.range_date(positionStartDate,positionEndDate):
-                tempPositionBookings = positionBookings(currentDate,id_param).toJsonTotal()
+                x_data.append(currentDate)
+                tempPositionBookings = positionBookings(currentDate,id_param).executeQueryJsonResult()
+                volume = tempPositionBookings["volume"]
+                y_data.append(volume)
+                print(volume)
                 print(tempPositionBookings)
                 print(currentDate)
+            
+            response_data["data"] = {
+                "x":x_data,
+                "y":y_data
+            }
             
         else:
             response_data["success"] = False

@@ -1,22 +1,52 @@
+
+
 <template>
-    <h1>Hello</h1>
-    <canvas id="my-chart" width="500" height="300"></canvas>
-</template>
-<script>
-
-import Chart from 'chart.js';
-
-new Chart(document.getElementById('my-chart'), {
-  type: 'line',
-  data: {
-    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
-    datasets: [
-      {
-        label: '2018 Sales',
-        data: [300, 700, 450, 750, 450]
+    <div class="container">
+      <Bar v-if="loaded" :data="chartData" />
+    </div>
+  </template>
+  
+  <script>
+  import { Bar } from 'vue-chartjs'
+  import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js'
+  import axios from "axios"
+  
+  ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
+  
+  export default {
+    name: 'BarChart',
+    components: { Bar },
+    data: () => ({
+      loaded: false,
+      chartData: null
+    }),
+    async mounted() {
+      this.loaded = false
+  
+      try {
+        const response = await axios.get("http://localhost:8000/positionGraph/" + this.$route.params.id)
+        const responseData = response.data
+        const valid = responseData.success
+  
+        if (valid) {
+          const tempData = responseData.data
+          const xData = tempData.x
+          const yData = tempData.y
+  
+          // Update chartData with xData and yData
+          this.chartData = {
+            labels: xData,
+            datasets: [{ data: yData }]
+          }
+        } else {
+          alert("This Team doesn't exist")
+        }
+      } catch (error) {
+        console.error(error)
       }
-    ]
+  
+      this.loaded = true
+    }
   }
-});
-
-</script>
+  </script>
+  
