@@ -20,7 +20,7 @@ import dataTable from "@/components/DataTable.vue";
 
 
 import TimeCorrection from "@/views/TimeCorrection.vue";
-
+import WorkingTimesView from "@/views/WorkingTimesView.vue"
 
 
 const routes = [
@@ -105,6 +105,11 @@ const routes = [
     component: TimeCorrection,
   },
 
+  {
+    path: "/WorkingTimes",
+    name: "Working Times",
+    component: WorkingTimesView,
+  }
 
 ];
 
