@@ -1,32 +1,40 @@
 <template>
     <header>
-        <div class="arrowIconContainer">
-            <img src="../icons/Arrow.png" alt="arrowIconLeft" id="arrowIconLeft">
-            <img src="../icons/Arrow.png" alt="arrowIconRight" id="arrowIconRight">
+        <div class="headerContainer">
+            <div class="headerDiv">{{ $route.name }}</div>
+            <div class="quantoLogoImage"></div>
         </div>
     </header>
 </template>
+
 <style scoped>
 header {
     top: 0px;
     height: 110px;
     background-color: #94B8C7;
-    display: flex;
-    justify-content: end;
-    align-items: center;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     position: sticky;
 }
 
-#arrowIconRight {
-    margin-left: 30px;
-    transform: rotate(180deg);
-    cursor: pointer;
+.headerContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
 }
 
-.arrowIconContainer {
-    margin-right: 50px;
-    cursor: pointer;
+.headerDiv {
+    font-size: 32px;
+    font-weight: 600;
+    text-align: center;
+    flex:1;
+    margin-left:250px ;
+   
+}
+
+.quantoLogoImage {
+    background: url('../icons/QuantoLogo.svg') no-repeat center;
+    width: 250px;
+    height: 100px;
 }
 </style>
-

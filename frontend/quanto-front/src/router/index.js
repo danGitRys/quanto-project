@@ -66,7 +66,7 @@ const routes = [
   },
   {
     path: "/timeRegistration",
-    name: "TimeRegistration",
+    name: "Time Registration",
     component: TimeRegistration,
   },
   {
