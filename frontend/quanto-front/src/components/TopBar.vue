@@ -35,7 +35,7 @@ export default {
             // Event Handler
             logoutDialog: () => {
                 const User = useUser()
-                if (!User.isLoggedIn) {
+                if (User.isLoggedIn) {
                     this.logoutDialogVisible = true
                 }
             },
@@ -46,6 +46,7 @@ export default {
                 const User = useUser()
                 this.logoutDialogVisible = false
                 User.logoutUser()
+                window.location.href = '/';
             },
         }
     },
