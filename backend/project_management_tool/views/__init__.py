@@ -10,3 +10,4 @@ from .time import *
 from .MyViewTest import *
 from .basic import *
 from .sql import *
+from .graphs import *

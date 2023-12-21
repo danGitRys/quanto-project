@@ -76,4 +76,8 @@ urlpatterns = [
     path('getProjectsOfEmployee/<int:id>', getProjectsOfEmployee),
     path('getPositionsOfProjectOfEmployee/<int:id>',getPositionsOfProjectOfEmployee),
 
+
+    path('positionGraph/<id>',PositionGraphView.as_view()),
+    path('positionGraph',PositionGraphView.as_view()),
+
 ]
