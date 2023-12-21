@@ -7,8 +7,21 @@ import json
 
 
 @csrf_exempt
-def getTeam(request, id) -> JsonResponse:
+def getTeam(request, id:int) -> JsonResponse:
+    """Endpoint for getting Team out of the Database
+    Parameters
+    ----------
+    request : request
+        Get Request
+    id : int
+         describe the path for dynamic routing 
 
+    Returns
+    -------
+    JsonResponse
+        if success = True 
+        JSON with Data of the Project
+    """
     response_data = {
         "success": False,
         "message": "",

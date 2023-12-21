@@ -114,6 +114,67 @@ class jsonContentValidator:
                         "valid":False,
                         "errors": incorrectList
                     }
+    
+    def postion(jsonData:json)->json:
+        positon_id = jsonData["position_id"]
+        fk_project = jsonData["fk_project"]
+        rate = jsonData["rate"]
+        wd = jsonData["wd"]
+        volume_total = jsonData["volume_total"]
+        volume_remaining = jsonData["volume_remaining"]
+        start_date = jsonData["start_date"]
+        end_date = jsonData["end_date"]
+        positon_id_valid:bool = checkExDB.position_position_id(positon_id)
+        print(positon_id_valid)
+        fk_project_valid:bool = checkExDB.project_id(fk_project)
+        wd_valid:bool = otherValidation.can_convert_to_float(wd)
+        rate_valid:bool = otherValidation.can_convert_to_float(rate)
+        volume_total_valid:bool = otherValidation.can_convert_to_float(volume_total)
+        volume_remaining_valid:bool = otherValidation.can_convert_to_float(volume_remaining)
+        start_date_valid = dateValidator.validate_date(start_date)
+        end_date_valid = dateValidator.validate_date(end_date)
+
+        incorrecList:list = []
+        if positon_id_valid:
+            incorrecList.append("Position with this id already exists")
+        if not fk_project_valid:
+            incorrecList.append("Project with this id doesnt exist")
+        if not wd_valid:
+            incorrecList.append("WD invalid")
+        if not rate_valid:
+            incorrecList.append("Rate not valid")
+        if not volume_total_valid:
+            incorrecList.append("Volume total not valid")
+        if not volume_remaining_valid:
+            incorrecList.append("Volume Remaining invalid")
+        if not start_date_valid:
+            incorrecList.append("Start Date invalid")
+        if not end_date_valid:
+            incorrecList.append("End Date not valid")
+        
+        if len(incorrecList) is 0:
+            if not checkExDB.position_position_id_project(positon_id,fk_project):
+                 return {
+                        "valid":True,
+                        "errors": incorrecList,
+                    }
+            else:
+                incorrecList.append("Combination of fk_project and project_id already exists")
+                return {
+                        "valid":False,
+                        "errors": incorrecList
+                    }
+        
+        else:
+             return {
+                        "valid":False,
+                        "errors": incorrecList
+                    }
+
+
+
+
+
         
 
         
