@@ -13,14 +13,16 @@ import AddEmployee from "@/views/AddEmployee.vue";
 import getTeam from "@/components/demo/getTeamComponent.vue"
 import ManageProject from "@/views/ManageProject.vue";
 
-import singleProject from "@/components/SingleProject.vue"
+import singleProject from "@/components/SingleProject.vue";
 
 import dataTable from "@/components/DataTable.vue";
 
 
 
 import TimeCorrection from "@/views/TimeCorrection.vue";
-import positionDemoGraph from "@/components/graphs/PositionDemoGraph.vue"
+import positionDemoGraph from "@/components/graphs/PositionDemoGraph.vue";
+//import positionLinearDemoGraph from "@/components/graphs/positionLinearDemoGraph.vue";
+import positionLinearGraph from "@/components/graphs/PositionLinearGraph";
 
 
 
@@ -110,6 +112,12 @@ const routes = [
     path: "/positionDemoGraph/:id",
     name: "positionDemoGraph",
     component: positionDemoGraph,
+  },
+
+  {
+    path: "/positionLinearDemoGraph/:id",
+    name: "positionLinearDemoGraph",
+    component: positionLinearGraph,
   },
 
 
