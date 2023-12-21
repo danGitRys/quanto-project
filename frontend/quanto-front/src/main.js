@@ -33,7 +33,7 @@ import SplitterPanel from 'primevue/splitterpanel';
 import Dialog from 'primevue/dialog';
 import Toast from 'primevue/toast';
 import ToastService from 'primevue/toastservice';
-
+import VueApexCharts from "vue3-apexcharts";
 const pinia = createPinia()
 
 const app = createApp(App);
@@ -44,6 +44,7 @@ app.use(router)
 registerPlugins(app);
 app.use(ToastService)
 app.use(router)
+app.use(VueApexCharts);
 app.component('DataTable', DataTable)
 app.component('Column', Column)
 app.component('InputText', InputText)
