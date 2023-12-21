@@ -61,9 +61,8 @@ def createEmployee(request)->JsonResponse:
     """
 
     allowedRoles = ['Admin']
-    authorization_header = request.META.get('HTTP_AUTHORIZATION')
     
-    if (HeaderValidation.isAuthorized(authorization_header, allowedRoles)):
+    if (HeaderValidation.isAuthorized(request, allowedRoles)):
 
         if request.method == 'POST':
             try:

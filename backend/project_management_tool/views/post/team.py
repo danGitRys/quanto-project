@@ -72,9 +72,8 @@ def getTeams(request):
     }
 
     allowedRoles = ['Admin', 'Employee']
-    authorization_header = request.META.get('HTTP_AUTHORIZATION')
 
-    if (HeaderValidation.isAuthorized(authorization_header, allowedRoles)):
+    if (HeaderValidation.isAuthorized(request, allowedRoles)):
         teamslist = []
         allTeams = Team.objects.all()
         for team in allTeams:
@@ -107,9 +106,9 @@ def getTeamRoles(request):
     }
 
     allowedRoles = ['Admin', 'Employee']
-    authorization_header = request.META.get('HTTP_AUTHORIZATION')
 
-    if (HeaderValidation.isAuthorized(authorization_header, allowedRoles)):
+
+    if (HeaderValidation.isAuthorized(request, allowedRoles)):
         rolesList = ["Teamleader", "Member"]
         if request.method == 'GET':
             response_data = { "roles": rolesList }
