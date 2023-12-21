@@ -37,6 +37,7 @@ class Employee(models.Model):
     phone = models.TextField(max_length=50)
     fk_team_id = models.BigIntegerField()
     team_roll = models.TextField(max_length=50)
+    company_role = models.TextField(max_length=50)
 
     class Meta:
         db_table = 'employee'
