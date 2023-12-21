@@ -350,15 +350,13 @@ export default {
         // Fetch list of all Employees from backend
         async getEmployees() {
             try {
-                const response = await axios.get("http://localhost:8000/getAllEmployees", {})
+                const response = await axios.get('/api/getAllEmployees', {})
                 this.employees = response.data.employees
                 
             } catch (error) {
                 console.log(error)
             }
-        },
-
-        
+        },        
         checkPositionForm() {
             if (this.positionid == '') return false
             if (this.positionname == '') return false
@@ -392,7 +390,7 @@ export default {
             if (this.checkForm()) {
                 var today = new Date()
                 var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()
-                const request = await axios.post("http://localhost:8000/createProject", {
+                const request = await axios.post("/api/createProject", {
                     //General Information
                     p_id: this.projectid,
                     projectname: this.projectname,
@@ -422,7 +420,7 @@ export default {
         },
         async assignProjectManager(projectid) {
             var projectmanagerid = this.employeeNames.indexOf(this.projectmanager)
-            var assignProjectManager = await axios.post("http://localhost:8000/createAssignment", {
+            var assignProjectManager = await axios.post("/api/createAssignment", {
                 "fk_project": projectid,
                 "fk_employee": projectmanagerid,
                 "role": "Manager",
@@ -438,7 +436,7 @@ export default {
         async assignEmployees(projectid) {
             var assignEmployee
             for (let i = 0; i < this.selectedEmployees.length; i++) {
-                assignEmployee = await axios.post("http://localhost:8000/createAssignment", {
+                assignEmployee = await axios.post("/api/createAssignment", {
                     "fk_project": projectid,
                     "fk_employee": this.selectedEmployees[i].id,
                     "role": "Worker",

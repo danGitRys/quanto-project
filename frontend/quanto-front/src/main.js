@@ -16,6 +16,7 @@ import './assets/app.css'
 
 // Plugins
 import { registerPlugins } from "@/plugins";
+import { createPinia } from 'pinia'
 
 // Primevue Components
 import InputGroup from 'primevue/inputgroup';
@@ -33,12 +34,16 @@ import Dialog from 'primevue/dialog';
 import Toast from 'primevue/toast';
 import ToastService from 'primevue/toastservice';
 
-const app = createApp(App);
+const pinia = createPinia()
 
+const app = createApp(App);
+app.use(pinia)
 app.use(PrimeVue);
 app.use(ToastService)
 app.use(router)
 registerPlugins(app);
+app.use(ToastService)
+app.use(router)
 app.component('DataTable', DataTable)
 app.component('Column', Column)
 app.component('InputText', InputText)

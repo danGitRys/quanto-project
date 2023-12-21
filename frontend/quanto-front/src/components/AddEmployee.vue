@@ -125,7 +125,7 @@ export default {
         // Gets Array of all Teams
         async getTeams() {
             try {
-                const response = await axios.get("http://localhost:8000/getTeams", {})
+                const response = await axios.get("/api/getTeams", {})
                 this.teams = response.data.teams
             } catch (error) {
                 this.toast.add({severity: 'error', summary: 'Error', detail: 'An error occured while fetching Teams.', life: 3000})
@@ -134,7 +134,7 @@ export default {
         // Gets Array of Teamroles
         async getTeamRoles() {
             try {
-                const response = await axios.get("http://localhost:8000/getTeamRoles", {})
+                const response = await axios.get("/api/getTeamRoles", {})
                 this.teamroles = response.data.roles
             } catch (error){
                 this.toast.add({severity: 'error', summary: 'Error', detail: 'An error occured while fetching Teamroles.', life: 3000})

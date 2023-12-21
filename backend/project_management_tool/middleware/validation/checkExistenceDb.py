@@ -48,7 +48,7 @@ class checkExDB:
 
     # Employee Checks
     def employee_id(checkId:int)->bool:
-        return Employee.objects.filter(emp_id=checkId).exists()
+        return Employee.objects.filter(id=checkId).exists()
     
     def employee_mail(checkMail:int)->bool:
         return Employee.objects.filter(mail=checkMail).exists()
