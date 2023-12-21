@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia';
+import axios from 'axios'
 
 export const useUser = defineStore('User', {
     state: () => ({
@@ -8,24 +9,46 @@ export const useUser = defineStore('User', {
     }),
     actions: {
         loginUser(token) {
-            this.userData = userData
+            // this.userData = userData
             this.loggedIn = true
             this.token = token
-            sessionStorage.setItem('token', token)
+            localStorage.setItem('token', token)
         },
         logoutUser() {
             this.userData = null
             this.loggedIn = false
             this.token = null
-            sessionStorage.removeItem('token')
-        }
+            localStorage.removeItem('token')
+        },
+        async fetchUserData(token) {
+            this.loggedIn = true
+            this.token = token
+            const request = await axios.post("http://localhost:8000/login",{
+                token:token
+            }).then(response => {
+                if(response.data['login']==true) {
+                    this.userData = response.data.employee
+                    return response.login
+                }
+                else{
+                    alert("Invalid Login")
+                }
+            })
+            .catch(error=> {
+                console.log(error)
+                alert("Invalid Login")
+            })
+        },
     },
     getters: {
+        getUserData() {
+            return this.userData
+        },
         getUser() {
-          return this.userData;
+          return this.userData
         },
         isLoggedIn() {
-          return this.loggedIn;
+          return this.loggedIn
         },
     },
 })
