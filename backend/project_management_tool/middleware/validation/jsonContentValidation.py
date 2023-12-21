@@ -218,7 +218,7 @@ class jsonContentValidator:
         if employeeIdExists:
             incorrectList.append("Employee with this Id exists already. ")
         if emailExists:
-            incorrectList.append("Employee with this Name exists already. ")
+            incorrectList.append("Employee with this E-Mail exists already. ")
         if phone:
             incorrectList.append("An Employee is already using this phonenumber. ")
 
