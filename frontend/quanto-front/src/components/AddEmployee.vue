@@ -122,22 +122,25 @@ export default {
             this.getTeams()
             this.getTeamRoles()
         },
+        // Gets Array of all Teams
         async getTeams() {
             try {
                 const response = await axios.get("/api/getTeams", {})
                 this.teams = response.data.teams
             } catch (error) {
-                console.log(error);
+                this.toast.add({severity: 'error', summary: 'Error', detail: 'An error occured while fetching Teams.', life: 3000})
             }
         },
+        // Gets Array of Teamroles
         async getTeamRoles() {
             try {
                 const response = await axios.get("/api/getTeamRoles", {})
                 this.teamroles = response.data.roles
             } catch (error){
-                console.log("An error occured while fetching Teamroles!")
+                this.toast.add({severity: 'error', summary: 'Error', detail: 'An error occured while fetching Teamroles.', life: 3000})
             }
         },
+        // Find out TeamID of current team
         getTeamID() {
             for (let i = 0; i < this.teams.length; i++) {
                 if (this.team.name == this.teams[i].name) {
@@ -159,8 +162,7 @@ export default {
         submitEmployee() {
             if (this.formIsValid()) {
                 this.getTeamID()
-                console.log(this.teamid)
-                const request = axios.post("/api/createEmployee", {
+                const request = axios.post("http://localhost:8000/createEmployee", {
                     emp_id: this.empid,
                     forename: this.firstname,
                     surname: this.lastname,
