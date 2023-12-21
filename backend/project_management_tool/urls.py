@@ -30,7 +30,7 @@ urlpatterns = [
     path('createTeam',createTeam),
     path('createEmployee',createEmployee),
     #path('booking',bookingView),
-    path('createForecast',createForecast),
+    #path('createForecast',createForecast),
 
     path('createProject',createProject),
     path('getTeams',getTeams),
@@ -49,10 +49,12 @@ urlpatterns = [
     path('employee',EmployeeView.as_view()),
     path('booking/<id>',BookingView.as_view()),
     path('booking',BookingView.as_view()),
+    path('createSQLbookings',createBookingsSql),
+    path('createSQLForecasts',createForecastsSql),
     
     #path('employee', createEmployee),
     #path('createBooking', createBooking),
-    path('forecast', createForecast),
+    #path('forecast', createForecast),
     path('currentTime',getTime),
     path('deleteAssignment/<int:assignment_id>', deleteAssignment),
     path('deleteBooking/<int:id>', deleteBooking),

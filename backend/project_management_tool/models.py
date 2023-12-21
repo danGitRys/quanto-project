@@ -66,6 +66,7 @@ class Booking(models.Model):
 
     class Meta:
         db_table = 'booking'
+        unique_together = ['fk_employee', 'fK_position', 'start', 'end']
 
     def toJson(self):
         serialized_data = {
