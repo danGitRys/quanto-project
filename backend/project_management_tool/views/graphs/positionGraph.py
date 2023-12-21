@@ -7,6 +7,9 @@ import json
 from ...models import Positon
 from django.shortcuts import get_object_or_404
 from ...middleware import validator
+from ...middleware import dateRange
+from ...middleware import positionBookings
+from datetime import datetime
 @method_decorator(csrf_exempt, name='dispatch')
 
 class PositionGraphView(View):
@@ -19,6 +22,15 @@ class PositionGraphView(View):
         idExists: bool = Positon.objects.filter(id=id_param).exists()
         if idExists:
             position = get_object_or_404(Positon, id=id_param)
+            positionStartDate = position.start_date
+            positionEndDate = position.end_date
+            print(positionStartDate)
+            print(positionEndDate)
+            
+            for currentDate in dateRange.range_date(positionStartDate,positionEndDate):
+                tempPositionBookings = positionBookings(currentDate,id_param).toJsonTotal()
+                print(tempPositionBookings)
+                print(currentDate)
             
         else:
             response_data["success"] = False
