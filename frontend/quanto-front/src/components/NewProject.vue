@@ -65,11 +65,11 @@
                             id="ACProjectmanager"
                             v-model="projectmanager"
                             dropdown
-                            :suggestions="employeeNames"
+                            :suggestions="filteredEmployees"
                             
                             update:modelValue 
                             placeholder="Select Projectmanager"   
-                            @complete="getEmployeeNames" 
+                            @complete="searchEmployee" 
                         />
                     </InputGroup>
                         
@@ -87,11 +87,11 @@
                             id="ACEmployee"
                             v-model="selectedEmployee"
                             dropdown
-                            :suggestions="employeeNames"
-                            
+                            :suggestions="filteredEmployees"
+                            option-label="name"
                             update:modelValue 
                             placeholder="Select Employees"   
-                            @complete="getEmployeeNames"
+                            @complete="searchEmployee"
                             @item-select="appendEmployee" 
                         />
                     </InputGroup>
@@ -152,7 +152,7 @@
                     <Column field="forename" header="First Name" sortable style="min-width:12rem"></Column>
                     <Column field="surname" header="Last Name" sortable style="min-width:12rem"></Column>
                     <Column field="team" header="Team" sortable style="min-width:10rem"></Column>
-                    <Column :exportable="false" style="min-width:8rem">
+                    <Column :exportable="false" style="min-width:3rem">
                         <template #body="slotProps">
                             <Button icon="pi pi-trash" outlined rounded severity="danger" @click="confirmDeleteEmployee(slotProps.data)" />
                         </template>
@@ -163,7 +163,7 @@
             <Dialog v-model:visible="deleteEmployeeDialog" :style="{width: '450px'}" header="Confirm" :modal="true">
                     <div class="confirmation-content">
                         <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem" />
-                        <span v-if="employee">Are you sure you want to delete Mr./Mrs. <b>{{ employee.surname }}</b> from the selected Employees?</span>
+                        <span v-if="employee">Are you sure you want to delete "<b>{{ employee.name }}</b>" from the selected Employees?</span>
                     </div>
                     <template #footer>
                         <Button label="No" icon="pi pi-times" text @click="closeDialog"/>
@@ -191,7 +191,7 @@
                     <Column field="name" header="Name" sortable style="min-width:12rem; min-height: 500px;"></Column>
                     <Column field="rate" header="Rate" sortable style="min-width:10rem; min-height: 500px;"></Column>
                     <Column field="workdays" header="Workdays" sortable style="min-width:10rem; min-height: 500px;"></Column>
-                    <Column :exportable="false" style="min-width:8rem">
+                    <Column :exportable="false" style="min-width:4rem">
                         <template #body="slotProps">
                             
                             <Button icon="pi pi-trash" outlined rounded severity="danger" @click="confirmDeletePosition(slotProps.data)" />
@@ -272,9 +272,9 @@ export default {
             //Employees
             projectmanager: '',
             employees: [],
-            employeeNames: [],
-            selectedEmployee: '',
+            selectedEmployee: null,
             selectedEmployees: [],
+            filteredEmployees: [],
 
             //Positions
             positionid: '',
@@ -291,6 +291,30 @@ export default {
             deletePositionDialog: false,
 
             // Event Handler
+            searchEmployee: (event) => {
+                if(this.employees) {
+                    this.filteredEmployees = []
+                    for (let i = 0; i < this.employees.length; i++) {
+                        let _employee = this.employees[i];
+                        _employee.name = _employee.forename + ' ' + _employee.surname
+                        if (_employee.forename.toLowerCase().indexOf(event.query.toLowerCase()) === 0) {
+                            this.filteredEmployees.push(_employee);
+                        }
+                    }
+                }
+            },
+            // Add selected Employee (Full Name) to array "selectedEmployees"
+            appendEmployee: (event) => {
+                // Append the Object of the Employee with the same Index as the selectedEmployee of the employeeNames Array
+                // to the selectedEmployees Array if he/she is not in the Array already
+                if (this.selectedEmployees.includes(event.value)) {
+                    this.toast.add({severity: 'error', summary: 'Error', detail: this.selectedEmployee.name + " is already selected!", life: 3000})
+                }
+                else {
+                    this.selectedEmployees.push(event.value)
+                }
+            }, 
+
             confirmDeleteEmployee: (employee) => {
                 this.employee = employee
                 this.deleteEmployeeDialog = true
@@ -333,33 +357,8 @@ export default {
                 console.log(error)
             }
         },
-        // Fetch list of all Full Names of employees from backend
-        async getEmployeeNames() {
-            try {
-                const response = await axios.get("http://localhost:8000/getAllEmployeeNames", {})
-                this.employeeNames = response.data.employeeNames
 
-                // If a Projectmanager is assigned, remove projectmanager from list of employees
-                if (this.projectmanager) {
-                    var index = this.employeeNames.indexOf(this.projectmanager)
-                    this.employeeNames.splice(index ,1)
-                    this.employees.splice(index, 1)
-                }
-            } catch (error) {
-                console.log(error)
-            }
-        },
-        // Add selected Employee (Full Name) to array "selectedEmployees"
-        appendEmployee() {
-            // Append the Object of the Employee with the same Index as the selectedEmployee of the employeeNames Array
-            // to the selectedEmployees Array if he/she is not in the Array already
-            if (this.selectedEmployees.includes(this.employees[this.employeeNames.indexOf(this.selectedEmployee)])) {
-                alert(this.selectedEmployee + " is already selected!")
-            }
-            else {
-                this.selectedEmployees.push(this.employees[this.employeeNames.indexOf(this.selectedEmployee)])
-            }
-        },
+        
         checkPositionForm() {
             if (this.positionid == '') return false
             if (this.positionname == '') return false
