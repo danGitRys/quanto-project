@@ -25,7 +25,6 @@ async function getEmployeeData() {
     // .catch(err => console.log(err))
     console.log("Called")
     console.log(email.value)
-    var test = undefined
     const router = useRouter(); 
     try {
         const token = await AuthService.login(email.value, password.value);
@@ -35,10 +34,11 @@ async function getEmployeeData() {
             token:token
         }).then(response => {
             console.log(response.login)
-            User.loginUser(response.employee,token)
-
+            
             if(response.data['login']==true){
-                window.location.href = '/addEmployee';
+                User.loginUser(token)
+                User.fetchUserData(token)
+                window.location.href = '/addEmployee'
             }
             else{
                 alert("Invalid Login")
