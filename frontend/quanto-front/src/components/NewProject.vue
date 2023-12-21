@@ -350,7 +350,7 @@ export default {
         // Fetch list of all Employees from backend
         async getEmployees() {
             try {
-                const response = await axios.get('/api/getAllEmployees', {})
+                const response = await axios.get('http://localhost:8000/getAllEmployees', {})
                 this.employees = response.data.employees
                 
             } catch (error) {
