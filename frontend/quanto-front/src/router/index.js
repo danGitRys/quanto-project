@@ -20,6 +20,7 @@ import dataTable from "@/components/DataTable.vue";
 
 
 import TimeCorrection from "@/views/TimeCorrection.vue";
+import positionDemoGraph from "@/components/graphs/PositionDemoGraph.vue"
 
 
 
@@ -103,6 +104,12 @@ const routes = [
     path: "/TimeCorrection",
     name: "TimeCorrection",
     component: TimeCorrection,
+  },
+
+  {
+    path: "/positionDemoGraph/:id",
+    name: "positionDemoGraph",
+    component: positionDemoGraph,
   },
 
 
