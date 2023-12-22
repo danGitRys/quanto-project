@@ -81,6 +81,8 @@ urlpatterns = [
     path('positionGraph',PositionGraphView.as_view()),
     path('positionLinearGraph/<id>',PositionLinearGraphView.as_view()),
     path('positionLinearGraph',PositionLinearGraphView.as_view()),
+    path('projectPositionsLinearGraph/<id>',ProjectPositionsGraphView.as_view()),
+    path('projectPositionLinearGraph',ProjectPositionsGraphView.as_view()),
 
 
 ]

@@ -23,6 +23,7 @@ import TimeCorrection from "@/views/TimeCorrection.vue";
 import positionDemoGraph from "@/components/graphs/PositionDemoGraph.vue";
 //import positionLinearDemoGraph from "@/components/graphs/positionLinearDemoGraph.vue";
 import positionLinearGraph from "@/components/graphs/PositionLinearGraph";
+import projectPositonsLinearGraph from "@/components/graphs/ProjectPositionLinearGraph.vue"
 
 
 
@@ -118,6 +119,11 @@ const routes = [
     path: "/positionLinearDemoGraph/:id",
     name: "positionLinearDemoGraph",
     component: positionLinearGraph,
+  },
+  {
+    path: "/projectPositionsLinearGraph/:id",
+    name: "projectPositionLinearDemoGraph",
+    component: projectPositonsLinearGraph,
   },
 
 
