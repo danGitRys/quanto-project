@@ -5,7 +5,7 @@ import json
 
 
 @csrf_exempt
-def getTest(request, id) -> JsonResponse:
+def getTest(request, id, start_date, end_date) -> JsonResponse:
     # Check if the request method is POST
     if request.method == "GET":
         # Decode JSON data from the request body
@@ -18,10 +18,11 @@ def getTest(request, id) -> JsonResponse:
                 SELECT position.position_id, position.id,pro.name FROM position
                 JOIN assignment ON position.fk_project = assignment.fk_project
 				JOIN project AS pro ON pro.id = assignment.fk_project 
-                WHERE fk_employee = 1005 AND position.fk_project = %s;
+                WHERE fk_employee = 2 AND position.fk_project = %s
+                AND position.start_date >= CONVERT(date,%s,104) AND position.end_date <= CONVERT(date,%s,104);
 
             """
-            cursor.execute(sql_statement, [id])
+            cursor.execute(sql_statement, [id, start_date, end_date])
             # Fetch the results
             result = [{"position_id": row[0], "id": row[1], "projectName": row[2]}
                       for row in cursor.fetchall()]

@@ -6,8 +6,10 @@
             <Column field="monday" :header=dateHeader.monday>
                 <template #body="{ row }">
                     <DataTable :value="innerTable">
-                        <Column field="innerCode" header="Inner Code"></Column>
-                        <!-- Weitere Spalten für die innere Tabelle -->
+                        <Column field="innerCode" header="Plan"></Column>
+                        <Column field="secondCode" header="Work"></Column>
+                        <Column field="drei" header="Break"></Column>
+                        <Column field="four" header="Summe"></Column>
                     </DataTable>
                 </template>
             </Column>
@@ -36,10 +38,10 @@ const innerTable = ref([]);
 
 const dateHeader = ref({
     monday: "",
-    tuesday:" ",
-    wensday: " ",
-    thursday: " ",
-    friday: " ",
+    tuesday:"",
+    wensday: "",
+    thursday: "",
+    friday: "",
 })
 
 onMounted(() => {
@@ -48,17 +50,11 @@ onMounted(() => {
     
 });
 
-function nextWeek(){
-    const x = dateHeader.value.monday;
-    const y = x.slice(5)
-    
-    
+let projectObject = [];
 
+function nextWeek() {
+    console.log(projectObject)
 }
-
-
-
-
 
 
 
@@ -93,40 +89,66 @@ function formatDate(date) {
 async function getDataFromBackend() {
     try {
         const startDate = dateHeader.value.monday
+        const startDateRightFormat = startDate.slice(5)
         const endDate =  dateHeader.value.friday
+        const endDateRightFormat = endDate.slice(5)
 
         console.log(startDate)
-
+        console.log(startDateRightFormat)
+        console.log(endDateRightFormat)
 
         console.log("HEy")
-        const url = "http://localhost:8000/getTest/2008"
+        //const url = `http://localhost:8000/getTest/2/${startDateRightFormat}/${endDateRightFormat}`
+        const url = "http://localhost:8000/getTest/2/25.11.2023/12.12.2023"
         const response = await axios.get(url);
+        console.log(response.data)
         processData(response.data.positions);
+
     } catch (error) {
         console.error('Error fetching data:', error);
     }
 }
 
-
-const data = ref({innerCode: "XXXX"}) 
-    
-
-
 function processData(backendData) {
-    console.log(backendData);
+
     products.value = backendData.map(item => ({
         
-        code: item.projectName + 
-        "\r" + item.id
-        //name: innerTable.value.push(data.value)
-        
-        
+        code: item.projectName + "\r" + item.id,
+
+     
     }));
+    backendData.forEach((element, index) =>{
+        projectObject.push({projectName: element.projectName, positionId: element.id})
+        console.log(element)
+    })
 
     
-
+    fillInnerTable()
 
 }
+
+async function fillInnerTable(){
+    try{
+        const url = "http://localhost:8000/getBookingTimes/3008/14.12.2023"
+        const response = await axios.get(url)
+        const bookingTimes = (response.data.bookingTimes)
+        bookingTimes.forEach((element) => {
+             innerTable.value.push({ innerCode: 15, secondCode: element.start_time + "-" + element.end_time , drei: element.pause })
+        })
+
+    }
+    catch(error) {
+        console.log(error)
+    }
+   
+
+   
+
+}
+
+
+
+
 </script>
 
 <style scoped>
