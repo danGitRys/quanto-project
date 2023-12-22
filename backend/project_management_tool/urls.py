@@ -75,5 +75,6 @@ urlpatterns = [
     path('getEmployeesToProjectId/<int:id>', getEmployeesToProjectId),
     path('getProjectsOfEmployee/<int:id>', getProjectsOfEmployee),
     path('getPositionsOfProjectOfEmployee/<int:id>',getPositionsOfProjectOfEmployee),
+    path('getTest/<int:id>',getTest),
 
 ]

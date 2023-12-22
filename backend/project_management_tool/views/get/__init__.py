@@ -12,3 +12,4 @@ from .getBooking import *
 from .getAssignment import *
 from .getPositionsOfProjectOfEmployee import*
 from .getProjectsOfEmployee import *
+from .getTest import *

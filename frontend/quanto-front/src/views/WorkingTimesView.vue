@@ -43,44 +43,21 @@ const dateHeader = ref({
 })
 
 onMounted(() => {
-    getDataFromBackend();
     getWeekDate();
+    getDataFromBackend();
+    
 });
 
-function nextWeek() {
-    const daysInWeek = 7;
-    const millisecondsInDay = 86400000; // Anzahl der Millisekunden pro Tag
-    // Für jeden Tag von Montag bis Freitag
-    for (let i = 0; i < 5; i++) {
-        const currentDay = Object.keys(dateHeader.value)[i];
-        // Erstelle ein neues Date-Objekt mit dem aktuellen Tag
-        const nextWeekDate = new Date(dateHeader.value[currentDay]);
-        // Füge sieben Tage zur aktuellen Datum-Zeit hinzu, um eine Woche vorzuspringen
-        nextWeekDate.setTime(nextWeekDate.getTime() + daysInWeek * millisecondsInDay);
-        // Aktualisiere den Wert im dateHeader-Objekt
-        dateHeader.value[currentDay] = nextWeekDate.toDateString();
-    }   
-}
-
-function previousWeek() {
-    const daysInWeek = 7;
-    const millisecondsInDay = 86400000; // Anzahl der Millisekunden pro Tag
-
-    // Für jeden Tag von Montag bis Freitag
-    for (let i = 0; i < 5; i++) {
-        const currentDay = Object.keys(dateHeader.value)[i];
-
-        // Erstelle ein neues Date-Objekt mit dem aktuellen Tag
-        const previousWeekDate = new Date(dateHeader.value[currentDay]);
-
-        // Subtrahiere sieben Tage von der aktuellen Datum-Zeit, um eine Woche zurückzugehen
-        previousWeekDate.setTime(previousWeekDate.getTime() - daysInWeek * millisecondsInDay);
-
-        // Aktualisiere den Wert im dateHeader-Objekt
-        dateHeader.value[currentDay] = previousWeekDate.toDateString();
-    }
+function nextWeek(){
+    const x = dateHeader.value.monday;
+    const y = x.slice(5)
+    
+    
 
 }
+
+
+
 
 
 
@@ -96,7 +73,8 @@ function getWeekDate(){
 
     // Iteriere über die Wochentage und füge die Werte zum Array hinzu
     for (let i = 0; i < 5; i++) {
-        weekDates.push(targetDate.toDateString());
+        const formattedDate = formatDate(targetDate);
+         weekDates.push(formattedDate);
         targetDate.setDate(targetDate.getDate() + 1);
         
     }
@@ -107,11 +85,21 @@ function getWeekDate(){
     dateHeader.value.friday = weekDates[4]
 }
 
-
+function formatDate(date) {
+    const options = { weekday:'short', day: '2-digit', month: '2-digit', year: 'numeric' };
+    return date.toLocaleDateString('de-DE', options);
+}
 
 async function getDataFromBackend() {
     try {
-        const url = "http://localhost:8000/getPositionsOfProjectOfEmployee/2008"
+        const startDate = dateHeader.value.monday
+        const endDate =  dateHeader.value.friday
+
+        console.log(startDate)
+
+
+        console.log("HEy")
+        const url = "http://localhost:8000/getTest/2008"
         const response = await axios.get(url);
         processData(response.data.positions);
     } catch (error) {
@@ -120,15 +108,17 @@ async function getDataFromBackend() {
 }
 
 
-
 const data = ref({innerCode: "XXXX"}) 
     
 
 
 function processData(backendData) {
+    console.log(backendData);
     products.value = backendData.map(item => ({
-        code: item.id,
-        name: innerTable.value.push(data.value)
+        
+        code: item.projectName + 
+        "\r" + item.id
+        //name: innerTable.value.push(data.value)
         
         
     }));
