@@ -4,6 +4,7 @@
         <DataTable :value="products" tableStyle="min-width: 50rem">
             <Column field="code" header="Code"></Column>
             <Column field="monday" :header=dateHeader.monday>
+                
                 <template #body="{ row }">
                     <DataTable :value="innerTable">
                         <Column field="innerCode" header="Plan"></Column>
@@ -12,6 +13,7 @@
                         <Column field="four" header="Summe"></Column>
                     </DataTable>
                 </template>
+                
             </Column>
             <Column field="tuesday" :header=dateHeader.tuesday></Column>
             <Column field="wensday" :header=dateHeader.wensday></Column>
@@ -97,7 +99,6 @@ async function getDataFromBackend() {
         console.log(startDateRightFormat)
         console.log(endDateRightFormat)
 
-        console.log("HEy")
         //const url = `http://localhost:8000/getTest/2/${startDateRightFormat}/${endDateRightFormat}`
         const url = "http://localhost:8000/getTest/2/25.11.2023/12.12.2023"
         const response = await axios.get(url);
@@ -112,7 +113,6 @@ async function getDataFromBackend() {
 function processData(backendData) {
 
     products.value = backendData.map(item => ({
-        
         code: item.projectName + "\r" + item.id,
 
      
@@ -129,11 +129,20 @@ function processData(backendData) {
 
 async function fillInnerTable(){
     try{
-        const url = "http://localhost:8000/getBookingTimes/3008/14.12.2023"
+        const url = "http://localhost:8000/getBookingTimes/2/01.01.2023"
         const response = await axios.get(url)
         const bookingTimes = (response.data.bookingTimes)
+         
+        
+
+        console.log(bookingTimes)
         bookingTimes.forEach((element) => {
-             innerTable.value.push({ innerCode: 15, secondCode: element.start_time + "-" + element.end_time , drei: element.pause })
+
+             const planStart = element.forecast_start.slice(0,2)
+             const planEnd = element.forecast_end.slice(0,2)
+             const planed =  planEnd - planStart;
+
+             innerTable.value.push({ innerCode: planed, secondCode: element.start_time + "-" + element.end_time , drei: element.pause })
         })
 
     }
