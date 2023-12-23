@@ -1,10 +1,10 @@
 <template>
      <div class="card flex justify-content-center">
-            <Dropdown v-model="selectedProject" :options="projectNames"  @change="test" optionLabel="name" placeholder="Project Name" class="w-full md:w-14rem" />
+            <Dropdown v-model="selectedProject" :options="projectNames"  @change="fetchEmployeesOfProject" optionLabel="name" placeholder="Project Name" class="w-full md:w-14rem" />
         </div>
         
          <div class="card flex justify-content-center">
-                <Dropdown v-model="selectedCity" :options="employeeNames" optionLabel="name" placeholder="Employees" class="w-full md:w-14rem" />
+                <Dropdown v-model="selectedName" :options="employeeNames" @change="fetchDataOfEmployee" optionLabel="name" placeholder="Employees" class="w-full md:w-14rem" />
             </div>
 
     <div class="card">
@@ -41,14 +41,26 @@
 </template>
 
 <script setup>
-import { ref, onMounted, reactive } from 'vue';
+import { ref, onMounted, reactive} from 'vue';
 import axios from 'axios';
 import Dropdown from 'primevue/dropdown';
 
 
-const selectedProject = ref();
-async function test(){
+let employeeId;
 
+const selectedProject = ref();
+const selectedName = ref();
+
+
+function fetchDataOfEmployee(){
+    employeeId = selectedName.value.employeeId
+    console.log(employeeId)
+    getDataFromBackend(employeeId)
+}
+
+
+
+async function fetchEmployeesOfProject(){
     const foreignKey = selectedProject.value.code;
     console.log(foreignKey) 
     const url = "http://localhost:8000/getEmployeesToProjectId/2"
@@ -106,13 +118,15 @@ const dateHeader = ref({
 
 onMounted(() => {
     getWeekDate();
-    getDataFromBackend();
+    // Kann bei WorkingTimes direkt hier aufgerufen werden da wir ID aus dem
+    // SESSion Managment bekommen 
+    getDataFromBackend(2);
     fetchProjectsOfEmployee();
 });
 
 
 
-async function getDataFromBackend() {
+async function getDataFromBackend(employeeId) {
     try {
         const startDate = dateHeader.value.monday
         const startDateRightFormat = startDate.slice(5)
@@ -120,7 +134,7 @@ async function getDataFromBackend() {
         const endDateRightFormat = endDate.slice(5)
 
         //const url = `http://localhost:8000/getTest/2/${startDateRightFormat}/${endDateRightFormat}`
-        const url = "http://localhost:8000/getTest/2/25.11.2023/12.12.2023"
+        const url = `http://localhost:8000/getTest/${employeeId}/25.11.2023/12.12.2023`
         const response = await axios.get(url);
         processData(response.data.positions);
 
@@ -130,7 +144,6 @@ async function getDataFromBackend() {
 }
 
 function processData(backendData) {
-
     products.value = backendData.map(item => ({
         code: item.projectName + "\r" + item.id,
 
