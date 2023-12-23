@@ -34,7 +34,7 @@ import Dialog from 'primevue/dialog';
 import Toast from 'primevue/toast';
 import ToastService from 'primevue/toastservice';
 import VueApexCharts from "vue3-apexcharts";
-const pinia = createPinia()
+const pinia = createPinia();
 
 const app = createApp(App);
 app.use(pinia)

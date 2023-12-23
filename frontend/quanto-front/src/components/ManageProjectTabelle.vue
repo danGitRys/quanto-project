@@ -58,7 +58,7 @@
                     </Dropdown>
                 </template>
                 <template #body="slotProps">
-                    <Tag :value="slotProps.data.inventoryStatus" :severity="getStatusLabel(slotProps.data.inventoryStatus)" />
+                    <Tag :value="slotProps.data.pos" :severity="getStatusLabel(slotProps.data.pos)" />
                 </template>
             </Column>
             <Column :rowEditor="true" style="width: 10%; min-width: 8rem" bodyStyle="text-align:center">ha</Column>
@@ -69,6 +69,7 @@
 
 <script setup>
 import { ref, onMounted, onUpdated, watch } from 'vue';
+import { startOfMonth, endOfMonth } from 'date-fns';
 import Calendar from 'primevue/calendar';
 import axios from 'axios';
 import InputText from 'primevue/inputtext';
@@ -103,13 +104,73 @@ const getProjectsFromBackend = async () => {
     
     const url = 'http://localhost:8000/getAllProjects/';
     await axios.get(url).then((response) => {
-      for (let i = 0; i < response.data.data.length; i++) {
-        projects.push(response.data.data[i].name);
-        allProjects.push(response.data.data[i]);
-        console.log('allProjects');
-        console.log(allProjects);
+        const project = response.data.data;
+    //   for (let i = 0; i < response.data.data.length; i++) {
+    //     projects.push(response.data.data[i].name);
+    //     allProjects.push(response.data.data[i]);
+    //     // console.log('allProjects');
+    //     // console.log(allProjects);
+    //   }
+
+      project.forEach(element => {
+        projects.push(element.name);
+        allProjects.push(element);
+      });
+    });
+};
+
+const getDataFromBackend = async (pId) => {
+  const url = 'http://localhost:8000/timeTableBooking';
+  const url2 = `http://localhost:8000/getEmployeesToProjectId/${pId}`;
+
+  console.log("PID: " +pId);
+
+  let empId = null;
+
+  await axios.get(url2).then((response) => {
+    response.data.data[0].id;
+  })    
+
+  // Get the start and end of the selected month
+  const startOfMonthDate = startOfMonth(dateMonthPicker.value);
+  const endOfMonthDate = endOfMonth(dateMonthPicker.value);
+
+  // Format the dates in the required format ('YYYY-MM-DD')
+  const formattedStartDate = startOfMonthDate.toISOString().split('T')[0];
+  const formattedEndDate = endOfMonthDate.toISOString().split('T')[0];
+
+  const requestData = {
+    start_date: formattedStartDate,
+    end_date: formattedEndDate,
+    project_id: pId,
+    employee_id: 1005,
+  };
+
+  
+  await axios.post(url, requestData).then((response) => {
+    console.log('GETDATAFROMBACKEND');
+    console.log(response);
+    const bookings = response.data.data;
+
+    bookings.forEach((element) => {
+      const date = element.date;
+      const hours_this_project = element.inProject;
+      const hours_all_project = element.outsideProject;
+
+      // Find the corresponding date in the generatedDate array
+      const tableEntry = generatedDate.value.find((entry) => {
+        const entryDate = new Date(entry.date).toISOString().split('T')[0];
+        return entryDate === date;
+      });
+
+      // If a match is found, update the tableData array
+      if (tableEntry) {
+        const index = generatedDate.value.indexOf(tableEntry);
+        tableData.value[index].hours_this_project = hours_this_project;
+        tableData.value[index].hours_all_project = hours_all_project;
       }
     });
+  });
 };
 
 watch(selectedProject, (newProject) => {
@@ -182,6 +243,7 @@ const generateDatesForSelectedMonthTEST = () => {
         });
       }
     }
+    getDataFromBackend();
     generateTableDataForSelectedMonth();
 };
   
@@ -233,8 +295,16 @@ ul {
   text-align: center;
 }
 
-.dataTable {
+.p-datatable {
     width: 50em;
     left: 10em;
+    
 }
+
+.p-datatable .p-datatable-tbody td,
+.p-datatable .p-datatable-thead th,
+.p-datatable .p-datatable-tfoot td {
+  text-align: center; /* Center align the content within cells */
+}
+
 </style>
