@@ -1,6 +1,5 @@
 <template>
     <div class="card">
-        
         <DataTable :value="products" tableStyle="min-width: 50rem">
             <Column field="code" header="Code"></Column>
             <Column field="monday" :header=dateHeader.monday>
@@ -16,7 +15,7 @@
                 
             </Column>
             <Column field="tuesday" :header=dateHeader.tuesday></Column>
-            <Column field="wensday" :header=dateHeader.wensday></Column>
+            <Column field="wensday" :header=dateHeader.wednesday></Column>
             <Column field="thursday" :header=dateHeader.thursday></Column>
             <Column field="friday" :header=dateHeader.friday></Column>
             <Column field="changeWeek" header="">
@@ -38,10 +37,14 @@ import axios from 'axios';
 const products = ref([]);
 const innerTable = ref([]);
 
+let projectObject = [];
+let currentDate = new Date();
+
+
 const dateHeader = ref({
     monday: "",
     tuesday:"",
-    wensday: "",
+    wednesday: "",
     thursday: "",
     friday: "",
 })
@@ -52,11 +55,40 @@ onMounted(() => {
     
 });
 
-let projectObject = [];
 
+
+// Funktion, um die Datumswerte auf die nächste Woche zu ändern
 function nextWeek() {
-    console.log(projectObject)
+    currentDate.setDate(currentDate.getDate() + 7);
+    updateDateHeader();
 }
+
+function previousWeek() {
+    currentDate.setDate(currentDate.getDate() - 7);
+    updateDateHeader();
+}
+
+
+function updateDateHeader() {
+    const targetDate = new Date(currentDate);
+    let day = targetDate.getDay();
+    targetDate.setDate(currentDate.getDate() - day + (day === 0 ? -6 : 1));
+    const weekDates = [];
+
+    for (let i = 0; i < 5; i++) {
+        const formattedDate = formatDate(targetDate);
+        weekDates.push(formattedDate);
+        targetDate.setDate(targetDate.getDate() + 1);
+    }
+
+    dateHeader.value.monday = weekDates[0];
+    dateHeader.value.tuesday = weekDates[1];
+    dateHeader.value.wednesday = weekDates[2];
+    dateHeader.value.thursday = weekDates[3];
+    dateHeader.value.friday = weekDates[4];
+}
+
+
 
 
 
@@ -78,12 +110,13 @@ function getWeekDate(){
     }
     dateHeader.value.monday = weekDates[0]
     dateHeader.value.tuesday = weekDates[1]
-    dateHeader.value.wensday = weekDates[2]
+    dateHeader.value.wednesday = weekDates[2]
     dateHeader.value.thursday = weekDates[3]
     dateHeader.value.friday = weekDates[4]
 }
 
 function formatDate(date) {
+      console.log('Input Date:', date); // Fügen Sie diese Zeile für Debugging-Zwecke hinzu
     const options = { weekday:'short', day: '2-digit', month: '2-digit', year: 'numeric' };
     return date.toLocaleDateString('de-DE', options);
 }
