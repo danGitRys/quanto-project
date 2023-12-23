@@ -1,9 +1,7 @@
 <template>
-<div>
       <h3>Project 1</h3>
 <DropDownMonthSelection/>
 <TimeCorrectionComponent />
-  </div>
 </template>
 
 <script setup>

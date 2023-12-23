@@ -7,8 +7,9 @@ from .getPositionsToProject import *
 from .getEmployeesToProject import *
 
 from .getEmployee import *
+from .getAllEmployees import *
 from .getBooking import *
 from .getAssignment import *
+from .getPositionsOfProjectOfEmployee import*
+from .getProjectsOfEmployee import *
 from .getAllProjects import *
-
-

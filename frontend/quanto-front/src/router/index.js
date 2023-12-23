@@ -13,13 +13,17 @@ import AddEmployee from "@/views/AddEmployee.vue";
 import getTeam from "@/components/demo/getTeamComponent.vue"
 import ManageProject from "@/views/ManageProject.vue";
 
-import singleProject from "@/components/SingleProject.vue"
+import singleProject from "@/components/SingleProject.vue";
 
 import dataTable from "@/components/DataTable.vue";
 
 
 
 import TimeCorrection from "@/views/TimeCorrection.vue";
+import positionDemoGraph from "@/components/graphs/PositionDemoGraph.vue";
+//import positionLinearDemoGraph from "@/components/graphs/positionLinearDemoGraph.vue";
+import positionLinearGraph from "@/components/graphs/PositionLinearGraph";
+import projectPositonsLinearGraph from "@/components/graphs/ProjectPositionLinearGraph.vue"
 
 
 
@@ -66,7 +70,7 @@ const routes = [
   },
   {
     path: "/timeRegistration",
-    name: "TimeRegistration",
+    name: "Time Registration",
     component: TimeRegistration,
   },
   {
@@ -103,6 +107,23 @@ const routes = [
     path: "/TimeCorrection",
     name: "TimeCorrection",
     component: TimeCorrection,
+  },
+
+  {
+    path: "/positionDemoGraph/:id",
+    name: "positionDemoGraph",
+    component: positionDemoGraph,
+  },
+
+  {
+    path: "/positionLinearDemoGraph/:id",
+    name: "positionLinearDemoGraph",
+    component: positionLinearGraph,
+  },
+  {
+    path: "/projectPositionsLinearGraph/:id",
+    name: "projectPositionLinearDemoGraph",
+    component: projectPositonsLinearGraph,
   },
 
 

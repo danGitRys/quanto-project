@@ -7,314 +7,527 @@
 \usepackage{listings}
 \geometry{top=2.5cm, bottom=2cm}
 \usepackage{multirow}
+\usepackage{titlesec}
+
+\setcounter{secnumdepth}{4}
 
 
 \begin{document}
 
-
 \begin{figure}[h]
-        \centering
-        \includegraphics[width=10cm]{images/Logo.png}
+    \centering
+    \includegraphics[width=10cm]{images/Logo.png}
 \end{figure}
-
-
 
 \title{Quanto-Solutions}
 
 \date{November 2023}
 
-
-
 \renewcommand{\listfigurename}{Abbildungsverzeichnis}
-
-
 
 \maketitle
 
-
 \begin{table}[h]
     \centering
-   
+
     \begin{tabular}{|p{3cm}|c|p{3cm}|}
         \hline
-        \textbf{Name} & \textbf{Matrikelnummer} & \textbf{Githubaccount} \\
+        \textbf{Name}    & \textbf{Matrikelnummer} & \textbf{Githubaccount} \\
         \hline
-        Chris Schröder    & 767384    & Chris0297  \\
-        Michele Pomarico  & 766583    & Michele-92 \\
-        Fabian Sonek      & 767903    & e2Neo      \\
-        Baran Kal         & 769042    & Roplck     \\
-        Daniel Ryssel     & 768960    & danGitRys  \\
+        Chris Schröder   & 767384                  & Chris0297              \\
+        Michele Pomarico & 766583                  & Michele-92             \\
+        Fabian Sonek     & 767903                  & e2Neo                  \\
+        Baran Kal        & 769042                  & Roplck                 \\
+        Daniel Ryssel    & 768960                  & danGitRys              \\
         \hline
     \end{tabular}
 \end{table}
 
-
 \newpage
 
 \tableofcontents  %Inhaltsverzeichnis
- 
+
 \newpage
 \listoffigures  % Abbildungsverzeichnis
 \newpage
 
-
 \section{Introduction}
 
 \section{Kurzfassung}
-    Dieses Dokument behandelt die Dokumentation der Projektmanagement Software, welche im Rahmen des Moduls “Projekt Softwaretechnik und Medieninformatik” im Studiengang Softwaretechnik und Medieninformatik an der Hochschule Esslingen für die Firma Quanto-Solutions entwickelt wird.
+Dieses Dokument behandelt die Dokumentation der Projektmanagement Software,
+welche im Rahmen des Moduls “Projekt Softwaretechnik und Medieninformatik” im
+Studiengang Softwaretechnik und Medieninformatik an der Hochschule Esslingen
+für die Firma Quanto-Solutions entwickelt wird.
 
 \newpage
 
-
-
 \section{Zielgruppe/Problemstellung}
-Zum aktuellen Zeitpunkt werden von der Firma Quanto-Solutions für die Projektverwaltung Excel-Tabellen verwendet, um die Mitarbeiter einem Projekt zuzuordnen und die Arbeitszeit zu erfassen. Dabei gibt es das Problem des Verwaltens der Zugriffsrechte auf die Excel Dateien, da aus Datenschutzgründen nicht jeder Mitarbeiter alle Informationen einsehen darf, was darin resultiert, dass nur die Managementebene in der Firma diese nutzen darf.  Dadurch gestaltet sich das Eintragen der Arbeitsstunden als sehr Zeit aufwändig.
-Um diese Probleme zu lösen, wurden wir beauftragt, eine Projektmanagement-Software zu entwickeln, die für unsere Zielgruppe, alle Mitarbeiter von Quanto-Solutions, zugänglich ist und eine Möglichkeit bietet, IST-Aufwände schnell und komfortabel buchen zu können.
+Zum aktuellen Zeitpunkt werden von der Firma Quanto-Solutions für die
+Projektverwaltung Excel-Tabellen verwendet, um die Mitarbeiter einem Projekt
+zuzuordnen und die Arbeitszeit zu erfassen. Dabei gibt es das Problem des
+Verwaltens der Zugriffsrechte auf die Excel Dateien, da aus Datenschutzgründen
+nicht jeder Mitarbeiter alle Informationen einsehen darf, was darin resultiert,
+dass nur die Managementebene in der Firma diese nutzen darf. Dadurch gestaltet
+sich das Eintragen der Arbeitsstunden als sehr Zeit aufwändig. Um diese
+Probleme zu lösen, wurden wir beauftragt, eine Projektmanagement-Software zu
+entwickeln, die für unsere Zielgruppe, alle Mitarbeiter von Quanto-Solutions,
+zugänglich ist und eine Möglichkeit bietet, IST-Aufwände schnell und
+komfortabel buchen zu können.
 
-    \subsection{ User Stories}
-        \subsubsection{Nutzer (Mitarbeiter, Projekt Manager, Manager) }
-         \begin{itemize}
-        \item Als Nutzer möchte ich mich einloggen können, um Zugriff auf das Projektmanagement-Tool zu erhalten. (Login)
-        \item Als Nutzer möchte ich meine Arbeitszeiten erfassen können, um diese auf ein Projekt zu buchen. (Time Registration)
-        \item Als Nutzer möchte ich meine eingeplanten Arbeitszeiten sehen können, um einen Überblick über meine erfassten und geplanten Arbeitszeiten zu bekommen. (Working Times)
-        \item Als Nutzer möchte ich meine Arbeitszeiten korrigieren können, um eine korrekte Erstellung der Rechnung zu gewährleisten. (Time Correction)
-        \item Als Nutzer möchte ich mit Hilfe der Sidebar schnell die Ansichten wechseln können, um effektiver zu arbeiten. (Sidebar)
-        \item Als Nutzer möchte ich in meinem Home Screen alle meine Projekte aufgelistet bekommen, um eine Übersicht des aktuellen Standes der Projekte zu erlangen. (Home)
-        \end{itemize}
+\subsection{ User Stories}
+\subsubsection{Nutzer (Mitarbeiter, Projekt Manager, Manager) }
+\begin{itemize}
+    \item Als Nutzer möchte ich mich einloggen können, um Zugriff auf das
+          Projektmanagement-Tool zu erhalten. (Login)
+    \item Als Nutzer möchte ich meine Arbeitszeiten erfassen können, um diese auf ein
+          Projekt zu buchen. (Time Registration)
+    \item Als Nutzer möchte ich meine eingeplanten Arbeitszeiten sehen können, um einen
+          Überblick über meine erfassten und geplanten Arbeitszeiten zu bekommen.
+          (Working Times)
+    \item Als Nutzer möchte ich meine Arbeitszeiten korrigieren können, um eine korrekte
+          Erstellung der Rechnung zu gewährleisten. (Time Correction)
+    \item Als Nutzer möchte ich mit Hilfe der Sidebar schnell die Ansichten wechseln
+          können, um effektiver zu arbeiten. (Sidebar)
+    \item Als Nutzer möchte ich in meinem Home Screen alle meine Projekte aufgelistet
+          bekommen, um eine Übersicht des aktuellen Standes der Projekte zu erlangen.
+          (Home)
+\end{itemize}
 
-        \subsubsection{ Projekt Manager}
-        \begin{itemize}
-        \item Als Projekt Manager möchte ich Projekte verwalten können, um die Mitarbeiter auf Tagesebene einem Projekt in einer bestimmten Position zuzuordnen. (Manage Project)
-        \item Als Projekt Manager möchte ich die Arbeitszeiten der Mitarbeiter sehen können und Sie manuell nachtragen, um die richtige Abrechnung der Positionen gewährleisten zu können. (Working Times+)
-        \end{itemize}
+\subsubsection{ Projekt Manager}
+\begin{itemize}
+    \item Als Projekt Manager möchte ich Projekte verwalten können, um die Mitarbeiter
+          auf Tagesebene einem Projekt in einer bestimmten Position zuzuordnen. (Manage
+          Project)
+    \item Als Projekt Manager möchte ich die Arbeitszeiten der Mitarbeiter sehen können
+          und Sie manuell nachtragen, um die richtige Abrechnung der Positionen
+          gewährleisten zu können. (Working Times+)
+\end{itemize}
 
-        \subsubsection{ Manager}
-        \begin{itemize}
-        \item Als Manger möchte ich ein neues Projekt anlegen können mit folgenden Informationen: Kunde, Projektname, Zeitraum, Projektmanager, hinzufügen von Mitarbeitern, Positionen und Tagessätzen, um einen bessere Projektübersicht und damit eine strukturierte Planungsmöglichkeit zu erhalten. (New Project)
-        \item Als Manager möchte ich Projekte verwalten können, um die Mitarbeiter auf Tagesebene einem Projekt in einer bestimmten Position zuzuordnen. (Manage Project)
-        \item Als Manager möchte ich die Arbeitszeiten der Mitarbeiter sehen können und Sie manuell nachtragen, um die richtige Abrechnung der Positionen gewährleisten zu können. (Working Times+)
-        \end{itemize}
+\subsubsection{ Manager}
+\begin{itemize}
+    \item Als Manger möchte ich ein neues Projekt anlegen können mit folgenden
+          Informationen: Kunde, Projektname, Zeitraum, Projektmanager, hinzufügen von
+          Mitarbeitern, Positionen und Tagessätzen, um einen bessere Projektübersicht und
+          damit eine strukturierte Planungsmöglichkeit zu erhalten. (New Project)
+    \item Als Manager möchte ich Projekte verwalten können, um die Mitarbeiter auf
+          Tagesebene einem Projekt in einer bestimmten Position zuzuordnen. (Manage
+          Project)
+    \item Als Manager möchte ich die Arbeitszeiten der Mitarbeiter sehen können und Sie
+          manuell nachtragen, um die richtige Abrechnung der Positionen gewährleisten zu
+          können. (Working Times+)
+\end{itemize}
 
-    \subsection{ Functional Requirements}
+\subsection{ Functional Requirements}
 
-        \subsubsection{Projektanlage für Manager}
-        Das System muss es Managern ermöglichen, neue Projekte anzulegen, wobei sie wichtige Informationen wie Kundenname, Projektbezeichnung und den Zeitraum festlegen können. Dies erleichtert die klare Definition und Überwachung der Projekte von ihrem Beginn an.
-        \subsubsection{Projektmanagemnt-Befugnisse für Manager}
-        Manager sollten in der Lage sein, für jedes Projekt einen verantwortlichen Projektmanager (PM) zu bestimmen und Mitarbeiter für das Projekt zuzuordnen sowie den Mitarbeitern Positionen zuordnen zu können. Diese Funktion gewährleistet, dass die Zuständigkeiten klar verteilt sind und die Teams gut organisiert sind.
-        \subsubsection{Tägliche Einsatzplanung für Projektmanager}
-        Projektmanager müssen auf Tagesebene eine detaillierte Einsatzplanung für die Mitarbeiter erstellen können. Dies ermöglicht eine präzise und effektive Zeiterfassung, um sicherzustellen, dass Projekte termingerecht abgeschlossen werden.
-        \subsubsection{Zeitaufzeichung und Reminder für Mitarbeiter}
-        Die Mitarbeiter sollten in der Lage sein, ihre “IST-Aufwände” zu erfassen, um den Arbeitsfortschritt und die Aufgabenverwaltung zu gewährleisten. Darüber hinaus sollte das System automatische Erinnerungen bereitstellen, um sicherzustellen, dass die Zeitaufzeichnung zeitnah und korrekt erfolgt.
-        \subsubsection{Berechtigungsabhängige Funktionalitäten}
-        Die Funktionalitäten des Systems sollten abhängig von der Benutzerrolle variieren. Das bedeutet, dass Manager, Projektmanager und Mitarbeiter jeweils nur auf die Funktionen und Informationen zugreifen können, die für ihre jeweiligen Aufgaben relevant sind. Dies gewährleistet die Sicherheit von Daten und erhöht die Effizienz, da Benutzer nicht mit irrelevanten Informationen überlastet werden.
-    \subsection{ Nonfunctional Requirements}
-    Als Non-Functional Requirements in diesem Projekt ist wichtig, dass die Anwendung als Web-Anwendung läuft.
+\subsubsection{Projektanlage für Manager}
+Das System muss es Managern ermöglichen, neue Projekte anzulegen, wobei sie
+wichtige Informationen wie Kundenname, Projektbezeichnung und den Zeitraum
+festlegen können. Dies erleichtert die klare Definition und Überwachung der
+Projekte von ihrem Beginn an.
+\subsubsection{Projektmanagemnt-Befugnisse für Manager}
+Manager sollten in der Lage sein, für jedes Projekt einen verantwortlichen
+Projektmanager (PM) zu bestimmen und Mitarbeiter für das Projekt zuzuordnen
+sowie den Mitarbeitern Positionen zuordnen zu können. Diese Funktion
+gewährleistet, dass die Zuständigkeiten klar verteilt sind und die Teams gut
+organisiert sind.
+\subsubsection{Tägliche Einsatzplanung für Projektmanager}
+Projektmanager müssen auf Tagesebene eine detaillierte Einsatzplanung für die
+Mitarbeiter erstellen können. Dies ermöglicht eine präzise und effektive
+Zeiterfassung, um sicherzustellen, dass Projekte termingerecht abgeschlossen
+werden.
+\subsubsection{Zeitaufzeichung und Reminder für Mitarbeiter}
+Die Mitarbeiter sollten in der Lage sein, ihre “IST-Aufwände” zu erfassen, um
+den Arbeitsfortschritt und die Aufgabenverwaltung zu gewährleisten. Darüber
+hinaus sollte das System automatische Erinnerungen bereitstellen, um
+sicherzustellen, dass die Zeitaufzeichnung zeitnah und korrekt erfolgt.
+\subsubsection{Berechtigungsabhängige Funktionalitäten}
+Die Funktionalitäten des Systems sollten abhängig von der Benutzerrolle
+variieren. Das bedeutet, dass Manager, Projektmanager und Mitarbeiter jeweils
+nur auf die Funktionen und Informationen zugreifen können, die für ihre
+jeweiligen Aufgaben relevant sind. Dies gewährleistet die Sicherheit von Daten
+und erhöht die Effizienz, da Benutzer nicht mit irrelevanten Informationen
+überlastet werden.
+\subsection{ Nonfunctional Requirements}
+Als Non-Functional Requirements in diesem Projekt ist wichtig, dass die
+Anwendung als Web-Anwendung läuft.
 
 \newpage
 
 \section{High Level Arichtektur Programm}
-    \subsection{ Struktursicht}
-        \begin{figure}[h]
-            \centering
-            \includegraphics[scale=0.85]{images/Struktursicht.png}
-            \caption{Komponentendiagramm}
-            \label{fig:beispiel}
-        \end{figure}
-    \newpage
-    \subsection{ Verhaltenssicht}
-        \begin{figure}[h]
-            \centering
-            \includegraphics[scale=0.9]{images/Verhaltenssicht.png}
-            \caption{Ablaufdiagramm}
-            \label{fig:beispiel}
-        \end{figure}
-    \newpage
-    \subsection{ Verteilungssicht}
-        \begin{figure}[h]
-  
-            \includegraphics[width= \textwidth]{images/Verteilungssicht.png}
-            \caption{Verteilungsdiagramm}
-            \label{fig:beispiel}
-        \end{figure}
+\subsection{ Struktursicht}
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.85]{images/Struktursicht.png}
+    \caption{Komponentendiagramm}
+    \label{fig:beispiel}
+\end{figure}
+\newpage
+\subsection{ Verhaltenssicht}
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.9]{images/Verhaltenssicht.png}
+    \caption{Ablaufdiagramm}
+    \label{fig:beispiel}
+\end{figure}
+\newpage
+\subsection{ Verteilungssicht}
+\begin{figure}[h]
+
+    \includegraphics[width= \textwidth]{images/Verteilungssicht.png}
+    \caption{Verteilungsdiagramm}
+    \label{fig:beispiel}
+\end{figure}
 
 \newpage
 
 \section{Architektur/ Technologie}
 
-    \subsection{Github}
-    Zur Versionsverwaltung des Codes des Projektes wird Github verwendet. Darüber hinaus bietet GitHub Werkzeuge zur Fehlerverfolgung an, die es uns ermöglichen, Probleme und Verbesserungen in unserem Projekt zu dokumentieren und nachzuverfolgen. Die Verwendung von GitHub erleichtert die Zusammenarbeit und ermöglicht eine transparente und gut organisierte Entwicklungsumgebung für das Projekt.
-    
-    \begin{figure}[h]
-        \centering
-        \includegraphics[width= \textwidth]{images/GitHub.png}
-        \caption{Screenshot Github}
-        \label{fig:beispiel}
-    \end{figure}
-    \subsection{Genutzte IDEs}
-    Als IDE wird VS-Code von Microsoft verwendet. Aufgrund der Konfigurierbarkeit von VS-Code wird es für die Entwicklung des Front- und Backend verwendet.
-    
-    \begin{figure}[h]
-        \centering
-        \includegraphics[width= \textwidth]{images/VS-Code.png}
-        \caption{Screenshot VS-Code}
-        \label{fig:beispiel}
-    \end{figure}
-    \subsection{Postman}
-    Zum Testen der Backend API wird Postman genutzt. Postman ist sowohl als lokale Anwendung nutzbar, als auch als Webanwendung oder als Plug-in VS-Code. Postman ermöglicht es dazu noch das man seine Collections in einem Team zusammen bearbeiten und teilen kann
+\subsection{Github}
+Zur Versionsverwaltung des Codes des Projektes wird Github verwendet. Darüber
+hinaus bietet GitHub Werkzeuge zur Fehlerverfolgung an, die es uns ermöglichen,
+Probleme und Verbesserungen in unserem Projekt zu dokumentieren und
+nachzuverfolgen. Die Verwendung von GitHub erleichtert die Zusammenarbeit und
+ermöglicht eine transparente und gut organisierte Entwicklungsumgebung für das
+Projekt.
 
-    \begin{figure}[h]
-        \centering
-        \includegraphics[width= \textwidth]{images/Postman.png}
-        \caption{Screenshot Postman}
-        \label{fig:beispiel}
-    \end{figure}
-    \subsection{Figma}
-    Zum Erstellen unserer Mockups wird die Software Figma genutzt, da diese es ermöglicht, im Team gleichzeitig an Entwürfen zu arbeiten. Als erstes gab es die Entscheidung, welche Farbe für das Mockup genutzt werden sollte. Dabei hatten wir die Wahl zwischen einem orangen oder blauen Mockup, da diese sehr gut zum Stil von Quanto Solutions passen. Nach verschiedenen Tests haben wir uns entschieden, ein blaues Mockup zu erstellen. Die verschiedenen Screens werden im Folgenden gezeigt und näher erläutert. Der Login-Screen (Abbildung ), wo sich der Nutzer mit der Mitarbeiternummer und einem selbst gewählten Passwort einloggen kann, dient dazu, dass keine Person außerhalb der Firma Zugang erhält.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width= \textwidth]{images/GitHub.png}
+    \caption{Screenshot Github}
+    \label{fig:beispiel}
+\end{figure}
+\subsection{Genutzte IDEs}
+Als IDE wird VS-Code von Microsoft verwendet. Aufgrund der Konfigurierbarkeit
+von VS-Code wird es für die Entwicklung des Front- und Backend verwendet.
 
-    \subsection{Microsoft SQL Server Managment Studio}
-    Zum Verwalten, Interagieren und Entwickeln unserer Datenbank nutzen wir Microsoft SQL Server Management Studio, da dieses Programm von Microsoft selbst stammt und wir sowohl die Datenbank als auch die Verwaltungssoftware für diese aus einer Hand haben.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width= \textwidth]{images/VS-Code.png}
+    \caption{Screenshot VS-Code}
+    \label{fig:beispiel}
+\end{figure}
+\subsection{Postman}
+Zum Testen der Backend API wird Postman genutzt. Postman ist sowohl als lokale
+Anwendung nutzbar, als auch als Webanwendung oder als Plug-in VS-Code. Postman
+ermöglicht es dazu noch das man seine Collections in einem Team zusammen
+bearbeiten und teilen kann
 
-    \begin{figure}[h]
-        \centering
-        \includegraphics[width= \textwidth]{images/Microsoft SQL Server Management Studio.png}
-        \caption{Screenshot Micorosoft SQL Server Managment Studio}
-        \label{fig:beispiel}
-    \end{figure}
-    \subsection{Frontend: Vue.js}
-    \subsection{Datenbank: Microsoft SQL Server}
-    \subsection{Authentifizierung SAP}
-    \subsection{Projektmanagment Jira}
-    Warum wir Jira als Kommunikationstool nutzen:
-    
-    Wir setzen Jira als unser Kommunikationstool in unser Softwareprojekt ein, weil es sich als äußerst effizientes und vielseitiges Werkzeug für die interne und externe Kommunikation erwiesen hat. Wir nutzen Jira, um Informationen, Aufgaben, Fehler und Anforderungen in unseren Projekten zentral zu verwalten, was die Klarheit und Effizienz in der Projektarbeit fördert.
-    \begin{enumerate}
-        \item In Jira können wir in Echtzeit zusammenarbeiten und auf Aktualisierungen sowie Kommentare zugreifen, was eine schnelle und nahtlose Kommunikation unabhängig von den Standorten unserer Teammitglieder ermöglicht.
-        \item Die Anpassungsfähigkeit von Jira erlaubt es uns, Arbeitsabläufe und Prozesse exakt auf unsere Projektanforderungen zuzuschneiden und benutzerdefinierte Felder hinzuzufügen, um projektbezogene Informationen effizient zu verfolgen.
-        \item Die Verwendung von Jira steigert die Transparenz und Nachverfolgbarkeit in unseren Projekten, indem alle Teammitglieder einen klaren Überblick über den aktuellen Stand und den Fortschritt der Aufgaben haben.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width= \textwidth]{images/Postman.png}
+    \caption{Screenshot Postman}
+    \label{fig:beispiel}
+\end{figure}
+\subsection{Figma}
+Zum Erstellen unserer Mockups wird die Software Figma genutzt, da diese es
+ermöglicht, im Team gleichzeitig an Entwürfen zu arbeiten. Als erstes gab es
+die Entscheidung, welche Farbe für das Mockup genutzt werden sollte. Dabei
+hatten wir die Wahl zwischen einem orangen oder blauen Mockup, da diese sehr
+gut zum Stil von Quanto Solutions passen. Nach verschiedenen Tests haben wir
+uns entschieden, ein blaues Mockup zu erstellen. Die verschiedenen Screens
+werden im Folgenden gezeigt und näher erläutert. Der Login-Screen (Abbildung ),
+wo sich der Nutzer mit der Mitarbeiternummer und einem selbst gewählten
+Passwort einloggen kann, dient dazu, dass keine Person außerhalb der Firma
+Zugang erhält.
 
-    \end{enumerate}
-    Vorteile unsere Vorgehensweise mit Jira
-    \begin{enumerate}
-        \item Jira ermöglicht eine effiziente Planung und Priorisierung von Aufgaben und Anforderungen, indem wir Arbeitsabläufe und Sprints definieren und den Fortschritt leicht im Blick behalten.
-        \item Es erleichtert die detaillierte Meldung und Verfolgung von Softwarefehlern, was die Qualität unserer Software maßgeblich steigert.
-        \item Wir können Aufgaben klar zuweisen und Verantwortlichkeiten definieren, um sicherzustellen, dass jedes Teammitglied weiß, welche Aufgaben es zu erfüllen hat.
-        \item Jira fördert die Echtzeitkommunikation und den Austausch von Kommentaren zu Aufgaben und Anforderungen, was die Zusammenarbeit und den reibungslosen Informationsfluss im Team unterstützt.
-        \item 
-        Die umfassende Rückverfolgbarkeit von Anforderungen, Aufgaben und Problemen in Jira ist von großer Bedeutung in der Softwareentwicklung, um sicherzustellen, dass alle Anforderungen vollständig und termingerecht erfüllt werden.
-    \end{enumerate}
+\subsection{Microsoft SQL Server Managment Studio}
+Zum Verwalten, Interagieren und Entwickeln unserer Datenbank nutzen wir
+Microsoft SQL Server Management Studio, da dieses Programm von Microsoft selbst
+stammt und wir sowohl die Datenbank als auch die Verwaltungssoftware für diese
+aus einer Hand haben.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width= \textwidth]{images/Microsoft SQL Server Management Studio.png}
+    \caption{Screenshot Micorosoft SQL Server Managment Studio}
+    \label{fig:beispiel}
+\end{figure}
+\subsection{Frontend: Vue.js}
+\subsection{Datenbank: Microsoft SQL Server}
+\subsection{Authentifizierung SAP}
+\subsection{Projektmanagment Jira}
+Warum wir Jira als Kommunikationstool nutzen:
+
+Wir setzen Jira als unser Kommunikationstool in unser Softwareprojekt ein, weil
+es sich als äußerst effizientes und vielseitiges Werkzeug für die interne und
+externe Kommunikation erwiesen hat. Wir nutzen Jira, um Informationen,
+Aufgaben, Fehler und Anforderungen in unseren Projekten zentral zu verwalten,
+was die Klarheit und Effizienz in der Projektarbeit fördert.
+\begin{enumerate}
+    \item In Jira können wir in Echtzeit zusammenarbeiten und auf Aktualisierungen sowie
+          Kommentare zugreifen, was eine schnelle und nahtlose Kommunikation unabhängig
+          von den Standorten unserer Teammitglieder ermöglicht.
+    \item Die Anpassungsfähigkeit von Jira erlaubt es uns, Arbeitsabläufe und Prozesse
+          exakt auf unsere Projektanforderungen zuzuschneiden und benutzerdefinierte
+          Felder hinzuzufügen, um projektbezogene Informationen effizient zu verfolgen.
+    \item Die Verwendung von Jira steigert die Transparenz und Nachverfolgbarkeit in
+          unseren Projekten, indem alle Teammitglieder einen klaren Überblick über den
+          aktuellen Stand und den Fortschritt der Aufgaben haben.
+
+\end{enumerate}
+Vorteile unsere Vorgehensweise mit Jira
+\begin{enumerate}
+    \item Jira ermöglicht eine effiziente Planung und Priorisierung von Aufgaben und
+          Anforderungen, indem wir Arbeitsabläufe und Sprints definieren und den
+          Fortschritt leicht im Blick behalten.
+    \item Es erleichtert die detaillierte Meldung und Verfolgung von Softwarefehlern, was
+          die Qualität unserer Software maßgeblich steigert.
+    \item Wir können Aufgaben klar zuweisen und Verantwortlichkeiten definieren, um
+          sicherzustellen, dass jedes Teammitglied weiß, welche Aufgaben es zu erfüllen
+          hat.
+    \item Jira fördert die Echtzeitkommunikation und den Austausch von Kommentaren zu
+          Aufgaben und Anforderungen, was die Zusammenarbeit und den reibungslosen
+          Informationsfluss im Team unterstützt. \item Die umfassende Rückverfolgbarkeit von Anforderungen, Aufgaben und Problemen in
+          Jira ist von großer Bedeutung in der Softwareentwicklung, um sicherzustellen,
+          dass alle Anforderungen vollständig und termingerecht erfüllt werden.
+\end{enumerate}
 
 \newpage
-    
 
 \section{Aufwandsschätzung}
-    Da dieses Projekt im Rahmen des Moduls “Projekt Softwaretechnik und Medieninformatik” im Studiengang Softwaretechnik und Medieninformatik an der Hochschule Esslingen stattfindet, gibt es einen vorgeschriebenen Aufwand von 10 ECTS pro Person was 300 Stunden entspricht. Da das Team, welches dieses Projekt umsetzt, aus 5 Personen besteht, gibt es insgesamt 1500 Stunden, die in diesem Projekt verteilt werden können. Wir messen den Aufwand in Personentagen (PT), welche jeweils 8 Arbeitsstunden beinhalten. Dadurch kommen wir auf ein Gesamt Pensum von 187,5 PT, welches von der Hochschule vorgeschrieben ist.
-    Bei der Methode der Aufwandsschätzung haben wir uns für die Bottom-Up-Methode entschieden. Hierbei arbeiten wir die Anforderungen des Projekts durch und schätzen für jede den entsprechenden Arbeitsaufwand.
-    
-    Die Aufwandsschätzung verteilt sich bei diesem Projekt dabei folgendermaßen:
-    
-    Um die einzelnen Anforderungen abzuarbeiten, brauchen wir erstmal ein Grundgerüst unserer Software, auf dem wir dann aufbauen können.
+Da dieses Projekt im Rahmen des Moduls “Projekt Softwaretechnik und
+Medieninformatik” im Studiengang Softwaretechnik und Medieninformatik an der
+Hochschule Esslingen stattfindet, gibt es einen vorgeschriebenen Aufwand von 10
+ECTS pro Person was 300 Stunden entspricht. Da das Team, welches dieses Projekt
+umsetzt, aus 5 Personen besteht, gibt es insgesamt 1500 Stunden, die in diesem
+Projekt verteilt werden können. Wir messen den Aufwand in Personentagen (PT),
+welche jeweils 8 Arbeitsstunden beinhalten. Dadurch kommen wir auf ein Gesamt
+Pensum von 187,5 PT, welches von der Hochschule vorgeschrieben ist. Bei der
+Methode der Aufwandsschätzung haben wir uns für die Bottom-Up-Methode
+entschieden. Hierbei arbeiten wir die Anforderungen des Projekts durch und
+schätzen für jede den entsprechenden Arbeitsaufwand.
 
-    \begin{enumerate}
-        \item Frontend anlegen: 5PT
-        \item Backend anlegen: 5PT
-        \item Datenbank anlgegen: 5PT
-        \item Prototyp eines Login-Systems implementieren und die Anforderung: “Die vorgesehenen Funktionalitäten für Manager PM und Mitarbeiter müssen jeweils nur für die jeweils nur für die jeweiligen Personen zur Verfügung stehen”: 5PT
-    \end{enumerate}
+Die Aufwandsschätzung verteilt sich bei diesem Projekt dabei folgendermaßen:
 
-    Im folgenden werden die Anforderungen geschätzt die auf dem Grundgerüst aufbauen
+Um die einzelnen Anforderungen abzuarbeiten, brauchen wir erstmal ein
+Grundgerüst unserer Software, auf dem wir dann aufbauen können.
 
-    \begin{enumerate}
-        \item SAP Login einrichten: 15PT
-        \item Manager müssen Projekte anlegen können (Kunde, Projektname, Budget, Zeitraum): 10PT
-        \item Manager müssen für Projekte Projektmanager (PM) festlegen und Mitarbeiter zuordnen können: 15PT
-        \item PM müssen auf Tagesebene eine zeitliche Einsatzplanung vornehmen und Mitarbeiter zuordnen können: 30PT
-        \item Mitarbeiter müssen ihre IST-Aufwände buchen können. Zudem sollen Mitarbeiter dafür einen Reminder erhalten: 30PT
-        \item Tagessätze Vor Ort und Remote unterscheiden sich! Jeweils eine Rechnungsposition: 5PT
-        \item Arbeitspensum wird jeweils für Vor-Ort und Remote getrennt festgelegt: 5PT
-        \item Es soll automatisiert eine Rechnung erzeugt werden und per E-Mail an die Rechnungsstellung geschickt werden: 10PT
-        \item Puffer zm flexibel einteilen: 27,5 PT
+\begin{enumerate}
+    \item Frontend anlegen: 5PT
+    \item Backend anlegen: 5PT
+    \item Datenbank anlgegen: 5PT
+    \item Prototyp eines Login-Systems implementieren und die Anforderung: “Die
+          vorgesehenen Funktionalitäten für Manager PM und Mitarbeiter müssen jeweils nur
+          für die jeweils nur für die jeweiligen Personen zur Verfügung stehen”: 5PT
+\end{enumerate}
 
+Im folgenden werden die Anforderungen geschätzt die auf dem Grundgerüst
+aufbauen
 
-    \end{enumerate}
+\begin{enumerate}
+    \item SAP Login einrichten: 15PT
+    \item Manager müssen Projekte anlegen können (Kunde, Projektname, Budget, Zeitraum):
+          10PT
+    \item Manager müssen für Projekte Projektmanager (PM) festlegen und Mitarbeiter
+          zuordnen können: 15PT
+    \item PM müssen auf Tagesebene eine zeitliche Einsatzplanung vornehmen und
+          Mitarbeiter zuordnen können: 30PT
+    \item Mitarbeiter müssen ihre IST-Aufwände buchen können. Zudem sollen Mitarbeiter
+          dafür einen Reminder erhalten: 30PT
+    \item Tagessätze Vor Ort und Remote unterscheiden sich! Jeweils eine
+          Rechnungsposition: 5PT
+    \item Arbeitspensum wird jeweils für Vor-Ort und Remote getrennt festgelegt: 5PT
+    \item Es soll automatisiert eine Rechnung erzeugt werden und per E-Mail an die
+          Rechnungsstellung geschickt werden: 10PT
+    \item Puffer zm flexibel einteilen: 27,5 PT
+
+\end{enumerate}
 
 \newpage
 
 \section{Mockup}
+\subsection{LoginScreen}
 
-        \begin{figure}[h]
-            \includegraphics[height= 0.5\textwidth,width= \textwidth]{images/Login.png}
-            \caption{Login-Ansicht}
-            \label{fig:beispiel}
-        \end{figure}
-         \begin{figure}[h]
-            \includegraphics[height= 0.5\textwidth,width= \textwidth]{images/Home.png}
-            \caption{Home-Ansicht}
-            \label{fig:beispiel}
-        \end{figure}
-        
+Über den Login-Screen kann der Nutzer sich mit seinem SAP-BTP Account anmelden. Es gibt 2 Eingabefelder, dass eine frägt nach der E-Mail Adresse des Nutzer das andere nach dem Passwort.
+Wenn der Login erfolgreich war wird der Nutzer auf den Homescreen weitergeleitet. Falls nicht kommt ein Alert mit der Nachricht "Invalid Login" (siehe Abbildung 8).
 
-\newpage
-         \begin{figure}[h]
-            \includegraphics[height= 0.5\textwidth,width= \textwidth]{images/New Project.png}
-            \caption{New Project Ansicht}
-            \label{fig:beispiel}
-        \end{figure}
+\begin{figure}[h]
+    \includegraphics[height= 0.5\textwidth,width= \textwidth]{images/Login.png}
+    \caption{Login-Ansicht}
+    \label{fig:beispiel}
+\end{figure}
 
-         \begin{figure}[h]
-            \includegraphics[height= 0.5\textwidth,width= \textwidth]{images/Manage Project.png}
-            \caption{Manage-Project-Ansicht}
-            \label{fig:beispiel}
-        \end{figure}
-        
-\newpage
-         \begin{figure}[h]
-            \includegraphics[height= 0.5\textwidth,width= \textwidth]{images/Positionen einfügen.png}
-            \caption{Position-Einfügen Ansicht}
-            \label{fig:beispiel}
-        \end{figure}
+\subsection{Homescreen}
+Nach dem Login wird man zum Homescreen (siehe Abbildung 9) weitergeleitet. Auf
+dem Homescreen werden alle Projekte angezeigt, in denen man involviert ist,
+sowie die jeweiligen Rollen in dem Projekt. Wenn man ein Projekt auswählt, in
+dem man Projektleiter ist, ändert sich die Sidebar und man bekommt mehr
+Zugriffsrechte und somit tiefere Einblicke in das Projekt. Dabei sieht die
+Sidebar je nach Rolle unterschiedlich aus. Der Manager, Projektleiter und
+Mitarbeiter haben jeweils unterschiedliche Zugriffsrechte. Um die Ansichten zu
+wechseln, kann man die Sidebar oder auch die orangen Pfeile benutzen. Die
+Rollen des Managers, Projektleiters und des Mitarbeiters sehen im Homescreen
+den Projektnamen, den Projektleiter des Projektes sowie das Datum des
+Projektendes. Der Projektleiter und der Mitarbeiter sehen dazu noch die Rolle,
+die ihnen in den Projekten zugeteilt wurde. Der Manager kann alle Projekte
+sehen die es aktuell gibt und hat auch auf jedes Projekt Zugriff.
 
-         \begin{figure}[h]
-            \includegraphics[height= 0.5\textwidth,width= \textwidth]{images/Sidebar.png}
-            \caption{Sidebar-Ansicht}
-            \label{fig:beispiel}
-        \end{figure}
+\begin{figure}[h]
+    \includegraphics[height= 0.5\textwidth,width= \textwidth]{images/Home.png}
+    \caption{Home-Ansicht}
+    \label{fig:beispiel}
+\end{figure}
 
 \newpage
-         \begin{figure}[h]
-            \includegraphics[height= 0.5\textwidth,width= \textwidth]{images/Time Registration.png}
-            \caption{Time Registration Ansicht}
-            \label{fig:beispiel}
-        \end{figure}
+\subsection{New Project}
+Über die Eingabemaske New Project kann der Manager ein ganz neues Projekt anlegen. Alle Eingaben erfolgen über ein Eingabefeld. In der Maske kann er alle Daten, die für ein Projekt relevant sind, eingeben, die da wären: Projektnamen, Kunden-Namen, Projektleiter hinzufügen, Projektstart und  Projektende. (Abbildung 10).
+Zu dem kann er über ein DropDown Menü Mitarbeiter auswählen, die
+er diesem Porjekt zuweisen möchte. Über ein Eingabefeld können neue
+Position hinzugefügt werden, welche jeweils mit einem Tagessatz versehen werden.
+Diese Positionen können den Mitarbeitern dann zugeteil werden, ein Mitarbeiter
+kann mehrere Position für ein Projekt haben.Wenn die Position einem Mitarbeiter
+zugeteilt wurden muss man noch die Personentage (PT) angeben. Anhand
+der Daten von Personentage und Tagessatz wird das Gesamt Budget für das
+Projekt errechnet. Der Vorgang kann über ein Submit Button abgeschlossen werden.
 
-        \begin{figure}[h]
-            \includegraphics[height= 0.5\textwidth,width= \textwidth]{images/Time Registration.png}
-            \caption{Working Times Ansicht}
-            \label{fig:beispiel}
-        \end{figure}
+\begin{figure}[h]
+    \includegraphics[height= 0.5\textwidth,width= \textwidth]{images/New Project.png}
+    \caption{New Project Ansicht}
+    \label{fig:beispiel}
+\end{figure}
+
+\begin{figure}[h]
+    \includegraphics[height= 0.5\textwidth,width= \textwidth]{images/Positionen einfügen.png}
+    \caption{Position-Einfügen Ansicht}
+    \label{fig:beispiel}
+\end{figure}
+
+\subsection{Manage Project}
+In der Ansicht “Manage Project” wird ein ausgewähltes Projekt in einer Tabelle
+angezeigt. In der Tabelle sieht man für einen über das Dropdown-Menü
+ausgewählten Monat alle Arbeitszeiten, der in diesem Projekt involvierten
+Mitarbeiter. In der Spalte Summe Projects wird die Stundenanzahl der summierten
+Projekte angezeigt in dem der Mitarbeiter an diesem Tag bereits eingeplant
+wurde. Somit bekommt man einen Überblick welcher Mitarbeiter an welchem
+Arbeitstag noch wie viel Arbeitsstunden zur Verfügung hat. Über die Spalte This
+Project kann man nun die Anzahl der Stunden eingeben für die man den
+Mitarbeiter an dem Tag einplanen möchte. In der Spalte Pos (Positions) wählt
+man aus in welcher Position der Mitarbeiter an diesem Tag eingeplant werden
+soll (siehe Abbildung 12).
+
+\begin{figure}[h]
+    \includegraphics[height= 0.5\textwidth,width= \textwidth]{images/ManageProject1.png}
+    \caption{Manage-Project-Ansicht}
+    \label{fig:beispiel}
+\end{figure}
+
 \newpage
+
+\subsection{Sidebar}
+Mit Hilfe der Sidebar kann man schnell von einer Ansicht auf eine andere
+kommen. Die Sidebar ist je nach Rolle unterschiedlich strukturiert. Der
+Mitarbeiter hat eine andere Ansicht als der Projektleiter. Jede Rolle hat
+nichtsdestotrotz die folgenden Buttons: Den “Home” Button, der wie zuvor
+gezeigt, den Homescreen anzeigt, den “Working-Times” Button, der die
+gearbeiteten Zeiten in Form eines Kalenders angezeigt, die Time Registration,
+in der man seine gearbeiteten Zeiten eingepflegt und die Einstellungen. Der
+Manager hat zudem noch einen New-Project-Button, mit dem neue Projekte erstellt
+werden können (siehe Abbildung 10). Der Projektleiter hat einen
+Manage-Project-Button, auf dieser Ansicht kann er die Mitarbeiter auf Stunden
+Ebene einem Projekt zuordnen (siehe Abbildung 12). Mehr Details folgen bei den
+dazugehörigen Screenshots (siehe Abbildung Sidebar 13).
+
+\begin{figure}[h]
+    \includegraphics[height= 0.5\textwidth,width= \textwidth]{images/Sidebar.png}
+    \caption{Sidebar-Ansicht}
+    \label{fig:beispiel}
+\end{figure}
+
+\newpage
+\subsection{Time Registration}
+Über das Fenster “Time Registration” können die Mitarbeiter Ihre Arbeitszeiten erfassen.  Als Erstes geben Sie die Startzeit ein, also um wie viel Uhr haben Sie angefangen zu arbeiten.
+Dann seine Pausenzeiten und Endzeit. Über ein DropDown Menü hat man noch die Möglichkeit, sich die Projekte anzeigen zu lassen, in denen man involviert ist und auf das man seine Zeit erfassen möchte.
+Wichtig ist auch noch, dass die richtige Position ausgewählt wird, da bei jeder Position ein anderer Verrechnungssatz hinterlegt ist (siehe Abbildung 14).
+\begin{figure}[h]
+    \includegraphics[height= 0.5\textwidth,width= \textwidth]{images/Time Registration.png}
+    \caption{Time Registration Ansicht}
+    \label{fig:beispiel}
+\end{figure}
+
+\subsection{Working Times / Working Times+}
+In der Ansicht “Working Times” sieht der Mitarbeiter seine Arbeitszeiten in
+einer Übersicht aufgeschlüsselt. Die Zeiten werden in eingeplanten
+Arbeitsstunden pro Tag angezeigt. Es wird angezeigt, wie lange der Mitarbeiter
+tatsächlich gearbeitet hat, sowie seine Pausenzeiten. In der letzten Zeile der
+Tabelle sieht er die Summe der geplanten Arbeitsstunden und tatsächlichen
+Arbeitsstunden. Dadurch weiß der Mitarbeiter, wie weit er in dem Projekt ist
+und wie viel Zeit er an diesem Tag dafür verwendet hat (siehe Abbildung 15). \\
+In der Ansicht Working Times+ sieht der Projektleiter die Arbeitszeiten seiner
+Mitarbeiter die diese über die Anischt Time Correction (siehe Abbildung xx)
+kontrolliert und bestätigt haben. Per DropDown Menü kann man zwischen Projekten
+und Mitarbeitern filtern somit bekommt man eine bessere Übersicht, falls man
+nach etwas bestimmten sucht. Der Projektleiter kann in dieser Ansicht noch
+Nachtragungen von Arbeitszeiten der Mitarbeiter erfassen, falls diese bei Ihrer
+Zeiterfassung einen Fehler gemacht hätten (siehe Abbildung 16).
+
+\begin{figure}[]
+    \includegraphics[height= 0.5\textwidth,width= \textwidth]{images/Working Times.png}
+    \caption{Working Times Ansicht}
+    \label{fig:beispiel}
+\end{figure}
+
+\begin{figure}[]
+    \includegraphics[height= 0.5\textwidth,width= \textwidth]{images/Working Times+.png}
+    \caption{Working Times+ Ansicht}
+    \label{fig:beispiel}
+\end{figure}
+
+\newpage
+\clearpage
+
+\subsection{Time Correction}
+In der Ansicht Time Correction sieht der Mitarbeiter alle seine Arbeitszeiten
+von seine Porjekten in einer Tabelle aufgelistet, in dennen er eingeplant war
+aber seine Zeit nicht erfasst hat. Er hat die Möglichkeit über die Worked
+Spalte nachzutragen (siehe Abbildung 17). Wenn der Mitarbeiter am Monatsende
+seine Arbeitszeiten kontrolliert hat und alle Zeiten erfasst wurden, kann er
+auf den Confirm Button drücken. Dann werden die Arbeitszeiten bestätigt und
+landen beim Projektleiter in der Working Times+ Anischt (siehe Abbildung 16).
+
+\begin{figure}[]
+    \includegraphics[height= 0.5\textwidth,width= \textwidth]{images/TimeCorrection.png}
+    \caption{Working Times+ Ansicht}
+    \label{fig:beispiel}
+\end{figure}
+
+\subsection{Create New Employee}
+In der Ansicht Create New Employee kann der Manager einen neuen Mitarbeiter
+anlegen. Hierbei werden folgende Informationen benötigt:
+Vorname,Nachname,E-Mail Adresse, Telefonnummer und Teamrolle.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width= \textwidth]{images/CreateNewEmployee.png}
+    \caption{Create New Employee Ansicht}
+    \label{fig:beispiel}
+\end{figure}
+
+\newpage
+\clearpage
 
 \section{Datenbank}
 
-    \begin{figure}[h]
-        \centering
-        \includegraphics[width= \textwidth]{images/logischeAnsicht.png}
-        \caption{Logische Sicht Datenbank}
-        \label{fig:beispiel}
-    \end{figure}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width= \textwidth]{images/logischeAnsicht.png}
+    \caption{Logische Sicht Datenbank}
+    \label{fig:beispiel}
+\end{figure}
 
-    \begin{figure}[h]
-        \centering
-        \includegraphics[width= \textwidth]{images/datenbankphysisches-Layout.png}
-        \caption{Physisches Layout Datenbank}
-        \label{fig:beispiel}
-    \end{figure}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width= \textwidth]{images/datenbankphysisches-Layout.png}
+    \caption{Physisches Layout Datenbank}
+    \label{fig:beispiel}
+\end{figure}
 
 \newpage
 
-    \subsection{Tabellen}
+\subsection{Tabellen}
 
-        \subsubsection{Employee}
-        \begin{lstlisting}[language=Sql, caption= Create Table Statement für Employee Table]
+\subsubsection{Employee}
+\label{subsubsec:Employee}
+\begin{lstlisting}[language=Sql, caption= Create Table Statement für Employee Table]
     CREATE TABLE [dbo].[employee] (
     [id]         INT           IDENTITY (1, 1) NOT NULL,
     [emp_id]     NVARCHAR (50) NOT NULL,
@@ -329,8 +542,41 @@ Um diese Probleme zu lösen, wurden wir beauftragt, eine Projektmanagement-Softw
     [dbo].[team] ([id])
 );
         \end{lstlisting}
-        \subsubsection{Team}
-         \begin{lstlisting}[language=Sql, caption= Create Table Statement für Team Table]
+
+In der Tabelle Employee werden die Mitarbeiter der Firma gespeichert die sowohl
+Projekten zugeordnert werden können, als auch diese administieren.
+\paragraph{Id}
+\label{paragraph:id}
+Bei der Id handelt es sich um den Primärschlüssel der Tabelle welcher zugleich
+ein Autoinkrement-Schlüssel ist, und dazu dient einen Employee eindeutig zu
+identifzieren.
+
+\paragraph{emp\_id} Die emp\_id ist eine Id welche einem Mitarbeiter zur Identifizierung
+zugeordnert wird. Bei dieser kann es sich um eine exisitierende aus dem
+Unternehmen handeln oder auch eine neu implementierte Identifizierungsvariante
+handeln. Diese sollte dabei nicht mit der id Spalte in dieser Tabelle
+verwechselt werden.
+
+\paragraph{forename,surname und phone} Bei diesen Spalten handelt es sich bei dem Vornamen und Nachname um
+erforderliche Informationen und bei der Telefonnummer um eine optionale
+Informationen.
+
+\paragraph{mail} Der Mail-Adresse des Employees kommt eine besondere Wichtigkeit zu, da diese
+hinsichtlich des Logins mit SAP-BTP entscheidend ist. Die Mail Adresse sollte
+hierbei die gleiche sein, die auch in SAP verwendet wird, da die Zuordnung
+zwischen SAP und Datenbank über diese erfolgt. In Konsequenz davon sollten die
+Mail Adressen in der Datenbank einzigartig sein, da doppelte Mail Addressen zu
+Konflikten führen werden.
+
+\paragraph{fk\_team\_id}
+\label{paragraph:fkTeamId} Bei dem fk\_team\_id handelt es sich um einen Foreign Key mit Bezug auf den Team Table. Durch die Implementierung des Foreign Keys an
+dieser Stelle kann ein Employee zu einem Zeitpunkt, nur einem Team zugeordnert sein.
+
+\paragraph{team\_roll}Ein Employee hat in einem Projekt eine Rolle. Diese kann sein "Team-Leader"
+oder "Member".
+
+\subsubsection{Team}
+\begin{lstlisting}[language=Sql, caption= Create Table Statement für Team Table]
     CREATE TABLE [dbo].[team] (
     [id]   INT            IDENTITY (1, 1) NOT NULL,
     [name] NVARCHAR (50)  NOT NULL,
@@ -339,8 +585,21 @@ Um diese Probleme zu lösen, wurden wir beauftragt, eine Projektmanagement-Softw
 );
 
          \end{lstlisting}
-        \subsubsection{Project}
-        \begin{lstlisting}[language=Sql, caption= Create Table Statement für Project Table]
+
+In der Tabelle Team können Teams erstellt werden falls im Unternehmen mit Teams
+gearbeitet wird.
+\paragraph{id} Bei der Id handelt es sich um den Primärschlüssel der Tabelle welcher zugleich
+ein Autoinkrement-Schlüssel ist, und dazu dient ein Team eindeutig zu
+identifzieren. Dabei handelt es sich um den Foreign Key der in der Tabelle
+Employee (\ref{subsubsec:Employee}) in der Spalte fk\_team\_id
+(\ref{paragraph:fkTeamId}) referenziert wird.
+
+\paragraph{name,info} In den Spalten name und info können die Infos über die Teams gespeichert
+werden.
+
+\subsubsection{Project}
+\label{subsubsection:project}
+\begin{lstlisting}[language=Sql, caption= Create Table Statement für Project Table]
     CREATE TABLE [dbo].[project] (
     [id]            INT           IDENTITY (1, 1) NOT NULL,
     [p_id]          NVARCHAR (50) NOT NULL,
@@ -355,8 +614,25 @@ Um diese Probleme zu lösen, wurden wir beauftragt, eine Projektmanagement-Softw
     REFERENCES [dbo].[employee] ([id])
 );
          \end{lstlisting}
-        \subsubsection{Position}
-        \begin{lstlisting}[language=Sql, caption= Create Table Statement für Position Table]
+\paragraph{id}
+\label{paragraph:projectId}  Bei der Id handelt es sich um den Primärschlüssel der Tabelle welcher zugleich
+ein Autoinkrement-Schlüssel ist, und dazu dient ein Projekt eindeutig zu
+identifzieren.
+
+\paragraph{p\_id} Bei der p\_id handelt es sich bei dem Projekt um die Firmeninterne Id des
+Projekts. Die p\_id darf hierbei nicht mit der id verwechselt werden.
+\paragraph{name,company} An dieser Stelle wird der Name der Firma und des Projekts hinterlegt
+\paragraph{start\_date,end\_date} Das Start- und Enddatum des Projekts wird vom Type DATE angelegt, da eine
+höhere Genauigkeit, keinen signifikanten Mehrwert bieten.
+\paragraph{fk\_creator}  Diese Spalte hat als Foreign Key die Spalte id (\ref{paragraph:id}) der Tabelle
+Employee (\ref{subsubsec:Employee}). Durch diese Spalte kann festgehalten
+werden, von wem dieses Projekt erstellt wurde.
+\paragraph{creation\_date} Hierbei wird festgehalten aus Gründen der Nachverfolgbarkeit wann ein Projekt
+angelegt wurde.
+
+\subsubsection{Position}
+\label{subsubsection:Position}
+\begin{lstlisting}[language=Sql, caption= Create Table Statement für Position Table]
     CREATE TABLE [dbo].[position] (
     [id]               INT           IDENTITY (1, 1) NOT NULL,
     [position_id]      NVARCHAR (50) NOT NULL,
@@ -372,8 +648,32 @@ Um diese Probleme zu lösen, wurden wir beauftragt, eine Projektmanagement-Softw
     REFERENCES [dbo].[project] ([id])
 );
          \end{lstlisting}
-        \subsubsection{Assignment}
-        \begin{lstlisting}[language=Sql, caption= Create Table Statement für Assignment Table]
+\paragraph{id}
+\label{paragraph:positionId}
+Bei der Id handelt es sich um den Primärschlüssel der Tabelle welcher zugleich
+ein Autoinkrement-Schlüssel ist, und dazu dient eine Position eindeutig zu
+identifzieren.
+
+\paragraph{position\_id} Bei der Position Id handelt es sich um die firmeninterne Bezeichnung einer
+Position.
+\paragraph{fk\_project} Hierbei handelt es sich um einen Foreign Key auf die Spalte id
+(\ref{paragraph:projectId}) der Tabelle Project
+({\ref{subsubsection:project}}). Über diesen kann eine Position einem Projekt
+zugeordnert werden Eine Position kann nicht gleichzeitig mehreren Projekten
+zugeordnert sein.
+\paragraph{rate} In dieser Spalte wird der Stundensatz der Position festgehalten.
+\paragraph{wd} Hier wird der Umfang des Projekts in Arbeitstagen (8h) festgehalten.
+\paragraph{volume\_total} Der Wert dieser Spalte wird am Anfang, beim einfügen einer Position festgelegt,
+kann sich aber ändern falls der Umfang der Positon angepasst wird.
+\paragraph{volume\_remaining} Hier wird das verbleibende Volumen einer Position angegeben. Der Wert hierfür
+wird aus den Einträgen der Booking Tabelle, für die jeweilige Position, per
+Trigger berechnet. Der Wert hierfür kann auch negativ sein, wenn eine Position
+ihr finanzielles Volumen überzieht.
+\paragraph{start\_date, end\_date} Das Start- und Enddatum einer Position, können vom Start- und Enddatum des
+Projekts abweichen.
+
+\subsubsection{Assignment}
+\begin{lstlisting}[language=Sql, caption= Create Table Statement für Assignment Table]
     CREATE TABLE [dbo].[assignment] (
     [id]          INT           IDENTITY (1, 1) NOT NULL,
     [fk_project]  INT           NOT NULL,
@@ -391,8 +691,26 @@ Um diese Probleme zu lösen, wurden wir beauftragt, eine Projektmanagement-Softw
 
 
          \end{lstlisting}
-        \subsubsection{Booking}
-        \begin{lstlisting}[language=Sql, caption= Create Table Statement für Booking Table]
+In der Tabelle Assignment werden die Mitarbeiter mit einer Rolle Projekten
+zugeordnert
+\paragraph{id}Bei der Id handelt es sich um den Primärschlüssel der Tabelle welcher zugleich
+ein Autoinkrement-Schlüssel ist, und dazu dient ein Assignment/Zuordnung
+eindeutig zu identifzieren.
+
+\paragraph{fk\_project} Bei der Spalte handelt es sich um einen Foreign Key auf die Spalte id
+(\ref{paragraph:projectId}) der Tabelle Project (\ref{subsubsection:project}).
+In dieser wird das Projekt angegeben welches zugeordnert wird.
+
+\paragraph{fk\_employee} Bei der Spalte handelt es sich um einen Foreign Key auf die Spalte id
+(\ref{paragraph:id}) der Tabelle Employee (\ref{subsubsec:Employee}). In dieser
+wird der Employee angegeben welcher einem Projekt zugeordnert wird.
+
+\paragraph{role} In dieser Spalte wird festgehalten welche Rolle ein Mitarbeiter in einem
+Projekt besitzt. Dabei kann ein Mitarbeiter nur einmal einem Projekt
+zugeordnert sein, unabhängig von seiner Rolle.
+
+\subsubsection{Booking}
+\begin{lstlisting}[language=Sql, caption= Create Table Statement für Booking Table]
     CREATE TABLE [dbo].[booking] (
     [id]          INT        IDENTITY (1, 1) NOT NULL,
     [fk_employee] INT        NOT NULL,
@@ -410,8 +728,31 @@ Um diese Probleme zu lösen, wurden wir beauftragt, eine Projektmanagement-Softw
 
 
          \end{lstlisting}
-        \subsubsection{Forecast}
-        \begin{lstlisting}[language=Sql, caption= Create Table Statement für Forecast Table]
+In der Tabelle Booking werden die Arbeitszeiten der Mitarbeiter erfasst.
+
+\paragraph{id} Bei der Id handelt es sich um den Primärschlüssel der Tabelle welcher zugleich
+ein Autoinkrement-Schlüssel ist, und dazu dient ein Booking/Zeiterfassung
+eindeutig zu identifzieren.
+
+\paragraph{fk\_employee} Die Spalte fk\_employee beinhaltet einen Foreign-Key auf die Spalte id
+(\ref{paragraph:id}) der Tabelle Employee (\ref{subsubsec:Employee}), und gibt
+den Mitarbeiter an, für welchen die Arbeitszeit erfasst wurde.
+
+\paragraph{fk\_position} Die Spalte fk\_position beinhaltet einen Foreign-Key auf die Spalte id
+(\ref{paragraph:positionId}) der Tabelle Position
+(\ref{subsubsection:Position}), und gibt die Position an, auf welche eine
+Arbeitszeit erfasst wurde.
+
+\paragraph{start, end} In den Spalten start und end werden die Start- und Endzeiten der Arbeitszeiten
+erfasst.
+
+\paragraph{pause} In der Spalte pause wird die Pausenzeit in Minuten erfasst
+
+\paragraph{time} In dieser Spalte wird die Arbeitszeit in Minuten angegeben, abzüglich der
+Pause. Der Wert hierfür wird per Trigger berechnet.
+
+\subsubsection{Forecast}
+\begin{lstlisting}[language=Sql, caption= Create Table Statement für Forecast Table]
     CREATE TABLE [dbo].[forecast] (
     [id]          INT            IDENTITY (1, 1) NOT NULL,
     [fk_employee] INT            NOT NULL,
@@ -426,117 +767,401 @@ Um diese Probleme zu lösen, wurden wir beauftragt, eine Projektmanagement-Softw
 
 
          \end{lstlisting}
+In der Tabelle Forecast werden die geplante Arbeitszeiten erfasst.
 
-    Der SQL Code zum erstellen der Datenbank inklusive der Tabellen, ist im Github-Repository des Backends zu finden.
+\paragraph{id} Bei der Id handelt es sich um den Primärschlüssel der Tabelle welcher zugleich
+ein Autoinkrement-Schlüssel ist, und dazu dient einen Forecast eindeutig zu
+identifzieren eindeutig zu identifzieren.
+
+\paragraph{fk\_employee} Die Spalte fk\_employee beinhaltet einen Foreign-Key auf die Spalte id
+(\ref{paragraph:id}) der Tabelle Employee (\ref{subsubsec:Employee}), und gibt
+den Mitarbeiter an, welcher für diese Arbeitszeit eingeplant ist.
+
+\paragraph{fk\_position} Die Spalte fk\_position beinhaltet einen Foreign-Key auf die Spalte id
+(\ref{paragraph:positionId}) der Tabelle Position
+(\ref{subsubsection:Position}), und gibt die Position an, welche für die
+Arbeiszeit eingeplant ist.
+
+\paragraph{start, end} In den Spalten start und end werden die Start- und Endzeiten der Arbeitszeiten
+erfasst.
+
+\paragraph{info} In dieser Spalte können noch weitere Infos und Anmerkungen für die geplante
+Arbeitszeite erfasstt werden
+
+\subsection{Trigger}
+
+\subsubsection{Booking}
+Mithilfe von Triggern wird sichergestellt dass das verbleibende Volumen von den
+Positionen angepasst wird. Hierfür gibt es insgesamt 3 Trigger.
+
+\begin{lstlisting}[language=Sql, caption= Create Trigger Statement für Insert in Booking Table]
+CREATE TRIGGER [dbo].[insertTrigger] 
+ON  [dbo].[booking] 
+AFTER Insert
+AS 
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+	UPDATE p
+	SET volume_remaining = volume_remaining + 
+        (((DATEDIFF(MINUTE,i.[start],i.[end])-i.[pause]))/60) * p.rate
+	FROM dbo.position p
+	INNER JOIN inserted i ON i.fK_position = p.id
+	WHERE p.id = i.fK_position;
+
+END
+GO
+);
+Dieser Trigger wird aktiv wenn neue Daten in die Booking Tabelle eingetragen werden.
+
+
+         \end{lstlisting}
+
+\subsection{Stored Procedures}
+
+Der SQL Code zum erstellen der Datenbank inklusive der Tabellen, ist im
+Github-Repository des Backends zu finden.
 
 \newpage
 
 \section{Schnittstellen Definition}
 
-    \subsection{Datenbank Backend}
-    Für die Schnittstelle zwischen der Datenbank und dem Backend haben wir uns für die Micosoft ODBC Schnittstelle entschieden. Diese kann wiefolgt beschrieben werden.
-    
-    "Die Microsoft Open Database Connectivity (ODBC)-Schnittstelle ist eine C-Programmiersprachenschnittstelle, mit der Anwendungen über eine Vielzahl von Datenbankverwaltungssystemen (DBMSs) auf Daten zugreifen können. ODBC ist eine schnittstelle mit niedriger Leistung, die speziell für relationale Datenspeicher entwickelt wurde."\cite{MSODBC}.
+\subsection{Datenbank Backend}
+Für die Schnittstelle zwischen der Datenbank und dem Backend haben wir uns für
+die Micosoft ODBC Schnittstelle entschieden. Diese kann wiefolgt beschrieben
+werden.
 
-    \begin{figure}[h]
-        \centering
-        \includegraphics[width= \textwidth]{images/odbc.png}
-        \caption{Veranschaulichung ODBC Schnittstelle}
-        \label{fig:beispiel}
-        \cite{ODBC}
-    \end{figure}
+"Die Microsoft Open Database Connectivity (ODBC)-Schnittstelle ist eine C-Programmiersprachenschnittstelle, mit der Anwendungen über eine Vielzahl von Datenbankverwaltungssystemen (DBMSs) auf Daten zugreifen können. ODBC ist eine schnittstelle mit niedriger Leistung, die speziell für relationale Datenspeicher entwickelt wurde."\cite{MSODBC}.
 
-    Die ODBC Schnittstelle bietet dabei für uns mehrere Vorteile. Auch wenn in diesem Projekt als Datenbank Microsoft SQL Server verwendet wird, besteht die Möglichkeit das auch eine andere Datenbank-Technologie verwendet wird, solange diese ebenfalls die ODBC Schnittstelle unterstützt. Dadurch vergrößert sich die potenzielle Zielgruppe unseres Projekts, da für den Fall dass potenzielle Nutzer andere Datenbank-Systeme präferieren und verwenden wollen. Ein weiterer Vorteil der sich ergibt ist die Plattformunabhängigkeit, wodurch das Projekt auf allen gängigen Betriebssystemen laufen kann.
-    
+\begin{figure}[h]
+    \centering
+    \includegraphics[width= \textwidth]{images/odbc.png}
+    \caption{Veranschaulichung ODBC Schnittstelle}
+    \label{fig:beispiel}
+    \cite{ODBC}
+\end{figure}
 
-    
-    \subsection{Backend Frontend}
-    Als Schnittstelle zwischen dem Backend und Frontend wird eine REST-Api verwendet. Dies ist die Konsequenz aus der Entscheidung für das Backend Framework, da es sich dabei um ein Framework handelt, welches eine REST-API implementiert, und wir daran nichts ändern, da die REST-API viele Vorteile für uns bietet.
+Die ODBC Schnittstelle bietet dabei für uns mehrere Vorteile. Auch wenn in
+diesem Projekt als Datenbank Microsoft SQL Server verwendet wird, besteht die
+Möglichkeit das auch eine andere Datenbank-Technologie verwendet wird, solange
+diese ebenfalls die ODBC Schnittstelle unterstützt. Dadurch vergrößert sich die
+potenzielle Zielgruppe unseres Projekts, da für den Fall dass potenzielle
+Nutzer andere Datenbank-Systeme präferieren und verwenden wollen. Ein weiterer
+Vorteil der sich ergibt ist die Plattformunabhängigkeit, wodurch das Projekt
+auf allen gängigen Betriebssystemen laufen kann.
 
-    \begin{figure}[h]
-        \centering
-        \includegraphics[width= \textwidth]{images/Rest-API.png}
-        \caption{Veranschaulichung REST-API}
-        \label{fig:beispiel}
-        \cite{REST}
-    \end{figure}
-    
+\subsection{Backend Frontend}
+Als Schnittstelle zwischen dem Backend und Frontend wird eine REST-Api
+verwendet. Dies ist die Konsequenz aus der Entscheidung für das Backend
+Framework, da es sich dabei um ein Framework handelt, welches eine REST-API
+implementiert, und wir daran nichts ändern, da die REST-API viele Vorteile für
+uns bietet.
+
+
+\subsection{Beschreibung Rest API}
+
+\subsubsection{Verwaltung Models}
+
+\paragraph{Employee}
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width= \textwidth]{images/Rest-API.png}
+    \caption{Veranschaulichung REST-API}
+    \label{fig:beispiel}
+    \cite{REST}
+\end{figure}
 
 \newpage
 
 \section{Protokoll}
-    \subsection{1. Woche, Zeitraum 02.10.2023-08.10.2023}
-    Im Meeting am  06.10.2023 wurden folgenden Sachen hinsichtlich des Projektes festgelegt: 
-    
-    Quanto Solutions gab uns keine Vorgaben in Hinsicht auf Technologien und Programmiersprachen, mit der Einschränkung, dass es sich dabei um eine Webanwendung handeln muss, was sich jedoch auch aus den Vorgaben des SWTM-Moduls ergab. Somit wurde uns freie Hand gelassen im Aspekt auf die technischen Entscheidungen. Zudem wurde noch einmal genau auf die Anforderungen des Projektmanagement Tools eingegangen. Diese wurden unterteilt in Muss-, Soll- und Kann-Anforderungen. Des Weiteren wurde besprochen, wie ein Projekt aufgebaut ist und welche verschiedenen Rollen in diesem involviert sind. Dadurch wurde noch einmal deutlich gemacht, dass jede Rolle in einem Projekt verschiedene Zugriffsrechte hat.  Bis zum nächsten Meeting sollten wir ein Mockup erstellen.
+\subsection{1. Woche, Zeitraum 02.10.2023-08.10.2023}
+Im Meeting am 06.10.2023 wurden folgenden Sachen hinsichtlich des Projektes
+festgelegt:
 
-    \subsection{2. Woche Zeitraum 09.10.2023 -22.10.2023}
-    Im Meeting am 13.10 wurden folgende Sachen hinsichtlich des Projektes festgelegt.
-    
-    Zur Zeiterfassung der Mitarbeiterzeiten wird die Start- und Endzeit des Arbeitstages inklusive Pausenzeiten, manuell von Hand eingetragen und nicht, wie im ersten Mockup, per Start- und Stop-Button gestoppt. Für das Eintragen der Arbeitszeiten wurde vereinbart, dass Mitarbeiter ihre Arbeitszeiten auf Stundenbasis eintragen können und nicht, wie bisher gedacht, nur ganze Tage buchen können. In Hinsicht auf das nachträgliche Ändern von Arbeitszeiten wurde festgelegt, dass die Arbeitszeiten bis zum Ende des Monats geändert werden können.
-    Des Weiteren wurde festgehalten, dass Manager in Projekten alle Berechtigungen besitzen. Die Projektsprache hinsichtlich der User Interfaces wurde auf Englisch festgelegt, damit möglichst viele Mitarbeiter diese verwenden können, hinsichtlich der möglichen Akquisition von internationalen Firmen. Ebenfalls wurde festgelegt, dass die App-Sidebar auf jeder Seite der App sichtbar sein soll, um eine möglichst effektive und schnelle Navigation in der App zu gewährleisten.
-    Hinsichtlich der Planung von Projekten in der Anwendung wurde festgehalten, dass Manager die Positionen erstellen. Der Projektleiter kann dann Mitarbeiter für diese Positionen zuordnen und auf Tagesbasis das Projekt planen.
+Quanto Solutions gab uns keine Vorgaben in Hinsicht auf Technologien und
+Programmiersprachen, mit der Einschränkung, dass es sich dabei um eine
+Webanwendung handeln muss, was sich jedoch auch aus den Vorgaben des
+SWTM-Moduls ergab. Somit wurde uns freie Hand gelassen im Aspekt auf die
+technischen Entscheidungen. Zudem wurde noch einmal genau auf die Anforderungen
+des Projektmanagement Tools eingegangen. Diese wurden unterteilt in Muss-,
+Soll- und Kann-Anforderungen. Des Weiteren wurde besprochen, wie ein Projekt
+aufgebaut ist und welche verschiedenen Rollen in diesem involviert sind.
+Dadurch wurde noch einmal deutlich gemacht, dass jede Rolle in einem Projekt
+verschiedene Zugriffsrechte hat. Bis zum nächsten Meeting sollten wir ein
+Mockup erstellen.
 
-    \subsection{3.Woche Zeitraum 16.10.2023 - 22.1.2023}
-    Im Meeting am 20.10 wurden folgende Sachen hinsichtlich des Projektes festgelegt.
-    
-    Es wurde vom Kunden das blaue Farbschema für das Produkt gewünscht. Zudem wurde sich auch gewünscht, wenn möglich, die Positionen in “Add Employee” per Drag and Drop zu veranschaulichen. Doch da haben wir die endgültige Entscheidung, weswegen wir und auch für das Drag and Drop Feature entschieden haben. Bei “Manage Project” sollen alle Mitarbeiter angezeigt werden und diese eine begrenzung von 8 Stunden pro Tag haben. Dabei soll man diese Mitarbeiter direkt für mehrere Tage, Wochen und Monate einplanen können. Das soll man wiederholen, zum Beispiel per Checkbox und im Kalender auch rauslöschen können. Eine Tagessicht wurde ebenfalls vereinbart. 
-    In “Time Registration” haben wir beschlossen das Mitarbeiter am Ende des Monats ihre Zeiten bestätigen können und diese dann der Projektleiter sehen kann. Die Mitarbeiter können somit frei im Monat ihre Stunden anpassen. Nach dem bestätigen der Zeiten kann der Mitarbeiter eine Zeiten nicht mehr ändern, weswegen bei vergessen der Eintragung, die Zeiten händisch durch den Projektleiter erfolgen müssen.
+\subsection{2. Woche Zeitraum 09.10.2023 -22.10.2023}
+Im Meeting am 13.10 wurden folgende Sachen hinsichtlich des Projektes
+festgelegt.
 
-    \subsection{4. Woche Zeitraum: 23.10.203 -29.10.2023}
-    Im Meeting am 27.10 wurden folgende Sachen hinsichtlich des Projektes festgelegt.
-    
-    In Bezug auf unser Kanban-Board wurde festgelegt die User Stories in kleinere Tasks zu zerlegen. Es wurde zudem festgelegt das wir 2 GitHub Repositories haben sollen, wobei die erste für das Frontend ist und die zweite für das Backend.
-    Zur Code Dokumentation wurde gesagt das wir ein einheitlichen Kommentierstil haben sollen.
-    In Bezug auf das Datenbankmodell sollten ein paar Änderungen vorgenommen werden, wie die Team Employee Tabelle zu entfernen und eine TeamId anzulegen. Diese sollten angepasst werden. Es kam die Frage auf für den SQL Server einen Docker zu verwenden, welches bis zum nächsten Meeting von der Kundenseite beantwortet werden soll.
-    Der Kalender in “Manage Project” ist zu viel des Guten und könnte auch durch eine einfache Tabelle dargestellt werden. Laut dem Kunden ist es unsere Entscheidung zu sagen ob wir ein Kalender oder eine Tabelle erstellen. Dabei spielt beim einplanen die Uhrzeit keine Rolle, sondern nur die 8 Stunden. Es wurde vereinbart bis nächste Woche Dienstag ein MockUp in Form einer Tabelle zu erstellen.
+Zur Zeiterfassung der Mitarbeiterzeiten wird die Start- und Endzeit des
+Arbeitstages inklusive Pausenzeiten, manuell von Hand eingetragen und nicht,
+wie im ersten Mockup, per Start- und Stop-Button gestoppt. Für das Eintragen
+der Arbeitszeiten wurde vereinbart, dass Mitarbeiter ihre Arbeitszeiten auf
+Stundenbasis eintragen können und nicht, wie bisher gedacht, nur ganze Tage
+buchen können. In Hinsicht auf das nachträgliche Ändern von Arbeitszeiten wurde
+festgelegt, dass die Arbeitszeiten bis zum Ende des Monats geändert werden
+können. Des Weiteren wurde festgehalten, dass Manager in Projekten alle
+Berechtigungen besitzen. Die Projektsprache hinsichtlich der User Interfaces
+wurde auf Englisch festgelegt, damit möglichst viele Mitarbeiter diese
+verwenden können, hinsichtlich der möglichen Akquisition von internationalen
+Firmen. Ebenfalls wurde festgelegt, dass die App-Sidebar auf jeder Seite der
+App sichtbar sein soll, um eine möglichst effektive und schnelle Navigation in
+der App zu gewährleisten. Hinsichtlich der Planung von Projekten in der
+Anwendung wurde festgehalten, dass Manager die Positionen erstellen. Der
+Projektleiter kann dann Mitarbeiter für diese Positionen zuordnen und auf
+Tagesbasis das Projekt planen.
 
-    \subsection{5. Woche Zeitraum: 30.10.2023 - 05.11.2023}
-        Im Meeting am 31.10 wurden folgende Sachen hinsichtlich des Projektes festgelegt.
-    Zwischen dem Kalender und der Tabelle haben wir uns entschieden eine Tabelle zu machen und diese mit Vuetify Komponenten und Usability Features wie Drag and Drop zu erstellen. Dabei soll die Benutzerfreundlichkeit auf Stundenbasis auch verbessert werden. Hinzu kommt, dass wir bis Freitag, den 03.11, den Mockup abschließen sollen.
-    Es wurde endgültig entschieden, beim Einplanen der Mitarbeiter per Tabelle, diese für bis zu 8 Stunden einplanen zu können. Als Zusatzfeature mit geringerer Priorität können wir eine Wiederholung der Planung erstellen, wo die Planung dann z.B. für jeden Montag der nächsten 2 Monate gilt.
-    Beim Datenmodell wurden einige Tabellen geändert und es wurde festgelegt das Datenmodell bis zum nächsten Meeting als Bild bereitzustellen, damit der Kunde sich dazu Gedanken machen kann. 
-    Des Weiteren wurde festgehalten, Docker Container für jeweils das Frontend, Backend sowie für die Datenbank zu erstellen.
-    Es wurde festgelegt einen zentralen Ort für die Protokolle zu haben und diese nach dem jedem Meeting mit dem Kunden zu teilen.
-    
-    Im Meeting am 3.11 wurden folgenden Sachen hinsichtlich des Projektes festgelegt.
-    Datenbank:
-    Bei der Nutzung und Erstellung der Datenbank sollten keine Kosten entstehen, sie sollte lizenzfrei sein. Das Projekt ist ein Open-Source-Projekt.
-    Dokumentation Datenbank: Die SQL Statements sollen ins Git hinzugefügt werden (Backend) Repository. In der Doku soll das Datenbankmodell hinzugefügt und erklärt werden.
-    Datenbankmodell:
-    Das Datenbankmodell muss noch einmal überarbeitet werden. In der Projekttabelle soll folgendes hinzugefügt werden: Projekt Ersteller, Datum wann das Projekt erstellt wurde, und wer der Projektmanager ist. In der Tabelle Employees soll das Attribut: team roll auf title umbenannt werden. Außerdem soll mit passenden Präfixen gearbeitet werden, zum Beispiel fk  bei Foreign Keys. Um die Bezeichnung eindeutig zu machen, müssen noch alle Attribute, die auf Deutsch sind, auf Englisch umbeannt werden.
-    
-    
-    
-    
-    Mockup:
-    Zusammen sind wir noch einmal das Mockup durchgegangen und haben letzte Anpassungen vorgenommen:
-    Es wurde beschlossen, dass nichts dagegen spricht, dass der Projektleiter auch das Budget sehen kann für seine Projekte.
-    Dem Manager soll bei der Projekterstellung auch das kalkulierte Budget angezeigt werden, bevor er das Projekt anlegt.
-    Die Manage Project Ansicht: Soll eine Tabelle sein in der alle Mitarbeiter aufgelistet sind die diesem Projekt zugeteilt wurden: Folgendes soll in der Tabelle angezeigt werden: Eine Spalte mit bereits eingeplante Stunden über alle Projekte des Mitarbeiters dadurch kann man sehen wie viele Stunden man der Mitarbeiter an dem Tag noch einplanen könnte. In der nächsten Spalte kann man dann die Anzahl der Stunden eintragen, wie viele Stunden man den Mitarbeiter an diesem Tag einplanen möchte. Sowie eine Spalte Positionen, in dem man festlegt, auf welcher Position der Mitarbeiter an diesem Tag eingeplant werden soll.
-    Diese Liste soll immer einen kompletten Monat umfassen und man kann per DropDown Menü bequem zwischen den Monaten hin und her wechseln.
-    Die Working Times Ansicht: Soll auch nun auch in einer Tabelle dargestellt werden wie die Manage Project Ansicht, für ein besseres Look and Feel und eine bessere Übersichtlichkeit.
-    Zudem soll es eine neue Extra-Ansicht geben, in dem der Mitarbeiter seine Zeiten sieht, die er noch nicht erfasst hat, obwohl er an diesen Tagen eingeplant war. Hier hat er noch die Möglichkeit, seine Zeiten manuell nachzutragen. Zudem kann der Mitarbeiter seine Zeiten am Monatsende bestätigen, nachdem er alles kontrolliert hat. Sobald er Sie bestätigt hat, kann er keine Änderungen mehr vornehmen. Sobald seine Arbeitszeiten bestätigt wurden, landen diese beim Projekt Manager, nur er kann jetzt noch Änderungen vornehmen.
-    Bis zum nächsten Meeting sollten wir mit der Implementierung starten und schauen, dass wir das Frontend mit dem Backend und der Datenbank verbinden. Um erste Einträge in der Software vorzunehmen.
-    (Nice to have: Mange Project Ansicht: Mitarbeiter anklicken um Extra Infos zu erhalten, in welchen anderen Projekten der Mitarbeiter noch involviert ist.)
+\subsection{3.Woche Zeitraum 16.10.2023 - 22.1.2023}
+Im Meeting am 20.10 wurden folgende Sachen hinsichtlich des Projektes
+festgelegt.
 
-    \subsection{6. Woche Zeitraum 06.11.2023-12.11.2023}
-        Teambesprechung mit Andre: Protokoll vom 10.11.2023, 14:00 Uhr bis 15:00 Uhr
-        
-    Die heutige Teambesprechung mit Andre fokussierte sich auf entscheidende Aspekte der Authentifizierung, Softwarearchitektur und Meilensteinplanung. Besonderes Augenmerk wurde auf die SAP-Integration gelegt, wobei unterschiedliche Berechtigungen je nach Rolle diskutiert wurden. Im Bereich der Softwarearchitektur standen die Planung von Meilensteinen sowie die Schnittstellenbeschreibung mittels OpenAPI SWAGGER im Vordergrund. Ein weiterer Schwerpunkt lag auf der technischen Durchführung und Containerisierung, einschließlich der Ankündigung von Meilensteinen und dem Backend-Zugriff auf Datenbanken.
-    Des Weiteren wurde die Vorbereitung für Meilenstein 2 thematisiert, einschließlich der Inhalte und Terminvereinbarungen. Die Besprechung lieferte einen klaren Fahrplan für die Umsetzung der vereinbarten Maßnahmen bis zum nächsten Meeting.
-    Teambesprechung mit Lisa: Protokoll vom 10.11.2023, 15:00 Uhr bis 16:00 Uhr
-    
-    Im Anschluss an die Besprechung mit Andre stand die Teambesprechung mit Lisa im Fokus. Das Team setzte sich intensiv mit der Gestaltung einer neuen Tabelle in Figma auseinander. Dabei wurden das Modell und die Ansicht der Tabelle überprüft und diskutiert. Besondere Aufmerksamkeit galt der Filterung nach Personen, der Gestaltung der Positionsspalte und der Farbgebung basierend auf der Stundenanzahl. Die Diskussion über die unabhängige Funktionalität und die spätere Verbindung rundete die Besprechung ab.
-    Diese Zusammenfassung bietet einen klaren Überblick über die behandelten Themen und dient als Grundlage für die Umsetzung der festgelegten Maßnahmen bis zum nächsten Meeting.
+Es wurde vom Kunden das blaue Farbschema für das Produkt gewünscht. Zudem wurde
+sich auch gewünscht, wenn möglich, die Positionen in “Add Employee” per Drag
+and Drop zu veranschaulichen. Doch da haben wir die endgültige Entscheidung,
+weswegen wir und auch für das Drag and Drop Feature entschieden haben. Bei
+“Manage Project” sollen alle Mitarbeiter angezeigt werden und diese eine
+begrenzung von 8 Stunden pro Tag haben. Dabei soll man diese Mitarbeiter direkt
+für mehrere Tage, Wochen und Monate einplanen können. Das soll man wiederholen,
+zum Beispiel per Checkbox und im Kalender auch rauslöschen können. Eine
+Tagessicht wurde ebenfalls vereinbart. In “Time Registration” haben wir
+beschlossen das Mitarbeiter am Ende des Monats ihre Zeiten bestätigen können
+und diese dann der Projektleiter sehen kann. Die Mitarbeiter können somit frei
+im Monat ihre Stunden anpassen. Nach dem bestätigen der Zeiten kann der
+Mitarbeiter eine Zeiten nicht mehr ändern, weswegen bei vergessen der
+Eintragung, die Zeiten händisch durch den Projektleiter erfolgen müssen.
 
+\subsection{4. Woche Zeitraum: 23.10.203 -29.10.2023}
+Im Meeting am 27.10 wurden folgende Sachen hinsichtlich des Projektes
+festgelegt.
 
+In Bezug auf unser Kanban-Board wurde festgelegt die User Stories in kleinere
+Tasks zu zerlegen. Es wurde zudem festgelegt das wir 2 GitHub Repositories
+haben sollen, wobei die erste für das Frontend ist und die zweite für das
+Backend. Zur Code Dokumentation wurde gesagt das wir ein einheitlichen
+Kommentierstil haben sollen. In Bezug auf das Datenbankmodell sollten ein paar
+Änderungen vorgenommen werden, wie die Team Employee Tabelle zu entfernen und
+eine TeamId anzulegen. Diese sollten angepasst werden. Es kam die Frage auf für
+den SQL Server einen Docker zu verwenden, welches bis zum nächsten Meeting von
+der Kundenseite beantwortet werden soll. Der Kalender in “Manage Project” ist
+zu viel des Guten und könnte auch durch eine einfache Tabelle dargestellt
+werden. Laut dem Kunden ist es unsere Entscheidung zu sagen ob wir ein Kalender
+oder eine Tabelle erstellen. Dabei spielt beim einplanen die Uhrzeit keine
+Rolle, sondern nur die 8 Stunden. Es wurde vereinbart bis nächste Woche
+Dienstag ein MockUp in Form einer Tabelle zu erstellen.
+
+\subsection{5. Woche Zeitraum: 30.10.2023 - 05.11.2023}
+Im Meeting am 31.10 wurden folgende Sachen hinsichtlich des Projektes
+festgelegt. Zwischen dem Kalender und der Tabelle haben wir uns entschieden
+eine Tabelle zu machen und diese mit Vuetify Komponenten und Usability Features
+wie Drag and Drop zu erstellen. Dabei soll die Benutzerfreundlichkeit auf
+Stundenbasis auch verbessert werden. Hinzu kommt, dass wir bis Freitag, den
+03.11, den Mockup abschließen sollen. Es wurde endgültig entschieden, beim
+Einplanen der Mitarbeiter per Tabelle, diese für bis zu 8 Stunden einplanen zu
+können. Als Zusatzfeature mit geringerer Priorität können wir eine Wiederholung
+der Planung erstellen, wo die Planung dann z.B. für jeden Montag der nächsten 2
+Monate gilt. Beim Datenmodell wurden einige Tabellen geändert und es wurde
+festgelegt das Datenmodell bis zum nächsten Meeting als Bild bereitzustellen,
+damit der Kunde sich dazu Gedanken machen kann. Des Weiteren wurde
+festgehalten, Docker Container für jeweils das Frontend, Backend sowie für die
+Datenbank zu erstellen. Es wurde festgelegt einen zentralen Ort für die
+Protokolle zu haben und diese nach dem jedem Meeting mit dem Kunden zu teilen.
+
+Im Meeting am 3.11 wurden folgenden Sachen hinsichtlich des Projektes
+festgelegt. Datenbank: Bei der Nutzung und Erstellung der Datenbank sollten
+keine Kosten entstehen, sie sollte lizenzfrei sein. Das Projekt ist ein
+Open-Source-Projekt. Dokumentation Datenbank: Die SQL Statements sollen ins Git
+hinzugefügt werden (Backend) Repository. In der Doku soll das Datenbankmodell
+hinzugefügt und erklärt werden. Datenbankmodell: Das Datenbankmodell muss noch
+einmal überarbeitet werden. In der Projekttabelle soll folgendes hinzugefügt
+werden: Projekt Ersteller, Datum wann das Projekt erstellt wurde, und wer der
+Projektmanager ist. In der Tabelle Employees soll das Attribut: team roll auf
+title umbenannt werden. Außerdem soll mit passenden Präfixen gearbeitet werden,
+zum Beispiel fk bei Foreign Keys. Um die Bezeichnung eindeutig zu machen,
+müssen noch alle Attribute, die auf Deutsch sind, auf Englisch umbeannt werden.
+
+Mockup: Zusammen sind wir noch einmal das Mockup durchgegangen und haben letzte
+Anpassungen vorgenommen: Es wurde beschlossen, dass nichts dagegen spricht,
+dass der Projektleiter auch das Budget sehen kann für seine Projekte. Dem
+Manager soll bei der Projekterstellung auch das kalkulierte Budget angezeigt
+werden, bevor er das Projekt anlegt. Die Manage Project Ansicht: Soll eine
+Tabelle sein in der alle Mitarbeiter aufgelistet sind die diesem Projekt
+zugeteilt wurden: Folgendes soll in der Tabelle angezeigt werden: Eine Spalte
+mit bereits eingeplante Stunden über alle Projekte des Mitarbeiters dadurch
+kann man sehen wie viele Stunden man der Mitarbeiter an dem Tag noch einplanen
+könnte. In der nächsten Spalte kann man dann die Anzahl der Stunden eintragen,
+wie viele Stunden man den Mitarbeiter an diesem Tag einplanen möchte. Sowie
+eine Spalte Positionen, in dem man festlegt, auf welcher Position der
+Mitarbeiter an diesem Tag eingeplant werden soll. Diese Liste soll immer einen
+kompletten Monat umfassen und man kann per DropDown Menü bequem zwischen den
+Monaten hin und her wechseln. Die Working Times Ansicht: Soll auch nun auch in
+einer Tabelle dargestellt werden wie die Manage Project Ansicht, für ein
+besseres Look and Feel und eine bessere Übersichtlichkeit. Zudem soll es eine
+neue Extra-Ansicht geben, in dem der Mitarbeiter seine Zeiten sieht, die er
+noch nicht erfasst hat, obwohl er an diesen Tagen eingeplant war. Hier hat er
+noch die Möglichkeit, seine Zeiten manuell nachzutragen. Zudem kann der
+Mitarbeiter seine Zeiten am Monatsende bestätigen, nachdem er alles
+kontrolliert hat. Sobald er Sie bestätigt hat, kann er keine Änderungen mehr
+vornehmen. Sobald seine Arbeitszeiten bestätigt wurden, landen diese beim
+Projekt Manager, nur er kann jetzt noch Änderungen vornehmen. Bis zum nächsten
+Meeting sollten wir mit der Implementierung starten und schauen, dass wir das
+Frontend mit dem Backend und der Datenbank verbinden. Um erste Einträge in der
+Software vorzunehmen. (Nice to have: Mange Project Ansicht: Mitarbeiter
+anklicken um Extra Infos zu erhalten, in welchen anderen Projekten der
+Mitarbeiter noch involviert ist.)
+
+\subsection{6. Woche Zeitraum 06.11.2023-12.11.2023}
+Teambesprechung mit Andre: Protokoll vom 10.11.2023, 14:00 Uhr bis 15:00 Uhr
+
+Die heutige Teambesprechung mit Andre fokussierte sich auf entscheidende
+Aspekte der Authentifizierung, Softwarearchitektur und Meilensteinplanung.
+Besonderes Augenmerk wurde auf die SAP-Integration gelegt, wobei
+unterschiedliche Berechtigungen je nach Rolle diskutiert wurden. Im Bereich der
+Softwarearchitektur standen die Planung von Meilensteinen sowie die
+Schnittstellenbeschreibung mittels OpenAPI SWAGGER im Vordergrund. Ein weiterer
+Schwerpunkt lag auf der technischen Durchführung und Containerisierung,
+einschließlich der Ankündigung von Meilensteinen und dem Backend-Zugriff auf
+Datenbanken. Des Weiteren wurde die Vorbereitung für Meilenstein 2
+thematisiert, einschließlich der Inhalte und Terminvereinbarungen. Die
+Besprechung lieferte einen klaren Fahrplan für die Umsetzung der vereinbarten
+Maßnahmen bis zum nächsten Meeting. Teambesprechung mit Lisa: Protokoll vom
+10.11.2023, 15:00 Uhr bis 16:00 Uhr
+
+Im Anschluss an die Besprechung mit Andre stand die Teambesprechung mit Lisa im
+Fokus. Das Team setzte sich intensiv mit der Gestaltung einer neuen Tabelle in
+Figma auseinander. Dabei wurden das Modell und die Ansicht der Tabelle
+überprüft und diskutiert. Besondere Aufmerksamkeit galt der Filterung nach
+Personen, der Gestaltung der Positionsspalte und der Farbgebung basierend auf
+der Stundenanzahl. Die Diskussion über die unabhängige Funktionalität und die
+spätere Verbindung rundete die Besprechung ab. Diese Zusammenfassung bietet
+einen klaren Überblick über die behandelten Themen und dient als Grundlage für
+die Umsetzung der festgelegten Maßnahmen bis zum nächsten Meeting.
+
+\subsection{7. Woche Zeitraum 13.11.2023-19.11.2023}
+Teambesprechung mit Lisa 17.11.23 15:00 - 16:00 Uhr Im Meeting wurden folgende
+Themen besprochen und Entscheidungen getroffen:
+\begin{itemize}
+    \item Der Submitbutton soll immer von Anfang an Sichtbar sein (ohne scrollen ect.),
+          Vorschlag von Lisa ist, ihn in den Footer zu schieben. Für alle Formulare ein
+          einheitliches Design!
+    \item 	New Project und Add Employees/Positions zusammenführen, extra Seite für
+          allgemeines Hinzufügen von Employees und Positionen in die Datenbank. New
+          Project-Positionen werden als String eingetragen und nicht aus einer
+          vorgefertigten Auswahl ausgewählt.
+    \item 	Wir verwenden die Primevue-Tabelle mit Suchfunktion, die Michele vorgeschlagen
+          hat.
+    \item 	Darkmode, Sprachauswahl, Profilbild sind KANN-Anforderungen.
+    \item 	Manager bekommt die Admin-Rolle. Bei neuen Employees wird die Rolle über die
+          Datenbank zugewiesen und ausgelesen. In SAP BTP haben sie die Viewer-Rolle.
+\end{itemize}
+
+Betreuermeeting mit André und Kevin 16:00 - 17:00 Uhr\newline Im Meeting wurde
+nochmal über ein paar Unklarheiten bei der Meilenstein 2 Abgabe gesprochen und
+die Bewertung des Projekts besprochen. Außerdem wurde nochmal über Docker
+gesprochen. Daraus resultierte die Entscheidung, wieder von 2 aufgeteilten
+Github Repositories, für jeweils Frontend und Backend, auf ein gemeinsames
+Repository zurück zu wechseln um ein Docker-Compose möglich zu machen. nochmal
+über ein paar Unklarheiten bei der Meilenstein 2 Abgabe gesprochen und die
+Bewertung des Projekts besprochen. Außerdem wurde nochmal über Docker
+gesprochen. Daraus resultierte die Entscheidung, wieder von 2 aufgeteilten
+Github Repositories, für jeweils Frontend und Backend, auf ein gemeinsames
+Repository zurück zu wechseln um ein Docker-Compose möglich zu machen.
 
 \newpage
 
+\subsection{8. Woche Zeitraum 20.11.2023-26.11.2023}
+Im Meeting am 24.11 wurden folgende Sachen hinsichtlich des Projektes
+festgelegt.
+
+Fehlermeldungen beim Login sollen detailreicher sein, wenn man eine falsche
+Email oder ein falsches Passwort verwendet. Die Fehlermeldung könnte so
+aussehen: "Email und/oder Passwort stimmt nicht".
+
+Überschriften sollten bei jeder Seite hinzugefügt werden, um es übersichtlicher zu gestalten.
+In AddEmployee soll auch dem ProjektManager zu verfügung stehen und es fehlt noch der Name des Customers, den man auch hinzufügen soll. Dazu soll das Layout einheitlich sein.
+Bei der TimeRegistration soll die Stelle wo man den Projektname einfügt, ganz oben sein. Dazu soll die Position automatisch ausgefüllt werden, wenn es nur eine Position gibt.
+
+Bei den Backend Endpoints sollen die Services Robust sein, also eine maximale
+Validierung haben. Ebenso sollen Plichtparameter geprüft werden.
+
+In der Datenbank ist es erstmals egal, ob die Ids durchlaufend sind oder nicht,
+aber es mit einer durchlaufenden Id besser lesbar ist.
+
+Bei dem SAP BTP sollen Sessiontoken eine Stunde bis maximal 4 Stunden gültig
+sein und sollen damit auch die Stunde lang weiterverwendet werden. Daraufhin
+sind wir auf Fragen gestoßen, wie zum Beispiel, ob der Token aktualisiert
+werden soll, solange der andere Token noch aktiv ist. Dafür sollen wir erstmal
+ein Ticket anlegen. Dazu kamen wir zum Entschluss, dass das Frontend lieber
+öfter aufgerufen werden soll, als das Backend.
+
+Zum Schluss haben wir uns darauf geeinigt das wir ab nächster Woche dann über
+das Jira Board das Meeting organisieren und dazu eine neue Aufwandseinschätzung
+machen sollen.
+
+\subsection{9. Woche Zeitraum 27.11.2023-03.12.2023}
+Teambesprechung mit Lisa: Protokoll vom 01.12.2023 In dem heutigen Meeting mit
+Lisa wurden noch einmal über die verschiedene Ansichten drüber geschaut und wir
+haben unseren aktuellen Stand dazu gezeigt. Bei der Ansicht Time Registration
+ist es in Ordnung wenn die Mitarbeiter Ihre Pausenzeiten in Minuten angeben
+können. Das heißt wenn jemand 1 Stunde 10 Minuten Pause macht müsste er die
+Zahl 70 eingeben. Bezüglich der Erfolgreichen Zeiterfassung soll der
+Mitarbeiter einen Alert bekommen, dass die Zeiterfassung erfolgreich war. Der
+Mitarbeiter soll auf keine andere Seite weitergeleitet werden sondern auf der
+Ansicht bleiben nach der erfolgreichen Zeiterfassung. In der Ansicht New
+Project sollen noch folgende Funktionalitäten hinzugefügt werden: Zum einen
+soll es ein Input Field geben in dem man verschieden Positionen hinzufügen
+kann, diese Positionen kann man dann einem Mitarbeiter zuordnen. Des weiteren
+soll man jeder Position noch ein Tagessatz hinzufügen können. Zudem soll
+geschaut worden ob alles auf eine Ansicht drauf passt oder man vielleicht doch
+zwei Screens machen muss da die eine Ansicht sonst zu vollgepackt aussieht. Des
+weiteren erstellen wir noch eine komplette neue Ansicht. Dies soll
+Informationen über ein ausgewähltes Projekt bereitstellen. Je nach Rolle in dem
+ausgewählten Projekt sieht man mehr oder weniger Informationen. Wenn man als
+Projektleiter auf das Projekt zugreift soll man alle Postionen sehen können die
+es in diesem Projekt gibt. Wenn man als Mitarbeiter drauf zugreift soll man nur
+seine eigenen Positionen sehen können. Im Meeting ist uns aufgefallen das im
+Mockup noch eine Ansicht gefehlt hat, und zwar die Ansicht das man komplett
+neue Mitarbeiter anlegen kann. Diese Privileg soll nur der Manager besitzen.
+Die Ansicht soll bis zum nächsten Meeting noch erstellt werden. Zu dem sollten
+wir Uns noch einmal als Team überlegen welche Anforderungen es gibt und ob es
+noch Möglich ist, diese im verbleibenden Zeitfenster umzusetzen. Lisas
+Prioritäten waren: Prio 1 + 2: Die Funktionalität steht an erster Stelle das
+heißt die Software soll Fehlerfrei laufen und reibungslos funktionieren zudem
+sollen alle Muss Anforderungen Technisch umgesetzt werden. Prio 3: Das Design
+ist weniger wichtig. Nächste Woche sollen wir nochmal drüber sprechen was die
+aktuellen Muss – Soll – Kann Anforderungen sind. Zu dem sollen wir noch einen
+URL Schutz einbauen das nur Autorisierte Personen auf bestimme URLS zugreifen
+können (Mitarbeiter,Projektleiter,Manager) (Protected Routes) Kann
+Anforderungen: Pausenzeiten: Kann Anforderung Pause in Stunden angeben: Start
+Von Bis Pausenzeiten angeben: Teambesprechung mit Andre: Protokoll vom
+01.12.2023 Mit Andre zusammen haben wir über unser Kanban Board geschaut, jeder
+hat kurz seine Tasks präsentiert an denen er gerade arbeitet zudem noch das
+Datum genannt bis wann er damit fertig sein will. Die Formulierung einzelner
+Tasks muss noch einmal überarbeiten werden anhand der User Storys aus der Doku
+dort besteht schon eine einheitliche Formulierung der User Storys. Zudem wurde
+noch besprochen das wir in den nächsten Meetings mit Lisa auch das Kanban Board
+vorzeigen können, das hilft uns dabei aus UserStorys präzise Informationen von
+der Kundin zu erhalten. Zum Beispiel: Als Endanwender möchte ich eine
+detaillierte Ansicht für ein ausgewähltes Projekt haben, um alle wichtigen
+Informationen auf einen Blick zu erhalten. Hier könnte man jetzt die Kundin
+fragen was Sie sich unter wichtigen Informationen vorstellt.
+
+\subsection{11. Woche Zeitraum 11.12.2023-17.12.2023}
+Code-Review ...
+Teambesprechung mit Lisa:
+Kundenmeeting nächste Woche am Donnerstag um 15 Uhr.
+Festlegung des Layouts für die einplanung der Mitarbeiter, soll ausseh wie im Mockup
+Navigationspfeile in Topbar ersetzen durch Logo
+Bei Projectsoverview Finanzielle Info 35.444/7956455  (11 Prozent)
+Buttons einheitlich machen und Platzieren
+Nebensache bei newProject manager oder employee optional, kann rausfallen
+
+
 \bibliographystyle{IEEEtran}
 \bibliography{quellen}
-
-
 
 \end{document}

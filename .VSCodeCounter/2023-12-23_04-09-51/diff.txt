@@ -1,0 +1,38 @@
+Date : 2023-12-23 04:09:51
+Directory : c:\Users\Daniel\Documents\quanto\quanto-project
+Total : 6 files,  198 codes, 22 comments, 25 blanks, all 245 lines
+
+Languages
++----------+------------+------------+------------+------------+------------+
+| language | files      | code       | comment    | blank      | total      |
++----------+------------+------------+------------+------------+------------+
+| Python   |          6 |        198 |         22 |         25 |        245 |
++----------+------------+------------+------------+------------+------------+
+
+Directories
++--------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                                           | files      | code       | comment    | blank      | total      |
++--------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                                              |          6 |        198 |         22 |         25 |        245 |
+| backend                                                                                                                        |          6 |        198 |         22 |         25 |        245 |
+| backend\project_management_tool                                                                                                |          6 |        198 |         22 |         25 |        245 |
+| backend\project_management_tool (Files)                                                                                        |          1 |          4 |          0 |          0 |          4 |
+| backend\project_management_tool\middleware                                                                                     |          1 |         44 |          4 |          6 |         54 |
+| backend\project_management_tool\middleware\sqlQuery                                                                            |          1 |         44 |          4 |          6 |         54 |
+| backend\project_management_tool\middleware\sqlQuery\timeTable                                                                  |          1 |         44 |          4 |          6 |         54 |
+| backend\project_management_tool\views                                                                                          |          4 |        150 |         18 |         19 |        187 |
+| backend\project_management_tool\views\timeTable                                                                                |          4 |        150 |         18 |         19 |        187 |
++--------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++--------------------------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| filename                                                                                                                       | language | code       | comment    | blank      | total      |
++--------------------------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| c:\Users\Daniel\Documents\quanto\quanto-project\backend\project_management_tool\middleware\sqlQuery\timeTable\projectQuerys.py | Python   |         44 |          4 |          6 |         54 |
+| c:\Users\Daniel\Documents\quanto\quanto-project\backend\project_management_tool\urls.py                                        | Python   |          4 |          0 |          0 |          4 |
+| c:\Users\Daniel\Documents\quanto\quanto-project\backend\project_management_tool\views\timeTable\__init__.py                    | Python   |          2 |          0 |          0 |          2 |
+| c:\Users\Daniel\Documents\quanto\quanto-project\backend\project_management_tool\views\timeTable\timeTableBooking.py            | Python   |         28 |          6 |          0 |         34 |
+| c:\Users\Daniel\Documents\quanto\quanto-project\backend\project_management_tool\views\timeTable\timeTableCombined.py           | Python   |         64 |          6 |         11 |         81 |
+| c:\Users\Daniel\Documents\quanto\quanto-project\backend\project_management_tool\views\timeTable\timeTableForecast.py           | Python   |         56 |          6 |          8 |         70 |
+| Total                                                                                                                          |          |        198 |         22 |         25 |        245 |
++--------------------------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+

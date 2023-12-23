@@ -7,4 +7,9 @@ from .get import *
 from .homeScreen import *
 from .post import *
 from .time import *
+from .MyViewTest import *
+from .basic import *
+from .sql import *
+from .graphs import *
+from .timeTable import *
 from .management import *
