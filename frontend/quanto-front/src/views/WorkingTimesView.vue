@@ -58,15 +58,21 @@ function fetchDataOfEmployee(){
     getDataFromBackend(employeeId)
 }
 
-
+let isSelected = false;
 
 async function fetchEmployeesOfProject(){
     const foreignKey = selectedProject.value.code;
     console.log(foreignKey) 
+
+    employeeNames.value = [];
+    selectedName.value = null;
+
     const url = "http://localhost:8000/getEmployeesToProjectId/2"
     const response = await axios.get(url)
     
     const employeeResponse = response.data.data;
+
+   
 
    employeeResponse.forEach((element,index) =>{
         const foreName = element.forename;
@@ -267,5 +273,7 @@ function formatDate(date) {
     font-size: 32px;
     padding: 5%;
 }
+
+
 
 </style>
