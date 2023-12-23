@@ -1,18 +1,28 @@
 <template>
+     <div class="card flex justify-content-center">
+            <Dropdown v-model="selectedProject" :options="projectNames"  @change="test" optionLabel="name" placeholder="Project Name" class="w-full md:w-14rem" />
+        </div>
+        
+         <div class="card flex justify-content-center">
+                <Dropdown v-model="selectedCity" :options="employeeNames" optionLabel="name" placeholder="Employees" class="w-full md:w-14rem" />
+            </div>
+
     <div class="card">
         <DataTable :value="products" tableStyle="min-width: 50rem">
             <Column field="code" header="Code"></Column>
             <Column field="monday" :header=dateHeader.monday>
                 
-                <template #body="{ row }">
+                <template #body="row">
+                  
                     <DataTable :value="innerTable">
-                        <Column field="innerCode" header="Plan"></Column>
-                        <Column field="secondCode" header="Work"></Column>
+                        <Column field="eins" header="Plan"></Column>
+                        <Column field="zwei" header="Work"></Column>
                         <Column field="drei" header="Break"></Column>
                         <Column field="four" header="Summe"></Column>
                     </DataTable>
+             
                 </template>
-                
+     
             </Column>
             <Column field="tuesday" :header=dateHeader.tuesday></Column>
             <Column field="wensday" :header=dateHeader.wednesday></Column>
@@ -33,9 +43,54 @@
 <script setup>
 import { ref, onMounted, reactive } from 'vue';
 import axios from 'axios';
+import Dropdown from 'primevue/dropdown';
+
+
+const selectedProject = ref();
+async function test(){
+
+    const foreignKey = selectedProject.value.code;
+    console.log(foreignKey) 
+    const url = "http://localhost:8000/getEmployeesToProjectId/2"
+    const response = await axios.get(url)
+    
+    const employeeResponse = response.data.data;
+
+   employeeResponse.forEach((element,index) =>{
+        const foreName = element.forename;
+        const sureName = element.surname;
+        const fullName = `${foreName} ${sureName}`;
+        const employeeId = element.id;
+        employeeNames.value.push({name: fullName, employeeId: employeeId})  
+    })  
+}
+
+async function fetchProjectsOfEmployee(){
+    const url = "http://localhost:8000/getProjectsWhereProjectLeader/1005"
+    const response = await axios.get(url)
+    const projects = response.data.projects;
+    projects.forEach((element)=>{
+        projectNames.value.push({name: element.projectNames, code:element.foreignKeysForProject})
+    })
+}
+
+const employeeNames = ref([
+    {name:'', employeeId:''}
+]);
+
+const projectNames = ref([
+    { name: '', code: '' }
+]);
 
 const products = ref([]);
-const innerTable = ref([]);
+const innerTable = ref([{
+    eins:"",
+    zwei:"",
+    drei:"",
+    four:"",
+
+
+}]);
 
 let projectObject = [];
 let currentDate = new Date();
@@ -52,10 +107,75 @@ const dateHeader = ref({
 onMounted(() => {
     getWeekDate();
     getDataFromBackend();
-    
+    fetchProjectsOfEmployee();
 });
 
 
+
+async function getDataFromBackend() {
+    try {
+        const startDate = dateHeader.value.monday
+        const startDateRightFormat = startDate.slice(5)
+        const endDate = dateHeader.value.friday
+        const endDateRightFormat = endDate.slice(5)
+
+        //const url = `http://localhost:8000/getTest/2/${startDateRightFormat}/${endDateRightFormat}`
+        const url = "http://localhost:8000/getTest/2/25.11.2023/12.12.2023"
+        const response = await axios.get(url);
+        processData(response.data.positions);
+
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
+}
+
+function processData(backendData) {
+
+    products.value = backendData.map(item => ({
+        code: item.projectName + "\r" + item.id,
+
+
+    }));
+    backendData.forEach((element, index) => {
+        projectObject.push({ projectName: element.projectName, positionId: element.id })
+       
+    })
+
+
+    fillInnerTable()
+
+}
+
+async function fillInnerTable() {
+    try {
+        const url = "http://localhost:8000/getBookingTimes/2/01.01.2023"
+        const response = await axios.get(url)
+        const bookingTimes = (response.data.bookingTimes)
+
+        bookingTimes.forEach((element,index) => {
+            if(index === 1){
+
+            const planStart = element.forecast_start.slice(0, 2)
+            const planEnd = element.forecast_end.slice(0, 2)
+            const planed = planEnd - planStart;
+
+            innerTable.value.push({ 
+                eins: planed,
+                zwei: element.start_time + "-" + element.end_time,
+                drei: element.pause,
+                rowIndex: index
+             })
+            }
+        
+            })
+
+    }
+    catch (error) {
+        console.log(error)
+    }
+
+
+}
 
 // Funktion, um die Datumswerte auf die nächste Woche zu ändern
 function nextWeek() {
@@ -89,9 +209,6 @@ function updateDateHeader() {
 }
 
 
-
-
-
 function getWeekDate(){
     const today = new Date();
     const targetDate = new Date(today);
@@ -116,77 +233,11 @@ function getWeekDate(){
 }
 
 function formatDate(date) {
-      console.log('Input Date:', date); // Fügen Sie diese Zeile für Debugging-Zwecke hinzu
     const options = { weekday:'short', day: '2-digit', month: '2-digit', year: 'numeric' };
     return date.toLocaleDateString('de-DE', options);
 }
 
-async function getDataFromBackend() {
-    try {
-        const startDate = dateHeader.value.monday
-        const startDateRightFormat = startDate.slice(5)
-        const endDate =  dateHeader.value.friday
-        const endDateRightFormat = endDate.slice(5)
 
-        console.log(startDate)
-        console.log(startDateRightFormat)
-        console.log(endDateRightFormat)
-
-        //const url = `http://localhost:8000/getTest/2/${startDateRightFormat}/${endDateRightFormat}`
-        const url = "http://localhost:8000/getTest/2/25.11.2023/12.12.2023"
-        const response = await axios.get(url);
-        console.log(response.data)
-        processData(response.data.positions);
-
-    } catch (error) {
-        console.error('Error fetching data:', error);
-    }
-}
-
-function processData(backendData) {
-
-    products.value = backendData.map(item => ({
-        code: item.projectName + "\r" + item.id,
-
-     
-    }));
-    backendData.forEach((element, index) =>{
-        projectObject.push({projectName: element.projectName, positionId: element.id})
-        console.log(element)
-    })
-
-    
-    fillInnerTable()
-
-}
-
-async function fillInnerTable(){
-    try{
-        const url = "http://localhost:8000/getBookingTimes/2/01.01.2023"
-        const response = await axios.get(url)
-        const bookingTimes = (response.data.bookingTimes)
-         
-        
-
-        console.log(bookingTimes)
-        bookingTimes.forEach((element) => {
-
-             const planStart = element.forecast_start.slice(0,2)
-             const planEnd = element.forecast_end.slice(0,2)
-             const planed =  planEnd - planStart;
-
-             innerTable.value.push({ innerCode: planed, secondCode: element.start_time + "-" + element.end_time , drei: element.pause })
-        })
-
-    }
-    catch(error) {
-        console.log(error)
-    }
-   
-
-   
-
-}
 
 
 

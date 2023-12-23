@@ -77,4 +77,6 @@ urlpatterns = [
     path('getPositionsOfProjectOfEmployee/<int:id>',getPositionsOfProjectOfEmployee),
     path('getTest/<int:id>/<str:start_date>/<str:end_date>',getTest),
     path('getBookingTimes/<int:id>/<str:currentDay>',getBookingTimes),
+    path('getProjectsWhereProjectLeader/<int:id>', getProjectsWhereProjectLeader),
+    
 ]
