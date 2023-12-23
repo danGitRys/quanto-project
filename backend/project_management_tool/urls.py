@@ -87,4 +87,8 @@ urlpatterns = [
     path('projectPositionPieGraph',ProjectPositionsPieGraphView.as_view()),
 
 
+    path('timeTableBooking/<id>',TimeTableBookingView.as_view()),
+    path('timeTableBooking',TimeTableBookingView.as_view()),
+
+
 ]
