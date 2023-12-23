@@ -89,6 +89,8 @@ urlpatterns = [
 
     path('timeTableBooking/<id>',TimeTableBookingView.as_view()),
     path('timeTableBooking',TimeTableBookingView.as_view()),
+    path('timeTableForecast/<id>',TimeTableForecastView.as_view()),
+    path('timeTableForecast',TimeTableForecastView.as_view()),
 
 
 ]
