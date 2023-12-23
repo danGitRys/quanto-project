@@ -91,6 +91,8 @@ urlpatterns = [
     path('timeTableBooking',TimeTableBookingView.as_view()),
     path('timeTableForecast/<id>',TimeTableForecastView.as_view()),
     path('timeTableForecast',TimeTableForecastView.as_view()),
+    path('timeTableCombined/<id>',TimeTableCombinedView.as_view()),
+    path('timeTableCombined',TimeTableCombinedView.as_view()),
 
 
 ]
