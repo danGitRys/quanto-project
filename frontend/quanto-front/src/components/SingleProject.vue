@@ -39,6 +39,13 @@
           </tr>
         </tbody>
       </table>
+
+      <DataTable :value="positonList" tableStyle="min-width: 50rem">
+    <Column field="id" header="Code"></Column>
+    <Column field="position_id" header="Name"></Column>
+    <Column field="start" header="Category"></Column>
+    <Column field="quantity" header="Quantity"></Column>
+</DataTable>
     </v-card>
 </dif>
 <div id="Assigned Employees">
@@ -113,7 +120,7 @@ export default {
 
         getPositonsToProject(){
             console.log("test")
-            axios.get("api/getPositionsToProjectId/"+this.$route.params.id,{
+            axios.get("http://localhost:8000/getPositionsToProjectId/"+this.$route.params.id,{
            
         }).then(response => {
             console.log(response)
