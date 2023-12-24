@@ -72,7 +72,7 @@ class Booking(models.Model):
         serialized_data = {
             'id': self.id,
             'fk_employee': self.fk_employee,
-            'fk_position': self.fk_position,
+            'fk_position': self.fK_position,
             'start': self.start.isoformat(),
             'end': self.end.isoformat(),
             'pause': self.pause,

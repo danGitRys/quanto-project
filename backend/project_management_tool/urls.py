@@ -76,7 +76,6 @@ urlpatterns = [
     path('getProjectsOfEmployee/<int:id>', getProjectsOfEmployee),
     path('getPositionsOfProjectOfEmployee/<int:id>',getPositionsOfProjectOfEmployee),
 
-
     path('positionGraph/<id>',PositionGraphView.as_view()),
     path('positionGraph',PositionGraphView.as_view()),
     path('positionLinearGraph/<id>',PositionLinearGraphView.as_view()),
@@ -85,6 +84,16 @@ urlpatterns = [
     path('projectPositionLinearGraph',ProjectPositionsGraphView.as_view()),
     path('projectPositionsPieGraph/<id>',ProjectPositionsPieGraphView.as_view()),
     path('projectPositionPieGraph',ProjectPositionsPieGraphView.as_view()),
+    path('getTableData/<int:id>',getTableData),
+    path('getAllProjects/',getAllProjects),
+
+
+    path('timeTableBooking/<id>',TimeTableBookingView.as_view()),
+    path('timeTableBooking',TimeTableBookingView.as_view()),
+    path('timeTableForecast/<id>',TimeTableForecastView.as_view()),
+    path('timeTableForecast',TimeTableForecastView.as_view()),
+    path('timeTableCombined/<id>',TimeTableCombinedView.as_view()),
+    path('timeTableCombined',TimeTableCombinedView.as_view()),
 
 
 ]
