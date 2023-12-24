@@ -37,6 +37,7 @@ class Employee(models.Model):
     phone = models.TextField(max_length=50)
     fk_team_id = models.BigIntegerField()
     team_roll = models.TextField(max_length=50)
+    company_role = models.TextField(max_length=50)
 
     class Meta:
         db_table = 'employee'
@@ -51,6 +52,7 @@ class Employee(models.Model):
             'phone': self.phone,
             'fk_team_id': self.fk_team_id,
             'team_roll': self.team_roll,
+            'company_role':self.company_role
         }
         return serialized_data
 

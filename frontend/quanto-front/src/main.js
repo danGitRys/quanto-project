@@ -34,6 +34,7 @@ import Dialog from 'primevue/dialog';
 import Toast from 'primevue/toast';
 import ToastService from 'primevue/toastservice';
 import VueApexCharts from "vue3-apexcharts";
+//import Card from 'primevue/card';
 const pinia = createPinia()
 
 const app = createApp(App);
@@ -58,5 +59,6 @@ app.component('InputGroup', InputGroup)
 app.component('InputGroupAddon', InputGroupAddon)
 app.component('Dialog', Dialog)
 app.component('Toast', Toast)
+//app.component('Card',Card)
 app.mount("#app");
 

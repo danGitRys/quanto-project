@@ -10,11 +10,12 @@
         <p>Project Creation Date: {{ proejct_creationDate }}</p>
     </v-card>
 </div>
-<dif id="Positions">
-  
-  
 
-      <DataTable :value="positonList" stripedRows tableStyle="min-width: 50rem">
+
+  <Card>
+    <template #title> Positions in Project </template>
+    <template #content>
+        <DataTable :value="positonList" stripedRows tableStyle="min-width: 50rem">
     <Column field="id" header="Code"></Column>
     <Column field="position_id" header="Name"></Column>
     <Column field="position_name" header="Position-Name"></Column>
@@ -25,8 +26,25 @@
     <Column field="volume_total" header="Volume Total"></Column>
     <Column field="wd" header="Working Days"></Column>
 </DataTable>
+    </template>
+</Card>
    
-</dif>
+
+
+<Card>
+    <template #title> Employees in Project </template>
+    <template #content>
+        <DataTable :value="employeeList" stripedRows tableStyle="min-width: 50rem">
+    <Column field="id" header="Id"></Column>
+    <Column field="emp_id" header="Employee-Id"></Column>
+    <Column field="forename" header="Forename"></Column>
+    <Column field="surname" header="Surname"></Column>
+    <Column field="mail" header="mail"></Column>
+    <Column field="phone" header="Phone"></Column>
+   
+</DataTable>
+    </template>
+</Card>
 <div id="Assigned Employees">
 
 </div>
@@ -59,6 +77,7 @@ export default {
             project_creator:'',
             proejct_creationDate:'',
             positonList:[],
+            employeeList:[],
 
         }
     },
@@ -159,18 +178,20 @@ export default {
                     var tempPosition = tempData[i]
                     console.log(tempPosition)
                     var tempEntry = {
-                        "end_date":tempPosition["end_date"],
-                        "fk_project":tempPosition["fk_project"],
                         "id":tempPosition["id"],
-                        "position_id":tempPosition["position_id"],
-                        "rate": tempPosition["rate"],
-                        "start_date":tempPosition["start_date"],
-                        "volume_remaining":tempPosition["volume_remaining"],
-                        "volume_total":tempPosition["volume_total"],
-                        "wd":tempPosition["wd"]
+                        "emp_id":tempPosition["emp_id"],
+                        "fk_team_id":tempPosition["fk_team_id"],
+                        "forename":tempPosition["forename"],
+                        "surname":tempPosition["surname"],
+                        "mail": tempPosition["mail"],
+                        "phone":tempPosition["phone"],
+                        "company_role":tempPosition["company_role"],
+                        "team_role":tempPosition["team_roll"]
+                    
 
                     }
-                    this.positonList.push(tempEntry)
+                    this.employeeList.push(tempEntry)
+                   
                 }
                 
            
@@ -195,7 +216,7 @@ export default {
     beforeMount(){
         this.getProject()
         this.getPositonsToProject()
-        this.getEmployeesToProject
+        this.getEmployeesToProject()
     }
 
 
