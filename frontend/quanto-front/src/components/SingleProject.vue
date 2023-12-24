@@ -11,42 +11,21 @@
     </v-card>
 </div>
 <dif id="Positions">
-    <v-card>
-    <v-title> Positions of project: {{ project_name }}</v-title>
-    <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Position ID</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th>Rate</th>
-            <th>Volume Remaining</th>
-            <th>Volume Total</th>
-            <th>Working Days (wd)</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="position in positonList" :key="position.id">
-            <td>{{ position.id }}</td>
-            <td>{{ position.position_id }}</td>
-            <td>{{ position.start_date }}</td>
-            <td>{{ position.end_date }}</td>
-            <td>{{ position.rate }}</td>
-            <td>{{ position.volume_remaining }}</td>
-            <td>{{ position.volume_total }}</td>
-            <td>{{ position.wd }}</td>
-          </tr>
-        </tbody>
-      </table>
+  
+  
 
-      <DataTable :value="positonList" tableStyle="min-width: 50rem">
+      <DataTable :value="positonList" stripedRows tableStyle="min-width: 50rem">
     <Column field="id" header="Code"></Column>
     <Column field="position_id" header="Name"></Column>
-    <Column field="start" header="Category"></Column>
-    <Column field="quantity" header="Quantity"></Column>
+    <Column field="position_name" header="Position-Name"></Column>
+    <Column field="start_date" header="Start Date"></Column>
+    <Column field="end_date" header="End Date"></Column>
+    <Column field="rate" header="Hourly Rate"></Column>
+    <Column field="volume_remaining" header="Volume Remaining"></Column>
+    <Column field="volume_total" header="Volume Total"></Column>
+    <Column field="wd" header="Working Days"></Column>
 </DataTable>
-    </v-card>
+   
 </dif>
 <div id="Assigned Employees">
 
@@ -64,6 +43,7 @@
 <script>
 import axios from "axios"
 import { getBaseTransformPreset } from '@vue/compiler-core';
+import 'primevue/resources/themes/lara-light-green/theme.css'
 
 
 export default {
@@ -138,6 +118,7 @@ export default {
                         "fk_project":tempPosition["fk_project"],
                         "id":tempPosition["id"],
                         "position_id":tempPosition["position_id"],
+                        "position_name":tempPosition["position_name"],
                         "rate": tempPosition["rate"],
                         "start_date":tempPosition["start_date"],
                         "volume_remaining":tempPosition["volume_remaining"],
