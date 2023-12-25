@@ -1,49 +1,89 @@
 <template>
-     <div class="card flex justify-content-center">
-            <Dropdown v-model="selectedProject" :options="projectNames"  @change="fetchEmployeesOfProject" optionLabel="name" placeholder="Project Name" class="w-full md:w-14rem" />
+    <div>
+        <div class="card flex justify-content-center">
+            <Dropdown v-model="selectedProject" :options="projectNames" @change="fetchEmployeesOfProject" optionLabel="name"
+                placeholder="Project Name" class="w-full md:w-14rem" />
         </div>
-        
-         <div class="card flex justify-content-center">
-                <Dropdown v-model="selectedName" :options="employeeNames" @change="fetchDataOfEmployee" optionLabel="name" placeholder="Employees" class="w-full md:w-14rem" />
-            </div>
 
-    <div class="card">
-        <DataTable :value="products" tableStyle="min-width: 50rem">
-            <Column field="code" header="Code"></Column>
-            <Column field="monday" :header=dateHeader.monday>
-                
-                <template #body="row">
-                  
-                    <DataTable :value="innerTable">
-                        <Column field="eins" header="Plan"></Column>
-                        <Column field="zwei" header="Work"></Column>
-                        <Column field="drei" header="Break"></Column>
-                        <Column field="four" header="Summe"></Column>
-                    </DataTable>
-             
-                </template>
-     
-            </Column>
-            <Column field="tuesday" :header=dateHeader.tuesday></Column>
-            <Column field="wensday" :header=dateHeader.wednesday></Column>
-            <Column field="thursday" :header=dateHeader.thursday></Column>
-            <Column field="friday" :header=dateHeader.friday></Column>
-            <Column field="changeWeek" header="">
-             <template #header="slotProps">
-                <div class="buttonContainer">
-              <button @click="previousWeek">&#9665;</button>
-              <button @click="nextWeek">&#9655;</button>
-              </div>
+        <div class="card flex justify-content-center">
+            <Dropdown v-model="selectedName" :options="employeeNames" @change="fetchDataOfEmployee" optionLabel="name"
+                placeholder="Employees" class="w-full md:w-14rem" />
+        </div>
+
+        <div class="card">
+      <DataTable :value="products" tableStyle="min-width: 50rem">
+        <Column field="code" header="Code"></Column>
+
+       <Column field="monday" :header="dateHeader.monday">
+      <template #body="row">
+        <!-- Use the 'row' object to access data -->
+        <!-- <div>
+          <div v-for="(value, index) in row.data['monday']" :key="index">
+            <InputText v-model="row.data['monday'][index]" />
+          </div>
+        </div> -->
+
+        <DataTable :value="row.data['innerTable']">
+          <Column v-for="col in columns" :key="col.field" :field="col.field" :header="col.header" :style="{ width: col.width }">
+            <template #body="{ data, field }">
+              <template v-if="field === 'date'">
+                <div>
+                  <div v-for="(value, index) in data[field]" :key="index">
+                    <InputText v-model="data[field][index]" />
+                  </div>
+                </div>
+              </template>
+              <template v-else>
+                {{ data[field] }}
+              </template>
             </template>
-            </Column>
+          </Column>
         </DataTable>
+      </template>
+    </Column>
+
+    <!-- Continue with the rest of your columns -->
+    <Column field="tuesday" :header="dateHeader.tuesday"></Column>
+    <Column field="wensday" :header="dateHeader.wednesday"></Column>
+    <Column field="thursday" :header="dateHeader.thursday"></Column>
+    <Column field="friday" :header="dateHeader.friday"></Column>
+    <Column field="changeWeek" header="">
+      <template #header="slotProps">
+        <div class="buttonContainer">
+          <button @click="previousWeek">&#9665;</button>
+          <button @click="nextWeek">&#9655;</button>
+        </div>
+      </template>
+    </Column>
+    </DataTable>
+    </div>
     </div>
 </template>
+
+
 
 <script setup>
 import { ref, onMounted, reactive} from 'vue';
 import axios from 'axios';
 import Dropdown from 'primevue/dropdown';
+
+const innerTable = ref([
+    { date: "" }, // Beispielwerte für Montag
+    // Fügen Sie weitere Zeilen für andere Tage hinzu
+]);
+
+
+
+const columns = ref([
+    { field: 'date', header: 'Plan', width: '25%' },
+    { field: 'zwei', header: 'Work', width: '25%' },
+    { field: 'drei', header: 'Break', width: '25%' },
+    { field: 'four', header: 'Summe', width: '25%' },
+    // Add more columns as needed
+]);
+
+
+
 
 
 let employeeId;
@@ -97,14 +137,14 @@ const projectNames = ref([
 ]);
 
 const products = ref([]);
-const innerTable = ref([{
-    eins:"",
-    zwei:"",
-    drei:"",
-    four:"",
+// const innerTable = ref([{
+//     eins:"",
+//     zwei:"",
+//     drei:"",
+//     four:"",
 
 
-}]);
+// }]);
 
 let projectObject = [];
 let currentDate = new Date();
@@ -166,21 +206,16 @@ async function fillInnerTable() {
         const url = "http://localhost:8000/getBookingTimes/2/01.01.2023"
         const response = await axios.get(url)
         const bookingTimes = (response.data.bookingTimes)
-
+        console.log(bookingTimes)
         bookingTimes.forEach((element,index) => {
-            if(index === 1){
+         
 
             const planStart = element.forecast_start.slice(0, 2)
             const planEnd = element.forecast_end.slice(0, 2)
             const planed = planEnd - planStart;
+            
 
-            innerTable.value.push({ 
-                eins: planed,
-                zwei: element.start_time + "-" + element.end_time,
-                drei: element.pause,
-                rowIndex: index
-             })
-            }
+            innerTable.value.push({ date: 17 })
         
             })
 
