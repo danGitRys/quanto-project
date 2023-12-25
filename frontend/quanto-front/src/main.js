@@ -37,6 +37,7 @@ import VueApexCharts from "vue3-apexcharts";
 //import Card from 'primevue/card';
 import Accordion from 'primevue/accordion';
 import AccordionTab from 'primevue/accordiontab';
+import Fieldset from 'primevue/fieldset';
 const pinia = createPinia()
 
 const app = createApp(App);
@@ -64,5 +65,6 @@ app.component('Toast', Toast)
 //app.component('Card',Card)
 app.component('Accordion',Accordion)
 app.component('AccordionTab',AccordionTab)
+app.component('Fieldset',Fieldset)
 app.mount("#app");
 

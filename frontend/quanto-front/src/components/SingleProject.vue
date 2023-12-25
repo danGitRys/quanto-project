@@ -1,15 +1,22 @@
 <template>
+
+
+
 <div id="info">
-    <v-card>
-        <v-title>{{ project_name }}</v-title>
-        <p>Company: {{ company }}</p>
+
+
+<Fieldset legend="Project: {{ project_name }}">
+    <p>Company: {{ company }}</p>
         <p>Project ID: {{ project_id }}</p>
         <p>Project Start Date: {{ project_start }}</p>
         <p>Project End Date: {{ project_end }}</p>
         <p>Project Creator: {{ project_creator }}</p>
         <p>Project Creation Date: {{ proejct_creationDate }}</p>
-    </v-card>
+</Fieldset>
+
+
 </div>
+
 
 
   
@@ -66,19 +73,49 @@
 </Card>
     </AccordionTab>
     <AccordionTab header="Header III">
+      
+        <Accordion :multiple="true" :activeIndex="[0]">
+    <AccordionTab class="graphClass" header="Header I">
+        <p class="m-0">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+            laborum.
+        </p>
+    </AccordionTab>
+    <AccordionTab header="Header II">
+        <p class="m-0">
+            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo
+            enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.
+        </p>
+    </AccordionTab>
+    <AccordionTab header="Header III">
         <p class="m-0">
             At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in
             culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.
         </p>
     </AccordionTab>
 </Accordion>
+    </AccordionTab>
+</Accordion>
 
 </template>
+
+
+<style>
+
+.graphClass{
+    margin-left: 40px;
+}
+
+
+</style>
 
 <script>
 import axios from "axios"
 import { getBaseTransformPreset } from '@vue/compiler-core';
 import 'primevue/resources/themes/lara-light-green/theme.css'
+import MultiLineGraph from "@/components/graphs/ProjectPositionLinearGraph.vue"; // Corrected import
+
 
 
 export default {
@@ -95,8 +132,13 @@ export default {
             proejct_creationDate:'',
             positonList:[],
             employeeList:[],
+            projectId: this.$route.params.id
 
         }
+    },
+
+    components:{
+         MultiLineGraph
     },
 
     methods:{
