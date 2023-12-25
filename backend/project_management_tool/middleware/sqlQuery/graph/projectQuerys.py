@@ -1,4 +1,8 @@
 from django.db import connection
+from datetime import date
+from project_management_tool.models import Project,Positon
+from .positionQuerys import positionQuerys
+from ...time.dateRange import dateRange
 class projectQuerys:
 
     def totalVolume(projectId:int):
@@ -46,4 +50,32 @@ class projectQuerys:
             'id':projectId,
             'volume':volume
         }
+    
+
+    def usedVolumeOnDate(projectId:int,date:date):
+        projectPositions = Positon.objects.filter(fk_project=projectId).all()
+        volumeSum = 0
+        for position in projectPositions:
+            currentPositionId = position.id
+            currentPositionResult = positionQuerys.usedVolumeOnDay(date,currentPositionId)
+            currentPositionVolume = currentPositionResult["volume"]
+            volumeSum += currentPositionVolume
+        
+        return volumeSum
+
+
+
+
+    def usedVolumeUntilDate(projectId:int,date:date):
+        currentProject = Project.objects.filter(id=projectId).first()
+        projectStartDate = currentProject.start_date
+        iterationEndDate = date
+        volumeSum = 0
+        for currentDate in dateRange.range_date(projectStartDate,iterationEndDate):
+            tempVolume = projectQuerys.usedVolumeOnDate(projectId,currentDate)
+            volumeSum += tempVolume
+        
+        return volumeSum
+
+
         

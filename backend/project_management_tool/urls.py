@@ -84,8 +84,14 @@ urlpatterns = [
     path('projectPositionLinearGraph',ProjectPositionsGraphView.as_view()),
     path('projectPositionsPieGraph/<id>',ProjectPositionsPieGraphView.as_view()),
     path('projectPositionPieGraph',ProjectPositionsPieGraphView.as_view()),
+    path('projectProjectionGraph/<int:id>/<int:weeks>',ProjectProjectionGraphView.as_view()),
+    path('projectProjectionGraph',ProjectProjectionGraphView.as_view()),
+    
+    
     path('getTableData/<int:id>',getTableData),
     path('getAllProjects/',getAllProjects),
+
+
 
 
     path('timeTableBooking/<id>',TimeTableBookingView.as_view()),
