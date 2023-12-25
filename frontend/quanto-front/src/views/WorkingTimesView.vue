@@ -58,14 +58,14 @@ function fetchDataOfEmployee(){
     getDataFromBackend(employeeId)
 }
 
-let isSelected = false;
+let projectForeignKey;
 
 async function fetchEmployeesOfProject(){
-    const projectforeignKey = selectedProject.value.code;
+    projectForeignKey = selectedProject.value.code;
     employeeNames.value = [];
     selectedName.value = null;
     
-    const url = `http://localhost:8000/getEmployeesToProjectId/${projectforeignKey}`
+    const url = `http://localhost:8000/getEmployeesToProjectId/${projectForeignKey}`
     const response = await axios.get(url)
     
     const employeeResponse = response.data.data;
@@ -122,7 +122,7 @@ onMounted(() => {
     getWeekDate();
     // Kann bei WorkingTimes direkt hier aufgerufen werden da wir ID aus dem
     // SESSion Managment bekommen 
-    getDataFromBackend(2);
+    //getDataFromBackend(2);
     fetchProjectsOfEmployee();
 });
 
@@ -130,13 +130,16 @@ onMounted(() => {
 
 async function getDataFromBackend(employeeId) {
     try {
+        console.log(employeeId)
         const startDate = dateHeader.value.monday
         const startDateRightFormat = startDate.slice(5)
         const endDate = dateHeader.value.friday
         const endDateRightFormat = endDate.slice(5)
 
+   
+
         //const url = `http://localhost:8000/getTest/2/${startDateRightFormat}/${endDateRightFormat}`
-        const url = `http://localhost:8000/getTest/${employeeId}/25.11.2023/12.12.2023`
+        const url = `http://localhost:8000/getTest/${employeeId}/${projectForeignKey}`
         const response = await axios.get(url);
         processData(response.data.positions);
 
@@ -155,10 +158,7 @@ function processData(backendData) {
         projectObject.push({ projectName: element.projectName, positionId: element.id })
        
     })
-
-
     fillInnerTable()
-
 }
 
 async function fillInnerTable() {
