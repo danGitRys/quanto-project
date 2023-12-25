@@ -10,6 +10,7 @@ from ...middleware import validator
 from ...middleware import dateRange
 from ...middleware import positionBookings
 from ...middleware.sqlQuery.graph import projectQuerys
+from ...middleware.time.dateBack import dateBack
 from datetime import datetime,date
 @method_decorator(csrf_exempt, name='dispatch')
 
@@ -36,40 +37,57 @@ class ProjectProjectionGraphView(View):
             yValues = []
             for currentDate in dateRange.range_date(projectStartDate,projectEndDate):
                 xValues.append(currentDate)
+            initDate = dateBack.getDateWeeksBack(week_param)
+            #initDate = datetime.strptime("%Y-%m-%d",initDate)
+           
+            #projectStartDate = datetime.strptime('%Y-%M-%D',projectStartDate)
+            if initDate<projectStartDate:
+                initDate=projectStartDate
+            print(initDate)
 
-            projectPositons = Positon.objects.filter(fk_project=id_param).all()
-            for position in projectPositons:
-                currentPositionId = position.id
-                currentPositionName = position.position_name
-                currentPositonY_Values = []
-                print(position)
-                currentVolume = 0
-                for currentDate in dateRange.range_date(projectStartDate,projectEndDate):
-                #x_data.append(currentDate)
-                    tempPositionBookings = positionBookings(currentDate,currentPositionId).executeQueryJsonResult()
-                    volume = int(tempPositionBookings["volume"])
-                    currentVolume += volume
-                    currentPositonY_Values.append(currentVolume)
+            firstVolume = projectQuerys.usedVolumeUntilDate(id_param,initDate)
+            if initDate == projectStartDate:
+                firstVolume = 0
+            secondVolume = projectQuerys.usedVolumeUntilDate(id_param,date.today())
+            print(firstVolume)
+            print(secondVolume)
 
-              
-                    print(volume)
-                tempPositionValues = {
-                    "positionName": currentPositionName,
-                    "yValues": currentPositonY_Values
-                }
-                yValues.append(tempPositionValues)
+            dateDiff = date.today() - initDate
+            dateDiffDays = dateDiff.days
+            volumeDiff = secondVolume-firstVolume
+            if dateDiffDays == 0:
+                dailyIncrease = 0
+            else:
+                dailyIncrease = volumeDiff/dateDiffDays
+            print(dateDiffDays)
 
-                postionData = {
-                    "xData": xValues,
-                    "yData":yValues
-                }
-                response_data["data"] = postionData
+
+            existingValues = []
+            for currentDate in dateRange.range_date(projectStartDate,date.today()):
+                currentVolume = projectQuerys.usedVolumeUntilDate(id_param,currentDate)
+                existingValues.append({
+                    'x':currentDate,
+                    'y':currentVolume
+                })
             
+            futureValues = []
+            futureVolume = secondVolume
+            for futureDate in dateRange.range_date(date.today(),projectEndDate):
+                #print(futureDate)
+                futureVolume += dailyIncrease
+                futureValues.append({
+                    'x':futureDate,
+                    'y':futureVolume
+                })
+                #print(futureVolume)
 
-                
-                
-              
 
+           
+            response_data["data"] = {
+                'xValues':xValues,
+                'existing':existingValues,
+                'future':futureValues
+            }
             print("Works")
             
         else:
