@@ -24,6 +24,7 @@ import positionDemoGraph from "@/components/graphs/PositionDemoGraph.vue";
 //import positionLinearDemoGraph from "@/components/graphs/positionLinearDemoGraph.vue";
 import positionLinearGraph from "@/components/graphs/PositionLinearGraph";
 import projectPositonsLinearGraph from "@/components/graphs/ProjectPositionLinearGraph.vue"
+import projectionGraph from "@/components/graphs/PositionProjectionGraph.vue"
 
 
 
@@ -43,7 +44,6 @@ const routes = [
       },
     ],
   },
-
   {
     path: "/",
     name: "Login",
@@ -124,6 +124,11 @@ const routes = [
     path: "/projectPositionsLinearGraph/:id",
     name: "projectPositionLinearDemoGraph",
     component: projectPositonsLinearGraph,
+  },
+  {
+    path: "/projectionGraph/:id",
+    name: "projectionGraph",
+    component:projectionGraph,
   },
 
 

@@ -61,32 +61,38 @@ class ProjectProjectionGraphView(View):
                 dailyIncrease = volumeDiff/dateDiffDays
             print(dateDiffDays)
 
-
+            secondYValues = []
             existingValues = []
             for currentDate in dateRange.range_date(projectStartDate,date.today()):
                 currentVolume = projectQuerys.usedVolumeUntilDate(id_param,currentDate)
-                existingValues.append({
-                    'x':currentDate,
-                    'y':currentVolume
-                })
+                yValues.append(currentVolume)
+                secondYValues.append(1000)
             
             futureValues = []
             futureVolume = secondVolume
             for futureDate in dateRange.range_date(date.today(),projectEndDate):
+                if futureDate==date.today():
+                    continue
                 #print(futureDate)
                 futureVolume += dailyIncrease
-                futureValues.append({
-                    'x':futureDate,
-                    'y':futureVolume
-                })
+                yValues.append(futureVolume)
+                secondYValues.append(1000)
                 #print(futureVolume)
-
-
+            yValuesNew = []
+            tempPositionValues = {
+                    "positionName": "Normal",
+                    "yValues": yValues
+                }
+            tempPositionValues2 = {
+                    "positionName": "Normal",
+                    "yValues": secondYValues
+                }
+            yValuesNew.append(tempPositionValues)
+            yValuesNew.append(tempPositionValues2)
            
             response_data["data"] = {
-                'xValues':xValues,
-                'existing':existingValues,
-                'future':futureValues
+                'xData':xValues,
+                'yData':yValuesNew
             }
             print("Works")
             
