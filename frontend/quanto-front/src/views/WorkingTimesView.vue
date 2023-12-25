@@ -68,7 +68,7 @@ import axios from 'axios';
 import Dropdown from 'primevue/dropdown';
 
 const innerTable = ref([
-    { date: "" }, // Beispielwerte für Montag
+    { date: "15.020" }, // Beispielwerte für Montag
     // Fügen Sie weitere Zeilen für andere Tage hinzu
 ]);
 
