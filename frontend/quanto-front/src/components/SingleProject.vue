@@ -73,7 +73,7 @@
 </Card>
     </AccordionTab>
     <AccordionTab header="Header III">
-      
+    <MultiLineGraph/>
         <Accordion :multiple="true" :activeIndex="[0]">
     <AccordionTab class="graphClass" header="Header I">
         <p class="m-0">
@@ -115,7 +115,7 @@ import axios from "axios"
 import { getBaseTransformPreset } from '@vue/compiler-core';
 import 'primevue/resources/themes/lara-light-green/theme.css'
 import MultiLineGraph from "@/components/graphs/ProjectPositionLinearGraph.vue"; // Corrected import
-
+import { projectIdStore } from "@/store/projectIdStore";
 
 
 export default {
@@ -269,6 +269,9 @@ export default {
 
         getTeam15(){
             window.location.href = '/getTeam/15';
+        },
+        updateProjectId(){
+            projectIdStore().setSharedData(this.$route.params.id);
         }
     },
 
@@ -276,6 +279,7 @@ export default {
         this.getProject()
         this.getPositonsToProject()
         this.getEmployeesToProject()
+        this.updateProjectId()
     }
 
 

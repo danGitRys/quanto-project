@@ -8,6 +8,7 @@
   import VueApexCharts from 'vue3-apexcharts';
   import axios from 'axios';
 //import { transformWithEsbuild } from 'vite';
+import { projectIdStore } from "@/store/projectIdStore";
   
   export default {
     name: 'BarChart',
@@ -34,7 +35,8 @@
       this.loaded = false;
   
       try {
-        const response = await axios.get("http://localhost:8000/projectPositionsLinearGraph/" + id);
+        const projectId = projectIdStore().sharedData;
+        const response = await axios.get("http://localhost:8000/projectPositionsLinearGraph/" + projectId);
         const responseData = response.data;
         const valid = responseData.success;
   
