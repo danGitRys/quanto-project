@@ -15,31 +15,27 @@
         <Column field="code" header="Code"></Column>
 
        <Column field="monday" :header="dateHeader.monday">
-      <template #body="row">
-        <!-- Use the 'row' object to access data -->
-        <!-- <div>
-          <div v-for="(value, index) in row.data['monday']" :key="index">
-            <InputText v-model="row.data['monday'][index]" />
+      <template #body="{ row }">
+      <DataTable :value="innerTable">
+      <Column v-for="col in columns" :key="col.field" :field="col.field" :header="col.header" :style="{ width: col.width }">
+        <template #body="{ data, field }">
+          <div v-if="field === 'plannedTime'">
+            <InputText v-model="data[field]" />
+         </div>
+          <div v-else-if="field === 'workingTimes'">
+             <InputText v-model="data[field]" />
           </div>
-        </div> -->
-
-        <DataTable :value="row.data['innerTable']">
-          <Column v-for="col in columns" :key="col.field" :field="col.field" :header="col.header" :style="{ width: col.width }">
-            <template #body="{ data, field }">
-              <template v-if="field === 'date'">
-                <div>
-                  <div v-for="(value, index) in data[field]" :key="index">
-                    <InputText v-model="data[field][index]" />
+          <div v-else-if="field === 'breakTime'">
+                 <InputText v-model="data[field]" />
+              </div>
+              <div v-else-if="field === 'sumTime'">
+                     <InputText v-model="data[field]" />
                   </div>
-                </div>
-              </template>
-              <template v-else>
-                {{ data[field] }}
-              </template>
-            </template>
-          </Column>
-        </DataTable>
-      </template>
+
+        </template>
+      </Column>
+    </DataTable>
+    </template>
     </Column>
 
     <!-- Continue with the rest of your columns -->
@@ -67,18 +63,18 @@ import { ref, onMounted, reactive} from 'vue';
 import axios from 'axios';
 import Dropdown from 'primevue/dropdown';
 
-const innerTable = ref([
-    { date: "15.020" }, // Beispielwerte für Montag
-    // Fügen Sie weitere Zeilen für andere Tage hinzu
-]);
+
+const innerTable = reactive([
+    { plannedTime: '', workingTimes: '',breakTime:'',sumTime:''} 
+])
 
 
 
 const columns = ref([
-    { field: 'date', header: 'Plan', width: '25%' },
-    { field: 'zwei', header: 'Work', width: '25%' },
-    { field: 'drei', header: 'Break', width: '25%' },
-    { field: 'four', header: 'Summe', width: '25%' },
+    { field: 'plannedTime', header: 'Plan', width: '25%' },
+    { field: 'workingTimes', header: 'Work', width: '25%' },
+    { field: 'breakTime', header: 'Break', width: '25%' },
+    { field: 'sumTime', header: 'Summe', width: '25%' },
     // Add more columns as needed
 ]);
 
@@ -146,6 +142,9 @@ const products = ref([]);
 
 // }]);
 
+
+
+
 let projectObject = [];
 let currentDate = new Date();
 
@@ -208,14 +207,20 @@ async function fillInnerTable() {
         const bookingTimes = (response.data.bookingTimes)
         console.log(bookingTimes)
         bookingTimes.forEach((element,index) => {
-         
-
             const planStart = element.forecast_start.slice(0, 2)
             const planEnd = element.forecast_end.slice(0, 2)
             const planed = planEnd - planStart;
+            const workingTimes = element.start_time + "-" + element.end_time;
+            const breakTime = element.pause;
+            const sumTime = element.end_time.slice(0,2) - element.start_time.slice(0,2)
+            const x = {plannedTime: planed, workingTimes: workingTimes, breakTime: breakTime, sumTime:sumTime}
             
+            innerTable[index] = x
 
-            innerTable.value.push({ date: 17 })
+            // innerTable[index].plannedTime = planed;
+            // innerTable[index].workingTimes = workingTimes;
+            // innerTable[index].breakTime = breakTime;
+            // innerTable[index].sumTime = sumTime;
         
             })
 
@@ -223,8 +228,6 @@ async function fillInnerTable() {
     catch (error) {
         console.log(error)
     }
-
-
 }
 
 // Funktion, um die Datumswerte auf die nächste Woche zu ändern
