@@ -31,6 +31,9 @@ class ProjectProjectionGraphView(View):
         idExists: bool = Project.objects.filter(id=id_param).exists()
         if idExists:
             currentProject = Project.objects.filter(id=id_param).first()
+            currentProjectVolume = projectQuerys.totalVolume(id_param)
+            currentProjectVolumeInt = currentProjectVolume["volume"]
+           
             projectStartDate = currentProject.start_date
             projectEndDate = currentProject.end_date
             xValues = []
@@ -66,7 +69,7 @@ class ProjectProjectionGraphView(View):
             for currentDate in dateRange.range_date(projectStartDate,date.today()):
                 currentVolume = projectQuerys.usedVolumeUntilDate(id_param,currentDate)
                 yValues.append(currentVolume)
-                secondYValues.append(1000)
+                secondYValues.append(currentProjectVolumeInt)
             
             futureValues = []
             futureVolume = secondVolume
@@ -76,7 +79,7 @@ class ProjectProjectionGraphView(View):
                 #print(futureDate)
                 futureVolume += dailyIncrease
                 yValues.append(futureVolume)
-                secondYValues.append(1000)
+                secondYValues.append(currentProjectVolumeInt)
                 #print(futureVolume)
             yValuesNew = []
             tempPositionValues = {
