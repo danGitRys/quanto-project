@@ -60,7 +60,7 @@ app.component('Toast', Toast)
 const User = useUser()
 const storedToken = localStorage.getItem('token');
 if (storedToken) {
-    User.fetchUserData(storedToken);
+    await User.fetchUserData(storedToken);
 }
 
 app.mount("#app");

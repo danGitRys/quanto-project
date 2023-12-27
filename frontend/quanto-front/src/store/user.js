@@ -21,6 +21,7 @@ export const useUser = defineStore('User', {
             localStorage.removeItem('token')
         },
         async fetchUserData(token) {
+            console.log("Fetching...")
             this.loggedIn = true
             this.token = token
             const request = await axios.post("http://localhost:8000/login",{
@@ -28,7 +29,7 @@ export const useUser = defineStore('User', {
             }).then(response => {
                 if(response.data['login']==true) {
                     this.userData = response.data.employee
-                    return response.login
+                    return response.data.employee
                 }
                 else{
                     alert("Invalid Login")

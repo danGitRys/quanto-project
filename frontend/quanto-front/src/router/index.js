@@ -44,6 +44,7 @@ const routes = [
     path: "/Home",
     name: "Home",
     component: Home,
+    meta: { requiresAuth: true },
   },
 
   {
@@ -51,47 +52,53 @@ const routes = [
     path: "/",
     name: "ProjectOverview",
     component: LandingPage,
-    meta: { requiresAuth: true }
+    meta: { requiresAuth: true },
   },
 
   {
     path: "/newproject",
     name: "NewProject",
     component: NewProject,
+    meta: { requiresAuth: true, roles: ['Admin']},
   },
   {
     path: "/timeRegistration",
     name: "TimeRegistration",
     component: TimeRegistration,
+    meta: { requiresAuth: true },
   },
   {
     path: "/addEmployee",
     name: "AddEmployee",
     component: AddEmployee,
-    meta: { requiresAuth: true }
+    meta: { requiresAuth: true, roles: ['Admin']},
   },
 
   {
     path: "/dataTable",
     name: "dataTable",
     component: dataTable,
+    meta: { requiresAuth: true },
   },
 
   {
     path: "/ManageProject",
     name: "ManageProject",
     component: ManageProject,
+    meta: { requiresAuth: true },
   },
 
   {
     path: "/getTeam/:id",
     name: "getTeam",
     component: getTeam,
+    meta: { requiresAuth: true },
   },
   {
     path: "/project/:id",
     name: "project",
     component: singleProject,
+    meta: { requiresAuth: true },
   },
 
 
@@ -99,6 +106,7 @@ const routes = [
     path: "/TimeCorrection",
     name: "TimeCorrection",
     component: TimeCorrection,
+    meta: { requiresAuth: true },
   },
 
 
@@ -111,20 +119,34 @@ const router = createRouter({
 
 
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   
   const User = useUser()
+  const storedToken = localStorage.getItem('token') 
+  await User.fetchUserData(storedToken)
+  const userRole = User.getUserData.team_roll
+  console.log(userRole)
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     if (!User.isLoggedIn) {
       next('/login') // Redirect to login if not authenticated
       // next()
-    } else {
-      next()
     }
-  } else {
-    if (User.userData){
-      
+    else {
+      if (to.meta.roles) {
+        if (!to.meta.roles.includes(userRole)) {
+          alert("Not Authorized.")
+          next('/timeRegistration')
+        }
+        else {
+          next()
+        }
+      }        
+      else {
+        next()
+      }
     }
+  } 
+  else {
     next();
   }
 });
