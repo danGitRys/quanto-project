@@ -13,12 +13,15 @@
         <div class="card">
       <DataTable :value="products" tableStyle="min-width: 50rem">
         <Column field="code" header="Projekt"></Column>
-
+        <Column field="id" header="ID"></Column>
        <Column field="monday" :header="dateHeader.monday">
       <template #body="{ row }">
       <DataTable :value="innerTable">
       <Column v-for="col in columns" :key="col.field" :field="col.field" :header="col.header" :style="{ width: col.width }">
         <template #body="{ data, field }">
+            
+       
+            
           <div v-if="field === 'plannedTime'">
             <InputText v-model="data[field]" />
          </div>
@@ -32,6 +35,8 @@
                      <InputText v-model="data[field]" />
                   </div>
 
+
+
         </template>
       </Column>
     </DataTable>
@@ -39,7 +44,37 @@
     </Column>
 
     <!-- Continue with the rest of your columns -->
-    <Column field="tuesday" :header="dateHeader.tuesday"></Column>
+    <Column field="tuesday" :header="dateHeader.tuesday">
+           <template #body="{ row }">
+          <DataTable :value="innerTable">
+          <Column v-for="col in columns" :key="col.field" :field="col.field" :header="col.header" :style="{ width: col.width }">
+            <template #body="{ data, field }">
+       
+            
+              <div v-if="field === 'plannedTime'">
+                <InputText v-model="data[field]" />
+             </div>
+              <div v-else-if="field === 'workingTimes'">
+                 <InputText v-model="data[field]" />
+              </div>
+              <div v-else-if="field === 'breakTime'">
+                     <InputText v-model="data[field]" />
+                  </div>
+                  <div v-else-if="field === 'sumTime'">
+                         <InputText v-model="data[field]" />
+                      </div>
+
+
+
+            </template>
+          </Column>
+        </DataTable>
+        </template>
+        </Column>
+    
+    
+    
+
     <Column field="wensday" :header="dateHeader.wednesday"></Column>
     <Column field="thursday" :header="dateHeader.thursday"></Column>
     <Column field="friday" :header="dateHeader.friday"></Column>
@@ -133,21 +168,7 @@ const projectNames = ref([
 ]);
 
 const products = ref([]);
-// const innerTable = ref([{
-//     eins:"",
-//     zwei:"",
-//     drei:"",
-//     four:"",
 
-
-// }]);
-
-
-
-
-
-
-let projectObject = [];
 let currentDate = new Date();
 
 
@@ -192,8 +213,6 @@ async function getDataFromBackend(employeeId) {
         const endDate = dateHeader.value.friday
         const endDateRightFormat = endDate.slice(5)
 
-   
-
         //const url = `http://localhost:8000/getTest/2/${startDateRightFormat}/${endDateRightFormat}`
         const url = `http://localhost:8000/getTest/${employeeId}/${projectForeignKey}`
         const response = await axios.get(url);
@@ -204,29 +223,43 @@ async function getDataFromBackend(employeeId) {
     }
 }
 
+
 function processData(backendData) {
-    products.value = backendData.map(item => ({
-        code: item.projectName + "\r" + item.id,
-
-
-    }));
-    backendData.forEach((element, index) => {
-        projectObject.push({ projectName: element.projectName, positionId: element.id })
+    backendData.forEach((element) =>{
+        products.value.push({code:element.projectName + " " + element.id, id:element.id})
+        
+           
+         }) 
        
-    })
-    fillInnerTable()
+         fillInnerTable()
+    
+    
+
+    
 }
+
+
+const positionArray = [];
+
 
 async function fillInnerTable() {
     try {
         const monthArray = fillmonthArray();
+       
+        
+        products.value.forEach((element) => {
+            positionArray.push(element.id)
+        })
         console.log(console.log(monthArray))
+        console.log(console.log(positionArray))
 
 
         const url = `http://localhost:8000/getBookingTimes/3013/${monthArray[0]}`
         const response = await axios.get(url)
         const bookingTimes = (response.data.bookingTimes)
         console.log(bookingTimes)
+        
+
         bookingTimes.forEach((element,index) => {
             const planStart = element.forecast_start.slice(0, 2)
             const planEnd = element.forecast_end.slice(0, 2)
@@ -235,8 +268,14 @@ async function fillInnerTable() {
             const breakTime = element.pause;
             const sumTime = element.end_time.slice(0,2) - element.start_time.slice(0,2)
             const x = {plannedTime: planed, workingTimes: workingTimes, breakTime: breakTime, sumTime:sumTime}
+            const y = { plannedTime: planed, workingTimes: workingTimes, breakTime: breakTime, sumTime: sumTime }
+
+           
+            innerTable[0] = x
+         
             
-            innerTable[index] = x
+          
+         
 
             // innerTable[index].plannedTime = planed;
             // innerTable[index].workingTimes = workingTimes;
