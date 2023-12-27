@@ -53,7 +53,7 @@ class HeaderValidation:
             print("Error, no Authorization Header included.")
             return False
         
-def isAuthorizedPersonal(request, person) -> bool:
+def isAuthorizedPersonal(request, personid) -> bool:
         """
         Description
         -----------
@@ -88,7 +88,7 @@ def isAuthorizedPersonal(request, person) -> bool:
                 # Check if employee has access to this resource
                 if (emp.company_role == 'Admin'):
                     return True
-                elif (emp.id == person.id):
+                elif (emp.id == personid):
                     return True
                 else:
                     return False
@@ -134,8 +134,8 @@ def isAuthorizedForProject(request, projectid) -> bool:
                 
                 allAssignments = Assignment.objects.get.all()
                 for assignment in allAssignments:
-                     if assignment.fk_project == projectid and assignment.fk_employee == emp.id and assignment.role == 'Leader':
-                          return True
+                    if assignment.fk_project == projectid and assignment.fk_employee == emp.id and assignment.role == 'Leader':
+                        return True
                      
                 return False
         else:
