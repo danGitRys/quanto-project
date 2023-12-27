@@ -12,7 +12,7 @@
 
         <div class="card">
       <DataTable :value="products" tableStyle="min-width: 50rem">
-        <Column field="code" header="Code"></Column>
+        <Column field="code" header="Projekt"></Column>
 
        <Column field="monday" :header="dateHeader.monday">
       <template #body="{ row }">
@@ -116,7 +116,7 @@ async function fetchEmployeesOfProject(){
 }
 
 async function fetchProjectsOfEmployee(){
-    const url = "http://localhost:8000/getProjectsWhereProjectLeader/1005"
+    const url = "http://localhost:8000/getProjectsWhereProjectLeader/3007"
     const response = await axios.get(url)
     const projects = response.data.projects;
     projects.forEach((element)=>{
@@ -145,6 +145,8 @@ const products = ref([]);
 
 
 
+
+
 let projectObject = [];
 let currentDate = new Date();
 
@@ -164,6 +166,21 @@ onMounted(() => {
     //getDataFromBackend(2);
     fetchProjectsOfEmployee();
 });
+
+
+
+function fillmonthArray() {
+    const monthArray = [];
+    monthArray.push(dateHeader.value.monday, dateHeader.value.tuesday,
+    dateHeader.value.wednesday, dateHeader.value.thursday, dateHeader.value.friday)
+       monthArray.forEach((element, index, array) => {
+        array[index] = element.slice(5);
+    });
+
+    return monthArray
+    
+}
+
 
 
 
@@ -202,7 +219,11 @@ function processData(backendData) {
 
 async function fillInnerTable() {
     try {
-        const url = "http://localhost:8000/getBookingTimes/2/01.01.2023"
+        const monthArray = fillmonthArray();
+        console.log(console.log(monthArray))
+
+
+        const url = `http://localhost:8000/getBookingTimes/3013/${monthArray[0]}`
         const response = await axios.get(url)
         const bookingTimes = (response.data.bookingTimes)
         console.log(bookingTimes)
