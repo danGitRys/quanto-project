@@ -1,46 +1,44 @@
-
 <template>
-    <div class="card">
-        <DataTable :value="products" tableStyle="min-width: 50rem">
-            <Column field="code" header="Code"></Column>
-            <Column field="name" header="Name"></Column>
-            <Column field="category" header="Category"></Column>
-            <Column field="quantity" header="Quantity"></Column>
-        </DataTable>
+    <div>
+        <!-- Wähle den Index dynamisch aus (z.B. pep[1]) und übergebe ihn an InnerTable2 -->
+        <InnerTable2 :people="pep" :selectedPersonIndex="0" />
     </div>
+    <div>
+            <InnerTable2 :people="pep" :selectedPersonIndex="1" />
+
+        </div>
+
+     <div v-for="(person, index) in pep" :key="index">
+          <InnerTable2 :people="pep" :selectedPersonIndex="index" />
+        </div>
+      
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
-import DataTable from 'primevue/datatable';
-import Column from 'primevue/column';
-import { useMyStore } from '@/store/innerTable';
-
-const x = useMyStore();
-
-
-    const z = x.fetchBookingTimes(3013, '25.12.2023')
-    .then(z => {
-       const dataArray = z.data.bookingTimes
-       dataArray.forEach((element) => {
-            products.value.push({
-                code: element.start_time,
-                name: element.end_time,
-                category: element.forecast_start,
-                quantity: element.pause,
-            });
-
-       }) 
-    })
+import { ref } from 'vue';
+import InnerTable2 from './InnerTable2.vue';
+import axios from 'axios';
+const pep = ref([
+    { name: 'Chris', age: 13, city: 'Canstatt' },
+    { name: 'Kai', age: 25, city: 'xxx' },
+    {name: 'Felix', age: 54, city: 'xfafx'},
+    {name: 'Basti', age: 15, city: 'xfafx'}
+]);
 
 
+getPeople();
 
-
-
-
-const products = ref([]);
-
-
+async function getPeople() {
+    const url = 'http://localhost:8000/getProjectsWhereProjectLeader/3007'
+    const response = await axios.get(url);
+    console.log(response.data.projects);
+    const data = response.data.projects;
+    console.log(data);
+    data.forEach(element => {
+        pep.value.push({name: element.projectNames, age:12,city:"hellp"})
+    });
+  
+}
 
 
 </script>
