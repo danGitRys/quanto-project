@@ -1,6 +1,6 @@
 <template>
     <div>
-        <DataTable :value="[people]" tableStyle="min-width: 10rem">
+        <DataTable :value="[tuesday]" tableStyle="min-width: 10rem">
             <Column field="planned" header="Planned"></Column>
             <Column field="working" header="Working"></Column>
             <Column field="break" header="Break"></Column>
@@ -12,7 +12,7 @@
 <script setup>
 import { ref, defineProps, watch } from 'vue';
 
-const props = defineProps(['people']);
+const props = defineProps(['tuesday']);
 
 
 
