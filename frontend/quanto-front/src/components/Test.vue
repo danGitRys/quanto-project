@@ -5,34 +5,21 @@
         <template #body="slotProps">
           {{ console.log(slotProps) }}
           <template v-if="slotProps.index < monday.length">
-            <InnerTable2 :people="monday[slotProps.index]" />
+            <InnerTable3 :people="monday[slotProps.index]" />
           </template>
         </template>
       </Column>
-      <Column field="name" header="Dienstag">
-        <template #body="slotProps">
-          <template v-if="slotProps.index < tuesday.length">
-            <InnerTable3 :tuesday="tuesday[slotProps.index]" />
-          </template>
-        </template>
-      </Column>
-      <Column field="category" header="Mittwoch">
-        <template #body="slotProps">
-          <template v-if="slotProps.index < xx.length">
-            <InnerTable4 :mittwoch="xx[slotProps.index]" />
-          </template>
-        </template>
-      </Column>
-      <Column field="quantity" header="Quantity"></Column>
-    </DataTable>
+      </DataTable>
   </div>
 </template>
 
+
+
 <script setup>
 import { ref } from 'vue';
-import InnerTable2 from './InnerTable2.vue';
+
 import InnerTable3 from './InnerTable3.vue';
-import InnerTable4 from './InnerTable4.vue';
+
 
 const monday = [
   { planned: '8', working: '8', break: '0', sum: '8', quantity: 1 },
@@ -48,9 +35,5 @@ const tuesday = [
 ];
 const data = ref([...monday, ...tuesday]);
 
-const xx = ref([
-  { planned: '1', working: '00', break: '111', sum: '22222' },
-  { planned: '2', working: '00', break: '111', sum: '22222' },
-  { planned: '3', working: '0', break: '111', sum: '22222' },
-]);
+
 </script>
