@@ -15,48 +15,71 @@
                 <Column field="code" header="Projekt"></Column>
                 <Column field="id" header="ID"></Column>
                 <Column field="monday" :header="dateHeader.monday">
-                    <template #body="slotProps">
-              <template v-if="slotProps.index < monday.length">
-                <InnerTable2 :people="monday[slotProps.index]" />
-              </template>
-            </template>
-            </Column>
-                
+                    <template #body="{ row }">
+                        <DataTable :value="innerTable">
+                            <Column v-for="col in columns" :key="col.field" :field="col.field" :header="col.header"
+                                :style="{ width: col.width }">
+                                <template #body="{ data, field }">
 
+
+
+                                    <div v-if="field === 'plannedTime'">
+                                        <InputText v-model="data[field]" />
+                                    </div>
+                                    <div v-else-if="field === 'workingTimes'">
+                                        <InputText v-model="data[field]" />
+                                    </div>
+                                    <div v-else-if="field === 'breakTime'">
+                                        <InputText v-model="data[field]" />
+                                    </div>
+                                    <div v-else-if="field === 'sumTime'">
+                                        <InputText v-model="data[field]" />
+                                    </div>
+
+
+
+                                </template>
+                            </Column>
+                        </DataTable>
+                    </template>
+                </Column>
+
+                <!-- Continue with the rest of your columns -->
                 <Column field="tuesday" :header="dateHeader.tuesday">
-                    <template #body="slotProps">
-                     <template v-if="slotProps.index < tuesday.length">
-                    <InnerTable2 :people="tuesday[slotProps.index]" />
-                  </template>
-                  </template>
+                    <template #body="{ row }">
+                        <DataTable :value="innerTable">
+                            <Column v-for="col in columns" :key="col.field" :field="col.field" :header="col.header"
+                                :style="{ width: col.width }">
+                                <template #body="{ data, field }">
+
+
+                                    <div v-if="field === 'plannedTime'">
+                                        <InputText v-model="data[field]" />
+                                    </div>
+                                    <div v-else-if="field === 'workingTimes'">
+                                        <InputText v-model="data[field]" />
+                                    </div>
+                                    <div v-else-if="field === 'breakTime'">
+                                        <InputText v-model="data[field]" />
+                                    </div>
+                                    <div v-else-if="field === 'sumTime'">
+                                        <InputText v-model="data[field]" />
+                                    </div>
+
+
+
+                                </template>
+                            </Column>
+                        </DataTable>
+                    </template>
                 </Column>
 
 
 
 
-                <Column field="wensday" :header="dateHeader.wednesday">
-                    <template #body="slotProps">
-                         <template v-if="slotProps.index < wednesday.length">
-                        <InnerTable2 :people="wednesday[slotProps.index]" />
-                      </template>
-                      </template>
-                    </Column>
-               
-                    <Column field="thursday" :header="dateHeader.thursday">
-                        <template #body="slotProps">
-                         <template v-if="slotProps.index < thursday.length">
-                        <InnerTable2 :people="thursday[slotProps.index]" />
-                      </template>
-                      </template>
-                        </Column>
-
-                <Column field="friday" :header="dateHeader.friday">
-                    <template #body="slotProps">
-                         <template v-if="slotProps.index < friday.length">
-                        <InnerTable2 :people="friday[slotProps.index]" />
-                      </template>
-                      </template>
-                    </Column>
+                <Column field="wensday" :header="dateHeader.wednesday"></Column>
+                <Column field="thursday" :header="dateHeader.thursday"></Column>
+                <Column field="friday" :header="dateHeader.friday"></Column>
                 <Column field="changeWeek" header="">
                     <template #header="slotProps">
                         <div class="buttonContainer">
@@ -76,18 +99,24 @@
 import { ref, onMounted, reactive } from 'vue';
 import axios from 'axios';
 import Dropdown from 'primevue/dropdown';
-import InnerTable2 from './InnerTable2.vue';
+
+
+const innerTable = reactive([
+    { plannedTime: '', workingTimes: '', breakTime: '', sumTime: '' }
+])
 
 
 
-// monday Array
- const monday = [];
-const tuesday = [];
-const wednesday = [];
-const thursday = [];
-const friday = [];
+const columns = ref([
+    { field: 'plannedTime', header: 'Plan', width: '25%' },
+    { field: 'workingTimes', header: 'Work', width: '25%' },
+    { field: 'breakTime', header: 'Break', width: '25%' },
+    { field: 'sumTime', header: 'Summe', width: '25%' },
+    // Add more columns as needed
+]);
 
-    
+
+
 
 
 let employeeId;
@@ -197,93 +226,29 @@ async function getDataFromBackend(employeeId) {
 }
 
 
-
-
-
-
- async function processData(backendData) {
-
-    
- 
-    const monthArray = fillmonthArray();
-    console.log(monthArray);
-
-    const positionArray = [];
+function processData(backendData) {
     backendData.forEach((element) => {
-        positionArray.push(element.id);
-    });
-
-    for (const date of monthArray) {
-        console.log(date);
-
-        for (const [index,position] of positionArray.entries()) {
-            const url = `http://localhost:8000/getBookingTimes/${position}/${date}`;
-            const response = await axios.get(url);
-
-            const bookingTimesArray = response.data.bookingTimes;
-            console.log(bookingTimesArray);
-
-            // if (bookingTimesArray.length === 0) {
-            //     monday.push({ planned: 0, working: '0', break: '0', sum: '0' });
-            // 
-                 for (const element of bookingTimesArray) {
-                console.log(element);
-                const planStart = element.forecast_start.slice(0, 2);
-                const planEnd = element.forecast_end.slice(0, 2);
-                const planned = planEnd - planStart;
-                const workingTimes = element.start_time + '-' + element.end_time;
-                const breakTime = element.pause;
-                const sumTime = element.end_time.slice(0, 2) - element.start_time.slice(0, 2);
-                const positionId = element.position_id;
-                
-                console.log(index)    
-
-
-
-                if (date == dateHeader.value.monday.slice(5) && positionId == position)
-                    monday[index] = { planned, working: workingTimes, break: breakTime, sum: sumTime };
-                if (date == dateHeader.value.tuesday.slice(5) && positionId == position)
-                    tuesday[index] = { planned, working: workingTimes, break: breakTime, sum: sumTime };
-                if (date == dateHeader.value.wednesday.slice(5) && positionId == position)
-                    wednesday[index] = { planned, working: workingTimes, break: breakTime, sum: sumTime };
-                if (date == dateHeader.value.thursday.slice(5) && positionId == position)
-                    thursday[index] = { planned, working: workingTimes, break: breakTime, sum: sumTime };
-                if (date == dateHeader.value.friday.slice(5) && positionId == position)
-                    friday[index] = { planned, working: workingTimes, break: breakTime, sum: sumTime };
-
-
-            }
-        }
-    }
-        
-           backendData.forEach((element) => {
         products.value.push({ code: element.projectName + " " + element.id, id: element.id })
-    });
-    
-
-   
-
-       
-    
-
-    
 
 
-   //fillInnerTable();
+    })
+
+    fillInnerTable()
+
+
 
 
 }
+
+
 const positionArray = [];
 
 
 async function fillInnerTable() {
-      
-
     try {
-        
         const monthArray = fillmonthArray();
 
-     
+
         products.value.forEach((element) => {
             positionArray.push(element.id)
         })
@@ -296,7 +261,7 @@ async function fillInnerTable() {
         const bookingTimes = (response.data.bookingTimes)
         console.log(bookingTimes)
 
-       
+
         bookingTimes.forEach((element, index) => {
             const planStart = element.forecast_start.slice(0, 2)
             const planEnd = element.forecast_end.slice(0, 2)
@@ -304,13 +269,23 @@ async function fillInnerTable() {
             const workingTimes = element.start_time + "-" + element.end_time;
             const breakTime = element.pause;
             const sumTime = element.end_time.slice(0, 2) - element.start_time.slice(0, 2)
-           
-            monday.push({ planned: 15, working: 'Hey', break: 't', sum: 'ttt' })
-            console.log(monday)
-               
+            const x = { plannedTime: planed, workingTimes: workingTimes, breakTime: breakTime, sumTime: sumTime }
+            const y = { plannedTime: planed, workingTimes: workingTimes, breakTime: breakTime, sumTime: sumTime }
+
+
+            innerTable[0] = x
+
+
+
+
+
+            // innerTable[index].plannedTime = planed;
+            // innerTable[index].workingTimes = workingTimes;
+            // innerTable[index].breakTime = breakTime;
+            // innerTable[index].sumTime = sumTime;
+
         })
 
-        
     }
     catch (error) {
         console.log(error)
@@ -326,7 +301,6 @@ function nextWeek() {
 function previousWeek() {
     currentDate.setDate(currentDate.getDate() - 7);
     updateDateHeader();
-   
 }
 
 

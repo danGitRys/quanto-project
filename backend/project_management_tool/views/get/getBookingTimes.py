@@ -11,7 +11,8 @@ def getBookingTimes(request, id, currentDay) -> JsonResponse:
             # DIE 8 MUSS NOCH ERSETZT WERDEN DURCH EMPLOYEE_ID, PFAD MUSS AUCH NOCH ANGEPASST WERDEN 2xint
             sql_statement = """
             
-                SELECT CONVERT(TIME, booking.start) AS start_time, CONVERT(TIME, booking.[end]) AS end_time, pause,  CONVERT(TIME, f.start) AS forecast_start , CONVERT(TIME, f.[end]) AS forcast_end
+                SELECT CONVERT(TIME, booking.start) AS start_time, CONVERT(TIME, booking.[end]) AS end_time, pause,  CONVERT(TIME, f.start) AS forecast_start , CONVERT(TIME, f.[end]) AS forcast_end,
+                f.fk_position AS position_id
                 FROM booking
                 JOIN forecast AS f ON f.fk_position = booking.fK_position
                 WHERE f.fk_position = %s AND CAST(f.start AS DATE) = CONVERT(date, %s, 104)
@@ -21,7 +22,7 @@ def getBookingTimes(request, id, currentDay) -> JsonResponse:
             """
             cursor.execute(sql_statement, [id, currentDay, currentDay])
             # Fetch the results
-            result = [{"start_time": row[0], "end_time": row[1], "pause": row[2], "forecast_start": row[3], "forecast_end": row[4]}
+            result = [{"start_time": row[0], "end_time": row[1], "pause": row[2], "forecast_start": row[3], "forecast_end": row[4], "position_id": row[5]}
                       for row in cursor.fetchall()]
 
         # Process 'result' and return JsonResponse
