@@ -15,3 +15,5 @@ from .getProjectsOfEmployee import *
 from .getTest import *
 from .getBookingTimes import *
 from .getProjectsWhereProjectLeader import *
+from .getForecastForDay import *
+from .getBookingTimesForDay import *

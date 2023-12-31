@@ -57,7 +57,16 @@
                       </template>
                       </template>
                     </Column>
-                <Column field="changeWeek" header="">
+                 
+                    <Column field="timeCorrection" header="TimeCorrection">
+                        <template #body="slotProps">
+                            <button class="confirmButton" @click="confirmTimeCorrection(slotProps.index)">Confirm</button>
+                          </template>
+                        
+                        </Column>
+                
+                
+                    <Column field="changeWeek" header="">
                     <template #header="slotProps">
                         <div class="buttonContainer">
                             <button @click="previousWeek">&#9665;</button>
@@ -200,7 +209,7 @@ async function getDataFromBackend(employeeId) {
 
 
 
-
+let bookingTimesArray = [];
  async function processData(backendData) {
 
     
@@ -217,57 +226,78 @@ async function getDataFromBackend(employeeId) {
         console.log(date);
 
         for (const [index,position] of positionArray.entries()) {
-            const url = `http://localhost:8000/getBookingTimes/${position}/${date}`;
-            const response = await axios.get(url);
+            const urlBookingTimes = `http://localhost:8000/getBookingTimesForDay/${position}/${date}`;
+            const urlForecastTimes = `http://localhost:8000/getForecastForDay/${position}/${date}`;
+            const responseBookingTimes = await axios.get(urlBookingTimes);
+            const responseForecastTimes = await axios.get(urlForecastTimes);
+            let bookingArray = responseBookingTimes.data.bookingTimes[0];
+            let forecastArray = responseForecastTimes.data.forecastTimes[0];
 
-            const bookingTimesArray = response.data.bookingTimes;
-            console.log(bookingTimesArray);
-
-            // if (bookingTimesArray.length === 0) {
-            //     monday.push({ planned: 0, working: '0', break: '0', sum: '0' });
-            // 
-                 for (const element of bookingTimesArray) {
-                console.log(element);
-                const planStart = element.forecast_start.slice(0, 2);
-                const planEnd = element.forecast_end.slice(0, 2);
-                const planned = planEnd - planStart;
-                const workingTimes = element.start_time + '-' + element.end_time;
-                const breakTime = element.pause;
-                const sumTime = element.end_time.slice(0, 2) - element.start_time.slice(0, 2);
-                const positionId = element.position_id;
-                
-                console.log(index)    
-
-
-
-                if (date == dateHeader.value.monday.slice(5) && positionId == position)
-                    monday[index] = { planned, working: workingTimes, break: breakTime, sum: sumTime };
-                if (date == dateHeader.value.tuesday.slice(5) && positionId == position)
-                    tuesday[index] = { planned, working: workingTimes, break: breakTime, sum: sumTime };
-                if (date == dateHeader.value.wednesday.slice(5) && positionId == position)
-                    wednesday[index] = { planned, working: workingTimes, break: breakTime, sum: sumTime };
-                if (date == dateHeader.value.thursday.slice(5) && positionId == position)
-                    thursday[index] = { planned, working: workingTimes, break: breakTime, sum: sumTime };
-                if (date == dateHeader.value.friday.slice(5) && positionId == position)
-                    friday[index] = { planned, working: workingTimes, break: breakTime, sum: sumTime };
-
-
+            if (bookingArray == undefined) {
+                bookingArray = {start_time_booking: '00', end_time_booking: '00', pause_booking: '0'};
             }
+
+            if(forecastArray == undefined) {
+                forecastArray = {forecast_start: '00', forecast_end: '00', position_id: position};
+            }
+
+
+            console.log(bookingArray);
+            console.log(forecastArray);
+        
+
+
+            
+            bookingTimesArray = [{...bookingArray, ...forecastArray}]
+            console.log(bookingTimesArray);
+          
+                 for (const element of bookingTimesArray) {
+                     if (Object.keys(element).length === 0) {
+                    console.log('Das Objekt ist leer.');
+                } else {
+                    console.log('Das Objekt ist nicht leer.');
+                     console.log(element);
+
+                    const planStart = element.forecast_start.slice(0, 2);
+                    const planEnd = element.forecast_end.slice(0, 2);
+                    const planned = planEnd - planStart;
+                    const workingTimes = element.start_time_booking + '-' + element.end_time_booking;
+                    const breakTime = element.pause_booking;
+                    const sumTime = element.end_time_booking.slice(0, 2) - element.start_time_booking.slice(0, 2);
+                    const positionId = element.position_id;
+
+                    const x = { planned: planned, working: workingTimes, break: breakTime, sum: sumTime }
+                    console.log(x)
+
+
+
+                    if (date == dateHeader.value.monday.slice(5) && positionId == position)
+                        monday[index] = { planned, working: workingTimes, break: breakTime, sum: sumTime };
+                    if (date == dateHeader.value.tuesday.slice(5) && positionId == position)
+                        tuesday[index] = { planned, working: workingTimes, break: breakTime, sum: sumTime };
+                    if (date == dateHeader.value.wednesday.slice(5) && positionId == position)
+                        wednesday[index] = { planned, working: workingTimes, break: breakTime, sum: sumTime };
+                    if (date == dateHeader.value.thursday.slice(5) && positionId == position)
+                        thursday[index] = { planned, working: workingTimes, break: breakTime, sum: sumTime };
+                    if (date == dateHeader.value.friday.slice(5) && positionId == position)
+                        friday[index] = { planned, working: workingTimes, break: breakTime, sum: sumTime };
+                 
+                    // Hier kannst du weiteren Code für nicht leere Objekte hinzufügen
+                }
+            }
+                
+               
+             
+                
+
+           
         }
     }
         
            backendData.forEach((element) => {
-        products.value.push({ code: element.projectName + " " + element.id, id: element.id })
+        products.value.push({ code: element.projectName, id: element.id })
     });
     
-
-   
-
-       
-    
-
-    
-
 
    //fillInnerTable();
 
@@ -395,5 +425,12 @@ function formatDate(date) {
 
     font-size: 32px;
     padding: 5%;
+}
+
+.confirmButton {
+   border: 1px solid black;
+   border-radius: 5px;
+   padding: 5px;
+   background-color: rgb(9, 255, 17); 
 }
 </style>
