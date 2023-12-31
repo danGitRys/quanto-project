@@ -274,15 +274,15 @@ let bookingTimesArray = [];
 
 
                     if (date == dateHeader.value.monday.slice(5) && positionId == position)
-                        monday[index] = { planned, working: workingTimes, break: breakTime, sum: sumTime };
+                        monday[index] = { planned, working: workingTimes, break: breakTime, sum: sumTime, positionId: position, selectedDate: date };
                     if (date == dateHeader.value.tuesday.slice(5) && positionId == position)
-                        tuesday[index] = { planned, working: workingTimes, break: breakTime, sum: sumTime };
+                        tuesday[index] = { planned, working: workingTimes, break: breakTime, sum: sumTime, positionId: position, selectedDate: date };
                     if (date == dateHeader.value.wednesday.slice(5) && positionId == position)
-                        wednesday[index] = { planned, working: workingTimes, break: breakTime, sum: sumTime };
+                        wednesday[index] = { planned, working: workingTimes, break: breakTime, sum: sumTime, positionId: position, selectedDate: date };
                     if (date == dateHeader.value.thursday.slice(5) && positionId == position)
-                        thursday[index] = { planned, working: workingTimes, break: breakTime, sum: sumTime };
+                        thursday[index] = { planned, working: workingTimes, break: breakTime, sum: sumTime, positionId: position, selectedDate: date };
                     if (date == dateHeader.value.friday.slice(5) && positionId == position)
-                        friday[index] = { planned, working: workingTimes, break: breakTime, sum: sumTime };
+                        friday[index] = { planned, working: workingTimes, break: breakTime, sum: sumTime, positionId: position, selectedDate: date };
                  
                     // Hier kannst du weiteren Code für nicht leere Objekte hinzufügen
                 }

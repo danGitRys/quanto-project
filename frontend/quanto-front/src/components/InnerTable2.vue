@@ -27,6 +27,8 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
+import axios from 'axios';
+
 const props = defineProps(['people']);
 
 
@@ -38,21 +40,42 @@ const columns = ref([
 ]);
 
 
-const onCellEditComplete = (event) => {
+const onCellEditComplete = async (event) => {
     let { data, newValue, field } = event;
 
-    switch (field) {
-        case 'quantity':
-        case 'price':
-            if (isPositiveInteger(newValue)) data[field] = newValue;
-            else event.preventDefault();
-            break;
+    try{
+        if(field === 'working') {
+            event.preventDefault();
+         //if (newValue.trim().length > 0) data[field] = newValue;
+        const x = event.newData
+        console.log(x)
+        const working = x.working;
+        const start =  working.slice(0, 5);
+            const end =  working.slice(6, 11);
+            console.log(start)
+            console.log(end)
+            const testDate = x.selectedDate;
 
-        default:
-            if (newValue.trim().length > 0) data[field] = newValue;
-            else event.preventDefault();
-            break;
+
+            const data = {
+                fk_employee: 15,
+                fk_position: 1,
+                start: '2023-12-28' + ' ' + start + ':00' ,
+                end: '2023-12-28' + ' ' + end + ':00',
+                pause: '1'
+            }
+        console.log(data)
+
+        const url = 'http://localhost:8000/updateBooking/3020';
+        const response = await axios.put(url, data); 
+        console.log(response)
     }
+    }
+    catch(error){
+        console.log(error);
+    }
+
+
 };
 
 

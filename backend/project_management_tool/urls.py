@@ -80,4 +80,5 @@ urlpatterns = [
     path('getProjectsWhereProjectLeader/<int:id>', getProjectsWhereProjectLeader),
     path('getForecastForDay/<int:id>/<str:currentDay>/<int:empId>',getForecastForDay),
     path('getBookingTimesForDay/<int:id>/<str:currentDay>/<int:empId>', getBookingTimesForDay),
+    path('updateBooking/<int:booking_id>', updateBooking),
 ]
