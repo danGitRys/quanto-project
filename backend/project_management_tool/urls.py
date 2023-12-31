@@ -78,6 +78,6 @@ urlpatterns = [
     path('getTest/<int:id>/<int:projectKey>',getTest),
     path('getBookingTimes/<int:id>/<str:currentDay>',getBookingTimes),
     path('getProjectsWhereProjectLeader/<int:id>', getProjectsWhereProjectLeader),
-    path('getForecastForDay/<int:id>/<str:currentDay>',getForecastForDay),
-    path('getBookingTimesForDay/<int:id>/<str:currentDay>',getBookingTimesForDay),
+    path('getForecastForDay/<int:id>/<str:currentDay>/<int:empId>',getForecastForDay),
+    path('getBookingTimesForDay/<int:id>/<str:currentDay>/<int:empId>', getBookingTimesForDay),
 ]

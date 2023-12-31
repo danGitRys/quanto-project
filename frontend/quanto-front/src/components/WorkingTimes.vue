@@ -226,8 +226,10 @@ let bookingTimesArray = [];
         console.log(date);
 
         for (const [index,position] of positionArray.entries()) {
-            const urlBookingTimes = `http://localhost:8000/getBookingTimesForDay/${position}/${date}`;
-            const urlForecastTimes = `http://localhost:8000/getForecastForDay/${position}/${date}`;
+            employeeId = selectedName.value.employeeId;
+           
+            const urlBookingTimes = `http://localhost:8000/getBookingTimesForDay/${position}/${date}/${employeeId}`;
+            const urlForecastTimes = `http://localhost:8000/getForecastForDay/${position}/${date}/${employeeId}`;
             const responseBookingTimes = await axios.get(urlBookingTimes);
             const responseForecastTimes = await axios.get(urlForecastTimes);
             let bookingArray = responseBookingTimes.data.bookingTimes[0];
@@ -293,7 +295,7 @@ let bookingTimesArray = [];
            
         }
     }
-        
+        //// Position Name hinzufügen????
            backendData.forEach((element) => {
         products.value.push({ code: element.projectName, id: element.id })
     });
