@@ -1,14 +1,14 @@
 <template>
     <div class="card p-fluid">
         <DataTable :value="[people]" editMode="cell" @cell-edit-complete="onCellEditComplete" :pt="{
-            table: { style: 'min-width: 20rem' },
+            table: { style: 'min-width: 15rem' },
             column: {
                 bodycell: ({ state }) => ({
                     class: [{ 'pt-0 pb-0': state['d_editing'] }]
                 })
             }
         }">
-            <Column v-for="col of columns" :key="col.field" :field="col.field" :header="col.header" style="width: 25%">
+            <Column v-for="col of columns" :key="col.field" :field="col.field" :header="col.header" style="width: 5%">
                 <template #body="{ data, field }">
                     {{ field === 'price' ? formatCurrency(data[field]) : data[field] }}
                 </template>

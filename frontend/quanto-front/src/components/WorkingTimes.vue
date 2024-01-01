@@ -60,7 +60,7 @@
                  
                     <Column field="timeCorrection" header="TimeCorrection">
                         <template #body="slotProps">
-                            <button class="confirmButton" @click="confirmTimeCorrection(slotProps.index)">Confirm</button>
+                            <button class="confirmButton" :id="'confirmButton' + slotProps.index" @click="confirmTimeCorrection(slotProps.index)">Confirm</button>
                           </template>
                         
                         </Column>
@@ -105,7 +105,31 @@ const selectedProject = ref();
 const selectedName = ref();
 
 
+function confirmTimeCorrection(index) {
+    const confirmButton = document.getElementById('confirmButton' + index);
+
+    // Zugriff auf die Tabelle (parentNode der Tabellenzeile)
+    const table = confirmButton.closest('table');
+
+    // Ändern der Hintergrundfarbe der gesamten Tabelle
+    table.classList.add('tableConfirmed');
+
+    // Ändern der Stile des Buttons
+    confirmButton.style.backgroundColor = 'green';
+    confirmButton.style.color = 'white';
+    confirmButton.innerHTML = 'Confirmed';
+    confirmButton.disabled = true;
+}
+
+
+
+
+
 function fetchDataOfEmployee() {
+    let isSelected = true;
+    if (isSelected){
+        clearTable();
+    }
     employeeId = selectedName.value.employeeId
     console.log(employeeId)
     getDataFromBackend(employeeId)
@@ -236,11 +260,11 @@ let bookingTimesArray = [];
             let forecastArray = responseForecastTimes.data.forecastTimes[0];
 
             if (bookingArray == undefined) {
-                bookingArray = {start_time_booking: '00', end_time_booking: '00', pause_booking: '0'};
+                bookingArray = {start_time_booking: '00:00:00', end_time_booking: '00:00:00', pause_booking: '0'};
             }
 
             if(forecastArray == undefined) {
-                forecastArray = {forecast_start: '00', forecast_end: '00', position_id: position};
+                forecastArray = {forecast_start: '00:00:00', forecast_end: '00:00:00', position_id: position};
             }
 
 
@@ -301,63 +325,37 @@ let bookingTimesArray = [];
     });
     
 
-   //fillInnerTable();
-
 
 }
-const positionArray = [];
 
 
-async function fillInnerTable() {
-      
-
-    try {
-        
-        const monthArray = fillmonthArray();
-
-     
-        products.value.forEach((element) => {
-            positionArray.push(element.id)
-        })
-        console.log(console.log(monthArray))
-        console.log(console.log(positionArray))
 
 
-        const url = `http://localhost:8000/getBookingTimes/3013/${monthArray[0]}`
-        const response = await axios.get(url)
-        const bookingTimes = (response.data.bookingTimes)
-        console.log(bookingTimes)
-
-       
-        bookingTimes.forEach((element, index) => {
-            const planStart = element.forecast_start.slice(0, 2)
-            const planEnd = element.forecast_end.slice(0, 2)
-            const planed = planEnd - planStart;
-            const workingTimes = element.start_time + "-" + element.end_time;
-            const breakTime = element.pause;
-            const sumTime = element.end_time.slice(0, 2) - element.start_time.slice(0, 2)
-           
-            monday.push({ planned: 15, working: 'Hey', break: 't', sum: 'ttt' })
-            console.log(monday)
-               
-        })
-
-        
-    }
-    catch (error) {
-        console.log(error)
-    }
-}
 
 // Funktion, um die Datumswerte auf die nächste Woche zu ändern
 function nextWeek() {
     currentDate.setDate(currentDate.getDate() + 7);
     updateDateHeader();
+    clearTable();
+    fetchDataOfEmployee();
+ 
+}
+
+function clearTable(){
+    monday.length = 0;
+    tuesday.length = 0;
+    wednesday.length = 0;
+    thursday.length = 0;
+    friday.length = 0;
+    products.value.length = 0;
+
 }
 
 function previousWeek() {
     currentDate.setDate(currentDate.getDate() - 7);
     updateDateHeader();
+    clearTable();
+    fetchDataOfEmployee();
    
 }
 
@@ -418,21 +416,29 @@ function formatDate(date) {
 </script>
 
 <style scoped>
+
+.tableConfirmed {
+    background-color: lightgreen;
+    /* Add other styles as needed */
+}
+
+
 .buttonContainer {
     width: 70px;
 }
 
 .buttonContainer>button {
-    color: aqua;
-
+    color:  #304C5D;
     font-size: 32px;
     padding: 5%;
 }
 
 .confirmButton {
+   
    border: 1px solid black;
    border-radius: 5px;
    padding: 5px;
    background-color: rgb(9, 255, 17); 
+   margin-left: 25px;
 }
 </style>
