@@ -51,22 +51,31 @@ const onCellEditComplete = async (event) => {
         console.log(x)
         const working = x.working;
         const start =  working.slice(0, 5);
-            const end =  working.slice(6, 11);
-            console.log(start)
-            console.log(end)
-            const testDate = x.selectedDate;
+        const end =  working.slice(6, 11);
+        console.log(start)
+         console.log(end)
+         const bookingId = x.bookingId;
+         console.log(bookingId)
+        const germanDateFormat = x.selectedDate;
+        const parts = germanDateFormat.split(".");
+        const day = parts[0];
+        const month = parts[1];
+        const year = parts[2];
+        const formattedDate = new Date(`${year}-${month}-${day}`).toISOString().split('T')[0];
+
+        console.log(formattedDate)
 
 
             const data = {
                 fk_employee: 15,
                 fk_position: 1,
-                start: '2023-12-28' + ' ' + start + ':00' ,
-                end: '2023-12-28' + ' ' + end + ':00',
+                start: formattedDate + ' ' + start + ':00' ,
+                end: formattedDate + ' ' + end + ':00',
                 pause: '1'
             }
         console.log(data)
 
-        const url = 'http://localhost:8000/updateBooking/3020';
+        const url = `http://localhost:8000/updateBooking/${bookingId}`;
         const response = await axios.put(url, data); 
         console.log(response)
     }

@@ -111,6 +111,11 @@ const routes = [
     component: WorkingTimesView,
   },
   {
+    path: "/WorkingTimes",
+    name: "Working Times",
+    component: WorkingTimesView,
+  },
+  {
     path: "/test",
     name: "test",
     component: InnerTables,
