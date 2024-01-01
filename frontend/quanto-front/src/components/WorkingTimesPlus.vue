@@ -2,12 +2,12 @@
     <div>
         <div class="card flex justify-content-center">
             <Dropdown v-model="selectedProject" :options="projectNames" @change="fetchEmployeesOfProject" optionLabel="name"
-                placeholder="Project Name" class="w-full md:w-14rem" />
+                placeholder="Project Name" id='projectNameDropDown' class="w-full md:w-14rem"/>
         </div>
 
         <div class="card flex justify-content-center">
             <Dropdown v-model="selectedName" :options="employeeNames" @change="fetchDataOfEmployee" optionLabel="name"
-                placeholder="Employees" class="w-full md:w-14rem" />
+                placeholder="Employees" id='employeeDropDown' class="w-full md:w-14rem" />
         </div>
 
         <div class="card">
@@ -417,6 +417,19 @@ function formatDate(date) {
 
 <style scoped>
 
+#projectNameDropDown {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-weight: 900; 
+   
+}
+
+#employeeDropDown {
+    
+    margin-bottom: 10px;
+    font-weight: 900;
+}
+
 .tableConfirmed {
     background-color: lightgreen;
     /* Add other styles as needed */
@@ -441,4 +454,17 @@ function formatDate(date) {
    background-color: rgb(9, 255, 17); 
    margin-left: 25px;
 }
+.dropDownButton {
+    height: 500px;
+    width:500px;    
+    font-size: 500px;
+    font-weight: bold;
+    color: #304C5D;
+}
+.p-dropdown-label p-inputtext p-placeholder{
+    font-size: 500px;
+    font-weight: bold;
+    color: #304C5D;
+}
+
 </style>

@@ -106,8 +106,8 @@ const routes = [
   },
 
   {
-    path: "/WorkingTimes",
-    name: "Working Times",
+    path: "/WorkingTimesPlus",
+    name: "Working Times+",
     component: WorkingTimesView,
   },
   {
