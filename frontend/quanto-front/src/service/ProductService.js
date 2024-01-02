@@ -1,4 +1,3 @@
-
 // ProductServices.js
 export const ProductService = {
   async getProductsMini() {

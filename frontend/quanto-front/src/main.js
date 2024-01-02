@@ -17,7 +17,6 @@ import './assets/app.css'
 // Plugins
 import { registerPlugins } from "@/plugins";
 import { createPinia } from 'pinia'
-import { useUser } from './store/user'
 
 // Primevue Components
 import InputGroup from 'primevue/inputgroup';
@@ -32,17 +31,26 @@ import Card from 'primevue/card';
 import Splitter from 'primevue/splitter';
 import SplitterPanel from 'primevue/splitterpanel';
 import Dialog from 'primevue/dialog';
-import Toast from "primevue/toast";
-import ToastService from "primevue/toastservice"
+
+import Toast from 'primevue/toast';
+import ToastService from 'primevue/toastservice';
+import VueApexCharts from "vue3-apexcharts";
+//import Card from 'primevue/card';
+import Accordion from 'primevue/accordion';
+import AccordionTab from 'primevue/accordiontab';
+import Fieldset from 'primevue/fieldset';
 
 const pinia = createPinia()
 
 const app = createApp(App);
 app.use(pinia)
 app.use(PrimeVue);
+app.use(ToastService)
+app.use(router)
 registerPlugins(app);
 app.use(ToastService)
 app.use(router)
+app.use(VueApexCharts);
 app.component('DataTable', DataTable)
 app.component('Column', Column)
 app.component('InputText', InputText)
@@ -57,11 +65,18 @@ app.component('InputGroupAddon', InputGroupAddon)
 app.component('Dialog', Dialog)
 app.component('Toast', Toast)
 
+
 const User = useUser()
 const storedToken = localStorage.getItem('token');
 if (storedToken) {
     await User.fetchUserData(storedToken);
 }
+
+
+//app.component('Card',Card)
+app.component('Accordion',Accordion)
+app.component('AccordionTab',AccordionTab)
+app.component('Fieldset',Fieldset)
 
 app.mount("#app");
 

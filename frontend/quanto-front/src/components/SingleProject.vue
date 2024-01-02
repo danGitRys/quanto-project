@@ -1,46 +1,29 @@
 <template>
+
+
+
 <div id="info">
-    <v-card>
-        <v-title>{{ project_name }}</v-title>
-        <p>Company: {{ company }}</p>
+
+
+<Fieldset legend="Project: {{ project_name }}">
+    <p>Company: {{ company }}</p>
         <p>Project ID: {{ project_id }}</p>
         <p>Project Start Date: {{ project_start }}</p>
         <p>Project End Date: {{ project_end }}</p>
         <p>Project Creator: {{ project_creator }}</p>
         <p>Project Creation Date: {{ proejct_creationDate }}</p>
-    </v-card>
+</Fieldset>
+
+
 </div>
-<dif id="Positions">
-    <v-card>
-    <v-title> Positions of project: {{ project_name }}</v-title>
-    <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Position ID</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th>Rate</th>
-            <th>Volume Remaining</th>
-            <th>Volume Total</th>
-            <th>Working Days (wd)</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="position in positonList" :key="position.id">
-            <td>{{ position.id }}</td>
-            <td>{{ position.position_id }}</td>
-            <td>{{ position.start_date }}</td>
-            <td>{{ position.end_date }}</td>
-            <td>{{ position.rate }}</td>
-            <td>{{ position.volume_remaining }}</td>
-            <td>{{ position.volume_total }}</td>
-            <td>{{ position.wd }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </v-card>
-</dif>
+
+
+
+  
+   
+
+
+
 <div id="Assigned Employees">
 
 </div>
@@ -52,11 +35,87 @@
 <div id="Forecast">
 
 </div>
+
+
+<Accordion :multiple="true" :activeIndex="[0]">
+    <AccordionTab header="Header I">
+        <Card>
+    <template #title> Positions in Project </template>
+    <template #content>
+        <DataTable :value="positonList" stripedRows tableStyle="min-width: 50rem">
+    <Column field="id" header="Code"></Column>
+    <Column field="position_id" header="Name"></Column>
+    <Column field="position_name" header="Position-Name"></Column>
+    <Column field="start_date" header="Start Date"></Column>
+    <Column field="end_date" header="End Date"></Column>
+    <Column field="rate" header="Hourly Rate"></Column>
+    <Column field="volume_remaining" header="Volume Remaining"></Column>
+    <Column field="volume_total" header="Volume Total"></Column>
+    <Column field="wd" header="Working Days"></Column>
+</DataTable>
+    </template>
+</Card>
+    </AccordionTab>
+    <AccordionTab header="Header II">
+        <Card>
+    <template #title> Employees in Project </template>
+    <template #content>
+        <DataTable :value="employeeList" stripedRows tableStyle="min-width: 50rem">
+    <Column field="id" header="Id"></Column>
+    <Column field="emp_id" header="Employee-Id"></Column>
+    <Column field="forename" header="Forename"></Column>
+    <Column field="surname" header="Surname"></Column>
+    <Column field="mail" header="mail"></Column>
+    <Column field="phone" header="Phone"></Column>
+   
+</DataTable>
+    </template>
+</Card>
+    </AccordionTab>
+    <AccordionTab header="Header III">
+    <MultiLineGraph/>
+        <Accordion :multiple="true" :activeIndex="[0]">
+    <AccordionTab class="graphClass" header="Header I">
+        <p class="m-0">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+            laborum.
+        </p>
+    </AccordionTab>
+    <AccordionTab header="Header II">
+        <p class="m-0">
+            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo
+            enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.
+        </p>
+    </AccordionTab>
+    <AccordionTab header="Header III">
+        <p class="m-0">
+            At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in
+            culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.
+        </p>
+    </AccordionTab>
+</Accordion>
+    </AccordionTab>
+</Accordion>
+
 </template>
+
+
+<style>
+
+.graphClass{
+    margin-left: 40px;
+}
+
+
+</style>
 
 <script>
 import axios from "axios"
 import { getBaseTransformPreset } from '@vue/compiler-core';
+import 'primevue/resources/themes/lara-light-green/theme.css'
+import MultiLineGraph from "@/components/graphs/ProjectPositionLinearGraph.vue"; // Corrected import
+import { projectIdStore } from "@/store/projectIdStore";
 
 
 export default {
@@ -72,8 +131,14 @@ export default {
             project_creator:'',
             proejct_creationDate:'',
             positonList:[],
+            employeeList:[],
+            projectId: this.$route.params.id
 
         }
+    },
+
+    components:{
+         MultiLineGraph
     },
 
     methods:{
@@ -131,6 +196,7 @@ export default {
                         "fk_project":tempPosition["fk_project"],
                         "id":tempPosition["id"],
                         "position_id":tempPosition["position_id"],
+                        "position_name":tempPosition["position_name"],
                         "rate": tempPosition["rate"],
                         "start_date":tempPosition["start_date"],
                         "volume_remaining":tempPosition["volume_remaining"],
@@ -171,18 +237,20 @@ export default {
                     var tempPosition = tempData[i]
                     console.log(tempPosition)
                     var tempEntry = {
-                        "end_date":tempPosition["end_date"],
-                        "fk_project":tempPosition["fk_project"],
                         "id":tempPosition["id"],
-                        "position_id":tempPosition["position_id"],
-                        "rate": tempPosition["rate"],
-                        "start_date":tempPosition["start_date"],
-                        "volume_remaining":tempPosition["volume_remaining"],
-                        "volume_total":tempPosition["volume_total"],
-                        "wd":tempPosition["wd"]
+                        "emp_id":tempPosition["emp_id"],
+                        "fk_team_id":tempPosition["fk_team_id"],
+                        "forename":tempPosition["forename"],
+                        "surname":tempPosition["surname"],
+                        "mail": tempPosition["mail"],
+                        "phone":tempPosition["phone"],
+                        "company_role":tempPosition["company_role"],
+                        "team_role":tempPosition["team_roll"]
+                    
 
                     }
-                    this.positonList.push(tempEntry)
+                    this.employeeList.push(tempEntry)
+                   
                 }
                 
            
@@ -201,13 +269,17 @@ export default {
 
         getTeam15(){
             window.location.href = '/getTeam/15';
+        },
+        updateProjectId(){
+            projectIdStore().setSharedData(this.$route.params.id);
         }
     },
 
     beforeMount(){
         this.getProject()
         this.getPositonsToProject()
-        this.getEmployeesToProject
+        this.getEmployeesToProject()
+        this.updateProjectId()
     }
 
 
