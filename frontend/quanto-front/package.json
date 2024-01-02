@@ -20,7 +20,9 @@
     "primevue": "^3.42.0",
     "roboto-fontface": "*",
     "vue": "^3.3.8",
+    "vue-chartjs": "^5.3.0",
     "vue-router": "^4.0.0",
+    "vue3-apexcharts": "^1.4.4",
     "vuetify": "^3.3.22"
   },
   "devDependencies": {
