@@ -66,6 +66,8 @@ import { projectIdStore } from "@/store/projectIdStore";
         console.error(error);
       }
   
+
+      
       this.loaded = true;
     }
   };
