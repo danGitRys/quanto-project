@@ -52,7 +52,6 @@ class Employee(models.Model):
             'phone': self.phone,
             'fk_team_id': self.fk_team_id,
             'team_roll': self.team_roll,
-            'company_role':self.company_role
         }
         return serialized_data
 
@@ -68,13 +67,12 @@ class Booking(models.Model):
 
     class Meta:
         db_table = 'booking'
-        unique_together = ['fk_employee', 'fK_position', 'start', 'end']
 
     def toJson(self):
         serialized_data = {
             'id': self.id,
             'fk_employee': self.fk_employee,
-            'fk_position': self.fK_position,
+            'fk_position': self.fk_position,
             'start': self.start.isoformat(),
             'end': self.end.isoformat(),
             'pause': self.pause,
@@ -109,7 +107,6 @@ class Forecast(models.Model):
 class Positon(models.Model):
     id = models.AutoField(primary_key=True)
     position_id = models.TextField(max_length=50)
-    position_name = models.TextField()
     fk_project = models.BigIntegerField()
     rate = models.FloatField()
     wd = models.FloatField()
@@ -125,7 +122,6 @@ class Positon(models.Model):
         serialized_data = {
             'id': self.id,
             'position_id': self.position_id,
-            'position_name':self.position_name,
             'fk_project': self.fk_project,
             'rate': self.rate,
             'wd': self.wd,

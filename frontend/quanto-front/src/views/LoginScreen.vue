@@ -83,26 +83,19 @@ async function getEmployeeData() {
 .logoImage {
     position: absolute;
     top: 25%;
-    }
-
-    .logoContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 35%;
-    height: 500px;
-    position: relative;
-  
-    }
-
-
-
-
+    left: 35%;
+}
 
 .limiter {
     max-height: 100vh;
 }
 
+.logoContainer {
+    display: inline-block;
+    width: 35%;
+    height: 500px;
+    position: relative;
+}
 
 
 .passwordContainer {

@@ -11,19 +11,10 @@ import LandingPage from "@/views/LandingPage.vue";
 import AddEmployee from "@/views/AddEmployee.vue";
 import getTeam from "@/components/demo/getTeamComponent.vue"
 import ManageProject from "@/views/ManageProject.vue";
-
 import singleProject from "@/components/SingleProject.vue"
-
 import dataTable from "@/components/DataTable.vue";
 import TimeCorrection from "@/views/TimeCorrection.vue";
-
 import { useUser } from "@/store/user";
-
-import positionDemoGraph from "@/components/graphs/PositionDemoGraph.vue";
-//import positionLinearDemoGraph from "@/components/graphs/positionLinearDemoGraph.vue";
-import positionLinearGraph from "@/components/graphs/PositionLinearGraph";
-import projectPositonsLinearGraph from "@/components/graphs/ProjectPositionLinearGraph.vue"
-import projectionGraph from "@/components/graphs/PositionProjectionGraph.vue"
 
 
 const routes = [
@@ -42,6 +33,7 @@ const routes = [
       },
     ],
   },
+
   {
     path: "/login",
     name: "Login",
@@ -71,7 +63,7 @@ const routes = [
   },
   {
     path: "/timeRegistration",
-    name: "Time Registration",
+    name: "TimeRegistration",
     component: TimeRegistration,
     meta: { requiresAuth: true },
   },
@@ -115,28 +107,6 @@ const routes = [
     name: "TimeCorrection",
     component: TimeCorrection,
     meta: { requiresAuth: true },
-  },
-
-  {
-    path: "/positionDemoGraph/:id",
-    name: "positionDemoGraph",
-    component: positionDemoGraph,
-  },
-
-  {
-    path: "/positionLinearDemoGraph/:id",
-    name: "positionLinearDemoGraph",
-    component: positionLinearGraph,
-  },
-  {
-    path: "/projectPositionsLinearGraph/:id",
-    name: "projectPositionLinearDemoGraph",
-    component: projectPositonsLinearGraph,
-  },
-  {
-    path: "/projectionGraph/:id",
-    name: "projectionGraph",
-    component:projectionGraph,
   },
 
 

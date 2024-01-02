@@ -1,6 +1,5 @@
 <template>
     <div id="addEmployee">
-        <Toast />
         <Card style="width: 60%">
             <template #title>New Employee</template>
             <template #content>
@@ -89,8 +88,6 @@ import axios from 'axios';
 import AutoComplete from 'primevue/autocomplete';
 import InputText from 'primevue/inputtext';
 import Button from 'primevue/button';
-import Toast from 'primevue/toast';
-import { useToast } from "primevue/usetoast";
 
 export default {
     name: "addEmployee",
@@ -98,7 +95,6 @@ export default {
         AutoComplete,
         InputText,
         Button,
-        Toast,
     },
     data() {
         return {
@@ -112,7 +108,6 @@ export default {
             teamrole: '',
             teams: [],
             teamroles: [],
-
             filteredTeams: [],
             filteredTeamRoles: [],
             searchTeams: (event) => {
@@ -140,7 +135,6 @@ export default {
                     }
                 }
             }
-            toast: useToast(),
         }
     },
     methods: {
@@ -149,7 +143,6 @@ export default {
             this.getTeams(token)
             this.getTeamRoles(token)
         },
-        // Gets Array of all Teams
         async getTeams(token) {
             try {
                 const response = await axios.get("http://localhost:8000/getTeams", {
@@ -159,11 +152,9 @@ export default {
                 })
                 this.teams = response.data.teams
             } catch (error) {
-                this.toast.add({severity: 'error', summary: 'Error', detail: 'An error occured while fetching Teams.', life: 3000})
+                console.log(error);
             }
         },
-
-        // Gets Array of Teamroles
         async getTeamRoles(token) {
             try {
                 const response = await axios.get("http://localhost:8000/getTeamRoles", {
@@ -173,15 +164,13 @@ export default {
                 })
                 this.teamroles = response.data.roles
             } catch (error){
-                this.toast.add({severity: 'error', summary: 'Error', detail: 'An error occured while fetching Teamroles.', life: 3000})
+                console.log("An error occured while fetching Teamroles!")
             }
         },
-        // Find out TeamID of current team
         getTeamID() {
-            for (let i = 0; i < this.teams.length; i++) {
-                if (this.team.name == this.teams[i].name) {
-                    this.teamid = this.teams[i].id
-                }
+            for (let i = 0; i < this.teams.length; i++)
+            if (this.team.name == this.teams[i].name) {
+                this.teamid = this.teams[i].id
             }
             console.log(this.teamid)
         },
@@ -199,6 +188,7 @@ export default {
             const token = localStorage.getItem('token')
             if (this.formIsValid()) {
                 this.getTeamID()
+                console.log(this.teamid)
                 const request = axios.post("http://localhost:8000/createEmployee", {
                     headers: {
                         'Authorization': `Bearer ${token}`,
@@ -213,19 +203,25 @@ export default {
                 }).then(response => {
                     console.log(response)
                     if(response.data['success']==true){
-                        this.toast.add({severity: 'success', summary: 'Success', detail: response.data.message, life: 3000})
+                        alert(response.data.message)
                     }
                     else{
-                        this.toast.add({severity: 'error', summary: 'Error', detail: response.data.error, life: 3000})
+                        alert(response.data.error)
                     }
                 }).catch(error=> {
-                    this.toast.add({severity: 'error', summary: 'Error', detail: 'Error connecting to the Server.', life: 3000})
+                    alert("An error has occured.")
                 })
             }
             else {
-                this.toast.add({severity: 'error', summary: 'Error', detail: 'Please fill in all Fields.', life: 3000})
+                alert("All fields must be filled in!")
             }
         },
+        searchItems(event) {
+            const query = event.query.toLowerCase();
+            this.filteredItems = this.items.filter(item =>
+            item.toLowerCase().includes(query)
+      );
+        }
     },
     created() {
         this.init()

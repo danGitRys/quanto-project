@@ -85,6 +85,8 @@ class formValidator:
                 "fk_project": {"type": "integer"},
                 "fk_employee": {"type": "integer"},
                 "role": {"type": "string"},
+               
+               
             },
             # Specify required keys
             "required": ["fk_project","fk_employee","role"],

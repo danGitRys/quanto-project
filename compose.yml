@@ -4,15 +4,15 @@ services:
   frontend:
     container_name: frontend
     build: ./frontend/quanto-front
-    # develop:
-    #   watch:
-    #     - action: sync
-    #       path: ./frontend/quanto-front
-    #       target: /app
-    #       ignore:
-    #         - node_modules/
-    #     - action: rebuild
-    #       path: package.json
+    develop:
+      watch:
+        - action: sync
+          path: ./frontend/quanto-front
+          target: /app
+          ignore:
+            - node_modules/
+        - action: rebuild
+          path: package.json
     ports:
       - "3000:3000"
       - "3010:3010"

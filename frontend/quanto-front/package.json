@@ -21,11 +21,7 @@
     "roboto-fontface": "*",
     "vue": "^3.3.8",
     "vue-router": "^4.0.0",
-    "vuetify": "^3.3.22",
-    "vue3-apexcharts": "^1.4.4",
-    "apexcharts": "^3.45.0",
-    "chart.js": "^4.4.1",
-    "vue-chartjs": "^5.3.0"
+    "vuetify": "^3.3.22"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.0.0",
@@ -33,9 +29,8 @@
     "eslint-plugin-vue": "^9.3.0",
     "sass": "^1.60.0",
     "unplugin-fonts": "^1.0.3",
-    "vite": "^4.5.1",
+    "vite": "^4.5.0",
     "vite-plugin-node-polyfills": "^0.16.0",
-    "vite-plugin-vuetify": "^1.0.0",
-    "vite-plugin-css": "^1.0.4"
+    "vite-plugin-vuetify": "^1.0.0"
   }
 }

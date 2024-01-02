@@ -50,14 +50,6 @@ export default defineConfig({
       usePolling: true,
       interval: 600,
       binaryInterval: 600,
-    },
-    proxy: {
-      '^/api': {
-        target: 'http://localhost:8000/',
-        changeOrigin: true,
-        logLevel: 'debug',
-        pathRewrite: {'^/api': '/'},
-      },
-    },
+    }
   },
 });
