@@ -125,7 +125,7 @@ router.beforeEach(async (to, from, next) => {
   const storedToken = localStorage.getItem('token') 
   await User.fetchUserData(storedToken)
   const userRole = User.getUserData.team_roll
-  console.log(userRole)
+
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     if (!User.isLoggedIn) {
       next('/login') // Redirect to login if not authenticated
