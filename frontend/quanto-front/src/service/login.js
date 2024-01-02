@@ -17,8 +17,8 @@ export const AuthService = {
             .getToken(email, password)
             .then(user => { console.log(user.accessToken); return user.accessToken })
     },
-        logout() {
-            TokenStorage.signOut();
-            window.location.reload(false);
-        }
+    logout() {
+        TokenStorage.signOut();
+        window.location.reload(false);
     }
+}
