@@ -122,9 +122,6 @@ const router = createRouter({
 router.beforeEach(async (to, from, next) => {
   
   const User = useUser()
-  const storedToken = localStorage.getItem('token') 
-  await User.fetchUserData(storedToken)
-  const userRole = User.getUserData.team_roll
 
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     if (!User.isLoggedIn) {
@@ -132,6 +129,9 @@ router.beforeEach(async (to, from, next) => {
       // next()
     }
     else {
+      const storedToken = localStorage.getItem('token') 
+      await User.fetchUserData(storedToken)
+      const userRole = User.getUserData.team_roll
       if (to.meta.roles) {
         if (!to.meta.roles.includes(userRole)) {
           alert("Not Authorized.")
