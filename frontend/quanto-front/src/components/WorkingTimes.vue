@@ -77,6 +77,7 @@ import { ref, onMounted, reactive } from 'vue';
 import axios from 'axios';
 import Dropdown from 'primevue/dropdown';
 import InnerTable2 from './InnerTable2.vue';
+import { parse } from 'vue/compiler-sfc';
 
 
 
@@ -239,6 +240,7 @@ async function processData(backendData) {
                     const planned = planEnd - planStart;
                     const workingTimes = element.start_time_booking.slice(0, 5) + '-' + element.end_time_booking.slice(0, 5);
                     const breakTime = element.pause_booking;
+                    
                     const sumTime = element.end_time_booking.slice(0, 2) - element.start_time_booking.slice(0, 2) - breakTime;
                     const positionId = element.position_id;
                     const bookingId = element.booking_id;
@@ -276,11 +278,68 @@ async function processData(backendData) {
         products.value.push({ code: element.projectName, id: element.id })
     });
 
-
+    addSumTable();
 
 }
 
+function addSumTable() {
+ 
+    products.value.push({ code: 'Summe' });
+    
+    let mondaySum = 0;
+    let mondayBreakSum = 0;
+    let mondayPlannedSum = 0;
+    let tuesdaySum = 0;
+    let tuesdayBreakSum = 0;
+    let tuesdayPlannedSum = 0;
+    let wednesdaySum = 0;
+    let wednesdayBreakSum = 0;
+    let wednesdayPlannedSum = 0;
+    let thursdaySum = 0;
+    let thursdayBreakSum = 0;
+    let thursdayPlannedSum = 0;
+    let fridaydaySum = 0;
+    let fridayBreakSum = 0;
+    let fridayPlannedSum = 0;
+    
+    for (let i = 0; i < monday.length; i++) {
+        mondaySum += monday[i].sum; 
+        mondayBreakSum += parseInt(monday[i].break, 10); 
+        mondayPlannedSum += monday[i].planned;
+    }
+    
+    for (let i = 0; i < tuesday.length; i++) {
+        tuesdaySum += tuesday[i].sum;
+        tuesdayBreakSum += parseInt(tuesday[i].break, 10);
+        tuesdayPlannedSum += tuesday[i].planned; 
+    }
 
+    for (let i = 0; i < wednesday.length; i++) {
+        wednesdaySum += wednesday[i].sum;
+        wednesdayBreakSum += parseInt(wednesday[i].break, 10); 
+        wednesdayPlannedSum += wednesday[i].planned;
+    }
+
+     for (let i = 0; i < thursday.length; i++) {
+        thursdaySum += thursday[i].sum;
+        thursdayBreakSum += parseInt(thursday[i].break, 10);
+        thursdayPlannedSum += thursday[i].planned;
+    }
+    
+    for (let i = 0; i < friday.length; i++) {
+        fridaydaySum += friday[i].sum;  
+        fridayBreakSum += parseInt(friday[i].break, 10);
+        fridayPlannedSum += friday[i].planned;
+    }
+
+
+    monday[monday.length] = { sum: mondaySum, break: mondayBreakSum, planned: mondayPlannedSum };
+    tuesday[tuesday.length] = { sum: tuesdaySum, break: tuesdayBreakSum, planned: tuesdayPlannedSum };
+    wednesday[wednesday.length] = { sum: wednesdaySum, break: wednesdayBreakSum, planned: wednesdayPlannedSum };
+    thursday[thursday.length] = { sum: thursdaySum, break: thursdayBreakSum, planned: thursdayPlannedSum };
+    friday[friday.length] = { sum: fridaydaySum,    break: fridayBreakSum, planned: fridayPlannedSum};
+   
+}
 
 
 

@@ -31,6 +31,9 @@ import axios from 'axios';
 
 const props = defineProps(['people']);
 
+console.log(props.people)
+
+
 
 const columns = ref([
     { field: 'planned', header: 'Planed' },
