@@ -35,6 +35,7 @@ import Toast from 'primevue/toast';
 import ToastService from 'primevue/toastservice';
 import VueApexCharts from "vue3-apexcharts";
 //import Card from 'primevue/card';
+import { useUser } from './store/user'
 import Accordion from 'primevue/accordion';
 import AccordionTab from 'primevue/accordiontab';
 import Fieldset from 'primevue/fieldset';
