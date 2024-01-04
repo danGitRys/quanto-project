@@ -91,7 +91,7 @@ const friday = [];
 
 
 
-let employeeId;
+
 
 const selectedProject = ref();
 const selectedName = ref();
@@ -134,13 +134,14 @@ const dateHeader = ref({
     thursday: "",
     friday: "",
 })
-
+let employeeId = 2005;
 onMounted(() => {
     getWeekDate();
     // Kann bei WorkingTimes direkt hier aufgerufen werden da wir ID aus dem
     // SESSion Managment bekommen 
     //getDataFromBackend(2);
-    getDataFromBackend(2005);
+   
+    getDataFromBackend(employeeId);
 });
 
 
@@ -201,7 +202,7 @@ async function processData(backendData) {
         for (const [index, position] of positionArray.entries()) {
             
             // HARDGECODET -> WARTEN AUF SESSIONMANGMENT
-            employeeId = 2005;
+          
 
             const urlBookingTimes = `http://localhost:8000/getBookingTimesForDay/${position}/${date}/${employeeId}`;
             const urlForecastTimes = `http://localhost:8000/getForecastForDay/${position}/${date}/${employeeId}`;
