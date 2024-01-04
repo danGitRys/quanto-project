@@ -193,7 +193,7 @@ const data = {
    }
    else {
     // data send to backend for the database entry
-    const url = "http://localhost:8000/createBooking"
+    const url = "http://localhost:8000/booking"
     axios.post(url, data)
       .then(response => {
         console.log(response.data);
