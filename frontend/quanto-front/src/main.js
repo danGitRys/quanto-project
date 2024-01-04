@@ -63,7 +63,9 @@ app.component('InputGroup', InputGroup)
 app.component('InputGroupAddon', InputGroupAddon)
 app.component('Dialog', Dialog)
 app.component('Toast', Toast)
-
+app.component('Accordion',Accordion)
+app.component('AccordionTab',AccordionTab)
+app.component('Fieldset',Fieldset)
 const User = useUser()
 const storedToken = localStorage.getItem('token');
 if (storedToken) {
