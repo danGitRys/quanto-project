@@ -111,6 +111,6 @@ urlpatterns = [
     path('timeTableCombined/<id>',TimeTableCombinedView.as_view()),
     path('timeTableCombined',TimeTableCombinedView.as_view()),
 
-
+]
 
 

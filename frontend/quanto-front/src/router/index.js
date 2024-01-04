@@ -134,8 +134,8 @@ const routes = [
     path: "/test",
     name: "test",
     component: InnerTables,
-  }
-
+  },
+{
     path: "/positionDemoGraph/:id",
     name: "positionDemoGraph",
     component: positionDemoGraph,
