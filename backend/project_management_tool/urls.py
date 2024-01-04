@@ -74,7 +74,7 @@ urlpatterns = [
     path('getPositionsToProjectId/<int:id>', getPositionsToProjectId),
     path('getEmployeesToProjectId/<int:id>', getEmployeesToProjectId),
     path('getProjectsOfEmployee/<int:id>', getProjectsOfEmployee),
-    path('getPositionsOfProjectOfEmployee/<int:id>',getPositionsOfProjectOfEmployee),
+    path('getPositionsOfProjectOfEmployee/<int:id>/<int:empId>',getPositionsOfProjectOfEmployee),
 
     path('positionGraph/<id>',PositionGraphView.as_view()),
     path('positionGraph',PositionGraphView.as_view()),

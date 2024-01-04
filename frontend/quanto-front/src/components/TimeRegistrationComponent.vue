@@ -62,7 +62,10 @@
 <script setup>
 import { onBeforeMount, ref} from 'vue';
 import axios from "axios"
+import { useUser } from '@/store/user';
 
+const User = useUser()
+const employee_id = User.getUserData.id;
 // 2 arrays that receive values from the backend and are dynamically filled
 let projectArray = ref([]);
 let positionArray = ref([]);
@@ -91,9 +94,11 @@ let posID = "";
 // the function loops to my postion Object if it matched the selected Postion I get the posID of the selected Position
 // which I will need for the Backend call
 function selectedPostion(){
+  console.log('test')
   position.name.forEach((element, index) => {
     if(element === selectedProjectPosition.value){
     posID = position.id[index];
+    console.log(posID)
     }
   })
 }
@@ -114,9 +119,8 @@ onBeforeMount(() => {
 getProjectsFromBackend();
 })
 
-// EMPLPOYEE AKTUELL NOCH HARDGECODET >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-let employee_id = 1005;
+
 //function that get all Projects from the Backend from a specific employee
 async function getProjectsFromBackend() {
   // employee_id give back all employees for this employee
@@ -135,12 +139,11 @@ async function getProjectsFromBackend() {
     project.id[i] = respArray[i].id;
   }
 }
-
-// HIER MUSS NOCH DIE EMPPYEE ID MIT ÜBERGEBEN WERDEN IN DER URL 
+ 
 // This funtction gives us all Postions for the selected Project in the Dropdown
 async function getPositionsFromBackend(fk_project){
   // url with the fk_project of the selected project, we need this for our SQL Statment later on
-  const url = `http://localhost:8000/getPositionsOfProjectOfEmployee/${fk_project}`
+  const url = `http://localhost:8000/getPositionsOfProjectOfEmployee/${fk_project}/${employee_id}`
   // get request to the backend
   const response = await axios.get(url)
   let resPositionArray = response.data.positions;
@@ -180,7 +183,7 @@ function sendDatatoBackend() {
    const endDate = `${date.value}` + " " + `${endTime.value + ":00"}`
 
 const data = {
-  "fk_employee": 2,
+  "fk_employee": employee_id,
   "fk_position": posID,
   "start": startDate,
   "end": endDate,
