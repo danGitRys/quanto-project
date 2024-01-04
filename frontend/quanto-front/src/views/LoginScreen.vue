@@ -6,6 +6,9 @@ import { ref, reactive } from 'vue';
 import {AuthService} from '@/service/login.js'
 import axios from "axios"
 import { useRouter } from 'vue-router';
+
+import { useUser } from '@/store/user';
+
 let isPassword = ref(true);
 function showPassword() {
     isPassword.value = !isPassword.value;
@@ -13,7 +16,7 @@ function showPassword() {
 const email = ref('');
 const password = ref('');
 
-
+const User = useUser()
 // 
 async function getEmployeeData() {
     // const url = "http://localhost:3001/"
@@ -22,36 +25,22 @@ async function getEmployeeData() {
     // .catch(err => console.log(err))
     console.log("Called")
     console.log(email.value)
-    var test = undefined
     const router = useRouter(); 
     try {
         const token = await AuthService.login(email.value, password.value);
         console.log("here comes the token")
         console.log(token);
-        axios.post("http://localhost:8000/login",{
-            token:token
-        }).then(response => {
-            console.log(response)
-            if(response.data['login']==true){
-                window.location.href = '/dataTable';
-            }
-            else{
-                alert("Invalid Login")
-            }
-        })
-        .catch(error=> {
-            console.log(error)
-            alert("Invalid Login")
-        })
+
+        if (token) {
+            User.loginUser(token)
+            User.fetchUserData(token)
+            window.location.href = '/'
+        }
     } catch (error) {
         console.error(error);
         alert("Invalid Login");
     }
-    
-    
-    
    
-
 }
 
 

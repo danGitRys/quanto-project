@@ -33,7 +33,12 @@ import SplitterPanel from 'primevue/splitterpanel';
 import Dialog from 'primevue/dialog';
 import Toast from 'primevue/toast';
 import ToastService from 'primevue/toastservice';
-
+import VueApexCharts from "vue3-apexcharts";
+//import Card from 'primevue/card';
+import { useUser } from './store/user'
+import Accordion from 'primevue/accordion';
+import AccordionTab from 'primevue/accordiontab';
+import Fieldset from 'primevue/fieldset';
 const pinia = createPinia()
 
 const app = createApp(App);
@@ -44,6 +49,7 @@ app.use(router)
 registerPlugins(app);
 app.use(ToastService)
 app.use(router)
+app.use(VueApexCharts);
 app.component('DataTable', DataTable)
 app.component('Column', Column)
 app.component('InputText', InputText)
@@ -57,5 +63,14 @@ app.component('InputGroup', InputGroup)
 app.component('InputGroupAddon', InputGroupAddon)
 app.component('Dialog', Dialog)
 app.component('Toast', Toast)
+app.component('Accordion',Accordion)
+app.component('AccordionTab',AccordionTab)
+app.component('Fieldset',Fieldset)
+const User = useUser()
+const storedToken = localStorage.getItem('token');
+if (storedToken) {
+    await User.fetchUserData(storedToken);
+}
+
 app.mount("#app");
 
