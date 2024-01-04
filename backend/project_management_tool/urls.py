@@ -74,6 +74,16 @@ urlpatterns = [
     path('getPositionsToProjectId/<int:id>', getPositionsToProjectId),
     path('getEmployeesToProjectId/<int:id>', getEmployeesToProjectId),
     path('getProjectsOfEmployee/<int:id>', getProjectsOfEmployee),
+
+ 
+    path('getTest/<int:id>/<int:projectKey>',getTest),
+    path('getBookingTimes/<int:id>/<str:currentDay>',getBookingTimes),
+    path('getProjectsWhereProjectLeader/<int:id>', getProjectsWhereProjectLeader),
+    path('getForecastForDay/<int:id>/<str:currentDay>/<int:empId>',getForecastForDay),
+    path('getBookingTimesForDay/<int:id>/<str:currentDay>/<int:empId>', getBookingTimesForDay),
+    path('updateBooking/<int:booking_id>', updateBooking),
+    path('getAllPositionsFromAllProjects/<int:id>', getAllPositionsFromAllProjects),
+
     path('getPositionsOfProjectOfEmployee/<int:id>/<int:empId>',getPositionsOfProjectOfEmployee),
 
     path('positionGraph/<id>',PositionGraphView.as_view()),
@@ -102,4 +112,5 @@ urlpatterns = [
     path('timeTableCombined',TimeTableCombinedView.as_view()),
 
 
-]
+
+
