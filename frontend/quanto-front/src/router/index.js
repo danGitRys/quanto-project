@@ -12,7 +12,7 @@ import AddEmployee from "@/views/AddEmployee.vue";
 import getTeam from "@/components/demo/getTeamComponent.vue"
 import ManageProject from "@/views/ManageProject.vue";
 
-import singleProject from "@/components/SingleProject.vue";
+import singleProject from "@/views/SingleProject.vue";
 
 import dataTable from "@/components/DataTable.vue";
 import TimeCorrection from "@/views/TimeCorrection.vue";
@@ -102,7 +102,7 @@ const routes = [
   },
   {
     path: "/project/:id",
-    name: "project",
+    name: "Single Project",
     component: singleProject,
     meta: { requiresAuth: true },
   },
