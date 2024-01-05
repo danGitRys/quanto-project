@@ -99,7 +99,7 @@
         response.data.positions.forEach(pos => {
           positions.push({ label: `${pos.position_id}`, value: `${pos.id}` });
         });
-        console.log(positions);
+        // console.log(positions);
       });
 
       const employeeData = {

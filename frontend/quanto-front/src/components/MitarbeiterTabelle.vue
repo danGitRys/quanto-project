@@ -28,17 +28,17 @@
     </Column>
     <Column field="pos" header="Pos" style="width: 20%">
       <template #editor="{ data, field }">
-        <Dropdown
-          v-model="data[field]"
+        <MultiSelect
+          v-model="pos"
           :options="getPositionsForDate(data.date)"
           option-label="label"
-          optionValue="value"
           placeholder="Select a Position"
+          
         >
           <template #option="slotProps">
             <Tag :value="slotProps.option.value" :severity="getStatusLabel(slotProps.option.value)" />
           </template>
-        </Dropdown>
+        </MultiSelect>
       </template>
       <template #body="slotProps">
         <Tag :value="slotProps.data.pos" :severity="getStatusLabel(slotProps.data.pos)" />
@@ -55,6 +55,7 @@ import Dropdown from 'primevue/dropdown';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 import Tag from 'primevue/tag';
+import MultiSelect from 'primevue/multiselect';
 
 const { name, tableData, generatedDate, selectedProject, allProjects } = defineProps([
   'name',
@@ -64,27 +65,29 @@ const { name, tableData, generatedDate, selectedProject, allProjects } = defineP
   'allProjects',
 ]);
 
-console.log(generatedDate);
+// console.log(generatedDate);
 const editingRows = ref([]);
 let statuses = ref([]);
 const tableArray = tableData;
-console.log("TABLEARRAY");
-console.log(tableArray);
+// console.log("TABLEARRAY");
+// console.log(tableArray);
+const pos = ref([])
 
 const getPositionsForDate = (date) => {
   const dateItem = tableData.find(item => {
     const itemDate = new Date(item.date).toISOString().split('T')[0];
+    // console.log(itemDate)
     return itemDate === date.toISOString().split('T')[0];
   });
-
-  return dateItem ? dateItem.pos : [];
+  // console.log(dateItem)
+  return dateItem ? dateItem.pos : "Test";
 };
 
 
 
 watch(() => selectedProject, (newProject) => {
-  console.log('IN WATCH' + allProjects.length);
-  console.log(allProjects);
+  // console.log('IN WATCH' + allProjects.length);
+  // console.log(allProjects);
   employeesData.value = [];
   generatedDate.value = [];
 
@@ -92,7 +95,7 @@ watch(() => selectedProject, (newProject) => {
     for (let i = 0; i < allProjects.length; i++) {
       if (newProject == allProjects[i].name) {
         // chosenProjectId = allProjects[i].id;
-        console.log(allProjects[i].id);
+        //console.log(allProjects[i].id);
       }
     }
   }
@@ -100,14 +103,14 @@ watch(() => selectedProject, (newProject) => {
 
 const onRowEditSave = (event) => {
   let { newData, index } = event;
-  console.log(newData);
-  newData.pos = [newData.pos];
-
-  tableData[index] = newData;
+  let _data = tableData[index]
+  console.log(pos.value)
+  _data.pos = pos.value;
+  tableData[index] = _data;
 };
 
 const getStatusLabel = (status) => {
-  console.log(status);
+  //console.log(status);
   switch (status) {
     case `${tableData[0].pos[0].value}`:
       return 'success';
