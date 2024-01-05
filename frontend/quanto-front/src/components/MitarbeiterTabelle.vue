@@ -31,7 +31,7 @@
         <Dropdown
           v-model="data[field]"
           :options="getPositionsForDate(data.date)"
-          optionLabel="name"
+          option-label="label"
           optionValue="value"
           placeholder="Select a Position"
         >

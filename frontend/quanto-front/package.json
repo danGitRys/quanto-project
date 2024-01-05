@@ -14,13 +14,16 @@
     "axios": "^1.6.2",
     "client-oauth2": "^4.3.3",
     "core-js": "^3.29.0",
+    "date-fns": "^3.1.0",
     "pinia": "^2.0.0",
     "primeflex": "^3.3.1",
     "primeicons": "^6.0.1",
     "primevue": "^3.42.0",
     "roboto-fontface": "*",
     "vue": "^3.3.8",
+    "vue-chartjs": "^5.3.0",
     "vue-router": "^4.0.0",
+    "vue3-apexcharts": "^1.4.4",
     "vuetify": "^3.3.22"
   },
   "devDependencies": {
