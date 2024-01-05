@@ -1,306 +1,181 @@
 <template>
-    <div class="containerProjectMonth">
-      <!-- Dropdowns for project selection -->
-        <div class="dropdownProject">
-          <Dropdown
-            v-model="selectedProject"
-            :options="projects"
-            placeholder="Select a Project"
-            style="width: 20em;"
-          />
-        </div>
-      <!-- Calendar for month selection -->
-      <div class="monthPicker">
-        <Calendar
-          v-model="dateMonthPicker"
-          view="month"
-          dateFormat="mm/yy"
-          placeholder="Select a Date"
-          @update:model-value="generateDatesForSelectedMonthTEST"
-        ></Calendar>
-      </div>
-    </div>
-      <!-- Display employee names and editable data -->
-      <div class="container">
-        <div class="cards-container">
-          <div v-for="(name, index) in names" :key="index" class="card-container">
-            <div class="card p-fluid">
-              <!-- Display employee name -->
-              <h1 class="names">{{ name }}</h1>
-  
-              <!-- Display editable data in DataTable -->
-              <div class="scrollable-table">
-                <DataTable :value="generatedDate" editMode="cell" @cell-edit-complete="onCellEditComplete">
-                  <!-- Loop through columns and display data -->
-                  <Column v-for="col of columns" :key="col.field" :field="col.field" :header="col.header" style="width: 25%">
-                    <template #body="{ data, field }">
-                      <!-- Display data based on the field -->
-                      <span v-if="editingRow !== data">
-                        {{ field === 'date' ? formatDateTime(data[field]) : field === 'pos' ? getStatusLabel(data[field]) : data[field] }}
-                      </span>
-                    </template>
-                    <!-- Provide editor for certain fields -->
-                    <template v-if="col.field !== 'date' && col.field !== 'pos'" #editor="{ data, field }">
-                      <InputText v-model="data[field]" ref="inputField" @input="onInput" />
-                    </template>
-                    <!-- Display dropdown for 'pos' field -->
-                    <template v-if="col.field === 'pos'" #body="{ data, field }">
-                      <Dropdown
-                        class="position"
-                        v-model="data[field]"
-                        :options="statuses"
-                        optionLabel="label"
-                        optionValue="value"
-                        placeholder="Select a Pos"
-                      >
-                        <!-- <template #option="slotProps">
-                          <Tag :value="slotProps.option.value" :severity="getStatusLabel(slotProps.option.value)" />
-                        </template> -->
-                      </Dropdown>
-                    </template>
-                  </Column>
-                </DataTable>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-  </template>  
-  
-  <script setup>
-  // Import necessary modules
-  import { ref, onMounted, onUpdated, watch } from 'vue';
-  import Calendar from 'primevue/calendar';
-  import axios from 'axios';
-  import InputText from 'primevue/inputtext';
-  import Dropdown from 'primevue/dropdown';
-  import DataTable from 'primevue/datatable';
-  import Column from 'primevue/column';
-  
-  const selectedProject = ref();
-  const projects = [];
-  const allProjects = [];
-  let chosenProject = '';
-  let chosenProjectId = '';
-  
-  const names = ref([]);
-  
-  const dateMonthPicker = ref(new Date());
-  const generatedDate = ref([]);
-  const editingRow = ref(null);
-  
-  //Define columns for datatable
-  const columns = ref([
-    { field: 'date', header: 'Date' },
-    { field: 'hours_in_projects', header: 'Hours in Projects' },
-    { field: 'hours_this_project', header: 'Hours this Project' },
-    { field: 'pos', header: 'Pos' },
-  ]);
-  
-  const statuses = ref([
-     { label: 'Status 1', value: 'status1' },
-    // { label: 'Status 2', value: 'status2' },
-  ]);
-  
-  //Handle cell edit completion
-  const onCellEditComplete = (event) => {
-    
-  };
-  
-  //Handle cell input
-  const onInput = () => {
-    
-  };
-  
-  const getStatusLabel = (test) => {
-    console.log(test);
-  };
-  
-  //Component update
-  onUpdated(() => {
+  <DataTable
+    class="dataTable"
+    v-model:editingRows="editingRows"
+    :value="tableData"
+    editMode="row"
+    dataKey="id"
+    @row-edit-save="onRowEditSave"
+    :pt="{
+      table: { style: 'min-width: 10em'  },
+      column: {
+        bodycell: ({ state }) => ({
+          style: state['d_editing'] && 'padding-top: 0.6rem; padding-bottom: 0.6rem',
+        }),
+      },
+    }"
+  >
+    <Column field="hours_all_project" header="Hours all Project" style="width: 20%">
+      <template>
+        <InputText v-if="field !== 'hours_all_project'" v-model="data[field]" />
+        <InputText v-else :value="data[field]" readonly />
+      </template>
+    </Column>
+    <Column field="hours_this_project" header="Hours this Project" style="width: 20%">
+      <template #editor="{ data, field }">
+        <InputText v-model="data[field]" />
+      </template>
+    </Column>
+    <Column field="pos" header="Pos" style="width: 20%">
+      <template #editor="{ data, field }">
+        <Dropdown
+          v-model="data[field]"
+          :options="getPositionsForDate(data.date)"
+          optionLabel="name"
+          optionValue="value"
+          placeholder="Select a Position"
+        >
+          <template #option="slotProps">
+            <Tag :value="slotProps.option.value" :severity="getStatusLabel(slotProps.option.value)" />
+          </template>
+        </Dropdown>
+      </template>
+      <template #body="slotProps">
+        <Tag :value="slotProps.data.pos" :severity="getStatusLabel(slotProps.data.pos)" />
+      </template>
+    </Column>
+    <Column :rowEditor="true" style="width: 10%; min-width: 8rem" bodyStyle="text-align:center"></Column>
+  </DataTable>
+</template>
 
+<script setup>
+import { ref, watch, defineProps } from 'vue';
+import InputText from 'primevue/inputtext';
+import Dropdown from 'primevue/dropdown';
+import DataTable from 'primevue/datatable';
+import Column from 'primevue/column';
+import Tag from 'primevue/tag';
+
+const { name, tableData, generatedDate, selectedProject, allProjects } = defineProps([
+  'name',
+  'tableData',
+  'generatedDate',
+  'selectedProject',
+  'allProjects',
+]);
+
+console.log(generatedDate);
+const editingRows = ref([]);
+let statuses = ref([]);
+const tableArray = tableData;
+console.log("TABLEARRAY");
+console.log(tableArray);
+
+const getPositionsForDate = (date) => {
+  const dateItem = tableData.find(item => {
+    const itemDate = new Date(item.date).toISOString().split('T')[0];
+    return itemDate === date.toISOString().split('T')[0];
   });
 
-  //Watch for changes in selectedProject
-  watch(selectedProject, (newProject) => {
-  chosenProject = newProject;
+  return dateItem ? dateItem.pos : [];
+};
+
+
+
+watch(() => selectedProject, (newProject) => {
   console.log('IN WATCH' + allProjects.length);
   console.log(allProjects);
+  employeesData.value = [];
+  generatedDate.value = [];
+
   if (allProjects.length > 0) {
     for (let i = 0; i < allProjects.length; i++) {
-      if (chosenProject == allProjects[i].name) {
-        chosenProjectId = allProjects[i].id;
-        getDataFromBackend(chosenProjectId);
-        console.log(chosenProjectId);
+      if (newProject == allProjects[i].name) {
+        // chosenProjectId = allProjects[i].id;
+        console.log(allProjects[i].id);
       }
     }
   }
 });
 
-  
-  onMounted(() => {
-    getProjectsFromBackend();
-    console.log('HIER');
-    generateDatesForSelectedMonthTEST();
-  });
-  
-  //Fetch projects from backend
-  const getProjectsFromBackend = async () => {
-    console.log('AUCH HIER');
-    
-    const url = 'http://localhost:8000/getAllProjects/';
-    await axios.get(url).then((response) => {
-      for (let i = 0; i < response.data.data.length; i++) {
-        projects.push(response.data.data[i].name);
-        allProjects.push(response.data.data[i]);
-        console.log('allProjects');
-        console.log(allProjects);
-      }
-    });
-  };
+const onRowEditSave = (event) => {
+  let { newData, index } = event;
+  console.log(newData);
+  newData.pos = [newData.pos];
 
-  //Calculate number of days in a month
-  const daysInMonth = (month, year) => {
-    return new Date(year, month, 0).getDate();
-  };
-  
-  //Generate dates for a selected month
-  const generateDatesForSelectedMonthTEST = () => {
-    const selectedYear = dateMonthPicker.value.getFullYear();
-    const selectedMonth = dateMonthPicker.value.getMonth() + 1;
-    const days = daysInMonth(selectedMonth, selectedYear);
-    //console.log(selectedMonth + ', ' + selectedYear);
-  
-    generatedDate.value = [];
-  
-    for (let day = 1; day <= days; day++) {
-      //console.log(daysInMonth);
-      //console.log(selectedMonth);
-      const currentDate = new Date(selectedYear, selectedMonth - 1, day);
-      if (currentDate.getDay() !== 0 && currentDate.getDay() !== 6) {
-        generatedDate.value.push({
-          date: currentDate,
-        });
-      }
-    }
-  };
-  
-  //Format the date
-  const formatDateTime = (date) => {
-    const options = { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' };
-    return new Intl.DateTimeFormat('en-US', options).format(date);
-  };
-  
-  //Fetch data from backend with the projectid
-  const getDataFromBackend = (id) => {
-  // Empty the names List
-  names.value = [];
+  tableData[index] = newData;
+};
 
-  const url = `http://localhost:8000/getTableData/${id}`;
-  axios.get(url).then((response) => {
-    const allForecasts = []; //Test
-    console.log('TEST');
-    console.log(response.data);
+const getStatusLabel = (status) => {
+  console.log(status);
+  switch (status) {
+    case `${tableData[0].pos[0].value}`:
+      return 'success';
 
-    if (response.data && response.data.data) {
-    for (let i = 0; i < response.data.data.length; i++) {
-        // if (response.data.data[i].projects) {
-        //     for (let k = 0; k < response.data.data[i].projects.length; k++) {
-        //         if (response.data.data[i].projects[k].positions) {
-        //             for (let z = 0; z < response.data.data[i].projects[k].positions.length; z++) {
-        //                 console.log(response.data.data[i].projects[k].positions[z].forecast);
-        //                 allForecasts.push(response.data.data[i].projects[k].positions[z].position)
-        //             }
-        //         }
-        //     }
-        // }
-    }
+    case 'LOWSTOCK':
+      return 'warning';
+
+    case 'OUTOFSTOCK':
+      return 'danger';
+
+    default:
+      return null;
+  }
+};
+</script>
+
+
+
+<style>
+.card {
+  position: absolute;
+  left: 10em;
+  top: 15em;
 }
 
+ul {
+  list-style: none;
+}
 
-//allForecasts.forEach((elem) => {})
-
-    for (let i = 0; i < response.data.data.length; i++) {
-      // Check whether the employee is in the project
-      const projects = response.data.data[i].projects;
-      const isInSelectedProject = projects.some(
-        (project) => project.project.fk_project === id
-      );
-
-      if (isInSelectedProject) {
-        names.value.push(response.data.data[i].employee.forename);
-
-        for(let k = 0; k < response.data.data[i].projects.length; k++) {
-            if(response.data.data[i].projects[k].project.fk_project == id) {
-                // for(let z = 0; z < response.data.data[i].projects[k].position)
-                // console.log('STATUS ' + id);
-                // console.log(response.data.data[i]);
-            }
-        }
-        // statuses.value.push(response.data.data[i].)
-
-        console.log(names[i]);
-        console.log("WIR SIND DRINNEN");
-      }
-    }
-  });
-};
-  </script>
-  
-  <style scoped>
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  overflow-x: auto;
-  white-space: nowrap;
+.dates {
+  position: absolute;
+  top: 1.4em;
+  font-size: larger;
+  line-height: 1.72;
+  width: 10em;
 }
 
 .containerProjectMonth {
-    display: flex;
-    flex-direction: column;
-    align-items:center;
-
-}
-
-.cards-container {
-  display: inline-block;
-  margin-left: 50em;
-}
-
-.card-container {
-  display: inline-block;
-  margin: 1em;
-  width: 50em;
-  overflow-x: auto;
-}
-
-.scrollable-table {
-  max-height: 700px;
-  overflow-y: auto;
-  overflow-x: hidden;
-}
-
-.position {
-  top: 0em;
-  width: 7em;
-  left: -15%;
+  display: flex;
+  flex-direction: column;
+  align-items:center;
 }
 
 .monthPicker {
-  position: relative;
-  border: 1px solid black;
-  right: 17em;
-  text-align: center;
-  top: 1em;
+position: relative;
+border: 1px solid black;
+right: 17em;
+text-align: center;
+top: 1em;
+
+}
+
+.p-datatable {
+width: 50em;
+left: 10em;
   
 }
 
-.dropdownProject {
-  position: relative;
-  right: 17em;
-  margin-bottom: 2em;
-  top: 2em;
-  text-align: center;
+.p-datatable .p-datatable-tbody td,
+.p-datatable .p-datatable-thead th,
+.p-datatable .p-datatable-tfoot td {
+text-align: center; /* Center align the content within cells */
 }
+
+.names {
+position: absolute;
+top: -1.5em;
+left: 15em;
+}
+
 </style>

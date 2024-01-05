@@ -2,7 +2,7 @@
     <div>
         <TopBar />
         <BackgroundScreen />
-        <ManageProjectTabelle />
+        <!-- <ManageProjectTabelle /> -->
         <ManageProject />
         <!-- <MitarbeiterTabelle /> -->
         <SideBarManager />

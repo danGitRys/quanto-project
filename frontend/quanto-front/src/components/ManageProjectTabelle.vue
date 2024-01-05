@@ -29,6 +29,8 @@
             </ul>
         </div>
     <div >
+      <div v-for="(name, index) in names" :key="index">
+        <h1 class="names">{{ name }}</h1>
         <DataTable class="dataTable" v-model:editingRows="editingRows" :value="tableData" editMode="row" dataKey="id" @row-edit-save="onRowEditSave" 
             :pt="{
                 table: { style: 'min-width: 10em' },
@@ -39,11 +41,13 @@
                 }
             }"
         >
-            <Column field="hours_all_project" header="Hours all Project" style="width: 20%">
-                <template #editor="{ data, field }">
-                    <InputText v-model="data[field]" />
-                </template>
-            </Column>
+        <Column field="hours_all_project" header="Hours all Project" style="width: 20%">
+    <template #editor="{ data, field }">
+        <!-- Check if the field is 'hours_all_project' and render a readonly input -->
+        <InputText v-if="field !== 'hours_all_project'" v-model="data[field]" />
+        <InputText v-else :value="data[field]" readonly />
+    </template>
+</Column>
             <Column field="hours_this_project" header="Hours this Project" style="width: 20%">
                 <template #editor="{ data, field }">
                     <InputText v-model="data[field]" />
@@ -63,12 +67,13 @@
             </Column>
             <Column :rowEditor="true" style="width: 10%; min-width: 8rem" bodyStyle="text-align:center">ha</Column>
         </DataTable>
+      </div>
     </div>
 </div>
 </template>
 
 <script setup>
-import { ref, onMounted, onUpdated, watch } from 'vue';
+import { ref, onMounted, watch } from 'vue';
 import { startOfMonth, endOfMonth } from 'date-fns';
 import Calendar from 'primevue/calendar';
 import axios from 'axios';
@@ -85,6 +90,11 @@ const projects = [];
 const allProjects = [];
 let chosenProject = '';
 let chosenProjectId = '';
+
+console.log("HASDJSAJDAJDLSA");
+
+const names = ref([]);
+const empId = ref([]);
 
 const tableData = ref();
 const editingRows = ref([]);
@@ -105,48 +115,53 @@ const getProjectsFromBackend = async () => {
     const url = 'http://localhost:8000/getAllProjects/';
     await axios.get(url).then((response) => {
         const project = response.data.data;
-    //   for (let i = 0; i < response.data.data.length; i++) {
-    //     projects.push(response.data.data[i].name);
-    //     allProjects.push(response.data.data[i]);
-    //     // console.log('allProjects');
-    //     // console.log(allProjects);
-    //   }
-
-      project.forEach(element => {
+        project.forEach(element => {
         projects.push(element.name);
         allProjects.push(element);
       });
     });
 };
 
-const getDataFromBackend = async (pId) => {
-  const url = 'http://localhost:8000/timeTableBooking';
-  const url2 = `http://localhost:8000/getEmployeesToProjectId/${pId}`;
+const getDataFromBackend = async () => {
+  const url = 'http://localhost:8000/timeTableForecast';
+  const url2 = `http://localhost:8000/getEmployeesToProjectId/${chosenProjectId}`;
+  console.log(chosenProjectId);
+  const url3 = `http://localhost:8000/getPositionsOfProjectOfEmployee/${chosenProjectId}`;
 
-  console.log("PID: " +pId);
+  names.value = [];
+  empId.value = [];
 
-  let empId = null;
+  // Hole die Mitarbeiterdaten
+  await axios.get(url2).then(async (response) => {
+    console.log(response);
+    const empArray = response.data.data;
 
-  await axios.get(url2).then((response) => {
-    response.data.data[0].id;
-  })    
+    // Füge Mitarbeiter-IDs und Namen zu den Arrays hinzu
+    empArray.forEach(element => {
+      empId.value.push(element.id);
+      names.value.push(element.forename);
+    });
+  console.log(names.value);
 
-  // Get the start and end of the selected month
-  const startOfMonthDate = startOfMonth(dateMonthPicker.value);
-  const endOfMonthDate = endOfMonth(dateMonthPicker.value);
+    // Get the start and end of the selected month
+    const startOfMonthDate = startOfMonth(dateMonthPicker.value);
+    const endOfMonthDate = endOfMonth(dateMonthPicker.value);
 
-  // Format the dates in the required format ('YYYY-MM-DD')
-  const formattedStartDate = startOfMonthDate.toISOString().split('T')[0];
-  const formattedEndDate = endOfMonthDate.toISOString().split('T')[0];
+    // Format the dates in the required format ('YYYY-MM-DD')
+    const formattedStartDate = startOfMonthDate.toISOString().split('T')[0];
+    const formattedEndDate = endOfMonthDate.toISOString().split('T')[0];
 
-  const requestData = {
-    start_date: formattedStartDate,
-    end_date: formattedEndDate,
-    project_id: pId,
-    employee_id: 1005,
-  };
+    // Durchlaufe alle Mitarbeiter-IDs und sende Anfragen nacheinander
+    for (const employeeId of empId.value) {
+      const requestData = {
+        start_date: formattedStartDate,
+        end_date: formattedEndDate,
+        project_id: chosenProjectId,
+        employee_id: employeeId,
+      };
+    
 
-  
+        
   await axios.post(url, requestData).then((response) => {
     console.log('GETDATAFROMBACKEND');
     console.log(response);
@@ -171,7 +186,10 @@ const getDataFromBackend = async (pId) => {
       }
     });
   });
+  }
+});
 };
+
 
 watch(selectedProject, (newProject) => {
   chosenProject = newProject;
@@ -181,7 +199,7 @@ watch(selectedProject, (newProject) => {
     for (let i = 0; i < allProjects.length; i++) {
       if (chosenProject == allProjects[i].name) {
         chosenProjectId = allProjects[i].id;
-        getDataFromBackend(chosenProjectId);
+        getDataFromBackend();
         console.log(chosenProjectId);
       }
     }
@@ -270,6 +288,7 @@ ul {
     top: 1.4em;
     font-size: larger;
     line-height: 1.72;
+    width: 10em;
 }
 
 .containerProjectMonth {
@@ -296,8 +315,8 @@ ul {
 }
 
 .p-datatable {
-    width: 50em;
-    left: 10em;
+  width: 50em;
+  left: 10em;
     
 }
 
@@ -305,6 +324,12 @@ ul {
 .p-datatable .p-datatable-thead th,
 .p-datatable .p-datatable-tfoot td {
   text-align: center; /* Center align the content within cells */
+}
+
+.names {
+  position: absolute;
+  top: -1.5em;
+  left: 15em;
 }
 
 </style>
