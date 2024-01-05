@@ -5,6 +5,9 @@ from ...middleware import validator
 import json
 
 
+#Remove/Verschieben
+
+
 @csrf_exempt
 def updateBooking(request, booking_id) -> JsonResponse:
     """Endpoint for updating a Booking in the database
