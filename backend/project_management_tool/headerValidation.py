@@ -1,4 +1,6 @@
 from authlib import jose
+
+from .tokenExpirationCheck import isTokenExpired
 from .models import Assignment, Employee
 import os
 from dotenv import load_dotenv
@@ -32,6 +34,7 @@ class HeaderValidation:
                 public = os.getenv('PUBLIC_KEY')
                 print(authorization_header)
                 token = authorization_header.split(' ')[1]
+                isTokenExpired(token)
                 decoded_token = jose.jwt.decode(token,key=public)
                 print("access_token:")
                 print(decoded_token)
