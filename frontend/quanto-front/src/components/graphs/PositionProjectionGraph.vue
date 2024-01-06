@@ -36,7 +36,7 @@ import { projectIdStore } from "@/store/projectIdStore";
   
       try {
         const projectId = projectIdStore().sharedData;
-        const response = await axios.get("http://localhost:8000/projectProjectionGraph/1242/20");
+        const response = await axios.get("http://localhost:8000/projectProjectionGraph/1242/50");
         const responseData = response.data;
         console.log(responseData)
         const valid = responseData.success;

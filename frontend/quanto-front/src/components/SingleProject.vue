@@ -38,9 +38,9 @@
     
     
     <Accordion :multiple="true" :activeIndex="[0]">
-        <AccordionTab header="Header I">
+        <AccordionTab header="Positions in Project">
             <Card>
-        <template #title> Positions in Project </template>
+        <template #title> </template>
         <template #content>
             <DataTable :value="positonList" stripedRows tableStyle="min-width: 50rem">
         <Column field="id" header="Code"></Column>
@@ -56,9 +56,9 @@
         </template>
     </Card>
         </AccordionTab>
-        <AccordionTab header="Header II">
+        <AccordionTab header="Employees in Project">
             <Card>
-        <template #title> Employees in Project </template>
+        <template #title> </template>
         <template #content>
             <DataTable :value="employeeList" stripedRows tableStyle="min-width: 50rem">
         <Column field="id" header="Id"></Column>
@@ -72,7 +72,7 @@
         </template>
     </Card>
         </AccordionTab>
-        <AccordionTab header="Header III">
+        <AccordionTab header="Graphs and Analytics">
         <MultiLineGraph/>
             <Accordion :multiple="true" :activeIndex="[0]">
         <AccordionTab class="graphClass" header="Header I">
@@ -162,6 +162,21 @@
                     this.project_end = tempData["end_date"],
                     this.project_creator = tempData["fk_creator"]
                     this.proejct_creationDate = tempData["creation_date"]
+
+                    axios.get("http://localhost:8000/employee/"+this.project_creator,{
+               
+            }).then(response => {
+                console.log(response)
+                var creatorData = response.data.data 
+                this.project_creator = creatorData["forename"] + " " + creatorData["surname"]
+                
+            
+                
+            })
+            .catch(error=> {
+                console.log(error)
+                
+            })
                
                 }
                 else{
@@ -266,6 +281,8 @@
                 
             })
             },
+
+            
     
             getTeam15(){
                 window.location.href = '/getTeam/15';
