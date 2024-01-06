@@ -9,16 +9,16 @@ class projectQuerys:
         WHERE  booking.fK_position IN (SELECT id FROM position WHERE fk_project=%s) AND fk_employee=%s AND CONVERT(DATE,booking.start) = %s
         ''',[projectId,employeeId,date])
         result = cursor.fetchall()
-        print(result)
-        print(len(result))
+        #print(result)
+        #print(len(result))
         if len(result) != 1:
             volume=0
             project_id=projectId
         else:
             volume = result[0]
-        print("_-----------------------------")
-        print(volume)
-        print(result)
+        #print("_-----------------------------")
+        #print(volume)
+        #print(result)
         # Convert the result to a list of dictionaries
         #result_list = [{'test': row[0]} for row in result]
         
@@ -35,16 +35,16 @@ class projectQuerys:
         WHERE  booking.fK_position NOT IN (SELECT id FROM position WHERE fk_project=%s) AND fk_employee=%s AND CONVERT(DATE,booking.start) = %s
         ''',[projectId,employeeId,date])
         result = cursor.fetchall()
-        print(result)
-        print(len(result))
+        #print(result)
+        #print(len(result))
         if len(result) != 1:
             volume=0
             project_id=projectId
         else:
             volume = result[0]
-        print("_-----------------------------")
-        print(volume)
-        print(result)
+        #print("_-----------------------------")
+        #print(volume)
+        #print(result)
         # Convert the result to a list of dictionaries
         #result_list = [{'test': row[0]} for row in result]
         
@@ -62,16 +62,16 @@ class projectQuerys:
 
         ''',[projectId,employeeId,date])
         result = cursor.fetchall()
-        print(result)
-        print(len(result))
+        #print(result)
+        #print(len(result))
         if len(result) != 1:
             volume=0
             project_id=projectId
         else:
             volume = result[0]
-        print("_-----------------------------")
-        print(volume)
-        print(result)
+        #print("_-----------------------------")
+        #print(volume)
+        #print(result)
         # Convert the result to a list of dictionaries
         #result_list = [{'test': row[0]} for row in result]
         
@@ -89,22 +89,45 @@ class projectQuerys:
 
         ''',[projectId,employeeId,date])
         result = cursor.fetchall()
-        print(result)
-        print(len(result))
+        #print(result)
+        #print(len(result))
         if len(result) != 1:
             volume=0
             project_id=projectId
         else:
             volume = result[0]
-        print("_-----------------------------")
-        print(volume)
-        print(result)
+        #print("_-----------------------------")
+        #print(volume)
+        #print(result)
         # Convert the result to a list of dictionaries
         #result_list = [{'test': row[0]} for row in result]
         
         return {
             'id':projectId,
             'volume':volume
+        }
+    
+    def positionIdsForDateForecast(projectId:int,employeeId:int,date):
+        cursor = connection.cursor()
+        cursor.execute('''SELECT fk_position FROM forecast
+        JOIN position ON position.id = forecast.fk_position
+        WHERE fk_position IN (SELECT id FROM position WHERE fk_project=%s) AND CONVERT(DATE,forecast.start) = %s AND fk_employee=%s
+
+        ''',[projectId,date,employeeId])
+        idList = []
+        result = cursor.fetchall()
+        for number in result:
+            print('start')
+            print(number)
+            idList.append(number[0])
+            print('end')
+        
+        # Convert the result to a list of dictionaries
+        #result_list = [{'test': row[0]} for row in result]
+        
+        return {
+            'id':projectId,
+            'idList':idList
         }
 
     

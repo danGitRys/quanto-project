@@ -45,6 +45,24 @@ class TimeTableForecastView(View):
         for currentDate in dateRange.range_date(start_date,end_date):
             inProjectData = projectQuerys.timeInProjectForecastDay(project_id,employee_id,currentDate)
             outsideProjectData = projectQuerys.timeNotInProjectForecastDay(project_id,employee_id,currentDate)
+            print("----------------------------------------------------------------")
+            positionsOfDate = projectQuerys.positionIdsForDateForecast(project_id,employee_id,currentDate)
+            positionsOfDateList = positionsOfDate["idList"]
+
+            positionForDate = []
+            for position in positionsOfDateList:
+                positionIdQuery = positionQuerys.forecastTimeForDate(position,employee_id,currentDate)
+                positionInfo = Positon.objects.filter(id=position).first()
+                positionVolume = positionIdQuery["volume"]
+                positionForDate.append({
+                    'id':position,
+                    'info':positionInfo.toJson(),
+                    'volume':positionVolume
+                })
+                print(positionIdQuery)
+
+
+            print(positionsOfDate)
             inProjectVolume = inProjectData["volume"][0]
             outsideProjectVolume = outsideProjectData["volume"][0]
             if inProjectVolume is None:
@@ -54,7 +72,8 @@ class TimeTableForecastView(View):
             dataList.append({
                 'date':currentDate,
                 'inProject':inProjectVolume,
-                'outsideProject':outsideProjectVolume
+                'outsideProject':outsideProjectVolume,
+                'inProjectDetail':positionForDate
             })
             print(inProjectVolume)
             print(currentDate)
