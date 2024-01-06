@@ -52,7 +52,9 @@ class Employee(models.Model):
             'phone': self.phone,
             'fk_team_id': self.fk_team_id,
             'team_roll': self.team_roll,
-            'company_role':self.company_role
+
+            'company_role': self.company_role
+
         }
         return serialized_data
 

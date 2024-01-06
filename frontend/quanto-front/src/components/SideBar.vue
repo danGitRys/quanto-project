@@ -1,4 +1,3 @@
-
 <template>
     <div class="card flex justify-content-flex-start">
         <Sidebar v-model:visible="visible">
@@ -28,10 +27,28 @@
                                     <i class="pi pi-home mr-2"></i>
                                     <span class="font-medium">Dashboard</span>
                                     </router-link>
-                                    <li>
+                                    <li v-if="isAdmin || isProjectManager">
+                                        <router-link to="/workingTimes+" v-ripple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
+                                            <i class="pi pi-calendar mr-2"></i>
+                                            <span class="font-medium">Working Times +</span>
+                                        </router-link>
+                                    </li>
+                                    <li v-else>
                                         <router-link to="/workingTimes" v-ripple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
                                             <i class="pi pi-calendar mr-2"></i>
                                             <span class="font-medium">Working Times</span>
+                                        </router-link>
+                                    </li>
+                                    <li v-if="isAdmin">
+                                        <router-link to="/newproject" v-ripple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
+                                            <i class="pi pi-plus-circle mr-2"></i>
+                                            <span class="font-medium">New Project</span>
+                                        </router-link>
+                                    </li>
+                                    <li v-if="isAdmin || isProjectManager">
+                                        <router-link to="/ManageProject" v-ripple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
+                                            <i class="pi pi-book mr-2"></i>
+                                            <span class="font-medium">Manage Project</span>
                                         </router-link>
                                     </li>
                                     <li>
@@ -54,11 +71,11 @@
                         <hr class="mb-3 mx-3 border-top-1 border-none surface-border" />
                         <a v-ripple class="m-3 flex align-items-center cursor-pointer p-3 gap-2 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
                             <!-- <Avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" shape="circle" /> -->
-                            <span class="font-bold">Hans Bauer</span>
+                            <span class="font-bold">{{ forename }} {{ surname }}</span>
                         </a>
                     </div>
-                    <div v-ripple class="logoutBtn m-3 flex align-items-center cursor-pointer p-3 gap-2 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
-                        <button class="pi pi-sign-out">  Logout</button>
+                    <div v-ripple class="logoutStyle m-3 flex align-items-center cursor-pointer gap-2 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
+                        <button @click="logout" class="logoutBtn pi pi-sign-out">  Logout</button>
                     </div>
                 </div>
             </template>
@@ -68,7 +85,9 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
+import {AuthService} from '@/service/login.js'
+import axios from "axios";
 import Sidebar from 'primevue/sidebar';
 import Avatar from "primevue/avatar";
 import Button from 'primevue/button';
@@ -78,27 +97,72 @@ import "primeicons/primeicons.css";
 
 const visible = ref(false);
 
-let myData = localStorage.getItem('token');
+let forename = '';
+let surname = '';
+
+let isAdmin = false;
+let isProjectManager = false;
+
+let token = localStorage.getItem('token');
+
 
 // Überprüfen, ob der Local Storage-Wert vorhanden ist
-if (myData) {
-    console.log('Daten aus dem Local Storage:', myData);
+if (token) {
+    console.log('Daten aus dem Local Storage:', token);
 } else {
     console.log('Keine Daten im Local Storage gefunden.');
 }
+
+onMounted(() => {
+    getRole();
+  });
+
+  const getRole = async () => {
+    try {
+        axios.post("http://localhost:8000/getRole",{
+            token:token
+        }).then(response => {
+            console.log(response)
+            const role = response.data.employee.company_role;
+            isAdmin = role === "Admin";
+            isProjectManager = role === "Project_Manager";
+
+            forename = response.data.employee.forename;
+            surname = response.data.employee.surname;
+        })
+        .catch(error=> {
+            console.log(error)
+        })
+    } catch (error) {
+        console.error(error);
+    }
+  };
+
+  const logout = () => {
+    console.log("Logout");
+    localStorage.clear();
+  }
 </script>
 
 <style>
-.logoutBtn {
+* {
+    box-sizing: border-box;
+}
+
+.logoutStyle {
     background-color: #94B8C7;
     border-radius: 8px;
     border: none;
     color: white;
-    padding: 10px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    margin: 4px 5px;
+
+}
+
+.logoutBtn {
+    width: 100%;
+    height: 100%;
 }
 </style>

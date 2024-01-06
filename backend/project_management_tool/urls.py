@@ -25,6 +25,7 @@ urlpatterns = [
     path('createProject',createProject),
 
     path('login',login),
+    path('getRole',getRole, name='getRole'),
     path('createAssignment',createAssignment, name='createAssignment'),
     path('createPosition',createPositon, name='createPosition'),
     path('createTeam',createTeam),

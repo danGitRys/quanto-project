@@ -1,7 +1,7 @@
 <script setup>
 import HelloWorld from '@/components/HelloWorld.vue'
 import TopBar from '@/components/TopBar.vue'
-import SideBar from '@/components/SideBarMitarbeiter.vue'
+import SideBar from '@/components/SideBar.vue'
 import { ref, reactive } from 'vue';
 import {AuthService} from '@/service/login.js'
 import axios from "axios"
@@ -31,11 +31,30 @@ async function getEmployeeData() {
         console.log("here comes the token")
         console.log(token);
 
+        window.localStorage.setItem('token', token);
+        axios.post("http://localhost:8000/login",{
+            token:token
+        }).then(response => {
+            console.log(response)
+            if(response.data['login']==true){
+                window.location.href = '/newproject';
+            }
+            else{
+                alert("Invalid Login")
+            }
+        })
+        .catch(error=> {
+            console.log(error)
+            alert("Invalid Login")
+        })
+
+
         if (token) {
             User.loginUser(token)
             User.fetchUserData(token)
             window.location.href = '/'
         }
+
     } catch (error) {
         console.error(error);
         alert("Invalid Login");
