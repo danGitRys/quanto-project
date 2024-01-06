@@ -10,7 +10,7 @@
             <select v-model="selectedProjectName" @change="loadPositions" id="dropdownProjectName">
               <option disabled value="">Select a Project</option>
               <!--Project DropDown Array get Filled Dynamically with Data from the Backend-->
-              <option v-for="(project, index) in projectArray" :value="project" :key="index">{{ project }}</option>
+              <option v-for="(project, index) in projectArray" :value="project" :key="index">{{ project.projectName }}</option>
             </select>
           </div>
 
@@ -21,7 +21,7 @@
             <select v-model="selectedProjectPosition" @change="selectedPostion" id="dropdownProjectPosition">
               <option disabled value="" v-if="!selectedProjectPosition">Select a Project Position</option>
                <!--Postion DropDown Array get Filled Dynamically with Data from the Backend-->
-             <option v-for="(position, index) in positionArray" :value="position" :key="index">{{ position }}</option>
+             <option v-for="(position, index) in positionArray" :value="position" :key="index">{{ position.positionName }}</option>
             </select>
           </div>
 
@@ -44,6 +44,7 @@
         <div class="endTimeContainer">
           <label for="endTimePicker"> End Time: </label>
           <input v-model="endTime" id="endTimePicker" type="time">
+          
         </div>
       <!--If the Button get clicked the data will get sended to the backend-->
         <div class="buttonContainer">
@@ -51,6 +52,7 @@
             Submit
           </v-btn>
         </div>
+        <Toast ref="toast" />
       </div>
     </div>
 
@@ -62,7 +64,14 @@
 <script setup>
 import { onBeforeMount, ref} from 'vue';
 import axios from "axios"
+import { useUser } from '@/store/user';
+import Toast from 'primevue/toast';
+import { useToast } from 'primevue/usetoast';
 
+const toast = useToast();
+
+const User = useUser()
+const employee_id = User.getUserData.id;
 // 2 arrays that receive values from the backend and are dynamically filled
 let projectArray = ref([]);
 let positionArray = ref([]);
@@ -75,15 +84,7 @@ const selectedProjectPosition = ref('');
 // calls function to get the current date
 const date = ref(getFormattedDate());
 
-let project = {
-  name: [],
-  id: [],
-}
 
-let position = {
-  name:[],
-  id:[],
-}
 // global variable used in the data object later
 let posID = "";
 
@@ -91,32 +92,29 @@ let posID = "";
 // the function loops to my postion Object if it matched the selected Postion I get the posID of the selected Position
 // which I will need for the Backend call
 function selectedPostion(){
-  position.name.forEach((element, index) => {
-    if(element === selectedProjectPosition.value){
-    posID = position.id[index];
-    }
-  })
+  posID = selectedProjectPosition.value.positionId;
+ console.log(posID)
+ 
 }
 // the function loops to my project Object if it matched the selected Project I get the fk (forgein key) of the Project 
 // which I need for the backend call to get all Positions for the selected Project
 
 async function loadPositions() {
+
   
-  project.name.forEach((element, index) => {
-    if (element === selectedProjectName.value){
-      const fk_project = project.id[index]
+      positionArray.value = [];
+      const fk_project = selectedProjectName.value.projectID;
+      console.log(fk_project)
       getPositionsFromBackend(fk_project)
-    }
-  });
+    
 }
 // get called before the Page is loaded I get all projects the employee is involved
 onBeforeMount(() => {
 getProjectsFromBackend();
 })
 
-// EMPLPOYEE AKTUELL NOCH HARDGECODET >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-let employee_id = 1005;
+
 //function that get all Projects from the Backend from a specific employee
 async function getProjectsFromBackend() {
   // employee_id give back all employees for this employee
@@ -125,31 +123,26 @@ async function getProjectsFromBackend() {
   const response = await axios.get(url);
   // save the response in the Array
   let respArray = response.data.projects;
+  console.log(respArray)
   // fill the projectArray with the data of the backend
-  respArray.forEach((element,index) => {
-    projectArray.value[index] = element.name;
+  respArray.forEach((element) => {
+    projectArray.value.push({projectName: element.name, projectID: element.id})
   });
-  // fill the data of the backend into the project object 
-  for (let i = 0; i < respArray.length; i++){
-    project.name[i] = respArray[i].name;
-    project.id[i] = respArray[i].id;
-  }
-}
 
-// HIER MUSS NOCH DIE EMPPYEE ID MIT ÜBERGEBEN WERDEN IN DER URL 
+}
+ 
 // This funtction gives us all Postions for the selected Project in the Dropdown
 async function getPositionsFromBackend(fk_project){
   // url with the fk_project of the selected project, we need this for our SQL Statment later on
-  const url = `http://localhost:8000/getPositionsOfProjectOfEmployee/${fk_project}`
+  const url = `http://localhost:8000/getPositionsOfProjectOfEmployee/${fk_project}/${employee_id}`
   // get request to the backend
   const response = await axios.get(url)
   let resPositionArray = response.data.positions;
   // fill the postion Array and postion Object with the data of the backend
   resPositionArray.forEach((element,index) =>{
-    
-    positionArray.value[index] = element.position_id;
-    position.name[index] = element.position_id;
-    position.id[index] = element.id;   
+    console.log(element)
+    positionArray.value.push({positionName: element.position_id, positionId: element.id})
+ 
   })
    selectedProjectPosition.value = positionArray.value[0];
 }
@@ -174,13 +167,13 @@ function getFormattedDate() {
 }
 
 
-function sendDatatoBackend() {
+async function sendDatatoBackend() {
    // Dates are being converted to the correct format for the database
    const startDate = `${date.value}` + " " + `${startTime.value+":00"}`
    const endDate = `${date.value}` + " " + `${endTime.value + ":00"}`
 
 const data = {
-  "fk_employee": 2,
+  "fk_employee": employee_id,
   "fk_position": posID,
   "start": startDate,
   "end": endDate,
@@ -189,25 +182,51 @@ const data = {
 }
   // checked if all field are field out or not 
    if (date.value == '' || startTime.value == '' || breakTime.value == '' || endTime.value == '' || selectedProjectName.value == undefined || selectedProjectPosition.value == undefined) {
-     alert("Please fill out all fields");
-   }
-   else {
-    // data send to backend for the database entry
-    const url = "http://localhost:8000/createBooking"
-    axios.post(url, data)
-      .then(response => {
-        console.log(response.data);
-        // if the respone.data.sucess == true we know the booking works
-        if (response.data['success']) {
-        alert("Booking sucessfull")
+     
+    toast.add({
+      severity: 'error',
+      summary: 'Error Message',
+      detail: 'Please fill out all fields',
+      life: 3000
+  });
+   } else {
+    try {
+      
+
+      const url = 'http://localhost:8000/booking';
+      const response = await axios.post(url, data);
+
+      console.log(response.data);
+
+      if (response.data.success === true) {
+
+        toast.add({
+          severity: 'success',
+          summary: 'Erfolgsmeldung',
+          detail: 'Die Buchung war erfolgreich',
+          life: 3000
+        });
+      } else {
+      
+        toast.add({
+          severity: 'error',
+          summary: 'Fehlermeldung',
+          detail: 'Die Buchung war nicht erfolgreich. Überprüfen Sie die Konsole für weitere Informationen.',
+          life: 3000
+        });
       }
 
-      })
-      .catch(error => {
-        console.error(error);
+    } catch (error) {
+      console.error('Error during axios.post:', error);
+     
+      toast.add({
+        severity: 'error',
+        summary: 'Fehlermeldung',
+        detail: 'Die Buchung war nicht erfolgreich. Überprüfen Sie die Konsole für weitere Informationen.',
+        life: 3000
       });
-   }
-
+    }
+  }
 }
 </script>
 

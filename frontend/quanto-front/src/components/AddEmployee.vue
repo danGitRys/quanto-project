@@ -18,7 +18,7 @@
                         type="text"
                         v-model="firstname"
                         placeholder="First Name"
-                        describedby="firstnamedescription"
+                        
                     />
                     <label for="lastname">Last Name:</label>
                     <InputText
@@ -26,7 +26,6 @@
                         type="text"
                         v-model="lastname"
                         placeholder="Last Name"
-                        describedby="lastnamedescription"
                     />
                     </p>
                     <Divider />
@@ -57,9 +56,9 @@
                             v-model="team" 
                             dropdown option-label="name" 
                             update:modelValue 
-                            :suggestions="teams" 
+                            :suggestions="filteredTeams" 
                             placeholder="Teamname" 
-                            @complete="getTeams" 
+                            @complete="searchTeams" 
                         />
                     </div>
                     <Divider />
@@ -69,10 +68,10 @@
                             id="ACTeamrole"
                             v-model="teamrole"
                             dropdown
-                            :suggestions="teamroles"
+                            :suggestions="filteredTeamRoles"
                             update:modelValue 
                             placeholder="Teamrole"   
-                            @complete="getTeamRoles" 
+                            @complete="searchTeamRoles" 
                         />
                     </div>         
                 </div>
@@ -113,31 +112,69 @@ export default {
             teamrole: '',
             teams: [],
             teamroles: [],
-            filteredItems: [],
+            filteredTeams: [],
+            filteredTeamRoles: [],
+            searchTeams: (event) => {
+                if(this.teams) {
+                    this.filteredTeams = []
+                    console.log(this.teams)
+                    for (let i = 0; i < this.teams.length; i++) {
+                        let _team = this.teams[i];
+                        console.log(_team)
+                        if (_team.name.toLowerCase().indexOf(event.query.toLowerCase()) === 0) {
+                            this.filteredTeams.push(_team);
+                        }
+                    }
+                }
+            },
+            searchTeamRoles: (event) => {
+                if (this.teamroles) {
+                    this.filteredTeamRoles = []
+                    for (let i = 0; i < this.teamroles.length; i++) {
+                        let _teamrole = this.teamroles[i];
+                        console.log(_teamrole)
+                        if (_teamrole.toLowerCase().indexOf(event.query.toLowerCase()) === 0) {
+                            this.filteredTeamRoles.push(_teamrole);
+                        }
+                    }
+                }
+            },
             toast: useToast(),
         }
     },
     methods: {
         init() {
-            this.getTeams()
-            this.getTeamRoles()
+            const token = localStorage.getItem('token')
+            this.getTeams(token)
+            this.getTeamRoles(token)
         },
-        async getTeams() {
+        // Gets Array of all Teams
+        async getTeams(token) {
             try {
-                const response = await axios.get("/api/getTeams", {})
+                const response = await axios.get("http://localhost:8000/getTeams", {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                    },
+                })
                 this.teams = response.data.teams
             } catch (error) {
-                console.log(error);
+                this.toast.add({severity: 'error', summary: 'Error', detail: 'An error occured while fetching Teams.', life: 3000})
             }
         },
+        // Gets Array of Teamroles
         async getTeamRoles() {
             try {
-                const response = await axios.get("/api/getTeamRoles", {})
+                const response = await axios.get("http://localhost:8000/getTeamRoles", {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                    },
+                })
                 this.teamroles = response.data.roles
             } catch (error){
-                console.log("An error occured while fetching Teamroles!")
+                this.toast.add({severity: 'error', summary: 'Error', detail: 'An error occured while fetching Teamroles.', life: 3000})
             }
         },
+        // Find out TeamID of current team
         getTeamID() {
             for (let i = 0; i < this.teams.length; i++) {
                 if (this.team.name == this.teams[i].name) {
@@ -157,10 +194,13 @@ export default {
             return true
         },
         submitEmployee() {
+            const token = localStorage.getItem('token')
             if (this.formIsValid()) {
                 this.getTeamID()
-                console.log(this.teamid)
-                const request = axios.post("/api/createEmployee", {
+                const request = axios.post("http://localhost:8000/createEmployee", {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                    },
                     emp_id: this.empid,
                     forename: this.firstname,
                     surname: this.lastname,

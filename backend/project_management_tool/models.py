@@ -52,7 +52,9 @@ class Employee(models.Model):
             'phone': self.phone,
             'fk_team_id': self.fk_team_id,
             'team_roll': self.team_roll,
+
             'company_role': self.company_role
+
         }
         return serialized_data
 
@@ -68,12 +70,13 @@ class Booking(models.Model):
 
     class Meta:
         db_table = 'booking'
+        unique_together = ['fk_employee', 'fK_position', 'start', 'end']
 
     def toJson(self):
         serialized_data = {
             'id': self.id,
             'fk_employee': self.fk_employee,
-            'fk_position': self.fk_position,
+            'fk_position': self.fK_position,
             'start': self.start.isoformat(),
             'end': self.end.isoformat(),
             'pause': self.pause,
