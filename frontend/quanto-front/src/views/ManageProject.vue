@@ -1,14 +1,18 @@
 <template>
 
     <div>
+         
         <TopBar />
+      
         <BackgroundScreen />
         <ManageProjectTabelle />
         <ManageProject />
         <!-- <MitarbeiterTabelle /> -->
-        <SideBarManager />
+ 
         <!-- <DropDownProjects /> -->
+     <SideBar class="sideBarPosition"/>    
     </div>
+
 
 </template>
 
@@ -22,4 +26,15 @@ import MitarbeiterTabelle from '@/components/MitarbeiterTabelle.vue';
 import BackgroundScreen from '@/components/BackgroundScreen.vue';
 </script>
 
-<style></style>
+
+
+
+<style scoped>
+.sideBarPosition {
+    position: absolute;
+    top: -100px;
+    left: -120px;
+   
+}
+
+</style>

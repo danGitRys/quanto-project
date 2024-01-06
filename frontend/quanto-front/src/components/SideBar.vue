@@ -1,4 +1,5 @@
 <template>
+    <div class="container">
     <div class="card flex justify-content-flex-start">
         <Sidebar v-model:visible="visible">
             <template #container="{ closeCallback }">
@@ -82,6 +83,7 @@
         </Sidebar>
         <Button icon="pi pi-bars" @click="visible = true" />
     </div>
+    </div>
 </template>
 
 <script setup>
@@ -141,13 +143,14 @@ onMounted(() => {
   const logout = () => {
     console.log("Logout");
     localStorage.clear();
+    window.location.href = '/login';
   }
 </script>
 
 <style>
-* {
+/* * {
     box-sizing: border-box;
-}
+} */
 
 .logoutStyle {
     background-color: #94B8C7;
