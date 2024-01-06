@@ -14,7 +14,7 @@
 import WorkingTimesPlus from '@/components/WorkingTimesPlus.vue';
 import Default from '@/layouts/default/Default.vue';
 import Test from '@/components/Test.vue';
-import SideBarManager from '@/components/SideBarManager.vue';
+
 import WorkingTimes from '@/components/WorkingTimes.vue';
 
 

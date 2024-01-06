@@ -1,7 +1,7 @@
 <script setup>
 import SingleProject from '@/components/SingleProject.vue';
 import Default from '@/layouts/default/Default.vue';
-import SideBarManager from '@/components/SideBarManager.vue';
+
 </script>
 
 <template>
