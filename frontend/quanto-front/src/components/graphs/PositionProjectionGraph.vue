@@ -9,6 +9,7 @@
   import axios from 'axios';
 //import { transformWithEsbuild } from 'vite';
 import { projectIdStore } from "@/store/projectIdStore";
+import {projectionStore} from "@/store/projectionStore";
   
   export default {
     name: 'BarChart',
@@ -36,7 +37,29 @@ import { projectIdStore } from "@/store/projectIdStore";
   
       try {
         const projectId = projectIdStore().sharedData;
-        const response = await axios.get("http://localhost:8000/projectProjectionGraph/1242/50");
+        const projection = projectionStore().sharedData;
+
+        var days = 0;
+
+
+        switch(projection){
+
+          case '4 Weeks':
+            days=28;
+            break;
+          
+          case '8 Weeks':
+            days = 56;
+            break;
+          
+          default:
+            days= 1000;
+            break;
+
+
+        }
+
+        const response = await axios.get("http://localhost:8000/projectProjectionGraph/"+projectId+"/"+days);
         const responseData = response.data;
         console.log(responseData)
         const valid = responseData.success;
