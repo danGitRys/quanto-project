@@ -40,9 +40,8 @@
         </Dropdown>
       </template>
       <template #body="slotProps">
-        <div slotProps.data.pos></div>
-        <div v-for="(pos, index) in Object.values(posArray)" :key="index">
-        <Tag :value="pos.label" />
+        <div v-for="posArray in slotProps.data.pos">
+        <Tag :value="posArray.label" />
       </div>
       </template>
     </Column>
@@ -70,7 +69,6 @@ const { name, tableData, generatedDate, selectedProject, allProjects } = defineP
 const editingRows = ref([]);
 const tableArray = tableData;
 let posArray = ref([]);
-posArray.value.push({label: "test"});
 
 // console.log("TABLEARRAY");
 // console.log(tableArray);
@@ -95,10 +93,8 @@ const onRowEditSave = (event) => {
   console.log(tableArray[index].pos);
   console.log(posArray);
   let _data = tableData[index];
-  _data.pos
-  console.log(pos.value);
   console.log(newData);
-  _data.pos = pos.value;
+  //_data.pos = pos.value;
   tableData[index] = _data;
   tableData[index].hours_this_project = newData.hours_this_project;
 };
