@@ -132,12 +132,14 @@
           const id = index + 1;
           const hours_this_project = tableEntry ? tableEntry.inProject : '';
           const hours_all_project = tableEntry ? tableEntry.outsideProject : '';
+          const inProjectDetail = tableEntry ? tableEntry.inProjectDetail : '';
 
           employeeData.times[index] = {
             id: id,
             date: dateItem.date,
             hours_this_project: hours_this_project,
             hours_all_project: hours_all_project,
+            inProjectDetail: inProjectDetail,
             pos: positions,
           };
         });

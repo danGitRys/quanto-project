@@ -94,7 +94,7 @@ const onRowEditSave = (event) => {
   console.log(posArray);
   let _data = tableData[index];
   console.log(newData);
-  //_data.pos = pos.value;
+  _data.pos = pos.value;
   tableData[index] = _data;
   tableData[index].hours_this_project = newData.hours_this_project;
 };
