@@ -1,129 +1,107 @@
 <template>
   <div class="card">
-    <div class="custom-search-input">
-      <InputText v-model="globalFilter" placeholder="Search..." />
+    <div class="search-input">
+      <input v-model="globalFilter" placeholder="Search..." />
     </div>
-      <!-- DataTable-Komponente mit verschiedenen Spalten -->
-    <DataTable
-      :value="projects"
-      paginator
-      :rows="10"
-      dataKey="id"
-      :globalFilter="globalFilter"
-    >
-     <!-- Benutzerdefinierte Anzeige, wenn keine Projekte gefunden werden -->
-      <template #empty>No projects found.</template>
-
-      <!-- Definition von Spalten mit verschiedenen Feldern und Überschriften -->
-      <Column
-        field="project_id"
-        header="ID"
-        sortable
-        style="min-width: 10rem"
-      ></Column>
-      <Column
-        field="project_pid"
-        header="Project ID"
-        sortable
-        style="min-width: 14rem"
-      ></Column>
-      <Column
-        field="project_name"
-        header="Project Name"
-        sortable
-        style="min-width: 14rem"
-      ></Column>
-      <Column
-        field="project_company"
-        header="Company"
-        sortable
-        style="min-width: 14rem"
-      ></Column>
-      <Column
-        field="assignment_role"
-        header="Role"
-        sortable
-        style="min-width: 14rem"
-      ></Column>
-      <Column
-        field="project_start_date"
-        header="Start Date"
-        sortable
-        style="min-width: 14rem"
-      ></Column>
-      <Column
-        field="project_end_date"
-        header="End Date"
-        sortable
-        style="min-width: 14rem"
-      ></Column>
-    </DataTable>
+    <table>
+      <thead>
+        <tr>
+          <th @click="sortProjects('project_id')" class="fixed-width">ID {{ getSortIcon('project_id') }}</th>
+          <th @click="sortProjects('project_pid')" class="fixed-width">Project ID {{ getSortIcon('project_pid') }}</th>
+          <th @click="sortProjects('project_name')" class="fixed-width">Project Name {{ getSortIcon('project_name') }}</th>
+          <th @click="sortProjects('project_company')" class="fixed-width">Company {{ getSortIcon('project_company') }}</th>
+          <th @click="sortProjects('assignment_role')" class="fixed-width">Role {{ getSortIcon('assignment_role') }}</th>
+          <th @click="sortProjects('project_start_date')" class="fixed-width">Start Date {{ getSortIcon('project_start_date') }}</th>
+          <th @click="sortProjects('project_end_date')" class="fixed-width">End Date {{ getSortIcon('project_end_date') }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="project in filteredProjects" :key="project.id">
+          <td>{{ project.project_id }}</td>
+          <td>{{ project.project_pid }}</td>
+          <td>{{ project.project_name }}</td>
+          <td>{{ project.project_company }}</td>
+          <td>{{ project.assignment_role }}</td>
+          <td>{{ project.project_start_date }}</td>
+          <td>{{ project.project_end_date }}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
 <style>
-/* Stildefinitionen für die Komponente */
 .card {
   border: 1px solid #ddd;
   border-radius: 8px;
   overflow: hidden;
-  margin: 50px 10%;
+  margin: 50px auto;
   padding: 30px;
+  width: 80%;
 }
 
-.custom-search-input {
+.search-input {
   margin-bottom: 20px;
+  text-align: center;
 }
 
-.custom-search-input input {
+.search-input input {
   box-sizing: border-box;
-  width: 100%;
+  width: 60%;
   border: 1px solid #ccc;
   border-radius: 4px;
   padding: 8px;
 }
 
-/* Stildefinitionen für die DataTable-Elemente */
-.p-datatable-thead th {
-  background-color: #f2f2f2; /* Light gray background for headers */
-  padding: 10px;
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th, td {
+  padding: 8px;
   text-align: left;
+  cursor: pointer;
+  position: relative;
 }
 
-.p-datatable-tbody tr {
-  font-family: "Arial", sans-serif; /* Change the font for entries */
-  color: #333; /* Change the text color for entries */
+th.fixed-width {
+  background-color: #f2f2f2;
+  width: 150px; /* Feste Breite für die Spalten */
+  transition: none; /* Übergang bei Hover entfernen */
 }
 
-.p-datatable-tbody td {
-  padding: 10px;
+th:hover {
+  background-color: #f2f2f2; /* Farbe beim Hover beibehalten */
+}
+
+th:last-child, td:last-child {
+  padding-right: 0;
+}
+
+.sort-icon {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  visibility: visible;
 }
 </style>
 
 <script>
-// Importieren von benötigten Bibliotheken und Komponenten
 import axios from "axios";
-import { ref, onMounted } from "vue";
-import { FilterMatchMode, FilterOperator } from "primevue/api";
-import DataTable from "primevue/datatable";
-import Column from "primevue/column";
-import InputText from "primevue/inputtext";
-import Calendar from "primevue/calendar";
-import InputNumber from "primevue/inputnumber";
-import Dropdown from "primevue/dropdown";
-import Tag from "primevue/tag";
 
 export default {
   data() {
-    // Datenoption für die Projekte
     return {
       projects: [],
+      globalFilter: "",
+      sortKey: "",
+      sortOrder: 1,
     };
   },
   methods: {
-     // Methode zum Abrufen von Projektdaten über eine API-Anfrage
     getProjects() {
-      console.log("test");
       axios
         .get(
           "http://localhost:8000/getProjectsForEmployee/" +
@@ -134,27 +112,54 @@ export default {
           var responseData = response.data;
           var valid = responseData.success;
           if (valid == true) {
-            var tempData = responseData.data;
-            console.log(tempData);
-
-            // Iteration durch die erhaltenen Projektdaten und Hinzufügen zu 'projects'
-            for (var i = 0; i < tempData.length; i++) {
-              var tempProject = tempData[i];
-              this.projects.push(tempProject);
-            }
+            this.projects = responseData.data;
           } else {
-            alert("This Team doesnt exist");
+            alert("This Team doesn't exist");
           }
         })
         .catch((error) => {
           console.log(error);
         });
     },
+    sortProjects(key) {
+      if (this.sortKey === key) {
+        this.sortOrder *= -1;
+      } else {
+        this.sortKey = key;
+        this.sortOrder = 1;
+      }
+
+      this.projects.sort((a, b) => {
+        const modifier = this.sortOrder === 1 ? 1 : -1;
+        if (a[key] < b[key]) return -1 * modifier;
+        if (a[key] > b[key]) return 1 * modifier;
+        return 0;
+      });
+    },
+    getSortIcon(column) {
+      if (this.sortKey === column) {
+        return this.sortOrder === 1 ? '↓' : '↑';
+      }
+      return '';
+    },
   },
-  // Hook vor dem Mounten der Komponente, um Projektdaten zu laden
-  beforeMount() {
+  computed: {
+    filteredProjects() {
+      return this.projects.filter((project) => {
+        return (
+          project.project_id.toLowerCase().includes(this.globalFilter.toLowerCase()) ||
+          project.project_pid.toLowerCase().includes(this.globalFilter.toLowerCase()) ||
+          project.project_name.toLowerCase().includes(this.globalFilter.toLowerCase()) ||
+          project.project_company.toLowerCase().includes(this.globalFilter.toLowerCase()) ||
+          project.assignment_role.toLowerCase().includes(this.globalFilter.toLowerCase()) ||
+          project.project_start_date.toLowerCase().includes(this.globalFilter.toLowerCase()) ||
+          project.project_end_date.toLowerCase().includes(this.globalFilter.toLowerCase())
+        );
+      });
+    },
+  },
+  mounted() {
     this.getProjects();
-    console.log("Called");
   },
 };
 </script>
