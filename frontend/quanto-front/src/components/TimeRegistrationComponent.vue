@@ -10,7 +10,7 @@
             <select v-model="selectedProjectName" @change="loadPositions" id="dropdownProjectName">
               <option disabled value="">Select a Project</option>
               <!--Project DropDown Array get Filled Dynamically with Data from the Backend-->
-              <option v-for="(project, index) in projectArray" :value="project" :key="index">{{ project }}</option>
+              <option v-for="(project, index) in projectArray" :value="project" :key="index">{{ project.projectName }}</option>
             </select>
           </div>
 
@@ -21,7 +21,7 @@
             <select v-model="selectedProjectPosition" @change="selectedPostion" id="dropdownProjectPosition">
               <option disabled value="" v-if="!selectedProjectPosition">Select a Project Position</option>
                <!--Postion DropDown Array get Filled Dynamically with Data from the Backend-->
-             <option v-for="(position, index) in positionArray" :value="position" :key="index">{{ position }}</option>
+             <option v-for="(position, index) in positionArray" :value="position" :key="index">{{ position.positionName }}</option>
             </select>
           </div>
 
@@ -84,15 +84,7 @@ const selectedProjectPosition = ref('');
 // calls function to get the current date
 const date = ref(getFormattedDate());
 
-let project = {
-  name: [],
-  id: [],
-}
 
-let position = {
-  name:[],
-  id:[],
-}
 // global variable used in the data object later
 let posID = "";
 
@@ -100,25 +92,21 @@ let posID = "";
 // the function loops to my postion Object if it matched the selected Postion I get the posID of the selected Position
 // which I will need for the Backend call
 function selectedPostion(){
-  console.log('test')
-  position.name.forEach((element, index) => {
-    if(element === selectedProjectPosition.value){
-    posID = position.id[index];
-    console.log(posID)
-    }
-  })
+  posID = selectedProjectPosition.value.positionId;
+ console.log(posID)
+ 
 }
 // the function loops to my project Object if it matched the selected Project I get the fk (forgein key) of the Project 
 // which I need for the backend call to get all Positions for the selected Project
 
 async function loadPositions() {
+
   
-  project.name.forEach((element, index) => {
-    if (element === selectedProjectName.value){
-      const fk_project = project.id[index]
+      positionArray.value = [];
+      const fk_project = selectedProjectName.value.projectID;
+      console.log(fk_project)
       getPositionsFromBackend(fk_project)
-    }
-  });
+    
 }
 // get called before the Page is loaded I get all projects the employee is involved
 onBeforeMount(() => {
@@ -135,15 +123,12 @@ async function getProjectsFromBackend() {
   const response = await axios.get(url);
   // save the response in the Array
   let respArray = response.data.projects;
+  console.log(respArray)
   // fill the projectArray with the data of the backend
-  respArray.forEach((element,index) => {
-    projectArray.value[index] = element.name;
+  respArray.forEach((element) => {
+    projectArray.value.push({projectName: element.name, projectID: element.id})
   });
-  // fill the data of the backend into the project object 
-  for (let i = 0; i < respArray.length; i++){
-    project.name[i] = respArray[i].name;
-    project.id[i] = respArray[i].id;
-  }
+
 }
  
 // This funtction gives us all Postions for the selected Project in the Dropdown
@@ -155,10 +140,9 @@ async function getPositionsFromBackend(fk_project){
   let resPositionArray = response.data.positions;
   // fill the postion Array and postion Object with the data of the backend
   resPositionArray.forEach((element,index) =>{
-    
-    positionArray.value[index] = element.position_id;
-    position.name[index] = element.position_id;
-    position.id[index] = element.id;   
+    console.log(element)
+    positionArray.value.push({positionName: element.position_id, positionId: element.id})
+ 
   })
    selectedProjectPosition.value = positionArray.value[0];
 }
@@ -207,18 +191,14 @@ const data = {
   });
    } else {
     try {
-      // Zeige einen Ladezustand an (optional)
-      // setLoading(true);
+      
 
       const url = 'http://localhost:8000/booking';
       const response = await axios.post(url, data);
-      // setLoading(false);
 
       console.log(response.data);
 
-      if (response.data && response.data.success) {
-        // Leere Formularfelder nach erfolgreicher Buchung (optional)
-        // clearFormFields();
+      if (response.data.success === true) {
 
         toast.add({
           severity: 'success',
