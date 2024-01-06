@@ -74,7 +74,8 @@ urlpatterns = [
     path('getPositionsToProjectId/<int:id>', getPositionsToProjectId),
     path('getEmployeesToProjectId/<int:id>', getEmployeesToProjectId),
     path('getProjectsOfEmployee/<int:id>', getProjectsOfEmployee),
-    path('getPositionsOfProjectOfEmployee/<int:id>',getPositionsOfProjectOfEmployee),
+
+ 
     path('getTest/<int:id>/<int:projectKey>',getTest),
     path('getBookingTimes/<int:id>/<str:currentDay>',getBookingTimes),
     path('getProjectsWhereProjectLeader/<int:id>', getProjectsWhereProjectLeader),
@@ -82,4 +83,34 @@ urlpatterns = [
     path('getBookingTimesForDay/<int:id>/<str:currentDay>/<int:empId>', getBookingTimesForDay),
     path('updateBooking/<int:booking_id>', updateBooking),
     path('getAllPositionsFromAllProjects/<int:id>', getAllPositionsFromAllProjects),
-]
+
+    path('getPositionsOfProjectOfEmployee/<int:id>/<int:empId>',getPositionsOfProjectOfEmployee),
+
+    path('positionGraph/<id>',PositionGraphView.as_view()),
+    path('positionGraph',PositionGraphView.as_view()),
+    path('positionLinearGraph/<id>',PositionLinearGraphView.as_view()),
+    path('positionLinearGraph',PositionLinearGraphView.as_view()),
+    path('projectPositionsLinearGraph/<id>',ProjectPositionsGraphView.as_view()),
+    path('projectPositionLinearGraph',ProjectPositionsGraphView.as_view()),
+    path('projectPositionsPieGraph/<id>',ProjectPositionsPieGraphView.as_view()),
+    path('projectPositionPieGraph',ProjectPositionsPieGraphView.as_view()),
+    path('projectProjectionGraph/<int:id>/<int:weeks>',ProjectProjectionGraphView.as_view()),
+    path('projectProjectionGraph',ProjectProjectionGraphView.as_view()),
+    
+    
+    path('getTableData/<int:id>',getTableData),
+    path('getAllProjects/',getAllProjects),
+
+
+
+
+    path('timeTableBooking/<id>',TimeTableBookingView.as_view()),
+    path('timeTableBooking',TimeTableBookingView.as_view()),
+    path('timeTableForecast/<id>',TimeTableForecastView.as_view()),
+    path('timeTableForecast',TimeTableForecastView.as_view()),
+    path('timeTableCombined/<id>',TimeTableCombinedView.as_view()),
+    path('timeTableCombined',TimeTableCombinedView.as_view()),
+
+
+
+
