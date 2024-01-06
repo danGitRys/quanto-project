@@ -8,6 +8,10 @@ from django.db import connection
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 
+
+#Remove/Löschen
+
+
 # Request-handler
 
 # Create your views here.

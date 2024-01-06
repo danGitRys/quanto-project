@@ -66,7 +66,7 @@
                             v-model="projectmanager"
                             dropdown
                             :suggestions="filteredEmployees"
-                            
+                            option-label="name"
                             update:modelValue 
                             placeholder="Select Projectmanager"   
                             @complete="searchEmployee" 
