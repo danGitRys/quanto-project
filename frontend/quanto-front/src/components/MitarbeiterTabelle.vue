@@ -27,21 +27,23 @@
       </template>
     </Column>
     <Column field="pos" header="Pos" style="width: 20%">
-      <template #editor="{ data, field }">
-        <MultiSelect
-          v-model="pos"
+      <template #editor="{ data, field, index }">
+        <Dropdown
+          v-model="data[field]"
           :options="getPositionsForDate(data.date)"
           option-label="label"
           placeholder="Select a Position"
-          
         >
           <template #option="slotProps">
-            <Tag :value="slotProps.option.value" :severity="getStatusLabel(slotProps.option.value)" />
+            <Tag :value="slotProps.option.value" />
           </template>
-        </MultiSelect>
+        </Dropdown>
       </template>
       <template #body="slotProps">
-        <Tag :value="slotProps.data.pos" :severity="getStatusLabel(slotProps.data.pos)" />
+        <div slotProps.data.pos></div>
+        <div v-for="(pos, index) in Object.values(posArray)" :key="index">
+        <Tag :value="pos.label" />
+      </div>
       </template>
     </Column>
     <Column :rowEditor="true" style="width: 10%; min-width: 8rem" bodyStyle="text-align:center"></Column>
@@ -49,13 +51,12 @@
 </template>
 
 <script setup>
-import { ref, watch, defineProps } from 'vue';
+import { ref, defineProps } from 'vue';
 import InputText from 'primevue/inputtext';
-import Dropdown from 'primevue/dropdown';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 import Tag from 'primevue/tag';
-import MultiSelect from 'primevue/multiselect';
+import Dropdown from 'primevue/dropdown';
 
 const { name, tableData, generatedDate, selectedProject, allProjects } = defineProps([
   'name',
@@ -67,8 +68,10 @@ const { name, tableData, generatedDate, selectedProject, allProjects } = defineP
 
 // console.log(generatedDate);
 const editingRows = ref([]);
-let statuses = ref([]);
 const tableArray = tableData;
+let posArray = ref([]);
+posArray.value.push({label: "test"});
+
 // console.log("TABLEARRAY");
 // console.log(tableArray);
 const pos = ref([])
@@ -84,46 +87,20 @@ const getPositionsForDate = (date) => {
 };
 
 
-
-watch(() => selectedProject, (newProject) => {
-  // console.log('IN WATCH' + allProjects.length);
-  // console.log(allProjects);
-  employeesData.value = [];
-  generatedDate.value = [];
-
-  if (allProjects.length > 0) {
-    for (let i = 0; i < allProjects.length; i++) {
-      if (newProject == allProjects[i].name) {
-        // chosenProjectId = allProjects[i].id;
-        //console.log(allProjects[i].id);
-      }
-    }
-  }
-});
-
 const onRowEditSave = (event) => {
   let { newData, index } = event;
-  let _data = tableData[index]
-  console.log(pos.value)
+  // if(tableArray[index].pos == tableData[index].pos) {
+  //   posArray = tableData[index].pos;
+  // }
+  console.log(tableArray[index].pos);
+  console.log(posArray);
+  let _data = tableData[index];
+  _data.pos
+  console.log(pos.value);
+  console.log(newData);
   _data.pos = pos.value;
   tableData[index] = _data;
-};
-
-const getStatusLabel = (status) => {
-  //console.log(status);
-  switch (status) {
-    case `${tableData[0].pos[0].value}`:
-      return 'success';
-
-    case 'LOWSTOCK':
-      return 'warning';
-
-    case 'OUTOFSTOCK':
-      return 'danger';
-
-    default:
-      return null;
-  }
+  tableData[index].hours_this_project = newData.hours_this_project;
 };
 </script>
 
