@@ -44,6 +44,7 @@
         <div class="endTimeContainer">
           <label for="endTimePicker"> End Time: </label>
           <input v-model="endTime" id="endTimePicker" type="time">
+          
         </div>
       <!--If the Button get clicked the data will get sended to the backend-->
         <div class="buttonContainer">
@@ -51,6 +52,7 @@
             Submit
           </v-btn>
         </div>
+        <Toast ref="toast" />
       </div>
     </div>
 
@@ -63,6 +65,10 @@
 import { onBeforeMount, ref} from 'vue';
 import axios from "axios"
 import { useUser } from '@/store/user';
+import Toast from 'primevue/toast';
+import { useToast } from 'primevue/usetoast';
+
+const toast = useToast();
 
 const User = useUser()
 const employee_id = User.getUserData.id;
@@ -177,7 +183,7 @@ function getFormattedDate() {
 }
 
 
-function sendDatatoBackend() {
+async function sendDatatoBackend() {
    // Dates are being converted to the correct format for the database
    const startDate = `${date.value}` + " " + `${startTime.value+":00"}`
    const endDate = `${date.value}` + " " + `${endTime.value + ":00"}`
@@ -192,25 +198,55 @@ const data = {
 }
   // checked if all field are field out or not 
    if (date.value == '' || startTime.value == '' || breakTime.value == '' || endTime.value == '' || selectedProjectName.value == undefined || selectedProjectPosition.value == undefined) {
-     alert("Please fill out all fields");
-   }
-   else {
-    // data send to backend for the database entry
-    const url = "http://localhost:8000/booking"
-    axios.post(url, data)
-      .then(response => {
-        console.log(response.data);
-        // if the respone.data.sucess == true we know the booking works
-        if (response.data['success']) {
-        alert("Booking sucessfull")
+     
+    toast.add({
+      severity: 'error',
+      summary: 'Error Message',
+      detail: 'Please fill out all fields',
+      life: 3000
+  });
+   } else {
+    try {
+      // Zeige einen Ladezustand an (optional)
+      // setLoading(true);
+
+      const url = 'http://localhost:8000/booking';
+      const response = await axios.post(url, data);
+      // setLoading(false);
+
+      console.log(response.data);
+
+      if (response.data && response.data.success) {
+        // Leere Formularfelder nach erfolgreicher Buchung (optional)
+        // clearFormFields();
+
+        toast.add({
+          severity: 'success',
+          summary: 'Erfolgsmeldung',
+          detail: 'Die Buchung war erfolgreich',
+          life: 3000
+        });
+      } else {
+      
+        toast.add({
+          severity: 'error',
+          summary: 'Fehlermeldung',
+          detail: 'Die Buchung war nicht erfolgreich. Überprüfen Sie die Konsole für weitere Informationen.',
+          life: 3000
+        });
       }
 
-      })
-      .catch(error => {
-        console.error(error);
+    } catch (error) {
+      console.error('Error during axios.post:', error);
+     
+      toast.add({
+        severity: 'error',
+        summary: 'Fehlermeldung',
+        detail: 'Die Buchung war nicht erfolgreich. Überprüfen Sie die Konsole für weitere Informationen.',
+        life: 3000
       });
-   }
-
+    }
+  }
 }
 </script>
 
