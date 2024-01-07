@@ -15,14 +15,14 @@ def getPositionsOfProjectOfEmployee(request,id,empId) -> JsonResponse:
             # DIE 8 MUSS NOCH ERSETZT WERDEN DURCH EMPLOYEE_ID, PFAD MUSS AUCH NOCH ANGEPASST WERDEN 2xint
             #
             sql_statement = """
-                SELECT position.position_id, position.id FROM position
+                SELECT position.position_name, position.position_id, position.id FROM position
                 INNER JOIN assignment ON position.fk_project = assignment.fk_project
                 WHERE fk_employee = %s AND position.fk_project = %s;
 
             """
             cursor.execute(sql_statement, [empId,id])
             # Fetch the results
-            result = [{"position_id": row[0], "id": row[1]} for row in cursor.fetchall()]
+            result = [{"position_name":row[0], "position_id": row[1], "id": row[2]} for row in cursor.fetchall()]
 
         # Process 'result' and return JsonResponse
         return JsonResponse({"positions": result})

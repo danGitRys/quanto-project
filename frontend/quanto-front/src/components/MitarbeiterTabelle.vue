@@ -27,24 +27,34 @@
       </template>
     </Column>
     <Column field="pos" header="Pos" style="width: 20%">
-      <template #editor="{ data, field, index }">
-        <Dropdown
-          v-model="data[field]"
-          :options="getPositionsForDate(data.date)"
-          option-label="label"
-          placeholder="Select a Position"
-        >
-          <template #option="slotProps">
-            <Tag :value="slotProps.option.value" />
-          </template>
-        </Dropdown>
+  <template #editor="{ data, field, index }">
+    <Dropdown
+      v-model="data[field]"
+      :options="getPositionsForDate(data.date)"
+      option-label="label"
+      placeholder="Select a Position"
+    >
+      <template #option="slotProps">
+        <Tag :value="slotProps.option.value" />
       </template>
-      <template #body="slotProps">
-        <div v-for="posArray in slotProps.data.pos">
-        <Tag :value="posArray.label" />
+    </Dropdown>
+  </template>
+  <template #body="slotProps">
+    <div v-if="slotProps.data.inProjectDetail && slotProps.data.inProjectDetail.length > 0">
+      <!-- Display positions from InProjectDetail -->
+      <div v-for="detail in slotProps.data.inProjectDetail">
+        <Tag :value="detail.info.position_name" />
       </div>
-      </template>
-    </Column>
+    </div>
+    <div v-else>
+      <!-- Display positions from dataTable[index].pos if InProjectDetail is not available -->
+      <div v-for="posArray in slotProps.data.pos">
+        <Tag :value="posArray.name" />
+      </div>
+    </div>
+  </template>
+</Column>
+
     <Column :rowEditor="true" style="width: 10%; min-width: 8rem" bodyStyle="text-align:center"></Column>
   </DataTable>
 </template>
@@ -68,6 +78,7 @@ const { name, tableData, generatedDate, selectedProject, allProjects } = defineP
 // console.log(generatedDate);
 const editingRows = ref([]);
 const tableArray = tableData;
+console.log(tableData);
 let posArray = ref([]);
 
 // console.log("TABLEARRAY");
@@ -77,27 +88,39 @@ const pos = ref([])
 const getPositionsForDate = (date) => {
   const dateItem = tableData.find(item => {
     const itemDate = new Date(item.date).toISOString().split('T')[0];
-    // console.log(itemDate)
     return itemDate === date.toISOString().split('T')[0];
   });
-  // console.log(dateItem)
-  return dateItem ? dateItem.pos : "Test";
+
+  return dateItem ? dateItem.pos.map(pos => ({ label: pos.name, value: pos.name })) : [];
 };
+
 
 
 const onRowEditSave = (event) => {
   let { newData, index } = event;
-  // if(tableArray[index].pos == tableData[index].pos) {
-  //   posArray = tableData[index].pos;
-  // }
   console.log(tableArray[index].pos);
   console.log(posArray);
+
   let _data = tableData[index];
   console.log(newData);
   _data.pos = pos.value;
+
+  // Find the corresponding date in dataTable
+  const dateInDataTable = tableData.find(item => {
+    const itemDate = new Date(item.date).toISOString().split('T')[0];
+    return itemDate === newData.date.toISOString().split('T')[0];
+  });
+
+  // If dateInDataTable exists, update positions based on it
+  if (dateInDataTable && dateInDataTable.inProjectDetail) {
+    const positions = dateInDataTable.inProjectDetail.map(detail => detail.info.position_name);
+    _data.pos = positions;
+  }
+
   tableData[index] = _data;
   tableData[index].hours_this_project = newData.hours_this_project;
 };
+
 </script>
 
 

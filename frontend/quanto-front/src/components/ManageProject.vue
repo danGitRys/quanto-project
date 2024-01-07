@@ -97,7 +97,7 @@
 
       await axios.get(url3).then(async (response) => {
         response.data.positions.forEach(pos => {
-          positions.push({ label: `${pos.position_id}`, value: `${pos.id}` });
+          positions.push({ name:`${pos.position_name}`, label: `${pos.position_id}`, value: `${pos.id}` });
         });
         // console.log(positions);
       });
