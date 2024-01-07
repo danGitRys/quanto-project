@@ -9,9 +9,7 @@ export const projectIdStore = defineStore('projectIdStore', {
   actions: {
     setSharedData(data) {
       this.sharedData = data;
-    },
-    getSharedData() {
-      return this.sharedData;
-    },
+    }
+   
   },
 });
