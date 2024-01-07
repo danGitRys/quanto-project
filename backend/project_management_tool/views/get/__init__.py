@@ -21,4 +21,5 @@ from .getBookingTimesForDay import *
 from .getAllPositonsFromAllProjects import *
 
 from .getAllProjects import *
+from .getProjectsForEmployee import *
 
