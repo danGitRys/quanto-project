@@ -46,12 +46,7 @@
         <Tag :value="detail.info.position_name" />
       </div>
     </div>
-    <div v-else>
-      <!-- Display positions from dataTable[index].pos if InProjectDetail is not available -->
-      <div v-for="posArray in slotProps.data.pos">
-        <Tag :value="posArray.name" />
-      </div>
-    </div>
+    
   </template>
 </Column>
 
@@ -78,12 +73,13 @@ const { name, tableData, generatedDate, selectedProject, allProjects } = defineP
 // console.log(generatedDate);
 const editingRows = ref([]);
 const tableArray = tableData;
-console.log(tableData);
-let posArray = ref([]);
+console.log(name);
+console.log(generatedDate);
+console.log(selectedProject);
+console.log(allProjects);
 
 // console.log("TABLEARRAY");
 // console.log(tableArray);
-const pos = ref([])
 
 const getPositionsForDate = (date) => {
   const dateItem = tableData.find(item => {
@@ -99,27 +95,26 @@ const getPositionsForDate = (date) => {
 const onRowEditSave = (event) => {
   let { newData, index } = event;
   console.log(tableArray[index].pos);
-  console.log(posArray);
 
   let _data = tableData[index];
-  console.log(newData);
-  _data.pos = pos.value;
+  console.log(tableData[index]);
 
   // Find the corresponding date in dataTable
-  const dateInDataTable = tableData.find(item => {
-    const itemDate = new Date(item.date).toISOString().split('T')[0];
-    return itemDate === newData.date.toISOString().split('T')[0];
-  });
+  // const dateInDataTable = tableData.find(item => {
+  //   const itemDate = new Date(item.date).toISOString().split('T')[0];
+  //   return itemDate === newData.date.toISOString().split('T')[0];
+  // });
 
-  // If dateInDataTable exists, update positions based on it
-  if (dateInDataTable && dateInDataTable.inProjectDetail) {
-    const positions = dateInDataTable.inProjectDetail.map(detail => detail.info.position_name);
-    _data.pos = positions;
-  }
+  // // If dateInDataTable exists, update the selected position based on it
+  // if (dateInDataTable && dateInDataTable.inProjectDetail) {
+  //   const positions = dateInDataTable.inProjectDetail.map(detail => detail.info.position_name);
+  //   _data.pos = positions.length > 0 ? positions[0] : null; // Set to the first position or null if no positions
+  // }
 
   tableData[index] = _data;
   tableData[index].hours_this_project = newData.hours_this_project;
 };
+
 
 </script>
 

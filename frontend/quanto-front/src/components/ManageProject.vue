@@ -45,7 +45,7 @@
   import { ref, onMounted, watch } from 'vue';
   import { startOfMonth, endOfMonth } from 'date-fns';
   import Calendar from 'primevue/calendar';
-  import axios from 'axios';
+  import axios, { CancelToken} from 'axios';
   import Dropdown from 'primevue/dropdown';
   import MitarbeiterTabelle from './MitarbeiterTabelle.vue';
   
@@ -56,6 +56,8 @@
   const allProjects = [];
   let chosenProject = '';
   let chosenProjectId = '';
+  let cancelTokenSource = null;
+
 
   
   const empId = ref([]);
@@ -78,6 +80,19 @@
   };
   
   const getDataFromBackend = async () => {
+  if (!chosenProjectId) {
+    // No project selected, do nothing
+    return;
+  }
+
+  // Cancel the previous request if it exists
+  if (cancelTokenSource) {
+    cancelTokenSource.cancel('New request initiated');
+  }
+
+  // Create a new cancel token source
+  cancelTokenSource = axios.CancelToken.source();
+
   const url = 'http://localhost:8000/timeTableForecast';
   const url2 = `http://localhost:8000/getEmployeesToProjectId/${chosenProjectId}`;
   const url3Base = 'http://localhost:8000/getPositionsOfProjectOfEmployee';
@@ -85,70 +100,78 @@
   empId.value = [];
   employeesData.value = [];
 
-  await axios.get(url2).then(async (response) => {
-    const empArray = response.data.data;
+  try {
+    await axios.get(url2, { cancelToken: cancelTokenSource.token }).then(async (response) => {
+      const empArray = response.data.data;
 
-    empArray.forEach(async (element) => {
-      empId.value.push(element.id);
-      let positions = [];
+      empArray.forEach(async (element) => {
+        empId.value.push(element.id);
+        let positions = [];
 
-      // Hier die Mitarbeiter-ID in die URL für url3 einfügen
-      const url3 = `${url3Base}/${chosenProjectId}/${element.id}`;
+        const url3 = `${url3Base}/${chosenProjectId}/${element.id}`;
 
-      await axios.get(url3).then(async (response) => {
-        response.data.positions.forEach(pos => {
-          positions.push({ name:`${pos.position_name}`, label: `${pos.position_id}`, value: `${pos.id}` });
-        });
-        // console.log(positions);
-      });
-
-      const employeeData = {
-        id: element.id,
-        name: element.forename,
-        times: [],
-      };
-
-      const startOfMonthDate = startOfMonth(dateMonthPicker.value);
-      const endOfMonthDate = endOfMonth(dateMonthPicker.value);
-      const formattedStartDate = startOfMonthDate.toISOString().split('T')[0];
-      const formattedEndDate = endOfMonthDate.toISOString().split('T')[0];
-
-      const requestData = {
-        start_date: formattedStartDate,
-        end_date: formattedEndDate,
-        project_id: chosenProjectId,
-        employee_id: element.id,
-      };
-
-      await axios.post(url, requestData).then((response) => {
-        const bookings = response.data.data;
-
-        generatedDate.value.forEach((dateItem, index) => {
-          const tableEntry = bookings.find((element) => {
-            const entryDate = new Date(element.date).toISOString().split('T')[0];
-            return entryDate === dateItem.date.toISOString().split('T')[0];
+        await axios.get(url3, { cancelToken: cancelTokenSource.token }).then(async (response) => {
+          response.data.positions.forEach(pos => {
+            positions.push({ name: `${pos.position_name}`, label: `${pos.position_id}`, value: `${pos.id}` });
           });
-
-          const id = index + 1;
-          const hours_this_project = tableEntry ? tableEntry.inProject : '';
-          const hours_all_project = tableEntry ? tableEntry.outsideProject : '';
-          const inProjectDetail = tableEntry ? tableEntry.inProjectDetail : '';
-
-          employeeData.times[index] = {
-            id: id,
-            date: dateItem.date,
-            hours_this_project: hours_this_project,
-            hours_all_project: hours_all_project,
-            inProjectDetail: inProjectDetail,
-            pos: positions,
-          };
         });
-      });
 
-      employeesData.value.push(employeeData);
+        const employeeData = {
+          id: element.id,
+          name: element.forename,
+          times: [],
+        };
+
+        const startOfMonthDate = startOfMonth(dateMonthPicker.value);
+        const endOfMonthDate = endOfMonth(dateMonthPicker.value);
+        const formattedStartDate = startOfMonthDate.toISOString().split('T')[0];
+        const formattedEndDate = endOfMonthDate.toISOString().split('T')[0];
+
+        const requestData = {
+          start_date: formattedStartDate,
+          end_date: formattedEndDate,
+          project_id: chosenProjectId,
+          employee_id: element.id,
+        };
+
+        await axios.post(url, requestData, { cancelToken: cancelTokenSource.token }).then((response) => {
+          const bookings = response.data.data;
+
+          generatedDate.value.forEach((dateItem, index) => {
+            const tableEntry = bookings.find((element) => {
+              const entryDate = new Date(element.date).toISOString().split('T')[0];
+              return entryDate === dateItem.date.toISOString().split('T')[0];
+            });
+
+            const id = index + 1;
+            const hours_this_project = tableEntry ? tableEntry.inProject : '';
+            const hours_all_project = tableEntry ? tableEntry.outsideProject : '';
+            const inProjectDetail = tableEntry ? tableEntry.inProjectDetail : '';
+
+            employeeData.times[index] = {
+              id: id,
+              date: dateItem.date,
+              hours_this_project: hours_this_project,
+              hours_all_project: hours_all_project,
+              inProjectDetail: inProjectDetail,
+              pos: positions
+            };
+          });
+        });
+
+        employeesData.value.push(employeeData);
+      });
     });
-  });
+  } catch (error) {
+    // Handle cancellation or other errors
+    if (axios.isCancel(error)) {
+      console.log('Request canceled:', error.message);
+    } else {
+      console.error('Error:', error.message);
+    }
+  }
 };
+
 
 
   
@@ -228,7 +251,7 @@ text-align: center;
 .dates {
     display: flex;
     margin-left: 100px;
-    margin-top: 250px;
+    margin-top: 275px;
     z-index: 100;
     background-color: white;
 }
