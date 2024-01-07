@@ -1,4 +1,6 @@
 from django.urls import path
+
+from .views.get import getProjectsForEmployee
 from .views import *
 from .views.time.getTime import getTime
 from .views.basic.assignment import AssignmentView
