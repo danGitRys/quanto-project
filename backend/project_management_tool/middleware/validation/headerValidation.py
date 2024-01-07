@@ -1,7 +1,6 @@
 from authlib import jose
 
-from .tokenExpirationCheck import isTokenExpired
-from .models import Assignment, Employee
+from ...models import Assignment, Employee
 import os
 from dotenv import load_dotenv
 
@@ -32,18 +31,12 @@ class HeaderValidation:
         if authorization_header:
                 # Decode token from header
                 public = os.getenv('PUBLIC_KEY')
-                print(authorization_header)
                 token = authorization_header.split(' ')[1]
-                isTokenExpired(token)
                 decoded_token = jose.jwt.decode(token,key=public)
-                print("access_token:")
-                print(decoded_token)
 
                 # Get employee from token
                 email = decoded_token["email"]
                 emp = Employee.objects.get(mail = email)
-                print(emp)
-                print(emp.company_role)
                     
                 # Check if employee has access to this resource
                 if (emp.company_role in allowedRoles):
@@ -80,7 +73,6 @@ def isAuthorizedPersonal(request, personid) -> bool:
         if authorization_header:
                 # Decode token from header
                 public = os.getenv('PUBLIC_KEY')
-                print(authorization_header)
                 token = authorization_header.split(' ')[1]
                 decoded_token = jose.jwt.decode(token,key=public)
 
@@ -123,7 +115,6 @@ def isAuthorizedForProject(request, projectid) -> bool:
         if authorization_header:
                 # Decode token from header
                 public = os.getenv('PUBLIC_KEY')
-                print(authorization_header)
                 token = authorization_header.split(' ')[1]
                 decoded_token = jose.jwt.decode(token,key=public)
 

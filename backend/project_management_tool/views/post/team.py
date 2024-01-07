@@ -3,7 +3,7 @@ from django.views.decorators.csrf import csrf_exempt
 from ...models import Team
 from ...middleware import validator
 import json
-from ...headerValidation import HeaderValidation
+from ...middleware.validation.headerValidation import HeaderValidation
 
 @csrf_exempt
 def createTeam(request)->JsonResponse:
@@ -52,69 +52,3 @@ def createTeam(request)->JsonResponse:
 
     return JsonResponse(response_data)
 
-def getTeams(request):
-    """Endpoint for getting a list of all Teams in the Database
-
-    Parameters
-    ----------
-    request : request
-        get request
-
-    Returns
-    -------
-    JsonResponse
-        Json Containing Information about Insertion Process
-    """
-
-    response_data = {
-        "success": False,
-        "message": "",
-    }
-
-    allowedRoles = ['Admin', 'Employee']
-
-    if (HeaderValidation.isAuthorized(request, allowedRoles)):
-        teamslist = []
-        allTeams = Team.objects.all()
-        for team in allTeams:
-            teamslist.append(team.toJson())
-        if request.method == 'GET':
-            response_data = { "teams": teamslist }
-    else:
-        response_data["success"] = False
-        response_data["message"] = "Not Authorized"
-
-    return JsonResponse(response_data)
-
-def getTeamRoles(request):
-    """Endpoint for getting a List of all Teamroles
-
-    Parameters
-    ----------
-    request : request
-        post request
-
-    Returns
-    -------
-    JsonResponse
-        Json Containing Information about Insertion Process
-    """
-
-    response_data = {
-        "success": False,
-        "message": "",
-    }
-
-    allowedRoles = ['Admin', 'Employee']
-
-
-    if (HeaderValidation.isAuthorized(request, allowedRoles)):
-        rolesList = ["Teamleader", "Member"]
-        if request.method == 'GET':
-            response_data = { "roles": rolesList }
-    else:
-        response_data["success"] = False
-        response_data["message"] = "Not Authorized"
-
-    return JsonResponse(response_data)
-        

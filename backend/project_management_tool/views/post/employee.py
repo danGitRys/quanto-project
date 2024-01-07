@@ -5,7 +5,7 @@ from ...models import Employee
 import json
 from ...jsonTemplate import *
 from ...middleware import *
-from ...headerValidation import HeaderValidation
+from ...middleware.validation.headerValidation import HeaderValidation
 
 @csrf_exempt
 def getEmployee(request)->JsonResponse:
