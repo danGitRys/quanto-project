@@ -7,6 +7,7 @@ import json
 from ...models import Project
 from django.shortcuts import get_object_or_404
 from ...middleware import validator
+
 @method_decorator(csrf_exempt, name='dispatch')
 
 class ProjectView(View):
