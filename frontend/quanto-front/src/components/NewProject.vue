@@ -120,10 +120,10 @@
                     <InputGroup>
                         <InputText id="workdays" type="number" v-model="workdays" placeholder="Enter Workdays"/><br>
                     </InputGroup>
-                    <h3 class="input-label">Automaticly create On-Site/Remote Position</h3>
+                    <!-- <h3 class="input-label">Automaticly create On-Site/Remote Position</h3>
                     <InputGroup>
                         <InputSwitch id="posSwitch" v-model="checked" />
-                    </InputGroup>
+                    </InputGroup> -->
                     <Button @click="createPosition" icon="pi pi-plus" label="Add Position" />
                 </template>
           
@@ -141,10 +141,6 @@
                     <template #header>
                         <div class="flex flex-wrap gap-2 align-items-center justify-content-between">
                             <h4 class="m-0">Selected Employees</h4>
-                            <span class="p-input-icon-left">
-                                <i class="pi pi-search" />
-                                <InputText placeholder="Search..." />
-                            </span>
                         </div>
                     </template>
                     <Column selectionMode="multiple" style="width: 3rem" :exportable="false"></Column>
@@ -180,10 +176,6 @@
                     <template #header>
                         <div class="flex flex-wrap gap-2 align-items-center justify-content-between">
                             <h4 class="m-0">Project Positions</h4>
-                            <span class="p-input-icon-left">
-                                <i class="pi pi-search" />
-                                <InputText placeholder="Search..." />
-                            </span>
                         </div>
                     </template>
                     <Column selectionMode="multiple" style="width: 3rem; min-height: 500px" :exportable="false"></Column>
@@ -230,6 +222,7 @@ import Card from 'primevue/card';
 import axios from 'axios'
 import Toast from 'primevue/toast';
 import { useToast } from "primevue/usetoast";
+import { useUser } from '@/store/user';
 
 class Position {
     id
@@ -261,6 +254,7 @@ export default {
     data() {
         return {
             toast: useToast(),
+            user: useUser(),
 
             //General Information
             projectid: '',
@@ -351,7 +345,19 @@ export default {
         async getEmployees() {
             try {
                 const response = await axios.get('http://localhost:8000/getAllEmployees', {})
-                this.employees = response.data.employees
+
+                if (response.data.success == 'False') {
+                    console.log(response.data.message)
+                    if (response.data.message == "Not Authorized") {
+                        window.location.href = '/'
+                    }
+                    if (response.data.message == "Token expired") {
+                        this.user.logout()
+                    }
+                }
+                else {
+                    this.employees = response.data.employees
+                }
                 
             } catch (error) {
                 console.log(error)
@@ -387,10 +393,12 @@ export default {
         },
         async createProject() {
             // Create Timestamp for creation_date
+            let userData = this.user.getUser
+            console.log(userData)
             if (this.checkForm()) {
                 var today = new Date()
                 var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()
-                const request = await axios.post("/api/createProject", {
+                const request = await axios.post("http://localhost:8000/createProject", {
                     //General Information
                     p_id: this.projectid,
                     projectname: this.projectname,
@@ -398,8 +406,7 @@ export default {
                     start_date: this.projectstart,
                     end_date: this.projectend,
                     creation_date: date.toString(),
-                    //Dummy data below
-                    fk_creator: 2,
+                    fk_creator: userData.id,
                     
                 }).then(response => {
                     console.log(response)
@@ -410,7 +417,10 @@ export default {
                         this.assignPositions(response.data.data.projectid)
                     }
                     else {
-                        this.toast.add({severity: 'error', summary: 'Error', detail: 'Error connecting to the Server.', life: 3000})
+                        let errors = response.data.error
+                        for (let i = 0; i < errors.length; i++) {
+                            this.toast.add({severity: 'error', summary: 'Error', detail: errors[i], life: 3000})
+                        }
                     }
                 })
             }
@@ -419,8 +429,10 @@ export default {
             }
         },
         async assignProjectManager(projectid) {
-            var projectmanagerid = this.employeeNames.indexOf(this.projectmanager)
-            var assignProjectManager = await axios.post("/api/createAssignment", {
+            console.log(this.projectmanager)
+            console.log(this.employees)
+            var projectmanagerid = this.employees.indexOf(this.projectmanager)
+            var assignProjectManager = await axios.post("http://localhost:8000/createAssignment", {
                 "fk_project": projectid,
                 "fk_employee": projectmanagerid,
                 "role": "Manager",
@@ -436,7 +448,7 @@ export default {
         async assignEmployees(projectid) {
             var assignEmployee
             for (let i = 0; i < this.selectedEmployees.length; i++) {
-                assignEmployee = await axios.post("/api/createAssignment", {
+                assignEmployee = await axios.post("http://localhost:8000/createAssignment", {
                     "fk_project": projectid,
                     "fk_employee": this.selectedEmployees[i].id,
                     "role": "Worker",

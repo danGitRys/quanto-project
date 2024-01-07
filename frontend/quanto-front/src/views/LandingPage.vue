@@ -1,9 +1,9 @@
 <template>
-  <div>
-     <TopBar></TopBar>
-     <ProjectOverview></ProjectOverview>
-      <SideBar class="sideBarPosition"/>
-  </div>
+  
+  <TopBar></TopBar>
+  <SideBar class="sideBarPosition"/>
+  <ProjectOverview />
+  
 </template>
 
 <script setup>
