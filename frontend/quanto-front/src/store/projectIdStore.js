@@ -1,4 +1,5 @@
 // src/store/myStore.js
+
 import { defineStore } from 'pinia';
 
 export const projectIdStore = defineStore('projectIdStore', {
@@ -8,6 +9,9 @@ export const projectIdStore = defineStore('projectIdStore', {
   actions: {
     setSharedData(data) {
       this.sharedData = data;
+    },
+    getSharedData() {
+      return this.sharedData;
     },
   },
 });

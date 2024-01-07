@@ -19,7 +19,7 @@
         <tr v-for="project in projects" :key="project.id">
           <td>{{ project.project_id }}</td>
           <td>{{ project.project_pid }}</td>
-          <td>{{ project.project_name }}</td>
+          <td @click="test()">{{ project.project_name }}</td>
           <td>{{ project.project_company }}</td>
           <td>{{ project.assignment_role }}</td>
           <td>{{ project.project_start_date }}</td>
@@ -91,7 +91,7 @@ th:last-child, td:last-child {
 <script>
 import axios from "axios";
 import { useUser } from '@/store/user';
-
+import {projectIdStore} from '@/store/projectIdStore';
 export default {
   data() {
     return {
@@ -102,6 +102,13 @@ export default {
     };
   },
   methods: {
+    test() {
+      const x = projectIdStore();
+      console.log(x);
+      console.log("test");
+      x.setSharedData(15)
+      x.getSharedData()
+    },
     getProjects() {
       var User = useUser()
       var userId = User.getUserData.id
