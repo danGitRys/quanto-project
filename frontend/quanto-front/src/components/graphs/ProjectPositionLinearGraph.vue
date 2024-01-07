@@ -36,7 +36,12 @@ import { projectIdStore } from "@/store/projectIdStore";
   
       try {
         const projectId = projectIdStore().sharedData;
-        const response = await axios.get("http://localhost:8000/projectPositionsLinearGraph/" + projectId);
+        const response = await axios.get("http://localhost:8000/projectPositionsLinearGraph/" + projectId,{
+          headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                },
+        }
+        );
         const responseData = response.data;
         const valid = responseData.success;
   

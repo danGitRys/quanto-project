@@ -4,6 +4,8 @@ from django.shortcuts import get_object_or_404
 from ...models import Employee,Project,Assignment
 from ...middleware import validator
 import json
+from ...middleware.validation.headerValidation import HeaderValidation
+from ...middleware.validation.tokenExpirationCheck import isTokenExpired
 
 
 @csrf_exempt
@@ -14,21 +16,30 @@ def getEmployeesToProjectId(request, id: int) -> JsonResponse:
         "message": "",
     }
     if request.method == 'GET':
-        idExists: bool = Project.objects.filter(id=id).exists()
-        if idExists:
-            assignments = Assignment.objects.filter(fk_project=id).all()
-            employeeIdList = []
-            for assignment in assignments:
-                employeeIdList.append(assignment.fk_employee)
-            employees = Employee.objects.filter(id__in=employeeIdList).all()
-            employeeList = []
-            for employee in employees:
-                employeeList.append(employee.toJson())
-            response_data["success"] = True
-            response_data["data"] = employeeList
+        if (isTokenExpired(request)):
+            allowedRoles = ['Admin']
+            if (HeaderValidation.isAuthorized(request, allowedRoles)):
+                idExists: bool = Project.objects.filter(id=id).exists()
+                if idExists:
+                    assignments = Assignment.objects.filter(fk_project=id).all()
+                    employeeIdList = []
+                    for assignment in assignments:
+                        employeeIdList.append(assignment.fk_employee)
+                    employees = Employee.objects.filter(id__in=employeeIdList).all()
+                    employeeList = []
+                    for employee in employees:
+                        employeeList.append(employee.toJson())
+                    response_data["success"] = True
+                    response_data["data"] = employeeList
+                else:
+                    response_data["success"] = False
+                    response_data["message"] = "No Position Exists with this Id"
+            else:
+                 response_data["success"] = False
+                 response_data["message"] = "Not Authorized"
         else:
             response_data["success"] = False
-            response_data["message"] = "No Position Exists with this Id"
+            response_data["message"] = "Token expired"
     else:
         response_data["success"] = False
         response_data["message"] = "Invalid Method"
