@@ -6,6 +6,12 @@ from ...middleware import validator
 import json
 from datetime import datetime
 
+
+
+
+#Remove?
+
+
 @csrf_exempt
 def getTime(request) -> JsonResponse:
     """Backendroute to get the current Date and Time

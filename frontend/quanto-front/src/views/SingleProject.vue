@@ -1,7 +1,7 @@
 <script setup>
 import SingleProject from '@/components/SingleProject.vue';
 import Default from '@/layouts/default/Default.vue';
-import SideBarManager from '@/components/SideBarManager.vue';
+import SideBar from '@/components/SideBar.vue';
 </script>
 
 <template>
@@ -11,7 +11,7 @@ import SideBarManager from '@/components/SideBarManager.vue';
      <div class="singleProjectStyle">
     <SingleProject/>
     </div>
-     <SideBarManager/>
+    <SideBar class="sideBarPosition"/>
     </div>
 </template>
 
@@ -20,6 +20,13 @@ import SideBarManager from '@/components/SideBarManager.vue';
 .singleProjectStyle{
     margin-left: 80px ;
     margin-top: 10px ;
+}
+
+.sideBarPosition {
+    position: absolute;
+    top: -100px;
+    left: -120px;
+   
 }
 
 

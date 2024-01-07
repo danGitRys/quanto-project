@@ -1,11 +1,11 @@
 <template>
     <div class="container">
         
-           <Default/>
+        <TopBar />
         <!-- <component :is="getWorkingTimesComponent" class="workingTimes" /> -->
         <WorkingTimes class="workingTimes"/>
         <!-- <WorkingTimesPlus class="workingTimes"/> -->
-       <SideBarManager/>
+      <Sidebar class="sideBarPosition"/>
        <!-- SideBar aus dem Default Layout entfernt damit sie die andere Ansicht überdeckt-->
     </div>
 </template>
@@ -13,8 +13,11 @@
 <script setup>
 import WorkingTimesPlus from '@/components/WorkingTimesPlus.vue';
 import Default from '@/layouts/default/Default.vue';
+import Sidebar from '@/components/Sidebar.vue';
+import TopBar from '@/components/TopBar.vue';
 import Test from '@/components/Test.vue';
-import SideBarManager from '@/components/SideBarManager.vue';
+
+
 import WorkingTimes from '@/components/WorkingTimes.vue';
 
 
@@ -36,6 +39,12 @@ const getWorkingTimesComponent = () => {
 
 <style scoped>
 
+.sideBarPosition {
+    position: absolute;
+    top: -100px;
+    left: -120px;
+   
+}
 
 
 .workingTimes{

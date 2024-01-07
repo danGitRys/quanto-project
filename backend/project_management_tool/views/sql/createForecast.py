@@ -10,6 +10,10 @@ import json
 import random
 
 
+
+#Remove?
+
+
 @csrf_exempt
 def createForecastsSql(request) -> JsonResponse:
     """ Endpoint for getting Booking Data out of the Database
