@@ -12,9 +12,9 @@ def isTokenExpired(request):
         decoded_token = jose.jwt.decode(token,key=public)
         
         expiration_time = decoded_token['exp']
-
+        
         current_time = datetime.utcnow().timestamp()
-        if current_time > expiration_time:
+        if current_time < expiration_time:
             return True
         else:
             return False
