@@ -1,83 +1,104 @@
+
 <template>
-    <div class="container">
-    <v-card>
-        <v-layout>
-            <v-navigation-drawer v-model="drawer" :rail="rail" permanent>
-                <v-list-item @click="test" prepend-icon="mdi-menu" value="menu" nav @click.stop="rail = !rail">
-                    <v-img id="QuantoLogo" src="../icons/QuantoLogo.svg" @click.stop></v-img>
-                </v-list-item>
-
-                <v-divider></v-divider>
-
-                <v-list density="compact" nav>
-                    <v-list-item prepend-icon="mdi-home" title="Home" value="home">
-                    </v-list-item>
-                    <v-list-item prepend-icon="mdi-account-clock-outline" title="Working Times+"
-                        value="workingTimes+"></v-list-item>
-                    <v-list-item prepend-icon="mdi-cog-outline" title="Settings" value="settings"></v-list-item>
-                    <v-list-item prepend-icon="mdi-timer-sand" title="Time Registration"
-                        value="timeRegistration"></v-list-item>
-
-                    <div class="logoutContainer">
-                        <v-list-item class="Profil" prepend-avatar="../icons/Test.jpg" title="Chris Schröder"
-                            value="Profil"></v-list-item>
-                        <v-list-item id="logoutIcon" class="logoutBtn" prepend-icon="mdi-logout" title="Logout"
-                            value="logout">
-                        </v-list-item>
+    <div class="card flex justify-content-flex-start">
+        <Sidebar v-model:visible="visible">
+            <template #container="{ closeCallback }">
+                <div class="flex flex-column h-full">
+                    <div class="flex align-items-baseline justify-content-between px-4 pt-3 flex-shrink-0">
+                        <span class="inline-flex align-items-center gap-2">
+                            <svg width="200" height="46" viewBox="0 0 200 46" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <rect width="200" height="45.6284" fill="url(#pattern0)"/>
+                            <defs>
+                            <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
+                            <use xlink:href="#image0_2418_1582" transform="scale(0.000455373 0.00199601)"/>
+                            </pattern>
+                            <image id="image0_2418_1582" width="2196" height="501" xlink:href="..\icons\QuantoLogo.svg"/>
+                            </defs>
+                            </svg>
+                        </span>
+                        <span>
+                            <Button type="button" @click="closeCallback" icon="pi pi-times" rounded outlined class="h-2rem w-2rem"></Button>
+                        </span>
                     </div>
-                </v-list>
-            </v-navigation-drawer>
-            <v-main></v-main>
-        </v-layout>
-    </v-card>
+                    <div class="overflow-y-auto">
+                        <ul class="list-none p-3 m-0">
+                            <li>
+                                <ul class="list-none p-0 m-0 overflow-hidden">
+                                    <router-link to="/" v-ripple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
+                                    <i class="pi pi-home mr-2"></i>
+                                    <span class="font-medium">Dashboard</span>
+                                    </router-link>
+                                    <li>
+                                        <router-link to="/workingTimes" v-ripple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
+                                            <i class="pi pi-calendar mr-2"></i>
+                                            <span class="font-medium">Working Times</span>
+                                        </router-link>
+                                    </li>
+                                    <li>
+                                        <router-link to="/timeRegistration" v-ripple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
+                                            <i class="pi pi-clock mr-2"></i>
+                                            <span class="font-medium">Time Registration</span>
+                                        </router-link>
+                                    </li>
+                                    <li>
+                                        <router-link to="/settings" v-ripple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
+                                            <i class="pi pi-cog mr-2"></i>
+                                            <span class="font-medium">Settings</span>
+                                        </router-link>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="mt-auto">
+                        <hr class="mb-3 mx-3 border-top-1 border-none surface-border" />
+                        <a v-ripple class="m-3 flex align-items-center cursor-pointer p-3 gap-2 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
+                            <!-- <Avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" shape="circle" /> -->
+                            <span class="font-bold">Hans Bauer</span>
+                        </a>
+                    </div>
+                    <div v-ripple class="logoutBtn m-3 flex align-items-center cursor-pointer p-3 gap-2 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
+                        <button class="pi pi-sign-out">  Logout</button>
+                    </div>
+                </div>
+            </template>
+        </Sidebar>
+        <Button icon="pi pi-bars" @click="visible = true" />
     </div>
 </template>
 
-<style scoped>
-.container{
-    z-index: 200;
-}
+<script setup>
+import { ref } from "vue";
+import Sidebar from 'primevue/sidebar';
+import Avatar from "primevue/avatar";
+import Button from 'primevue/button';
+import "primeflex/primeflex.css";
+import "primevue/resources/themes/lara-light-green/theme.css";
+import "primeicons/primeicons.css";
 
-#QuantoLogo {
-    cursor: default;
-}
+const visible = ref(false);
 
-.logoutContainer {
-    margin-top: 410px;
-}
+let myData = localStorage.getItem('token');
 
-.v-navigation-drawer {
-    background-color: #94B8C7;
+// Überprüfen, ob der Local Storage-Wert vorhanden ist
+if (myData) {
+    console.log('Daten aus dem Local Storage:', myData);
+} else {
+    console.log('Keine Daten im Local Storage gefunden.');
 }
+</script>
 
+<style>
 .logoutBtn {
-    background-color: white !important;
-}
-
-.logoutBtn .v-list-item-title {
-    color: black !important;
-}
-
-.v-list-item-title {
+    background-color: #94B8C7;
+    border-radius: 8px;
+    border: none;
     color: white;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 5px;
 }
 </style>
-
-
-<script>
-export default {
-    data() {
-        return {
-            drawer: true,
-            rail: true,
-        }
-    },
-
-}
-</script>
-
-<script setup>
-function test() {
-
-}
-</script>

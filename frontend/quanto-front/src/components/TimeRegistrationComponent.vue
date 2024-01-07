@@ -1,28 +1,31 @@
-// füllen von ProjectName and Position mit dynamisch Daten vom Backend
 <template>
   <div class="allContainer">
     <div class="mainContainer">
       <div class="container">
 
+<!--Project DropDown Menu-->
   <div class="projectNameContainer">
             <label for="dropdownProjectName">Project Name:</label>
-            <select v-model="selectedProjectName" name="test" id="dropdownProjectName">
-              <option disabled value="">Select a Project Name</option>
-              <!-- Dynamische Werte kommen aus dem Store app.js -->
-              <option v-for="(option, index) in optionsData" :value="index" :key="index">{{ option }}</option>
+            <!--loadPosition get called every Time a entry of the DropDown get picked-->
+            <select v-model="selectedProjectName" @change="loadPositions" id="dropdownProjectName">
+              <option disabled value="">Select a Project</option>
+              <!--Project DropDown Array get Filled Dynamically with Data from the Backend-->
+              <option v-for="(project, index) in projectArray" :value="project" :key="index">{{ project.projectName }}</option>
             </select>
           </div>
 
+
+          <!--Position DropDown Menu-->
           <div class="projectPositionContainer">
             <label for="dropdownProjectPosition">Project Position:</label>
-            <select v-model="selectedProjectPosition" id="dropdownProjectPosition">
-              <option disabled value="">Select a Project Positon</option>
-              <!-- Dynamische Werte kommen aus dem Store projectPosition.js -->
-              <option v-for="(option, index) in optionsData2" :value="index" :key="index">{{ option }}</option>
+            <select v-model="selectedProjectPosition" @change="selectedPostion" id="dropdownProjectPosition">
+              <option disabled value="" v-if="!selectedProjectPosition">Select a Project Position</option>
+               <!--Postion DropDown Array get Filled Dynamically with Data from the Backend-->
+             <option v-for="(position, index) in positionArray" :value="position" :key="index">{{ position.positionName }}</option>
             </select>
           </div>
 
-
+          <!--DatePicker-->
         <div class="pickDateContainer">
           <label for="datePicker"> Pick Date: </label>
           <input v-model="date" id="datePicker" type="date">
@@ -41,106 +44,193 @@
         <div class="endTimeContainer">
           <label for="endTimePicker"> End Time: </label>
           <input v-model="endTime" id="endTimePicker" type="time">
+          
         </div>
-
+      <!--If the Button get clicked the data will get sended to the backend-->
         <div class="buttonContainer">
           <v-btn @click="sendDatatoBackend" id="submitBtn" variant="outlined">
             Submit
           </v-btn>
         </div>
+        <Toast ref="toast" />
       </div>
     </div>
 
   </div>
 </template>
 
+
+
 <script setup>
-import { ref } from 'vue';
-import { useAppStore } from '@/store/app';
-import { projectPosition } from '@/store/projectPostion';
+import { onBeforeMount, ref} from 'vue';
 import axios from "axios"
+import { useUser } from '@/store/user';
+import Toast from 'primevue/toast';
+import { useToast } from 'primevue/usetoast';
 
-const selectedProjectName = ref('');
-const selectedProjectPosition = ref('');
+const toast = useToast();
 
-// Initialisierung mit dem aktuellen Datum im gewünschten Format
-const date = ref(getFormattedDate()); 
+const User = useUser()
+const employee_id = User.getUserData.id;
+// 2 arrays that receive values from the backend and are dynamically filled
+let projectArray = ref([]);
+let positionArray = ref([]);
 
-function getFormattedDate() {
-  const today = new Date();
-  const day = today.getDate();
-  // +1 da Monate nullbasiert sind
-  const month = today.getMonth() + 1; 
-  const year = today.getFullYear();
-
-  // Führende Nullen hinzufügen, wenn nötig
-  const formattedDay = day < 10 ? `0${day}` : day;
-  const formattedMonth = month < 10 ? `0${month}` : month;
-
-  return `${year}-${formattedMonth}-${formattedDay}`;
-}
-
-//const date = ref('');
 const startTime = ref('');
 const breakTime = ref('');
 const endTime = ref('');
-const appStore = useAppStore();
-const projectPos = projectPosition();
-// Daten aus dem Store zum Dynamischen hinzufügen der Dropdowns
-const optionsData = appStore.names;
-const optionsData2 = projectPos.names;
+const selectedProjectName = ref('')
+const selectedProjectPosition = ref('');
+// calls function to get the current date
+const date = ref(getFormattedDate());
 
 
-function sendDatatoBackend() {
-  // Abrufen des Inhaltes des DropDown Menüs da V-Model nicht auf Option Tags möglich ist  
-  const indexValueProjectName = selectedProjectName.value;
-  const selectedProjectNameValue = optionsData[indexValueProjectName];
-  console.log(selectedProjectNameValue);
+// global variable used in the data object later
+let posID = "";
 
-  const indexValueProjectPosition = selectedProjectPosition.value;
-  const selectedProjectPositionValue = optionsData2[indexValueProjectPosition];
 
-   console.log(startTime.value);
-   // Datum werden in richtiges Format umgewandelt für die Datenbank
+// the function loops to my postion Object if it matched the selected Postion I get the posID of the selected Position
+// which I will need for the Backend call
+function selectedPostion(){
+  posID = selectedProjectPosition.value.positionId;
+ console.log(posID)
+ 
+}
+// the function loops to my project Object if it matched the selected Project I get the fk (forgein key) of the Project 
+// which I need for the backend call to get all Positions for the selected Project
+
+async function loadPositions() {
+
+  
+      positionArray.value = [];
+      const fk_project = selectedProjectName.value.projectID;
+      console.log(fk_project)
+      getPositionsFromBackend(fk_project)
+    
+}
+// get called before the Page is loaded I get all projects the employee is involved
+onBeforeMount(() => {
+getProjectsFromBackend();
+})
+
+
+
+//function that get all Projects from the Backend from a specific employee
+async function getProjectsFromBackend() {
+  // employee_id give back all employees for this employee
+  const url = `http://localhost:8000/getProjectsOfEmployee/${employee_id}`;
+  // request send to backend
+  const response = await axios.get(url);
+  // save the response in the Array
+  let respArray = response.data.projects;
+  console.log(respArray)
+  // fill the projectArray with the data of the backend
+  respArray.forEach((element) => {
+    projectArray.value.push({projectName: element.name, projectID: element.id})
+  });
+
+}
+ 
+// This funtction gives us all Postions for the selected Project in the Dropdown
+async function getPositionsFromBackend(fk_project){
+  // url with the fk_project of the selected project, we need this for our SQL Statment later on
+  const url = `http://localhost:8000/getPositionsOfProjectOfEmployee/${fk_project}/${employee_id}`
+  // get request to the backend
+  const response = await axios.get(url)
+  let resPositionArray = response.data.positions;
+  // fill the postion Array and postion Object with the data of the backend
+  resPositionArray.forEach((element,index) =>{
+    console.log(element)
+    positionArray.value.push({positionName: element.position_id, positionId: element.id})
+ 
+  })
+   selectedProjectPosition.value = positionArray.value[0];
+}
+
+
+ 
+
+
+// funtion to always get the current date 
+function getFormattedDate() {
+  const today = new Date();
+  const day = today.getDate();
+  // add +1 because we got back the actual month - 1
+  const month = today.getMonth() + 1; 
+  const year = today.getFullYear();
+
+  // had to add a 0 in front of some days and months // using conditional ternary operator 
+  const formattedDay = day < 10 ? `0${day}` : day;
+  const formattedMonth = month < 10 ? `0${month}` : month;
+  // send back the date to the date variable
+  return `${year}-${formattedMonth}-${formattedDay}`;
+}
+
+
+async function sendDatatoBackend() {
+   // Dates are being converted to the correct format for the database
    const startDate = `${date.value}` + " " + `${startTime.value+":00"}`
    const endDate = `${date.value}` + " " + `${endTime.value + ":00"}`
-  
-   console.log(startDate)
-   console.log(endDate)
 
 const data = {
-  "fk_employee": 2,
-  "fk_position": 8,
+  "fk_employee": employee_id,
+  "fk_position": posID,
   "start": startDate,
   "end": endDate,
   "pause": breakTime.value
   //"time": "15"
 }
-console.log(data)
+  // checked if all field are field out or not 
+   if (date.value == '' || startTime.value == '' || breakTime.value == '' || endTime.value == '' || selectedProjectName.value == undefined || selectedProjectPosition.value == undefined) {
+     
+    toast.add({
+      severity: 'error',
+      summary: 'Error Message',
+      detail: 'Please fill out all fields',
+      life: 3000
+  });
+   } else {
+    try {
+      
 
+      const url = 'http://localhost:8000/booking';
+      const response = await axios.post(url, data);
 
-   if (date.value == '' || startTime.value == '' || breakTime.value == '' || endTime.value == '' || selectedProjectNameValue == undefined || selectedProjectPositionValue == undefined) {
-     alert("Please fill out all fields");
-   }
-   else {
-    const url = "http://localhost:8000/createBooking"
-    axios.post(url, data)
-      .then(response => {
-        // Erfolgreiche Antwort vom Server
-        console.log(response.data);
-        if (response.data['success'] == true) {
-        window.location.href = '/Home';
+      console.log(response.data);
+
+      if (response.data.success === true) {
+
+        toast.add({
+          severity: 'success',
+          summary: 'Erfolgsmeldung',
+          detail: 'Die Buchung war erfolgreich',
+          life: 3000
+        });
+      } else {
+      
+        toast.add({
+          severity: 'error',
+          summary: 'Fehlermeldung',
+          detail: 'Die Buchung war nicht erfolgreich. Überprüfen Sie die Konsole für weitere Informationen.',
+          life: 3000
+        });
       }
 
-      })
-      .catch(error => {
-        // Fehler bei der Anfrage
-        console.error(error);
+    } catch (error) {
+      console.error('Error during axios.post:', error);
+     
+      toast.add({
+        severity: 'error',
+        summary: 'Fehlermeldung',
+        detail: 'Die Buchung war nicht erfolgreich. Überprüfen Sie die Konsole für weitere Informationen.',
+        life: 3000
       });
-   }
-
+    }
+  }
 }
 </script>
+
+
 
 <style scoped>
 #datePicker,

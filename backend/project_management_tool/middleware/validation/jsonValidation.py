@@ -98,3 +98,61 @@ class validator:
                     "valid":False,
                     "errors":["Invalid Json Form"]
                 }
+        
+    def project(jsondata:json)->json:
+        if(formValidator.project(jsondata)):
+            contentResult = jsonContentValidator.project(jsondata)
+            print(contentResult)
+            contentValid = contentResult["valid"]
+            contentError = contentResult["errors"]
+            if contentValid:
+                return {
+                    "valid":True,
+                    "errors":contentError
+                }
+            else:
+                return {
+                    "valid":False,
+                    "errors":contentError
+                }
+        else:
+            return  {
+                    "valid":False,
+                    "errors":["Invalid Json Format"]
+                }
+        
+
+    def employee(jsondata:json)->bool:
+        """Validating if the Form and the Content
+        matches the requirements
+
+        Parameters
+        ----------
+        jsondata : json
+            Json to be validated
+
+        Returns
+        -------
+        bool
+            Json valid or not
+        """
+
+        if(formValidator.employee(jsondata)):
+            contentResult = jsonContentValidator.employee(jsondata)
+            contentValid = contentResult["valid"]
+            contentError = contentResult["errors"]
+            if contentValid:
+                return {
+                    "valid":True,
+                    "errors":contentError
+                }
+            else:
+                return {
+                    "valid":False,
+                    "errors":contentError
+                }
+        else:
+            return  {
+                    "valid":False,
+                    "errors":["Invalid Json Format"]
+                }

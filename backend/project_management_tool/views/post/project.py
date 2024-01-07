@@ -1,7 +1,7 @@
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from ...models import Project
-from ...middleware import validator
+from ...middleware import *
 import json
 
 @csrf_exempt
@@ -22,12 +22,12 @@ def createProject(request)->JsonResponse:
         try:
             request_data = json.loads(request.body)
             is_valid = validator.project(request_data)
-
-            if is_valid:
+            print(is_valid)
+            if is_valid["valid"]:
                
                 new_p_id = request_data["p_id"]
-                new_name = request_data["name"]
-                new_company = request_data["company"]
+                new_name = request_data["projectname"]
+                new_company = request_data["customername"]
                 new_start_date = request_data["start_date"]
                 new_end_date = request_data["end_date"]
                 new_fk_creator = request_data["fk_creator"]
@@ -38,11 +38,14 @@ def createProject(request)->JsonResponse:
                 response_data = {
                     "success": True,
                     "message": "Project created successfully.",
+                    "data": { 
+                        "projectid": newProject.id,
+                    },
                 }
             else:
                 response_data = {
                     "success": False,
-                    "error": "Invalid JSON format or missing required fields.",
+                    "error": is_valid["errors"],
                 }
         except json.JSONDecodeError:
             response_data = {

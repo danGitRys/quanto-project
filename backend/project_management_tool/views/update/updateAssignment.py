@@ -4,6 +4,10 @@ from ...models import Assignment
 from ...middleware.validation.jsonUpdateFormValidation import jsonUpdateFormValidation
 from ...middleware.validation.jsonUpateConentValidation import jsonUpdateConentValidation
 import json
+
+
+#Remove/Verschieben?
+
 @csrf_exempt
 def updateAssignment(request,assignment_id):
     response_data = {
