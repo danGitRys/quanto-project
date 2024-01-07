@@ -180,7 +180,7 @@ router.beforeEach(async (to, from, next) => {
     else {
       const storedToken = localStorage.getItem('token') 
       await User.fetchUserData(storedToken)
-      const userRole = User.getUserData.team_roll
+      const userRole = User.getUserData.company_role
       if (to.meta.roles) {
         if (!to.meta.roles.includes(userRole)) {
           alert("Not Authorized.")
