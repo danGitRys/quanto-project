@@ -3,8 +3,8 @@
         
            <Default/>
         <!-- <component :is="getWorkingTimesComponent" class="workingTimes" /> -->
-        <WorkingTimes class="workingTimes"/>
-        <!-- <WorkingTimesPlus class="workingTimes"/> -->
+        <!-- <WorkingTimes class="workingTimes"/> -->
+        <WorkingTimesPlus class="workingTimes"/>
        <SideBarManager/>
        <!-- SideBar aus dem Default Layout entfernt damit sie die andere Ansicht überdeckt-->
     </div>

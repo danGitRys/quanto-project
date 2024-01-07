@@ -151,7 +151,7 @@ async function fetchEmployeesOfProject() {
 }
 
 async function fetchProjectsOfEmployee() {
-    const url = "http://localhost:8000/getProjectsWhereProjectLeader/3007"
+    const url = "http://localhost:8000/getProjectsWhereProjectLeader/3008"
     const response = await axios.get(url)
     const projects = response.data.projects;
     projects.forEach((element) => {
