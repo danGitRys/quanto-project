@@ -18,9 +18,9 @@ class EmployeeView(View):
         "message": "",
         }
         id_param = kwargs.get('id')
-        idExists: bool = Employee.objects.filter(id=id).exists()
+        idExists: bool = Employee.objects.filter(id=id_param).exists()
         if idExists:
-            employee = get_object_or_404(Employee, id=id)
+            employee = get_object_or_404(Employee, id=id_param)
             employeeJson = employee.toJson()
             response_data["success"] = True
             response_data["data"] = employeeJson

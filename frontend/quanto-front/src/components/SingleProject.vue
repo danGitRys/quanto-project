@@ -38,9 +38,9 @@
     
     
     <Accordion :multiple="true" :activeIndex="[0]">
-        <AccordionTab header="Header I">
+        <AccordionTab header="Positions in Project">
             <Card>
-        <template #title> Positions in Project </template>
+        <template #title> </template>
         <template #content>
             <DataTable :value="positonList" stripedRows tableStyle="min-width: 50rem">
         <Column field="id" header="Code"></Column>
@@ -56,9 +56,9 @@
         </template>
     </Card>
         </AccordionTab>
-        <AccordionTab header="Header II">
+        <AccordionTab header="Employees in Project">
             <Card>
-        <template #title> Employees in Project </template>
+        <template #title> </template>
         <template #content>
             <DataTable :value="employeeList" stripedRows tableStyle="min-width: 50rem">
         <Column field="id" header="Id"></Column>
@@ -72,11 +72,19 @@
         </template>
     </Card>
         </AccordionTab>
-        <AccordionTab header="Header III">
+        <AccordionTab header="Graphs and Analytics">
         <MultiLineGraph/>
             <Accordion :multiple="true" :activeIndex="[0]">
         <AccordionTab class="graphClass" header="Header I">
             <p class="m-0">
+                <v-select
+    v-model="selectedDuration"
+    label="Select"
+    :items="['4 Weeks','8 Weeks','Alltime']"
+    variant="solo-filled"
+    
+  ></v-select>
+  <ProjectionGraph :key="graphKey"/>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
                 consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
                 laborum.
@@ -115,7 +123,9 @@
     import { getBaseTransformPreset } from '@vue/compiler-core';
     import 'primevue/resources/themes/lara-light-green/theme.css'
     import MultiLineGraph from "@/components/graphs/ProjectPositionLinearGraph.vue"; // Corrected import
+    import ProjectionGraph from "@/components/graphs/PositionProjectionGraph.vue"
     import { projectIdStore } from "@/store/projectIdStore";
+    import {projectionStore} from "@/store/projectionStore";
     
     
     export default {
@@ -132,13 +142,16 @@
                 proejct_creationDate:'',
                 positonList:[],
                 employeeList:[],
-                projectId: this.$route.params.id
+                projectId: this.$route.params.id,
+                selectedDuration:'4 Weeks',
+                graphKey: 0,
     
             }
         },
     
         components:{
-             MultiLineGraph
+             MultiLineGraph,
+             ProjectionGraph
         },
     
         methods:{
@@ -162,6 +175,21 @@
                     this.project_end = tempData["end_date"],
                     this.project_creator = tempData["fk_creator"]
                     this.proejct_creationDate = tempData["creation_date"]
+
+                    axios.get("http://localhost:8000/employee/"+this.project_creator,{
+               
+            }).then(response => {
+                console.log(response)
+                var creatorData = response.data.data 
+                this.project_creator = creatorData["forename"] + " " + creatorData["surname"]
+                
+            
+                
+            })
+            .catch(error=> {
+                console.log(error)
+                
+            })
                
                 }
                 else{
@@ -266,12 +294,17 @@
                 
             })
             },
+
+            
     
             getTeam15(){
                 window.location.href = '/getTeam/15';
             },
             updateProjectId(){
                 projectIdStore().setSharedData(this.$route.params.id);
+            },
+            setProjectionDuration(){
+                projectionStore().setSharedData(this.selectedDuration)
             }
         },
     
@@ -280,10 +313,20 @@
             this.getPositonsToProject()
             this.getEmployeesToProject()
             this.updateProjectId()
-        }
+            this.setProjectionDuration()
+        },
+        watch: {
+    selectedDuration(newValue) {
+      console.log('Watch - Selected Duration Changed:', newValue);
+      this.graphKey++;
+                projectionStore().setSharedData(newValue)
+            
+    },
+  },
+};
     
     
-    };
+    
     
     </script>
     
