@@ -16,7 +16,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="project in filteredProjects" :key="project.id">
+        <tr v-for="project in projects" :key="project.id">
           <td>{{ project.project_id }}</td>
           <td>{{ project.project_pid }}</td>
           <td>{{ project.project_name }}</td>
@@ -90,6 +90,7 @@ th:last-child, td:last-child {
 
 <script>
 import axios from "axios";
+import { useUser } from '@/store/user';
 
 export default {
   data() {
@@ -102,13 +103,15 @@ export default {
   },
   methods: {
     getProjects() {
+      var User = useUser()
+      var userId = User.getUserData.id
       axios
         .get(
-          "http://localhost:8000/getProjectsForEmployee/" +
-            this.$route.params.id,
+          "http://localhost:8000/getProjectsForEmployee/" + userId,
           {}
         )
         .then((response) => {
+          console.log(response)
           var responseData = response.data;
           var valid = responseData.success;
           if (valid == true) {
@@ -143,21 +146,7 @@ export default {
       return '';
     },
   },
-  computed: {
-    filteredProjects() {
-      return this.projects.filter((project) => {
-        return (
-          project.project_id.toLowerCase().includes(this.globalFilter.toLowerCase()) ||
-          project.project_pid.toLowerCase().includes(this.globalFilter.toLowerCase()) ||
-          project.project_name.toLowerCase().includes(this.globalFilter.toLowerCase()) ||
-          project.project_company.toLowerCase().includes(this.globalFilter.toLowerCase()) ||
-          project.assignment_role.toLowerCase().includes(this.globalFilter.toLowerCase()) ||
-          project.project_start_date.toLowerCase().includes(this.globalFilter.toLowerCase()) ||
-          project.project_end_date.toLowerCase().includes(this.globalFilter.toLowerCase())
-        );
-      });
-    },
-  },
+  
   mounted() {
     this.getProjects();
   },
