@@ -24,18 +24,20 @@ def getAllTeams(request):
 
     allowedRoles = ['Admin', 'Employee']
     if (isTokenExpired(request)):
+        response_data["success"] = False
+        response_data["message"] = "Token expired"
+        
+    else:
         if (HeaderValidation.isAuthorized(request, allowedRoles)):
             teamslist = []
             allTeams = Team.objects.all()
             for team in allTeams:
                 teamslist.append(team.toJson())
             if request.method == 'GET':
+                response_data["success"] = True
                 response_data = { "teams": teamslist }
         else:
             response_data["success"] = False
             response_data["message"] = "Not Authorized"
-    else:
-        response_data["success"] = False
-        response_data["message"] = "Token expired"
 
     return JsonResponse(response_data)

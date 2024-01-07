@@ -17,7 +17,7 @@ def isTokenExpired(request):
 
         current_time = datetime.utcnow().timestamp()
         print(current_time)
-        if current_time < expiration_time:
+        if current_time > expiration_time:
             print("True")
             return True
 
