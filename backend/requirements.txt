@@ -21,6 +21,7 @@ packaging==23.2
 pycparser==2.21
 PyJWT==2.8.0
 pyodbc==5.0.1
+python-dotenv==1.0.0
 pytz==2023.3.post1
 referencing==0.31.0
 rpds-py==0.12.0

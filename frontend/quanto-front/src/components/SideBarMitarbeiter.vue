@@ -10,7 +10,7 @@
                 <v-divider></v-divider>
 
                 <v-list density="compact" nav>
-                    <v-list-item prepend-icon="mdi-home" title="Home" value="home">
+                    <v-list-item prepend-icon="mdi-home" title="Home" value="home" @click="home">
                     </v-list-item>
                     <v-list-item prepend-icon="mdi-account-clock-outline" title="Working Times+"
                         value="workingTimes+"></v-list-item>
@@ -70,6 +70,9 @@ export default {
         return {
             drawer: true,
             rail: true,
+            home: () => {
+                window.location.href = '/'
+            },
         }
     },
 

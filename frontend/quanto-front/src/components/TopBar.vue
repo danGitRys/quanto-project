@@ -3,9 +3,59 @@
         <div class="headerContainer">
             <div class="headerDiv">{{ $route.name }}</div>
             <div class="quantoLogoImage"></div>
+
         </div>
     </header>
+
+
+
+
+
+
+
+
+
+
 </template>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <style scoped>
 header {

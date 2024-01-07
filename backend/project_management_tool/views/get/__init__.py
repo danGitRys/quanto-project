@@ -12,6 +12,9 @@ from .getBooking import *
 from .getAssignment import *
 from .getPositionsOfProjectOfEmployee import*
 from .getProjectsOfEmployee import *
+
+from .getAllProjects import *
+
 from .getTest import *
 from .getBookingTimes import *
 from .getProjectsWhereProjectLeader import *
