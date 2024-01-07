@@ -145,6 +145,7 @@
                 projectId: this.$route.params.id,
                 selectedDuration:'4 Weeks',
                 graphKey: 0,
+                token:''
     
             }
         },
@@ -157,9 +158,11 @@
         methods:{
             getProject(){
                 console.log("test")
-                axios.get("http://localhost:8000/getProject/"+this.$route.params.id,{
-               
-            }).then(response => {
+                axios.get("http://localhost:8000/project/"+this.$route.params.id, {
+                    headers: {
+                        'Authorization': `Bearer ${this.token}`,
+                    },
+                }).then(response => {
                 console.log(response)
                 
                 var responseData = response.data
@@ -177,6 +180,9 @@
                     this.proejct_creationDate = tempData["creation_date"]
 
                     axios.get("http://localhost:8000/employee/"+this.project_creator,{
+                        headers: {
+                        'Authorization': `Bearer ${this.token}`,
+                    },
                
             }).then(response => {
                 console.log(response)
@@ -207,6 +213,10 @@
             getPositonsToProject(){
                 console.log("test")
                 axios.get("http://localhost:8000/getPositionsToProjectId/"+this.$route.params.id,{
+
+                    headers: {
+                        'Authorization': `Bearer ${this.token}`,
+                    },
                
             }).then(response => {
                 console.log(response)
@@ -314,6 +324,7 @@
             this.getEmployeesToProject()
             this.updateProjectId()
             this.setProjectionDuration()
+            this.token = localStorage.getItem('token')
         },
         watch: {
     selectedDuration(newValue) {
