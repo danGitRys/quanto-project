@@ -157,12 +157,12 @@ export default {
         },
         // Gets Array of all Teams
         async getTeams(token) {
-            try {
-                const response = await axios.get("http://localhost:8000/getTeams", {
-                    headers: {
-                        'Authorization': `Bearer ${token}`,
-                    },
-                })
+            
+            const request = await axios.get("http://localhost:8000/getTeams", {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                },
+            }).then(response => {
                 if (response.data.success == 'False') {
                     console.log(response.data.message)
                     if (response.data.message == "Not Authorized") {
@@ -175,9 +175,10 @@ export default {
                 else {
                     this.teams = response.data.teams
                 }
-            } catch (error) {
+            }).catch(error=> {
                 this.toast.add({severity: 'error', summary: 'Error', detail: 'An error occured while fetching Teams.', life: 3000})
-            }
+            })
+            
         },
         // Gets Array of Teamroles
         async getTeamRoles(token) {

@@ -1,5 +1,5 @@
 <template>
-    <Sidebar class="sideBarPosition"/>
+    <Sidebar/>
     <TopBar />
     <AddEmployee />
 </template>
@@ -11,10 +11,5 @@ import TopBar from '@/components/TopBar.vue';
 </script>
 
 <style>
-.sideBarPosition {
-    position: absolute;
-    top: -100px;
-    left: -120px;
-   
-}
+
 </style>

@@ -28,6 +28,10 @@ def createAssignment(request)->JsonResponse:
 
     allowedRoles = ['Admin']
     if (isTokenExpired(request)):
+        response_data["success"] = False
+        response_data["message"] = "Token expired"
+        
+    else:
         if (HeaderValidation.isAuthorized(request, allowedRoles)):
             if request.method == 'POST':
                 try:
@@ -63,8 +67,5 @@ def createAssignment(request)->JsonResponse:
         else:
             response_data["success"] = False
             response_data["message"] = "Not Authorized"
-    else:
-        response_data["success"] = False
-        response_data["message"] = "Token expired"
 
     return JsonResponse(response_data)

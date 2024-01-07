@@ -343,8 +343,8 @@ export default {
         },
         // Fetch list of all Employees from backend
         async getEmployees() {
-            try {
-                const response = await axios.get('http://localhost:8000/getAllEmployees', {})
+            
+            const request = await axios.get('http://localhost:8000/getAllEmployees', {}).then(response => {
 
                 if (response.data.success == 'False') {
                     console.log(response.data.message)
@@ -358,10 +358,10 @@ export default {
                 else {
                     this.employees = response.data.employees
                 }
-                
-            } catch (error) {
-                console.log(error)
-            }
+            }).catch(error => {
+                this.toast.add({severity: 'error', summary: 'Error', detail: 'An error occured while fetching Employees.', life: 3000})
+            })
+            
         },        
         checkPositionForm() {
             if (this.positionid == '') return false

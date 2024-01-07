@@ -8,10 +8,10 @@ import SideBar from '@/components/SideBar.vue';
 
     <div>
     <Default />
-     <div class="singleProjectStyle">
-    <SingleProject/>
-    </div>
-    <SideBar class="sideBarPosition"/>
+        <div class="singleProjectStyle">
+            <SingleProject/>
+        </div>
+    <SideBar />
     </div>
 </template>
 
@@ -21,13 +21,5 @@ import SideBar from '@/components/SideBar.vue';
     margin-left: 80px ;
     margin-top: 10px ;
 }
-
-.sideBarPosition {
-    position: absolute;
-    top: -100px;
-    left: -120px;
-   
-}
-
 
 </style>

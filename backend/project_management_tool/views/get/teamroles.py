@@ -24,6 +24,10 @@ def getTeamRoles(request):
 
     allowedRoles = ['Admin', 'Employee']
     if (isTokenExpired(request)):
+        response_data["success"] = False
+        response_data["message"] = "Token expired"
+        
+    else:
         if (HeaderValidation.isAuthorized(request, allowedRoles)):
             rolesList = ["Teamleader", "Member"]
             if request.method == 'GET':
@@ -31,9 +35,6 @@ def getTeamRoles(request):
         else:
             response_data["success"] = False
             response_data["message"] = "Not Authorized"
-    else:
-        response_data["success"] = False
-        response_data["message"] = "Token expired"
 
 
     return JsonResponse(response_data)

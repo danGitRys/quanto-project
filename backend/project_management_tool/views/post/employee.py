@@ -63,6 +63,10 @@ def createEmployee(request)->JsonResponse:
 
     allowedRoles = ['Admin']
     if (isTokenExpired(request)):
+        response_data["success"] = False
+        response_data["message"] = "Token expired"
+        
+    else:
         if (HeaderValidation.isAuthorized(request, allowedRoles)):
             if request.method == 'POST':
                 try:
@@ -106,9 +110,6 @@ def createEmployee(request)->JsonResponse:
                     "success": False,
                     "error": "Not Authorized",
             }
-    else:
-        response_data["success"] = False
-        response_data["message"] = "Token expired"
 
     return JsonResponse(response_data)
 
