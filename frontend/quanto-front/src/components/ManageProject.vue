@@ -34,7 +34,7 @@
           :name="employee.name"
           :tableData="employee.times"
           :generatedDate="generatedDate"
-          :selectedProject="selectedProject"
+          :chosenProjectId="chosenProjectId"
           :allProjects="allProjects"
         ></MitarbeiterTabelle>
       </div>
@@ -150,6 +150,7 @@
 
             employeeData.times[index] = {
               id: id,
+              empId: element.id,
               date: dateItem.date,
               hours_this_project: hours_this_project,
               hours_all_project: hours_all_project,

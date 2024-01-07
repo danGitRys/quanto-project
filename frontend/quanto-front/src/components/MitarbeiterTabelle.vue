@@ -62,11 +62,11 @@ import Column from 'primevue/column';
 import Tag from 'primevue/tag';
 import Dropdown from 'primevue/dropdown';
 
-const { name, tableData, generatedDate, selectedProject, allProjects } = defineProps([
+const { name, tableData, generatedDate, chosenProjectId, allProjects } = defineProps([
   'name',
   'tableData',
   'generatedDate',
-  'selectedProject',
+  'chosenProjectId',
   'allProjects',
 ]);
 
@@ -74,8 +74,9 @@ const { name, tableData, generatedDate, selectedProject, allProjects } = defineP
 const editingRows = ref([]);
 const tableArray = tableData;
 console.log(name);
+console.log(tableData);
 console.log(generatedDate);
-console.log(selectedProject);
+console.log(chosenProjectId);
 console.log(allProjects);
 
 // console.log("TABLEARRAY");
@@ -94,10 +95,14 @@ const getPositionsForDate = (date) => {
 
 const onRowEditSave = (event) => {
   let { newData, index } = event;
+  const url = 'http://localhost:8000/createForecast';
   console.log(tableArray[index].pos);
 
   let _data = tableData[index];
   console.log(tableData[index]);
+  console.log(newData);
+  
+  let fk_pos;
 
   // Find the corresponding date in dataTable
   // const dateInDataTable = tableData.find(item => {
@@ -110,9 +115,24 @@ const onRowEditSave = (event) => {
   //   const positions = dateInDataTable.inProjectDetail.map(detail => detail.info.position_name);
   //   _data.pos = positions.length > 0 ? positions[0] : null; // Set to the first position or null if no positions
   // }
+  _data.inProjectDetail = newData.pos;
+  
+  if(newData.pos.label==_data.pos.name) {
+    fk_pos = _data.pos.value;
+  }
+
+  const requestData = {
+    fk_employee: newData.empId,
+    fk_position: fk_pos,
+    start: "2024-01-01",
+    end: "2024-01-01",
+    info: ""
+  }
 
   tableData[index] = _data;
   tableData[index].hours_this_project = newData.hours_this_project;
+
+  
 };
 
 
