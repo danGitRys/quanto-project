@@ -1,125 +1,154 @@
-
 <template>
   <div class="card">
-      <DataTable v-model:filters="filters" v-model:selection="selectedCustomer" :value="customers"
-              stateStorage="session" stateKey="dt-state-demo-session" paginator :rows="5" filterDisplay="menu"
-              selectionMode="single" dataKey="id" :globalFilterFields="['name', 'country.name', 'representative.name', 'status']" tableStyle="min-width: 50rem">
-          <template #header>
-              <span class="p-input-icon-left">
-                  <i class="pi pi-search" />
-                  <InputText v-model="filters['global'].value" placeholder="Global Search" />
-              </span>
-          </template>
-          <Column field="name" header="Name" sortable style="width: 25%">
-              <template #filter="{ filterModel }">
-                  <InputText v-model="filterModel.value" type="text" class="p-column-filter" placeholder="Search by name" />
-              </template>
-          </Column>
-          <Column header="Country" sortable sortField="country.name" filterField="country.name" filterMatchMode="contains" style="width: 25%">
-              <template #body="{ data }">
-                  <div class="flex align-items-center gap-2">
-                      <img alt="flag" src="https://primefaces.org/cdn/primevue/images/flag/flag_placeholder.png" :class="`flag flag-${data.country.code}`" style="width: 24px" />
-                      <span>{{ data.country.name }}</span>
-                  </div>
-              </template>
-              <template #filter="{ filterModel }">
-                  <InputText v-model="filterModel.value" type="text" class="p-column-filter" placeholder="Search by country" />
-              </template>
-          </Column>
-          <Column header="Representative" sortable sortField="representative.name" filterField="representative" :showFilterMatchModes="false" :filterMenuStyle="{ width: '14rem' }" style="width: 25%">
-              <template #body="{ data }">
-                  <div class="flex align-items-center gap-2">
-                      <img :alt="data.representative.name" :src="`https://primefaces.org/cdn/primevue/images/avatar/${data.representative.image}`" style="width: 32px" />
-                      <span>{{ data.representative.name }}</span>
-                  </div>
-              </template>
-              <template #filter="{ filterModel }">
-                  <MultiSelect v-model="filterModel.value" :options="representatives" optionLabel="name" placeholder="Any" class="p-column-filter">
-                      <template #option="slotProps">
-                          <div class="flex align-items-center gap-2">
-                              <img :alt="slotProps.option.name" :src="`https://primefaces.org/cdn/primevue/images/avatar/${slotProps.option.image}`" style="width: 32px" />
-                              <span>{{ slotProps.option.name }}</span>
-                          </div>
-                      </template>
-                  </MultiSelect>
-              </template>
-          </Column>
-          <Column field="status" header="Status" sortable filterMatchMode="equals" style="width: 25%">
-              <template #body="{ data }">
-                  <Tag :value="data.status" :severity="getSeverity(data.status)" />
-              </template>
-              <template #filter="{ filterModel }">
-                  <Dropdown v-model="filterModel.value" :options="statuses" placeholder="Select One" class="p-column-filter" showClear>
-                      <template #option="slotProps">
-                          <Tag :value="slotProps.option" :severity="getSeverity(slotProps.option)" />
-                      </template>
-                  </Dropdown>
-              </template>
-          </Column>
-          <template #empty> No customers found. </template>
-      </DataTable>
+    <div class="search-input">
+      <input v-model="globalFilter" placeholder="Search..." />
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th @click="sortProjects('project_id')" class="fixed-width">ID {{ getSortIcon('project_id') }}</th>
+          <th @click="sortProjects('project_pid')" class="fixed-width">Project ID {{ getSortIcon('project_pid') }}</th>
+          <th @click="sortProjects('project_name')" class="fixed-width">Project Name {{ getSortIcon('project_name') }}</th>
+          <th @click="sortProjects('project_company')" class="fixed-width">Company {{ getSortIcon('project_company') }}</th>
+          <th @click="sortProjects('assignment_role')" class="fixed-width">Role {{ getSortIcon('assignment_role') }}</th>
+          <th @click="sortProjects('project_start_date')" class="fixed-width">Start Date {{ getSortIcon('project_start_date') }}</th>
+          <th @click="sortProjects('project_end_date')" class="fixed-width">End Date {{ getSortIcon('project_end_date') }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="project in projects" :key="project.id">
+          <td>{{ project.project_id }}</td>
+          <td>{{ project.project_pid }}</td>
+          <td>{{ project.project_name }}</td>
+          <td>{{ project.project_company }}</td>
+          <td>{{ project.assignment_role }}</td>
+          <td>{{ project.project_start_date }}</td>
+          <td>{{ project.project_end_date }}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
+<style>
+.card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  margin: 50px auto;
+  padding: 30px;
+  width: 80%;
+}
+
+.search-input {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.search-input input {
+  box-sizing: border-box;
+  width: 60%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 8px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th, td {
+  padding: 8px;
+  text-align: left;
+  cursor: pointer;
+  position: relative;
+}
+
+th.fixed-width {
+  background-color: #f2f2f2;
+  width: 150px; /* Feste Breite für die Spalten */
+  transition: none; /* Übergang bei Hover entfernen */
+}
+
+th:hover {
+  background-color: #f2f2f2; /* Farbe beim Hover beibehalten */
+}
+
+th:last-child, td:last-child {
+  padding-right: 0;
+}
+
+.sort-icon {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  visibility: visible;
+}
+</style>
+
 <script>
-//import { CustomerService } from '@/service/CustomerService';
-import { FilterMatchMode, FilterOperator } from 'primevue/api';
+import axios from "axios";
+import { useUser } from '@/store/user';
 
 export default {
   data() {
-      return {
-          customers: null,
-          selectedCustomer: null,
-          filters: null,
-          representatives: [
-              { name: 'Amy Elsner', image: 'amyelsner.png' },
-              { name: 'Anna Fali', image: 'annafali.png' },
-              { name: 'Asiya Javayant', image: 'asiyajavayant.png' },
-              { name: 'Bernardo Dominic', image: 'bernardodominic.png' },
-              { name: 'Elwin Sharvill', image: 'elwinsharvill.png' },
-              { name: 'Ioni Bowcher', image: 'ionibowcher.png' },
-              { name: 'Ivan Magalhaes', image: 'ivanmagalhaes.png' },
-              { name: 'Onyama Limba', image: 'onyamalimba.png' },
-              { name: 'Stephen Shaw', image: 'stephenshaw.png' },
-              { name: 'XuXue Feng', image: 'xuxuefeng.png' }
-          ],
-          statuses: ['unqualified', 'qualified', 'new', 'negotiation', 'renewal', 'proposal']
-      };
-  },
-  created() {
-      this.initFilters();
-  },
-  mounted() {
-      CustomerService.getCustomersSmall().then((data) => (this.customers = data));
+    return {
+      projects: [],
+      globalFilter: "",
+      sortKey: "",
+      sortOrder: 1,
+    };
   },
   methods: {
-      initFilters() {
-          this.filters = {
-              global: { value: null, matchMode: FilterMatchMode.CONTAINS },
-              name: { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.STARTS_WITH }] },
-              'country.name': { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.STARTS_WITH }] },
-              representative: { value: null, matchMode: FilterMatchMode.IN },
-              status: { operator: FilterOperator.OR, constraints: [{ value: null, matchMode: FilterMatchMode.EQUALS }] }
-          };
-      },
-      getSeverity(status) {
-          switch (status) {
-              case 'unqualified':
-                  return 'danger';
-
-              case 'qualified':
-                  return 'success';
-
-              case 'new':
-                  return 'info';
-
-              case 'negotiation':
-                  return 'warning';
-
-              case 'renewal':
-                  return null;
+    getProjects() {
+      var User = useUser()
+      var userId = User.getUserData.id
+      axios
+        .get(
+          "http://localhost:8000/getProjectsForEmployee/" + userId,
+          {}
+        )
+        .then((response) => {
+          console.log(response)
+          var responseData = response.data;
+          var valid = responseData.success;
+          if (valid == true) {
+            this.projects = responseData.data;
+          } else {
+            alert("This Team doesn't exist");
           }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    sortProjects(key) {
+      if (this.sortKey === key) {
+        this.sortOrder *= -1;
+      } else {
+        this.sortKey = key;
+        this.sortOrder = 1;
       }
-  }
+
+      this.projects.sort((a, b) => {
+        const modifier = this.sortOrder === 1 ? 1 : -1;
+        if (a[key] < b[key]) return -1 * modifier;
+        if (a[key] > b[key]) return 1 * modifier;
+        return 0;
+      });
+    },
+    getSortIcon(column) {
+      if (this.sortKey === column) {
+        return this.sortOrder === 1 ? '↓' : '↑';
+      }
+      return '';
+    },
+  },
+  
+  mounted() {
+    this.getProjects();
+  },
 };
 </script>
