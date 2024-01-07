@@ -16,7 +16,7 @@ def getEmployeesToProjectId(request, id: int) -> JsonResponse:
         "message": "",
     }
     if request.method == 'GET':
-        if (isTokenExpired(request)):
+        if (isTokenExpired(request)==False):
             allowedRoles = ['Admin']
             if (HeaderValidation.isAuthorized(request, allowedRoles)):
                 idExists: bool = Project.objects.filter(id=id).exists()

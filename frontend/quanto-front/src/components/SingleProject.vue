@@ -2,7 +2,8 @@
     <div id="info">
 
 
-        <Fieldset legend="Project: {{ project_name }}">
+        <Fieldset>
+            <p>Project: {{ project_name }}</p>
             <p>Company: {{ company }}</p>
             <p>Project ID: {{ project_id }}</p>
             <p>Project Start Date: {{ project_start }}</p>
