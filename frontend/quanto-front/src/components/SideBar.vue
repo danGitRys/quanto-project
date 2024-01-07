@@ -28,6 +28,12 @@
                                     <i class="pi pi-home mr-2"></i>
                                     <span class="font-medium">Dashboard</span>
                                     </router-link>
+                                    <li v-if="isAdmin">
+                                        <router-link to="/addEmployee" v-ripple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
+                                            <i class="pi pi-plus-circle mr-2"></i>
+                                            <span class="font-medium">Add Employee</span>
+                                        </router-link>
+                                    </li>
                                     <li v-if="isAdmin || isProjectManager">
                                         <router-link to="/workingTimesPlus" v-ripple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
                                             <i class="pi pi-calendar mr-2"></i>
@@ -71,7 +77,6 @@
                     <div class="mt-auto">
                         <hr class="mb-3 mx-3 border-top-1 border-none surface-border" />
                         <a v-ripple class="m-3 flex align-items-center cursor-pointer p-3 gap-2 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
-                            <!-- <Avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" shape="circle" /> -->
                             <span class="font-bold">{{ forename }} {{ surname }}</span>
                         </a>
                     </div>
@@ -88,14 +93,14 @@
 
 <script setup>
 import { ref, onMounted } from "vue";
-import {AuthService} from '@/service/login.js'
-import axios from "axios";
 import Sidebar from 'primevue/sidebar';
-import Avatar from "primevue/avatar";
 import Button from 'primevue/button';
 import "primeflex/primeflex.css";
 import "primevue/resources/themes/lara-light-green/theme.css";
 import "primeicons/primeicons.css";
+import { useUser } from "@/store/user";
+
+const user = useUser();
 
 const visible = ref(false);
 
@@ -119,25 +124,22 @@ onMounted(() => {
     getRole();
   });
 
-  const getRole = async () => {
-    try {
-        axios.post("http://localhost:8000/getRole",{
-            token:token
-        }).then(response => {
-            console.log(response)
-            const role = response.data.employee.company_role;
-            isAdmin = role === "Admin";
-            isProjectManager = role === "Project_Manager";
+  const getRole = () => {
+    const userData = user.getUserData;
+    console.log(userData);
 
-            forename = response.data.employee.forename;
-            surname = response.data.employee.surname;
-        })
-        .catch(error=> {
-            console.log(error)
-        })
-    } catch (error) {
-        console.error(error);
+    if(userData.company_role === "Admin") {
+        console.log("Admin");
+        isAdmin = true;
     }
+
+    if(userData.company_role === "Leader") {
+        console.log("Leader");
+        isProjectManager = true;
+    }
+
+    forename = userData.forename;
+    surname = userData.surname;
   };
 
   const logout = () => {
