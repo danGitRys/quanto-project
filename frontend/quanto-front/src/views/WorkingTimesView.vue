@@ -13,7 +13,7 @@
 <script setup>
 import WorkingTimesPlus from '@/components/WorkingTimesPlus.vue';
 import Default from '@/layouts/default/Default.vue';
-import Sidebar from '@/components/Sidebar.vue';
+import Sidebar from '@/components/SideBar.vue';
 import TopBar from '@/components/TopBar.vue';
 import Test from '@/components/Test.vue';
 

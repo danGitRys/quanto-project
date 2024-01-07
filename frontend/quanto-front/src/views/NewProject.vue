@@ -1,9 +1,9 @@
 <template>
-    <div>
+    
     <TopBar />
-    <NewProject />
     <SideBar class="sideBarPosition"/>
-    </div>
+    <NewProject />
+   
 </template>
 
 

@@ -68,7 +68,7 @@ const routes = [
 
   {
     path: "/newproject",
-    name: "NewProject",
+    name: "Create New Project",
     component: NewProject,
     meta: { requiresAuth: true, roles: ['Admin']},
   },
@@ -80,7 +80,7 @@ const routes = [
   },
   {
     path: "/addEmployee",
-    name: "AddEmployee",
+    name: "Add Employee",
     component: AddEmployee,
     meta: { requiresAuth: true, roles: ['Admin']},
   },
