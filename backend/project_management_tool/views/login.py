@@ -60,8 +60,8 @@ def login(request)->JsonResponse:
     
 
     else:
-        data = invalidMethod
+        data = {
+            "Error":"Invalid Method"
+        }
     
     return JsonResponse(data)
-
-    

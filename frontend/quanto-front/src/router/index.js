@@ -180,10 +180,15 @@ router.beforeEach(async (to, from, next) => {
     else {
       const storedToken = localStorage.getItem('token') 
       await User.fetchUserData(storedToken)
-      const userRole = User.getUserData.company_role
-      if (userRole) {
+      try {
+        const userRole = User.getUserData.company_role
+      }
+      catch (error) {
+        console.log(error)
+      }
+      if (User.getUserData.company_role) {
         if (to.meta.roles) {
-          if (!to.meta.roles.includes(userRole)) {
+          if (!to.meta.roles.includes(User.getUserData.company_role)) {
             alert("Not Authorized.")
             next('/timeRegistration')
           }
