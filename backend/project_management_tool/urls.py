@@ -1,6 +1,7 @@
 from django.urls import path
 
-#from .views.get import getProjectsForEmployee
+from .views.get.allTeams import getAllTeams
+from .views.get.teamroles import getTeamRoles
 from .views import *
 from .views.time.getTime import getTime
 from .views.basic.assignment import AssignmentView
@@ -18,8 +19,9 @@ urlpatterns = [
   
 
     #Add Employee to DB Routes
-    path('getTeams',getTeams),
+    path('getTeams',getAllTeams),
     path('getTeamRoles',getTeamRoles),
+    path('createEmployee',createEmployee),
     
     #New Project Routes
     path('getAllEmployees', getAllEmployees),
@@ -31,13 +33,9 @@ urlpatterns = [
     path('createAssignment',createAssignment, name='createAssignment'),
     path('createPosition',createPositon, name='createPosition'),
     path('createTeam',createTeam),
-    path('createEmployee',createEmployee),
     #path('booking',bookingView),
     #path('createForecast',createForecast),
-
-    path('createProject',createProject),
-    path('getTeams',getTeams),
-    path('getTeamRoles',getTeamRoles),
+    
     path('test/', MyView.as_view()),
     path('test/<id>',MyView.as_view()),
     path('assignment/<id>',AssignmentView.as_view()),

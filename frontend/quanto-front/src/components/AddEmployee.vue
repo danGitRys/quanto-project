@@ -1,7 +1,8 @@
 <template>
     <div id="addEmployee">
+        <ScrollPanel style="height: 100%">
         <Toast />
-        <Card style="width: 60%">
+        <Card style="width: 100%">
             <template #title>New Employee</template>
             <template #content>
                 <div class="container">
@@ -77,7 +78,8 @@
                 </div>
             </template>
         </Card>
-    </div> 
+    </ScrollPanel>
+    </div>
     <footer>
         <Button label="Submit" icon="pi pi-check" @click="submitEmployee"/>
     </footer>
@@ -88,9 +90,12 @@ import { teamroles } from '@/store/teamroles';
 import axios from 'axios';
 import AutoComplete from 'primevue/autocomplete';
 import InputText from 'primevue/inputtext';
+import ScrollPanel from 'primevue/scrollpanel';
 import Button from 'primevue/button';
 import Toast from 'primevue/toast';
 import { useToast } from "primevue/usetoast";
+import { useUser } from '@/store/user'
+
 
 export default {
     name: "addEmployee",
@@ -99,6 +104,7 @@ export default {
         InputText,
         Button,
         Toast,
+        ScrollPanel,
     },
     data() {
         return {
@@ -140,6 +146,7 @@ export default {
                 }
             },
             toast: useToast(),
+            user: useUser(),
         }
     },
     methods: {
@@ -150,26 +157,50 @@ export default {
         },
         // Gets Array of all Teams
         async getTeams(token) {
-            try {
-                const response = await axios.get("http://localhost:8000/getTeams", {
-                    headers: {
-                        'Authorization': `Bearer ${token}`,
-                    },
-                })
-                this.teams = response.data.teams
-            } catch (error) {
+            
+            const request = await axios.get("http://localhost:8000/getTeams", {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                },
+            }).then(response => {
+                if (response.data.success == 'False') {
+                    console.log(response.data.message)
+                    if (response.data.message == "Not Authorized") {
+                        window.location.href = '/'
+                    }
+                    if (response.data.message == "Token expired") {
+                        this.user.logout()
+                    }
+                }
+                else {
+                    this.teams = response.data.teams
+                }
+            }).catch(error=> {
                 this.toast.add({severity: 'error', summary: 'Error', detail: 'An error occured while fetching Teams.', life: 3000})
-            }
+            })
+            
         },
         // Gets Array of Teamroles
-        async getTeamRoles() {
+        async getTeamRoles(token) {
             try {
+                console.log("Getting TeamRoles")
                 const response = await axios.get("http://localhost:8000/getTeamRoles", {
                     headers: {
                         'Authorization': `Bearer ${token}`,
                     },
                 })
-                this.teamroles = response.data.roles
+                if (response.data.success == 'False') {
+                    console.log(response.data.message)
+                    if (response.data.message == "Not Authorized") {
+                        window.location.href = '/'
+                    }
+                    if (response.data.message == "Token expired") {
+                        this.user.logout()
+                    }
+                }
+                else {
+                    this.teamroles = response.data.roles
+                }
             } catch (error){
                 this.toast.add({severity: 'error', summary: 'Error', detail: 'An error occured while fetching Teamroles.', life: 3000})
             }
@@ -215,6 +246,12 @@ export default {
                     }
                     else{
                         this.toast.add({severity: 'error', summary: 'Error', detail: response.data.error, life: 3000})
+                        if (response.data.message == "Not Authorized") {
+                            window.location.href = '/'
+                        }
+                        if (response.data.message == "Token expired") {
+                            this.user.logout()
+                        }
                     }
                 }).catch(error=> {
                     this.toast.add({severity: 'error', summary: 'Error', detail: 'Error connecting to the Server.', life: 3000})
@@ -289,18 +326,14 @@ label {
   background-color: white;
 }
 
-.p-card {
-    margin: 30px;
-}
-
-
 .p-divider {
     color:#EF7C00;
     background-color: black;
 }
 .p-card {
+    margin: 30px;
     padding: 30px;
-    background-color: aliceblue;
+    background-color: rgb(240, 248, 255);
 }
 
 </style>

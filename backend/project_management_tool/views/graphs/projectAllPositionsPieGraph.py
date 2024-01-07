@@ -35,8 +35,8 @@ class ProjectPositionsPieGraphView(View):
                 currentPositionId = position.id
                 currentPositionInfo = positionQuerys.totalVolume(currentPositionId)
                 volumeInfoUsed = positionQuerys.usedVolume(currentPositionId)
-                print(currentPositionInfo)
-                print(volumeInfoUsed)
+                #print(currentPositionInfo)
+                #print(volumeInfoUsed)
             
 
                 

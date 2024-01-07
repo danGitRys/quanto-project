@@ -34,7 +34,7 @@ class ProjectPositionsGraphView(View):
                 currentPositionId = position.id
                 currentPositionName = position.position_name
                 currentPositonY_Values = []
-                print(position)
+                #print(position)
                 currentVolume = 0
                 for currentDate in dateRange.range_date(projectStartDate,projectEndDate):
                 #x_data.append(currentDate)
@@ -44,7 +44,7 @@ class ProjectPositionsGraphView(View):
                     currentPositonY_Values.append(currentVolume)
 
               
-                    print(volume)
+                    #print(volume)
                 tempPositionValues = {
                     "positionName": currentPositionName,
                     "yValues": currentPositonY_Values

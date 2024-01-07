@@ -1,7 +1,7 @@
 <template>
       <h3>Project 1</h3>
-<DropDownMonthSelection/>
-<TimeCorrectionComponent />
+      <DropDownMonthSelection/>
+      <TimeCorrectionComponent />
 </template>
 
 <script setup>

@@ -21,7 +21,6 @@ export const useUser = defineStore('User', {
             localStorage.removeItem('token')
         },
         async fetchUserData(token) {
-            console.log("Fetching...")
             this.loggedIn = true
             this.token = token
             const request = await axios.post("http://localhost:8000/login",{

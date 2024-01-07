@@ -11,16 +11,16 @@ class projectQuerys:
                         WHERE fk_project = %s
                         GROUP BY fk_project''',[projectId])
         result = cursor.fetchall()
-        print(result)
-        print(len(result))
+        #print(result)
+        #print(len(result))
         if len(result) != 1:
             volume=0
             project_id = projectId
         else:
             volume = result[0]
-        print("_-----------------------------")
-        print(volume)
-        print(result)
+        #print("_-----------------------------")
+        #print(volume)
+        #print(result)
         # Convert the result to a list of dictionaries
         #result_list = [{'test': row[0]} for row in result]
         
@@ -36,16 +36,16 @@ class projectQuerys:
                             JOIN project ON project.id = position.fk_project
                             WHERE  booking.fK_position IN (SELECT id FROM position WHERE fk_project=%s)''',[projectId])
         result = cursor.fetchall()
-        print(result)
-        print(len(result))
+        #print(result)
+        #print(len(result))
         if len(result) != 1:
             volume=0
             project_id = projectId
         else:
             volume = result[0]
-        print("_-----------------------------")
-        print(volume)
-        print(result)
+        #print("_-----------------------------")
+        #print(volume)
+        #print(result)
         return {
             'id':projectId,
             'volume':volume

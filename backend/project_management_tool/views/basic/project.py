@@ -7,6 +7,9 @@ import json
 from ...models import Project
 from django.shortcuts import get_object_or_404
 from ...middleware import validator
+from ...middleware.validation.headerValidation import HeaderValidation
+from ...middleware.validation.tokenExpirationCheck import isTokenExpired
+
 @method_decorator(csrf_exempt, name='dispatch')
 
 class ProjectView(View):
@@ -15,16 +18,31 @@ class ProjectView(View):
         "success": True,
         "message": "",
         }
+        print(self)
+        print(args)
+        print(kwargs)
+        allowedRoles = ['Admin']
         id_param = kwargs.get('id')
-        idExists: bool = Project.objects.filter(id=id_param).exists()
-        if idExists:
-            project = get_object_or_404(Project, id=id_param)
-            projectJson = project.toJson()
-            response_data["success"] = True
-            response_data["data"] = projectJson
+        if (isTokenExpired(args[0])):
+        
+            if (HeaderValidation.isAuthorized(args[0], allowedRoles)):
+                idExists: bool = Project.objects.filter(id=id_param).exists()
+                if idExists:
+                    project = get_object_or_404(Project, id=id_param)
+                    projectJson = project.toJson()
+                    response_data["success"] = True
+                    response_data["data"] = projectJson
+                else:
+                    response_data["success"] = False
+                    response_data["message"] = "No Project exists with this Id"
+            else:
+                 response_data["success"] = False
+                 response_data["message"] = "Not Authorized"
         else:
             response_data["success"] = False
-            response_data["message"] = "No Project exists with this Id"
+            response_data["message"] = "Token expired"
+
+
         
 
         return JsonResponse(response_data)
