@@ -67,6 +67,9 @@ import axios from "axios"
 import { useUser } from '@/store/user';
 import Toast from 'primevue/toast';
 import { useToast } from 'primevue/usetoast';
+import { projectId } from '@/store/projectId';
+
+console.log(projectId().getProjectId());
 
 const toast = useToast();
 

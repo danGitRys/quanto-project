@@ -105,6 +105,7 @@ export default {
     test(project) {
       projectId().setProjectId(project.project_id);
       console.log(projectId().getProjectId());
+      window.location.href = '/timeRegistration';
       
     },
     getProjects() {
