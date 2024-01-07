@@ -9,6 +9,8 @@ import json
 from ...middleware import validator
 from ...middleware.validation.jsonFormValidator import formValidator
 from ...middleware.validation import checkExistenceDb
+from ...middleware.validation.headerValidation import HeaderValidation
+from ...middleware.validation.tokenExpirationCheck import isTokenExpired
 @method_decorator(csrf_exempt, name='dispatch')
 
 class EmployeeView(View):
@@ -17,16 +19,28 @@ class EmployeeView(View):
         "success": True,
         "message": "",
         }
+        allowedRoles = ['Admin']
         id_param = kwargs.get('id')
-        idExists: bool = Employee.objects.filter(id=id_param).exists()
-        if idExists:
-            employee = get_object_or_404(Employee, id=id_param)
-            employeeJson = employee.toJson()
-            response_data["success"] = True
-            response_data["data"] = employeeJson
+        if (isTokenExpired(args[0])):
+        
+            if (HeaderValidation.isAuthorized(args[0], allowedRoles)):
+                id_param = kwargs.get('id')
+                idExists: bool = Employee.objects.filter(id=id_param).exists()
+                if idExists:
+                    employee = get_object_or_404(Employee, id=id_param)
+                    employeeJson = employee.toJson()
+                    response_data["success"] = True
+                    response_data["data"] = employeeJson
+                else:
+                    response_data["success"] = False
+                    response_data["message"] = "No Employee with this Id"
+            
+            else:
+                 response_data["success"] = False
+                 response_data["message"] = "Not Authorized"
         else:
             response_data["success"] = False
-            response_data["message"] = "No Employee with this Id"
+            response_data["message"] = "Token expired"
     
         return JsonResponse(response_data)
         return HttpResponse("Get")

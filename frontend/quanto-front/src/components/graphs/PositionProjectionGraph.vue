@@ -59,7 +59,12 @@ import {projectionStore} from "@/store/projectionStore";
 
         }
 
-        const response = await axios.get("http://localhost:8000/projectProjectionGraph/"+projectId+"/"+days);
+        const response = await axios.get("http://localhost:8000/projectProjectionGraph/"+projectId+"/"+days,
+        {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                },
+            });
         const responseData = response.data;
         console.log(responseData)
         const valid = responseData.success;
@@ -80,10 +85,10 @@ import {projectionStore} from "@/store/projectionStore";
   
           this.apexSeries = yData.map(item => ({
             name: item.positionName,
-            data: item.yValues
+            data: item.yValues.map(value => parseFloat(value).toFixed(2))
           }));
         } else {
-          alert("This Team doesn't exist");
+          alert("Error Plotting Projection Graph");
         }
       } catch (error) {
         console.error(error);

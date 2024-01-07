@@ -251,7 +251,7 @@ export default {
 
                 }
                 else {
-                    alert("This Team doesnt exist")
+                    alert("Error Getting Positions to Project")
                 }
 
 
@@ -265,6 +265,10 @@ export default {
         getEmployeesToProject() {
             console.log("test")
             axios.get("http://localhost:8000/getEmployeesToProjectId/" + this.$route.params.id, {
+
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                },
 
             }).then(response => {
                 console.log(response)
@@ -297,7 +301,7 @@ export default {
 
                 }
                 else {
-                    alert("This Team doesnt exist")
+                    alert("Error getting Employees to Project")
                 }
 
 
