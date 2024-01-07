@@ -182,10 +182,14 @@ router.beforeEach(async (to, from, next) => {
       await User.fetchUserData(storedToken)
       const userRole = User.getUserData.company_role
       if (userRole) {
-      if (to.meta.roles) {
-        if (!to.meta.roles.includes(userRole)) {
-          alert("Not Authorized.")
-          next('/timeRegistration')
+        if (to.meta.roles) {
+          if (!to.meta.roles.includes(userRole)) {
+            alert("Not Authorized.")
+            next('/timeRegistration')
+          }
+          else {
+            next()
+          }
         }
         else {
           next()
@@ -195,9 +199,6 @@ router.beforeEach(async (to, from, next) => {
         alert('Error reading Role')
         next('/login')
       }        
-      else {
-        next()
-      }
     }
   } 
   else {
