@@ -26,7 +26,7 @@ class ProjectProjectionGraphView(View):
         week_param = weeks
         print(id_param)
         print(week_param)
-        if (isTokenExpired(request)):
+        if (isTokenExpired(request)==False):
             allowedRoles = ['Admin']
             if (HeaderValidation.isAuthorized(request, allowedRoles)):
                 tempVolume = projectQuerys.usedVolumeUntilDate(id_param,date.today())
@@ -87,11 +87,11 @@ class ProjectProjectionGraphView(View):
                         #print(futureVolume)
                     yValuesNew = []
                     tempPositionValues = {
-                            "positionName": "Normal",
+                            "positionName": "Projected Volume",
                             "yValues": yValues
                         }
                     tempPositionValues2 = {
-                            "positionName": "Normal",
+                            "positionName": "Project Max Volume",
                             "yValues": secondYValues
                         }
                     yValuesNew.append(tempPositionValues)

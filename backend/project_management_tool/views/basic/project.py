@@ -23,7 +23,7 @@ class ProjectView(View):
         print(kwargs)
         allowedRoles = ['Admin']
         id_param = kwargs.get('id')
-        if (isTokenExpired(args[0])):
+        if (isTokenExpired(args[0])==False):
         
             if (HeaderValidation.isAuthorized(args[0], allowedRoles)):
                 idExists: bool = Project.objects.filter(id=id_param).exists()

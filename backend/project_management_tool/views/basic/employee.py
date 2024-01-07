@@ -21,7 +21,7 @@ class EmployeeView(View):
         }
         allowedRoles = ['Admin']
         id_param = kwargs.get('id')
-        if (isTokenExpired(args[0])):
+        if (isTokenExpired(args[0]) == False):
         
             if (HeaderValidation.isAuthorized(args[0], allowedRoles)):
                 id_param = kwargs.get('id')
