@@ -24,8 +24,8 @@ class PositionGraphView(View):
             position = get_object_or_404(Positon, id=id_param)
             positionStartDate = position.start_date
             positionEndDate = position.end_date
-            print(positionStartDate)
-            print(positionEndDate)
+            #print(positionStartDate)
+            #print(positionEndDate)
             
             y_data = []
             x_data = []
@@ -34,9 +34,9 @@ class PositionGraphView(View):
                 tempPositionBookings = positionBookings(currentDate,id_param).executeQueryJsonResult()
                 volume = tempPositionBookings["volume"]
                 y_data.append(volume)
-                print(volume)
-                print(tempPositionBookings)
-                print(currentDate)
+                #print(volume)
+                #print(tempPositionBookings)
+                #print(currentDate)
             
             response_data["data"] = {
                 "x":x_data,

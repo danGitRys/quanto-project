@@ -6,8 +6,8 @@ class positionQuerys:
         cursor.execute('''SELECT wd*rate*8 FROM position
                         WHERE id = %s''',[positionId])
         result = cursor.fetchall()
-        print(result)
-        print(len(result))
+        #print(result)
+        #print(len(result))
         if len(result) != 1:
             volume=0
             position_id=positionId
@@ -32,16 +32,16 @@ class positionQuerys:
                         WHERE  booking.fK_position=%s
                         GROUP BY position.id''',[positionId])
         result = cursor.fetchall()
-        print(result)
-        print(len(result))
+        #print(result)
+        #print(len(result))
         if len(result) != 1:
             volume=0
             position_id=positionId
         else:
             volume = result[0]
-        print("_-----------------------------")
-        print(volume)
-        print(result)
+        #print("_-----------------------------")
+        #print(volume)
+        #print(result)
         return {
             'id':positionId,
             'volume':volume
@@ -62,9 +62,9 @@ class positionQuerys:
             project_id=0
         else:
             project_id, volume = result[0]
-        print("_-----------------------------")
-        print(volume)
-        print(result)
+        #print("_-----------------------------")
+        #print(volume)
+        #print(result)
         # Convert the result to a list of dictionaries
         #result_list = [{'test': row[0]} for row in result]
         

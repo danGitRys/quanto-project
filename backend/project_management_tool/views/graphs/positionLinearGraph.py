@@ -25,8 +25,8 @@ class PositionLinearGraphView(View):
             position = get_object_or_404(Positon, id=id_param)
             positionStartDate = position.start_date
             positionEndDate = position.end_date
-            print(positionStartDate)
-            print(positionEndDate)
+            #print(positionStartDate)
+            #print(positionEndDate)
             
             y_data = []
             x_data = []
@@ -37,9 +37,9 @@ class PositionLinearGraphView(View):
                 volume = tempPositionBookings["volume"]
                 volumeSum += int(volume)
                 y_data.append(volumeSum)
-                print(volume)
-                print(tempPositionBookings)
-                print(currentDate)
+                #print(volume)
+                #print(tempPositionBookings)
+                #print(currentDate)
             
             response_data["data"] = {
                 "x":x_data,

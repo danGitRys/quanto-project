@@ -26,8 +26,8 @@ class ProjectProjectionGraphView(View):
         print(week_param)
 
         tempVolume = projectQuerys.usedVolumeUntilDate(id_param,date.today())
-        print("----------Final Result--------------------------------------")
-        print(tempVolume)
+        #print("----------Final Result--------------------------------------")
+        #print(tempVolume)
         idExists: bool = Project.objects.filter(id=id_param).exists()
         if idExists:
             currentProject = Project.objects.filter(id=id_param).first()
@@ -46,14 +46,14 @@ class ProjectProjectionGraphView(View):
             #projectStartDate = datetime.strptime('%Y-%M-%D',projectStartDate)
             if initDate<projectStartDate:
                 initDate=projectStartDate
-            print(initDate)
+            #print(initDate)
 
             firstVolume = projectQuerys.usedVolumeUntilDate(id_param,initDate)
             if initDate == projectStartDate:
                 firstVolume = 0
             secondVolume = projectQuerys.usedVolumeUntilDate(id_param,date.today())
-            print(firstVolume)
-            print(secondVolume)
+            #print(firstVolume)
+            #print(secondVolume)
 
             dateDiff = date.today() - initDate
             dateDiffDays = dateDiff.days
@@ -62,7 +62,7 @@ class ProjectProjectionGraphView(View):
                 dailyIncrease = 0
             else:
                 dailyIncrease = volumeDiff/dateDiffDays
-            print(dateDiffDays)
+            #print(dateDiffDays)
 
             secondYValues = []
             existingValues = []
@@ -97,10 +97,10 @@ class ProjectProjectionGraphView(View):
                 'xData':xValues,
                 'yData':yValuesNew
             }
-            print("Works")
+            #print("Works")
             
         else:
-            print("here")
+            #print("here")
             response_data["success"] = False
             response_data["message"] = "No Project exists with this Id"
             response_data["weeks"] = week_param
