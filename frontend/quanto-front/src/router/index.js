@@ -16,12 +16,17 @@ import singleProject from "@/components/SingleProject.vue";
 
 import dataTable from "@/components/DataTable.vue";
 import TimeCorrection from "@/views/TimeCorrection.vue";
+
 import positionDemoGraph from "@/components/graphs/PositionDemoGraph.vue";
 //import positionLinearDemoGraph from "@/components/graphs/positionLinearDemoGraph.vue";
 import positionLinearGraph from "@/components/graphs/PositionLinearGraph";
 import projectPositonsLinearGraph from "@/components/graphs/ProjectPositionLinearGraph.vue"
 import projectionGraph from "@/components/graphs/PositionProjectionGraph.vue"
 import { useUser } from "@/store/user";
+
+
+import WorkingTimesView from "@/views/WorkingTimesView.vue"
+import InnerTables from "@/components/InnerTables.vue"
 
 
 const routes = [
@@ -115,6 +120,7 @@ const routes = [
   },
 
   {
+
     path: "/positionDemoGraph/:id",
     name: "positionDemoGraph",
     component: positionDemoGraph,
@@ -135,6 +141,22 @@ const routes = [
     name: "projectionGraph",
     component:projectionGraph,
   },
+
+
+    path: "/WorkingTimesPlus",
+    name: "Working Times+",
+    component: WorkingTimesView,
+  },
+  {
+    path: "/WorkingTimes",
+    name: "Working Times",
+    component: WorkingTimesView,
+  },
+  {
+    path: "/test",
+    name: "test",
+    component: InnerTables,
+  }
 
 
 ];
