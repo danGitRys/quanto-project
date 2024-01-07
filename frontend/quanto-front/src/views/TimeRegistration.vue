@@ -1,8 +1,8 @@
 <template>
   <div>
+    <SideBar/> 
   <TopBar />
-<TimeRegistrationCo /> 
-<SideBar class="sideBarPosition"/> 
+  <TimeRegistrationCo /> 
   </div>
 </template>
 
@@ -13,11 +13,5 @@ import SideBar from '@/components/SideBar.vue';
 </script>
 
 <style scoped>
-.sideBarPosition {
-    position: absolute;
-    top: -100px;
-    left: -120px;
-   
-}
 
 </style>

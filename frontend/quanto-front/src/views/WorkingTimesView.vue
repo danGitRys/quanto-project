@@ -1,12 +1,12 @@
 <template>
     <div class="container">
         
+        <Sidebar/>
+         <!-- SideBar aus dem Default Layout entfernt damit sie die andere Ansicht überdeckt-->
         <TopBar />
         <!-- <component :is="getWorkingTimesComponent" class="workingTimes" /> -->
         <WorkingTimes class="workingTimes"/>
         <!-- <WorkingTimesPlus class="workingTimes"/> -->
-      <Sidebar class="sideBarPosition"/>
-       <!-- SideBar aus dem Default Layout entfernt damit sie die andere Ansicht überdeckt-->
     </div>
 </template>
 

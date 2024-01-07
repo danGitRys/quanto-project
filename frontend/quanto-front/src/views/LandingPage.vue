@@ -1,7 +1,7 @@
 <template>
   
+  <SideBar />
   <TopBar></TopBar>
-  <SideBar class="sideBarPosition"/>
   <ProjectOverview />
   
 </template>
@@ -13,11 +13,5 @@
 </script>
 
 <style scoped>
-.sideBarPosition {
-    position: absolute;
-    top: -100px;
-    left: -120px;
-   
-}
 
 </style>

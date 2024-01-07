@@ -1,7 +1,7 @@
 <template>
     
+    <SideBar />
     <TopBar />
-    <SideBar class="sideBarPosition"/>
     <NewProject />
    
 </template>
@@ -21,12 +21,5 @@ import SubmitFooter from '@/components/SubmitFooter.vue';
 
 
 <style scoped>
-.sideBarPosition {
-    position: absolute;
-    top: -100px;
-    left: -120px;
-   
-}
-
 </style>
 

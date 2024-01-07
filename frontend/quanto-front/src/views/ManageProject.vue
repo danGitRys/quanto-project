@@ -2,6 +2,7 @@
 
     <div>
          
+        <SideBar/>    
         <TopBar />
       
         <BackgroundScreen />
@@ -10,7 +11,6 @@
         <!-- <MitarbeiterTabelle /> -->
  
         <!-- <DropDownProjects /> -->
-     <SideBar class="sideBarPosition"/>    
     </div>
 
 
@@ -30,11 +30,5 @@ import BackgroundScreen from '@/components/BackgroundScreen.vue';
 
 
 <style scoped>
-.sideBarPosition {
-    position: absolute;
-    top: -100px;
-    left: -120px;
-   
-}
 
 </style>

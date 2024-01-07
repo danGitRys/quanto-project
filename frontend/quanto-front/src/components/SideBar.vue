@@ -1,6 +1,4 @@
 <template>
-    <div class="container">
-    <div class="card flex justify-content-flex-start">
         <Sidebar v-model:visible="visible">
             <template #container="{ closeCallback }">
                 <div class="flex flex-column h-full">
@@ -86,9 +84,7 @@
                 </div>
             </template>
         </Sidebar>
-        <Button icon="pi pi-bars" @click="visible = true" />
-    </div>
-    </div>
+        <Button class="sidebarBtn" icon="pi pi-bars" @click="visible = true" />
 </template>
 
 <script setup>
@@ -153,6 +149,11 @@ onMounted(() => {
 /* * {
     box-sizing: border-box;
 } */
+.sidebarBtn {
+    position:absolute;
+    margin: 10px;
+    z-index: 30;
+}
 
 .logoutStyle {
     background-color: #94B8C7;
